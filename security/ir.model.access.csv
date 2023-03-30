@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_linhafala_chamada,access_linhafala_chamada,model_linhafala_chamada,base.group_user,1,1,1,1
+access_linhafala_provincia,access_linhafala_provincia,model_linhafala_provincia,base.group_user,1,0,0,0
+access_linhafala_distrito,access_linhafala_distrito,model_linhafala_distrito,base.group_user,1,0,0,0
+access_linhafala_categoria,access_linhafala_categoria,model_linhafala_categoria,base.group_user,1,1,0,0
+access_linhafala_subcategoria,access_linhafala_subcategoria,model_linhafala_subcategoria,base.group_user,1,1,0,0

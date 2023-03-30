@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top menu item -->
+    <menuitem 
+        id="linhafala_menu_root" 
+        name="Linha Fala Criança"
+        sequence="6"/>
+
+    <!-- Calls (MAIN USER MENU Action) -->
+    <menuitem 
+        id="linhafala_chamada_menu_action" 
+        name="Chamada"
+        action="linhafala_chamada_action"
+        parent="linhafala_menu_root"/>
+            
+    <menuitem 
+        id="linhafala_caso_menu_action" 
+        name="Caso"
+        action="linhafala_chamada_action"
+        parent="linhafala_menu_root"/>
+
+    <!-- CONFIGURATION -->
+    <menuitem 
+        id="linhafala_menu_config" 
+        name="Configuration"
+        parent="linhafala_menu_root"/> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
+
+    <menuitem 
+        id="linhafala_province_menu_action" 
+        name="Provincias"
+        action="linhafala_provincia_action"
+        parent="linhafala_menu_config"
+        sequence="0"/>
+
+    <menuitem 
+        id="linhafala_distrito_menu_action" 
+        name="Distritos"
+        action="linhafala_distrito_action"
+        parent="linhafala_menu_config"
+        sequence="1"/>
+
+    <menuitem 
+        id="linhafala_categoria_menu_action" 
+        name="Categoria"
+        action="linhafala_categoria_action"
+        parent="linhafala_menu_config"
+        sequence="2"/>
+
+    <menuitem 
+        id="linhafala_subcategoria_menu_action" 
+        name="Sub-Categoria"
+        action="linhafala_subcategoria_action"
+        parent="linhafala_menu_config"
+        sequence="3"/>
+
+</odoo>

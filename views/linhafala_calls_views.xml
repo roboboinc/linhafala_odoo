@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="linhafala_calls_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.tree</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="call_id" />
+                <field name="caller_language" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_provincia_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.provincia.tree</field>
+        <field name="model">linhafala.provincia</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_distrito_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.distrito.tree</field>
+        <field name="model">linhafala.distrito</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="provincia" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_categoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.categoria.tree</field>
+        <field name="model">linhafala.categoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_subcategoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.subcategoria.tree</field>
+        <field name="model">linhafala.subcategoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="categoria_id" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Linha Fala Configuration/Call & Opportunities/Call Menu -->
+    <record id="linhafala_chamada_action" model="ir.actions.act_window">
+        <field name="name">Chamadas</field>
+        <field name="res_model">linhafala.chamada</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registar chamadas ou contactos recebidos
+            </p>
+            <p>
+                Usar nova chamada para explicar e detalhar um novo contacto.
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_provincia_action" model="ir.actions.act_window">
+        <field name="name">Provincias</field>
+        <field name="res_model">linhafala.provincia</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Provincias
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_distrito_action" model="ir.actions.act_window">
+        <field name="name">Distritos</field>
+        <field name="res_model">linhafala.distrito</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Distritos
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_categoria_action" model="ir.actions.act_window">
+        <field name="name">Categoria</field>
+        <field name="res_model">linhafala.categoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Categorias
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_subcategoria_action" model="ir.actions.act_window">
+        <field name="name">Sub-Categoria</field>
+        <field name="res_model">linhafala.subcategoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Subcategorias
+            </p>
+        </field>
+    </record>
+</odoo>

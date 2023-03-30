@@ -12,6 +12,7 @@
         'views/linhafala_menus.xml',
         'views/linhafala_calls_views.xml',
         'views/linhafala_cases_views.xml',
+        'views/linhafala_configurations_views.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',
@@ -23,6 +24,9 @@
     ],
     'assets': {
     },
+    'depends': [
+        'mail'
+    ],
     'images': ['static/src/img/icon_module.png'],
     'price': 0,
     'price_comparison': {'standard': 0},

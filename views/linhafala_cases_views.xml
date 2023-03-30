@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Channel">
                 <field name="case_id" />
-                <field name="call_id.call_id" />
+                <field name="call_id" />
             </tree>
         </field>
     </record>

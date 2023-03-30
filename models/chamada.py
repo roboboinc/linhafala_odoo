@@ -4,6 +4,10 @@ import uuid
 class Chamada(models.Model):
     _name = "linhafala.chamada"
     _description = "Formulário de Assistências linha fala criança"
+    _inherit = [
+        'mail.thread', 
+        'mail.activity.mixin'
+        ]
 
     call_id = fields.Char(string="Id da chamada", readonly=True)
     contact_type = fields.Selection(
@@ -158,6 +162,18 @@ class Chamada(models.Model):
         if vals.get('call_id', '/') == '/':
             vals['call_id'] = self.env['ir.sequence'].next_by_code('linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
+    
+    def action_confirm(self):
+        self.callcaseassistance_status = 'Aberto/Pendente'
+
+    def action_done(self):
+        self.callcaseassistance_status = 'Assistido'
+
+    def action_draft(self):
+        self.callcaseassistance_status = 'Dentro do sistema'
+
+    def action_cancel(self):
+        self.callcaseassistance_status = 'Encerrado'
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
@@ -175,6 +191,10 @@ class Chamada(models.Model):
     # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow    
     @api.onchange('category')
     def _category_onchange(self):
+        # Restrict the Subcategories to the current category.
+        subcategory = Chamada.objects.filter(category=self.category_id)
+        print (subcategory)
+        return subcategory
         for rec in self:
             return {'value': {'subcategory': False}, 'domain': {'subcategory': [('categoria_id', '=', rec.category.id)]}}
         
@@ -200,3 +220,14 @@ class ActWindow(models.Model):
         for record in model.browse(ids):
             record.write({'is_deleted': True})
         return {'type': 'ir.actions.act_window_close'}
+    
+# @api.model
+# def get_action_views(self):
+#     res = super(Chamada, self).get_action_views()
+#     form_view_id = self.env.ref('linhafala.chamada.call_form_view').id
+#     # kanban_view_id = self.env.ref('my_module.my_model_kanban_view').id
+#     res.update({
+#         'form': {'view_id': form_view_id, 'view_mode': 'form'},
+#         # 'kanban': {'view_id': kanban_view_id, 'view_mode': 'kanban'},
+#     })
+#     return res

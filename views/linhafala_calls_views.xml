@@ -11,48 +11,6 @@
         </field>
     </record>
 
-    <record id="linhafala_provincia_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.provincia.tree</field>
-        <field name="model">linhafala.provincia</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="name" />
-            </tree>
-        </field>
-    </record>
-
-    <record id="linhafala_distrito_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.distrito.tree</field>
-        <field name="model">linhafala.distrito</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="name" />
-                <field name="provincia" />
-            </tree>
-        </field>
-    </record>
-
-    <record id="linhafala_categoria_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.categoria.tree</field>
-        <field name="model">linhafala.categoria</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="name" />
-            </tree>
-        </field>
-    </record>
-
-    <record id="linhafala_subcategoria_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.subcategoria.tree</field>
-        <field name="model">linhafala.subcategoria</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="name" />
-                <field name="categoria_id" />
-            </tree>
-        </field>
-    </record>
-
     <!-- Linha Fala Configuration/Call & Opportunities/Call Menu -->
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
@@ -68,47 +26,91 @@
         </field>
     </record>
 
-    <record id="linhafala_provincia_action" model="ir.actions.act_window">
-        <field name="name">Provincias</field>
-        <field name="res_model">linhafala.provincia</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Gerir Provincias
-            </p>
-        </field>
-    </record>
+    <!-- Form view definition -->
+    <record id="linhafala_chamada_form_view" model="ir.ui.view">
+        <field name="name">linhafala.chamada.form</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="Formulário de Assistências linha fala criança"
+                class="o_lead_opportunity_form" js_class="crm_form">
+                <header>
+                    <button id="button_confirm" name="action_confirm" string="Confirm" class="btn-primary" states="draft"
+                            confirm="Are you sure that you need to confirm ?"
+                            type="object"/>
+                    <button id="button_done" name="action_done" string="Mark As Done" class="btn-primary" states="confirm"
+                            type="object"/>
+                    <button id="button_draft" name="action_draft" string="Set To Draft" class="btn-primary"
+                            states="Dentro do sistema" type="object"/>
+                    <button id="button_cancel" name="action_cancel" string="Encerrado" states="Dentro do sistema,Encerrado,Assistido"
+                            confirm="Are you sure that you need to Encerrar ?"
+                            type="object"/>
+                    <field name="callcaseassistance_status" widget="statusbar" statusbar_visible="Dentro do sistema,Encerrado,Assistido"/>
+                </header>
+                <!-- Add fields here -->
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field class="text-break" name="call_id"
+                                placeholder="Número do caso (auto)" />
+                        </h1>
+                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                        <group>
+                            <group col="3">
+                                <field name="fullname" />
+                                <field name="contact" />
+                                <field name="contact_type" />
+                            </group>
+                            <group col="3">
+                                <field name="alternate_contact" />
+                                <field name="wants_to_be_annonymous" />
+                            </group>
+                            <group col="4">
+                                <field name="id_number" />
+                                <field name="nr_identication" />
+                                <field name="gender" />
+                                <field name="age" />
+                            </group>
+                            <group col="3">
+                                <field name="how_knows_lfc" />
+                                <field name="category" />
+                                <field name="subcategory" />
+                            </group>
+                            <group col="3">
+                                <field name="callcaseassistance_status" />
+                                <field name="resolution_type" />
+                            </group>
+                            <group col="3">
+                                <field name="on_school" />
+                                <field name="grade" />
+                                <field name="school" />
+                            </group>
+                            <group col="3">
+                                <field name="provincia" />
+                                <field name="distrito" />
+                                <field name="bairro" />
+                            </group>
+                            <group col="3">
+                                <field name="call_start" />
+                                <field name="call_end" />
+                                <field name="reporter" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detalhes" name="detailed_description_section">
+                                <field name="detailed_description" />
+                            </page>
+                        </notebook>
 
-    <record id="linhafala_distrito_action" model="ir.actions.act_window">
-        <field name="name">Distritos</field>
-        <field name="res_model">linhafala.distrito</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Gerir Distritos
-            </p>
-        </field>
-    </record>
+                    </div>
+                </sheet>
 
-    <record id="linhafala_categoria_action" model="ir.actions.act_window">
-        <field name="name">Categoria</field>
-        <field name="res_model">linhafala.categoria</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Gerir Categorias
-            </p>
-        </field>
-    </record>
-
-    <record id="linhafala_subcategoria_action" model="ir.actions.act_window">
-        <field name="name">Sub-Categoria</field>
-        <field name="res_model">linhafala.subcategoria</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Gerir Subcategorias
-            </p>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
         </field>
     </record>
 </odoo>

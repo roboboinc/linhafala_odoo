@@ -85,4 +85,71 @@
             </p>
         </field>
     </record>
+
+    <!-- Configuration data for Casos dependent values-->
+
+    <record id="linhafala_caso_categoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.categoria.tree</field>
+        <field name="model">linhafala.caso.categoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_subcategoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.subcategoria.tree</field>
+        <field name="model">linhafala.caso.subcategoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="categoria_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_case_type_classification_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.case_type_classification.tree</field>
+        <field name="model">linhafala.caso.case_type_classification</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="categoria_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_categoria_action" model="ir.actions.act_window">
+        <field name="name">Categoria de Caso</field>
+        <field name="res_model">linhafala.caso.categoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Categorias de casos
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_subcategoria_action" model="ir.actions.act_window">
+        <field name="name">Sub-Categoria de Caso</field>
+        <field name="res_model">linhafala.caso.subcategoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Subcategorias de casos
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_case_type_classification_action" model="ir.actions.act_window">
+        <field name="name">Classificaçäo Provisória do Caso</field>
+        <field name="res_model">linhafala.caso.case_type_classification</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Classificaçäo Provisória do Caso
+            </p>
+        </field>
+    </record>
 </odoo>

@@ -5,7 +5,11 @@ import uuid
 class Caso(models.Model):
     _name = "linhafala.caso"
     _description = "Formulário de Caso linha fala criança"
-
+    _inherit = [
+        'mail.thread', 
+        'mail.activity.mixin'
+        ]
+    
     case_id = fields.Char(string="Id do caso", readonly=True)
     call_id = fields.Many2one(comodel_name='linhafala.chamada', string="Chamada")
     case_status = fields.Selection(
@@ -140,3 +144,15 @@ class Caso(models.Model):
             'padding': 4,
         })
         return super(Caso, self)._register_hook()
+    
+    def action_confirm(self):
+        self.callcaseassistance_status = 'Aberto/Pendente'
+
+    def action_done(self):
+        self.callcaseassistance_status = 'Assistido'
+
+    def action_draft(self):
+        self.callcaseassistance_status = 'Dentro do sistema'
+
+    def action_cancel(self):
+        self.callcaseassistance_status = 'Encerrado'

@@ -52,7 +52,7 @@
                     <div class="oe_title">
                         <h1>
                             <field class="text-break" name="call_id"
-                                placeholder="Número do caso (auto)" />
+                                placeholder="Número de chamada (auto)" />
                         </h1>
                         <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                         <group>

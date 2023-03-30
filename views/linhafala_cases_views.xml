@@ -11,28 +11,6 @@
         </field>
     </record>
 
-    <record id="linhafala_caso_categoria_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.caso.categoria.tree</field>
-        <field name="model">linhafala.caso.categoria</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="name" />
-            </tree>
-        </field>
-    </record>
-
-    <record id="linhafala_caso_subcategoria_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.caso.subcategoria.tree</field>
-        <field name="model">linhafala.caso.subcategoria</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="name" />
-                <field name="categoria_id" />
-            </tree>
-        </field>
-    </record>
-
-
     <!-- Linha Fala Configuration/Cases & Menu -->
     <record id="linhafala_caso_action" model="ir.actions.act_window">
         <field name="name">Casos</field>
@@ -48,25 +26,77 @@
         </field>
     </record>
 
-    <record id="linhafala_caso_categoria_action" model="ir.actions.act_window">
-        <field name="name">Categoria de Caso</field>
-        <field name="res_model">linhafala.caso.categoria</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Gerir Categorias de casos
-            </p>
-        </field>
-    </record>
+    <!-- Form view definition -->
+    <record id="linhafala_cases_form_view" model="ir.ui.view">
+        <field name="name">linhafala.caso.form</field>
+        <field name="model">linhafala.caso</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="Formulário de Caso linha fala criança"
+                class="o_lead_opportunity_form" js_class="crm_form">
+                <header>
+                    <button id="button_confirm" name="action_confirm" string="Confirm"
+                        class="btn-primary" states="draft"
+                        confirm="Are you sure that you need to confirm ?"
+                        type="object" />
+                    <button id="button_done" name="action_done" string="Mark As Done"
+                        class="btn-primary" states="confirm"
+                        type="object" />
+                    <button id="button_draft" name="action_draft" string="Set To Draft"
+                        class="btn-primary"
+                        states="Dentro do sistema" type="object" />
+                    <button id="button_cancel" name="action_cancel" string="Encerrado"
+                        states="Dentro do sistema,Aberto/Pendente,Encerrado,No Arquivo Morto,Assistido"
+                        confirm="Are you sure that you need to Encerrar ?"
+                        type="object" />
+                    <field name="case_status" widget="statusbar"
+                        statusbar_visible="Dentro do sistema,Aberto/Pendente,Encerrado,No Arquivo Morto,Assistido" />
+                </header>
+                <!-- Add fields here -->
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field class="text-break" name="case_id"
+                                placeholder="Número do caso (auto)" />
+                            <field class="text-break" name="call_id"
+                                placeholder="Número da chamada (auto)" />
+                        </h1>
+                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                        <group>
+                            <group col="3">
+                                <!-- <field name="fullname" readonly="1" foreign_key="linhafala.chamada"/> -->
+                                <field name="case_priority" />
+                            </group>
+                            <group col="3">
+                                <field name="place_occurrence" />
+                                <field name="resolution_type" />
+                            </group>
+                            <group col="4">
+                                <field name="case_type" />
+                                <field name="secundary_case_type" />
+                                <field name="case_type_classification" />
+                            </group>
+                            <group col="3">
+                                <field name="created_at" />
+                                <field name="updated_at" />
+                                <field name="reporter_by" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detalhes" name="detailed_description_section">
+                                <field name="detailed_description" />
+                            </page>
+                        </notebook>
 
-    <record id="linhafala_caso_subcategoria_action" model="ir.actions.act_window">
-        <field name="name">Sub-Categoria de Caso</field>
-        <field name="res_model">linhafala.caso.subcategoria</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Gerir Subcategorias de casos
-            </p>
+                    </div>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
         </field>
     </record>
 </odoo>

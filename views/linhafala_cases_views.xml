@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="linhafala_case_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.tree</field>
+        <field name="model">linhafala.caso</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="case_id" />
+                <field name="call_id.call_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_categoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.categoria.tree</field>
+        <field name="model">linhafala.caso.categoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_subcategoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.subcategoria.tree</field>
+        <field name="model">linhafala.caso.subcategoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="categoria_id" />
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Linha Fala Configuration/Cases & Menu -->
+    <record id="linhafala_caso_action" model="ir.actions.act_window">
+        <field name="name">Casos</field>
+        <field name="res_model">linhafala.caso</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registar Casos
+            </p>
+            <p>
+                Usar nova chamada para explicar e detalhar um novo contacto e tornar em caso.
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_categoria_action" model="ir.actions.act_window">
+        <field name="name">Categoria de Caso</field>
+        <field name="res_model">linhafala.caso.categoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Categorias de casos
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_subcategoria_action" model="ir.actions.act_window">
+        <field name="name">Sub-Categoria de Caso</field>
+        <field name="res_model">linhafala.caso.subcategoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Subcategorias de casos
+            </p>
+        </field>
+    </record>
+</odoo>

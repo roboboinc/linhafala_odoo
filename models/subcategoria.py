@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class Provincia(models.Model):
+class Subcategoria(models.Model):
     _name = "linhafala.subcategoria"
     _description = "Subcategoria"
 

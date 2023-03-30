@@ -11,11 +11,15 @@
     'data': [
         'views/linhafala_menus.xml',
         'views/linhafala_calls_views.xml',
+        'views/linhafala_cases_views.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',
         'data/linhafala.categoria.csv',
         'data/linhafala.subcategoria.csv',
+        'data/linhafala.caso.categoria.csv',
+        'data/linhafala.caso.subcategoria.csv',
+        'data/linhafala.caso.case_type_classification.csv',
     ],
     'assets': {
     },

@@ -3,3 +3,7 @@ from . import provincia
 from . import distrito
 from . import categoria
 from . import subcategoria
+from . import caso
+from . import caso_categoria
+from . import caso_subcategoria
+from . import case_type_classification

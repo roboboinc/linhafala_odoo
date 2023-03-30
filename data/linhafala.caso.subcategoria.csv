@@ -1,0 +1,8 @@
+id,name,categoria_id
+linhafala_subcategoria_1,Crimes contra liberdade sexual,caso de natureza criminal
+linhafala_subcategoria_2,outros tipos de crimes,caso de natureza criminal
+linhafala_subcategoria_3,Casos civis,Casos de Natureza Civil
+linhafala_subcategoria_4,Acesso a Educacao,Casos de Natureza Civil
+linhafala_subcategoria_5,Casos Sociais,Casos de outra natureza
+linhafala_subcategoria_6,Necessidades Educativas Especiais,Casos de outra natureza
+linhafala_subcategoria_7,Casos de contexto humanitario,casos do PEAS

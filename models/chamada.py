@@ -1,11 +1,11 @@
 from odoo import api, fields, models
-
+import uuid
 
 class Chamada(models.Model):
     _name = "linhafala.chamada"
-    _description = "Linha Fala Crianca Call Manager"
+    _description = "Formulário de Assistências linha fala criança"
 
-    call_id = fields.Char(string="Id da chamada")
+    call_id = fields.Char(string="Id da chamada", readonly=True)
     contact_type = fields.Selection(
         string='Tipo de contacto',
         selection=[
@@ -105,8 +105,59 @@ class Chamada(models.Model):
         help="Como conhece a LFC"
     )
     category = fields.Many2one(comodel_name='linhafala.categoria', string="Categoria")
-    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Subcategoria")
+    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
+    callcaseassistance_status = fields.Selection(
+        string='Estado',
+        selection=[
+            ("Encerrado", "Encerrado"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Assistido","Assistido")
+        ],
+        default="Aberto/Pendente",
+        help="Estado"
+    )
+    resolution_type = fields.Selection(
+        string='Tratamento',
+        selection=[
+            ("Aconselhamento LFC", "Aconselhamento LFC"),
+            ("Encaminhado", "Encaminhado"),
+            ("Não encaminhado", "Não encaminhado"),
+        ],
+        default="Aconselhamento LFC",
+        help="Tratamento"
+    )
+    reporter = fields.Many2one('res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
+    created_at = fields.Datetime(string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    updated_at = fields.Datetime(string='Data de actualizaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    created_by = fields.Many2one('res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+    is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)
+    uuid = fields.Char(string='UUID', readonly=True)
 
+    _sql_constraints = [
+        ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
+    ]
+
+    def write(self, vals):
+        if vals:
+            vals['updated_at'] = fields.Datetime.now()
+        return super(Chamada, self).write(vals)
+    
+    def unlink(self):
+        for record in self:
+            record.write({'is_deleted': True})
+        return super(Chamada, self).unlink()
+    
+    @api.model
+    def create(self, vals):
+        vals['uuid'] = str(uuid.uuid4())
+        return super(Chamada, self).create(vals)
+    
+    @api.model
+    def create(self, vals):
+        if vals.get('call_id', '/') == '/':
+            vals['call_id'] = self.env['ir.sequence'].next_by_code('linhafala.chamada.call_id.seq') or '/'
+        return super(Chamada, self).create(vals)
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
@@ -120,8 +171,32 @@ class Chamada(models.Model):
     def _provincia_onchange(self):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
-        
+
+    # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow    
     @api.onchange('category')
-    def _provincia_onchange(self):
+    def _category_onchange(self):
         for rec in self:
             return {'value': {'subcategory': False}, 'domain': {'subcategory': [('categoria_id', '=', rec.category.id)]}}
+        
+    @api.model
+    def _register_hook(self):
+        # Register the new sequence
+        seq = self.env['ir.sequence'].create({
+            'name': 'Linha Fala Chamadas Call ID Sequence',
+            'code': 'linhafala.chamada.call_id.seq',
+            'prefix': 'LFC-',
+            'padding': 4,
+        })
+        return super(Chamada, self)._register_hook()
+
+# Override the Delete button action   
+# TODO: Validate whether the function works     
+class ActWindow(models.Model):
+    _inherit = 'ir.actions.act_window'
+
+    @api.model
+    def unlink(self, ids):
+        model = self.env[self.res_model]
+        for record in model.browse(ids):
+            record.write({'is_deleted': True})
+        return {'type': 'ir.actions.act_window_close'}

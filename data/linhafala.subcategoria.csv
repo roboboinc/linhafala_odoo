@@ -1,8 +1,10 @@
 id,name,categoria_id
-linhafala_subcategoria_1,Crimes contra liberdade sexual,caso de natureza criminal
-linhafala_subcategoria_2,outros tipos de crimes,caso de natureza criminal
-linhafala_subcategoria_3,Casos civis,Casos de Natureza Civil
-linhafala_subcategoria_4,Acesso a Educacao,Casos de Natureza Civil
-linhafala_subcategoria_5,Casos Sociais,Casos de outra natureza
-linhafala_subcategoria_6,Necessidades Educativas Especiais,Casos de outra natureza
-linhafala_subcategoria_7,Casos de contexto humanitario,casos do PEAS
+linhafala_subcategoria_1,Agradecimento,Com Intervencao
+linhafala_subcategoria_2,Chamadas de Assistencia,Com Intervencao
+linhafala_subcategoria_3,Comportamento,Com Intervencao
+linhafala_subcategoria_4,Caso,Com Intervencao
+linhafala_subcategoria_5,Perdida,Com Intervencao
+linhafala_subcategoria_6,Engano,Com Intervencao
+linhafala_subcategoria_7,Informacao geral sobre LFC,Com Intervencao
+linhafala_subcategoria_8,Desligada,Sem Intervencao
+linhafala_subcategoria_9,Silencio,Sem Intervencao

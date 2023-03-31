@@ -64,7 +64,7 @@
                         <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                         <group>
                             <group col="3">
-                                <!-- <field name="fullname" readonly="1" foreign_key="linhafala.chamada"/> -->
+                                <!-- <field name="call_id.fullname" readonly="1"/> -->
                                 <field name="case_priority" />
                             </group>
                             <group col="3">
@@ -85,6 +85,24 @@
                         <notebook>
                             <page string="Detalhes" name="detailed_description_section">
                                 <field name="detailed_description" />
+                            </page>
+                            <page string="Pessoas envolvidas" name="persons">
+                                <field name="persons_involved_line_ids" mode="tree">
+                                    <tree editable="top">
+                                        <field name="fullname"/>
+                                        <field name="id_number"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="fullname"/>
+                                            </group>
+                                            <group>
+                                                <field name="id_number"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
                             </page>
                         </notebook>
 

@@ -79,7 +79,7 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    persons_involved_line_ids = fields.One2many('linhafala.caso.person_involved', 'fullname',
+    persons_involved_line_ids = fields.One2many('linhafala.caso.person_involved', 'case_id',
                                                 string="Person Involved lines")
 
     _sql_constraints = [
@@ -110,30 +110,30 @@ class Caso(models.Model):
 
     # Lock the case for single user edit
     # TODO: Check and fix that a record gets created and managed by a single user!
-    @api.model
-    def create(self, vals):
-        # Set the user_id to the current user
-        vals['user_id'] = self.env.user.id
-        return super(Caso, self).create(vals)
+    # @api.model
+    # def create(self, vals):
+    #     # Set the user_id to the current user
+    #     vals['user_id'] = self.env.user.id
+    #     return super(Caso, self).create(vals)
 
-    def write(self, vals):
-        if 'is_locked' in vals:
-            # Check if the record is already locked by someone else
-            if self.is_locked and self.user_id != self.env.user:
-                raise UserError(
-                    'This record is locked by {}.'.format(self.user_id.name))
+    # def write(self, vals):
+    #     if 'is_locked' in vals:
+    #         # Check if the record is already locked by someone else
+    #         if self.is_locked and self.user_id != self.env.user:
+    #             raise UserError(
+    #                 'This record is locked by {}.'.format(self.user_id.name))
 
-            # Set the lock_date and user_id fields when the record is locked
-            if vals['is_locked']:
-                vals['lock_date'] = fields.Datetime.now()
-                vals['user_id'] = self.env.user.id
+    #         # Set the lock_date and user_id fields when the record is locked
+    #         if vals['is_locked']:
+    #             vals['lock_date'] = fields.Datetime.now()
+    #             vals['user_id'] = self.env.user.id
 
-            # Unlock the record when is_locked is set to False
-            else:
-                vals['lock_date'] = False
-                vals['user_id'] = False
+    #         # Unlock the record when is_locked is set to False
+    #         else:
+    #             vals['lock_date'] = False
+    #             vals['user_id'] = False
 
-        return super(Caso, self).write(vals)
+    #     return super(Caso, self).write(vals)
 
     # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow
     @api.onchange('case_type')
@@ -269,3 +269,5 @@ class PersonInvolved(models.Model):
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
+    case_id = fields.Many2one("linhafala.caso", string="Caso")
+

@@ -137,6 +137,8 @@ class Chamada(models.Model):
     created_by = fields.Many2one('res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)
     uuid = fields.Char(string='UUID', readonly=True)
+    case_line_ids = fields.One2many('linhafala.caso', 'call_id',
+                                                string="Linhas de Casos")
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -183,6 +185,16 @@ class Chamada(models.Model):
     #         return record.provincia.id
     
 
+    def create_a_new_case(self):
+        new_related_model = self.env['linhafala.caso'].create({'call_id': self.id})
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'linhafala.caso',
+            'view_mode': 'form',
+            'res_id': new_related_model.id,
+            'target': 'current',
+        }
+    
     @api.onchange('provincia')
     def _provincia_onchange(self):
         for rec in self:

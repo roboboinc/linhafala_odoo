@@ -46,6 +46,10 @@
                             confirm="Are you sure that you need to Encerrar ?"
                             type="object"/>
                     <field name="callcaseassistance_status" widget="statusbar" statusbar_visible="Dentro do sistema,Encerrado,Assistido"/>
+                    <group>
+                        <!-- Reuse the source form view -->
+                        <button name="create_a_new_case" type="object" string="Criar Caso Associado"/>
+                  </group>
                 </header>
                 <!-- Add fields here -->
                 <sheet>
@@ -95,10 +99,23 @@
                                 <field name="call_end" />
                                 <field name="reporter" />
                             </group>
+                            
                         </group>
                         <notebook>
                             <page string="Detalhes" name="detailed_description_section">
                                 <field name="detailed_description" />
+                            </page>
+                            <page string="Caso(s) Relacionados" name="cases">
+                                <group>
+                                    <!-- Reuse the source form view -->
+                                    <field name="case_line_ids" context="{'model': 'linhafala.caso'}">
+                                        <form string="Source Form">
+                                            <field_view name="linhafala_cases_form_view" />
+                                        </form>
+                                    </field>
+                                </group>
+    
+                                
                             </page>
                         </notebook>
 

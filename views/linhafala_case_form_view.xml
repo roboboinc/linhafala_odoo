@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Form view definition -->
+        <record id="linhafala_cases_form_view" model="ir.ui.view">
+            <field name="name">linhafala.caso.form</field>
+            <field name="model">linhafala.caso</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <form string="Formulário de Caso linha fala criança"
+                    class="o_lead_opportunity_form" js_class="crm_form">
+                    <header>
+                        <button id="button_confirm" name="action_confirm" string="Confirm"
+                            class="btn-primary" states="draft"
+                            confirm="Are you sure that you need to confirm ?"
+                            type="object" />
+                        <button id="button_done" name="action_done" string="Mark As Done"
+                            class="btn-primary" states="confirm"
+                            type="object" />
+                        <button id="button_draft" name="action_draft" string="Set To Draft"
+                            class="btn-primary"
+                            states="Dentro do sistema" type="object" />
+                        <button id="button_cancel" name="action_cancel" string="Encerrado"
+                            states="Dentro do sistema,Aberto/Pendente,Encerrado,No Arquivo Morto,Assistido"
+                            confirm="Are you sure that you need to Encerrar ?"
+                            type="object" />
+                        <field name="case_status" widget="statusbar"
+                            statusbar_visible="Dentro do sistema,Aberto/Pendente,Encerrado,No Arquivo Morto,Assistido" />
+                    </header>
+                    <!-- Add fields here -->
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field class="text-break" name="case_id"
+                                    placeholder="Número do caso (auto)" />
+                                <field class="text-break" name="call_id"
+                                    placeholder="Número da chamada (auto)" />
+                            </h1>
+                            <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                            <group>
+                                <group col="3">
+                                    <!-- <field name="call_id.fullname" readonly="1"/> -->
+                                    <field name="case_priority" />
+                                </group>
+                                <group col="3">
+                                    <field name="place_occurrence" />
+                                    <field name="resolution_type" />
+                                </group>
+                                <group col="4">
+                                    <field name="case_type" />
+                                    <field name="secundary_case_type" />
+                                    <field name="case_type_classification" />
+                                </group>
+                                <group col="3">
+                                    <field name="created_at" />
+                                    <field name="updated_at" />
+                                    <field name="reporter_by" />
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Detalhes" name="detailed_description_section">
+                                    <field name="detailed_description" />
+                                </page>
+                                <page string="Pessoas envolvidas" name="persons">
+                                    <field name="persons_involved_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="fullname" />
+                                            <field name="id_number" />
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <group>
+                                                    <field name="fullname" />
+                                                </group>
+                                                <group>
+                                                    <field name="id_number" />
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </page>
+                            </notebook>
+
+                        </div>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

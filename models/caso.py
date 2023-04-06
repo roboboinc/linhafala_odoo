@@ -81,6 +81,8 @@ class Caso(models.Model):
     lock_date = fields.Datetime()
     persons_involved_line_ids = fields.One2many('linhafala.caso.person_involved', 'case_id',
                                                 string="Person Involved lines")
+    forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
+                                                string="Instituição de encaminhamento")
 
     _sql_constraints = [
         ('unique_case_id', 'unique(case_id)', 'The case_id must be unique'),
@@ -168,6 +170,16 @@ class Caso(models.Model):
 
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
+
+    def create_a_new_forwardinginstitution(self):
+        new_related_model = self.env['linhafala.caso.forwarding_institution'].create({'case_id': self.id})
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'linhafala.caso.forwarding_institution',
+            'view_mode': 'form',
+            'res_id': new_related_model.id,
+            'target': 'current',
+        }
 
 
 class PersonInvolved(models.Model):

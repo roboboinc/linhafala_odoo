@@ -65,14 +65,19 @@
                                     <field name="persons_involved_line_ids" widget="one2many">
                                         <tree>
                                             <field name="fullname" />
-                                            <field name="id_number" />
+                                            <field name="person_type" />
+                                            <field name="victim_relationship" />
+                                            <field name="provincia" />
+                                            <field name="gender" />
                                         </tree>
                                     </field>
                                 </page>
-                                <page string="Instituição de encaminhamento" name="forwarding_institution">
+                                <page string="Encaminhamentos" name="forwarding_institution">
                                     <field name="forwarding_institution_line_ids" widget="one2many">
                                         <tree>
-                                            <field name="area_type" />
+                                            <field name="reference_entity" />
+                                            <field name="case_reference" />
+                                            <!-- <field name="case_reference" /> --> <!-- TODO: Ensure we can access the relationship -->
                                             <field name="reference_area" />
                                         </tree>
                                     </field>

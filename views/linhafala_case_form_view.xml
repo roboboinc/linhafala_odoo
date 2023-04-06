@@ -67,16 +67,6 @@
                                             <field name="fullname" />
                                             <field name="id_number" />
                                         </tree>
-                                        <form>
-                                            <group>
-                                                <group>
-                                                    <field name="fullname" />
-                                                </group>
-                                                <group>
-                                                    <field name="id_number" />
-                                                </group>
-                                            </group>
-                                        </form>
                                     </field>
                                 </page>
                                 <page string="Instituição de encaminhamento" name="forwarding_institution">

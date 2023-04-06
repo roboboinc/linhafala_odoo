@@ -35,12 +35,19 @@
         parent="linhafala_menu_root"
         sequence="4" />
 
-        <menuitem
+    <menuitem
         id="linhafala_forwarding_institution_menu_action"
         name="Encaminhamento - Casos"
         action="linhafala_caso_forwarding_institution_action"
         parent="linhafala_menu_root"
         sequence="5" />
+
+    <menuitem
+        id="linhafala_knowledgebase_menu_action"
+        name="Base de conhecimentos"
+        action="linhafala_knowledgebase_action"
+        parent="linhafala_menu_root"
+        sequence="6" />
 
     <!-- CONFIGURATION -->
     <menuitem

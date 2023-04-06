@@ -15,6 +15,7 @@
         'views/linhafala_cases_views.xml',
         'views/linhafala_case_form_view.xml',
         'views/linhafala_configurations_views.xml',
+        'views/linhafala_knowledgebase_views.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',

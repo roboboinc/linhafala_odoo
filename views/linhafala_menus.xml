@@ -29,18 +29,25 @@
         sequence="3" />
 
     <menuitem
-        id="linhafala_forwarding_institution_menu_action"
-        name="Instituição de encaminhamento"
-        action="linhafala_caso_forwarding_institution_action"
+        id="linhafala_assistance_referral_menu_action"
+        name="Encaminhamento - Assistências"
+        action="linhafala_chamada_assistance_referral_action"
         parent="linhafala_menu_root"
         sequence="4" />
+
+        <menuitem
+        id="linhafala_forwarding_institution_menu_action"
+        name="Encaminhamento - Casos"
+        action="linhafala_caso_forwarding_institution_action"
+        parent="linhafala_menu_root"
+        sequence="5" />
 
     <!-- CONFIGURATION -->
     <menuitem
         id="linhafala_menu_config"
         name="Configuration"
         parent="linhafala_menu_root"
-        sequence="5" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
+        sequence="8" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
 
     <menuitem
         id="linhafala_province_menu_action"

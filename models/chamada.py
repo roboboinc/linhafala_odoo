@@ -324,6 +324,8 @@ class CallCaseAssistance(models.Model):
     created_by = fields.Many2one('res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)
     uuid = fields.Char(string='UUID', readonly=True)
+    assistance_referral_line_ids = fields.One2many('linhafala.chamada.assistance.referral', 'assistance_id',
+                                                string="Linhas de Referências de Assistências")
 
     _sql_constraints = [
         ('unique_assistance_id', 'unique(assistance_id)', 'The assistance id must be unique'),
@@ -355,3 +357,35 @@ class CallCaseAssistance(models.Model):
             'padding': 4,
         })
         return super(CallCaseAssistance, self)._register_hook()
+    
+class AssistanceReferall(models.Model):
+    _name = "linhafala.chamada.assistance.referral"
+    _description = "Instituição de encaminhamento de assistência"
+
+    assistance_id = fields.Many2one("linhafala.chamada.assistance", string="Assistência")
+    area_type = fields.Selection(
+        string='Tipo de Área',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Tipo de Área"
+    )
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    case_reference = fields.Many2one(
+        comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
+    spokes_person = fields.Char(string="Pessoa de Responsável", required=True)
+    spokes_person_phone = fields.Char(string="Telefone do Responsável")
+    assistance_status = fields.Selection(
+        string='Estado do caso',
+        selection=[
+            ("Encerrado", "Encerrado"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Assistido", "Assistido")
+        ],
+        help="Estado do caso"
+    )

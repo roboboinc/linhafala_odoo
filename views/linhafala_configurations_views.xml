@@ -151,6 +151,18 @@
         </field>
     </record>
 
+    <record id="linhafala_chamada_assistance_referral_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.referral.tree</field>
+        <field name="model">linhafala.chamada.assistance.referral</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="assistance_id" />
+                <field name="area_type" />
+                <field name="reference_area" />
+            </tree>
+        </field>
+    </record>
+
     <!-- Configuration data for Casos dependent values-->
 
     <record id="linhafala_caso_categoria_view_tree" model="ir.ui.view">
@@ -279,6 +291,17 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Subcategorias de Assistências
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_referral_action" model="ir.actions.act_window">
+        <field name="name">Referência de Assistências</field>
+        <field name="res_model">linhafala.chamada.assistance.referral</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Referência de encaminhamento de Assistências
             </p>
         </field>
     </record>

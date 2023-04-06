@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 
 class KnowledgeBase(models.Model):
     _name = "linhafala.knowledgebase"
-    _description = "Formulário de Caso linha fala criança"
+    _description = "Formulário de Base de conhecimentos fala criança"
     _inherit = [
         'mail.thread',
         'mail.activity.mixin'

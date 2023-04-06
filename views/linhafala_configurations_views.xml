@@ -130,6 +130,27 @@
         </field>
     </record>
 
+    <record id="linhafala_chamada_assistance_categoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.categoria.tree</field>
+        <field name="model">linhafala.chamada.assistance.categoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_subcategoria_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.subcategoria.tree</field>
+        <field name="model">linhafala.chamada.assistance.subcategoria</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="parent_category" />
+            </tree>
+        </field>
+    </record>
+
     <!-- Configuration data for Casos dependent values-->
 
     <record id="linhafala_caso_categoria_view_tree" model="ir.ui.view">
@@ -237,6 +258,28 @@
             <tree string="Channel">
                 <field name="name" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_categoria_action" model="ir.actions.act_window">
+        <field name="name">Categoria de Assistências</field>
+        <field name="res_model">linhafala.chamada.assistance.categoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Categorias de Assistências
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_subcategoria_action" model="ir.actions.act_window">
+        <field name="name">Subcategoria de Assistências</field>
+        <field name="res_model">linhafala.chamada.assistance.subcategoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Subcategorias de Assistências
+            </p>
         </field>
     </record>
 </odoo>

@@ -246,6 +246,19 @@ class ActWindow(models.Model):
 #     })
 #     return res
 
+class CallCaseAssistenceCategory(models.Model):
+    _name = "linhafala.chamada.assistance.categoria"
+    _description = "Categoria de Assistências"
+
+    name = fields.Char(string="Categoria", required=True)
+
+class CasoSubcategoria(models.Model):
+    _name = "linhafala.chamada.assistance.subcategoria"
+    _description = "Subcategoria de Assistências"
+
+    name = fields.Char(string="Nome da Subcategoria")
+    parent_category = fields.Many2one("linhafala.chamada.assistance.categoria", string="Categoria do caso")
+
 class CallCaseAssistance(models.Model):
     _name = "linhafala.chamada.assistance"
     _description = "Formulário de Assistências linha fala criança"
@@ -271,8 +284,8 @@ class CallCaseAssistance(models.Model):
     age = fields.Selection([(str(i), str(i)) for i in range(6, 81)]  + [('81+', '81+')],
                                     string='Idade')
     detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'})
-    category = fields.Many2one(comodel_name='linhafala.categoria', string="Categoria")
-    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
+    category = fields.Many2one(comodel_name='linhafala.chamada.assistance.categoria', string="Categoria")
+    subcategory = fields.Many2one(comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria")
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[

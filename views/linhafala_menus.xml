@@ -112,5 +112,19 @@
         parent="linhafala_menu_config"
         sequence="9" />
 
+    <menuitem
+        id="linhafala_chamada_assistance_categoria_menu_action"
+        name="Categoria de Assistências"
+        action="linhafala_chamada_assistance_categoria_action"
+        parent="linhafala_menu_config"
+        sequence="10" />
+
+    <menuitem
+        id="linhafala_chamada_assistance_subcategoria_menu_action"
+        name="Subcategoria de Assistências"
+        action="linhafala_chamada_assistance_subcategoria_action"
+        parent="linhafala_menu_config"
+        sequence="11" />
+
 
 </odoo>

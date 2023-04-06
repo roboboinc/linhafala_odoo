@@ -23,6 +23,8 @@
         'data/linhafala.caso.subcategoria.csv',
         'data/linhafala.caso.case_type_classification.csv',
         'data/linhafala.caso.referencearea.csv',
+        'data/linhafala.chamada.assistance.categoria.csv',
+        'data/linhafala.chamada.assistance.subcategoria.csv',
     ],
     'assets': {
     },

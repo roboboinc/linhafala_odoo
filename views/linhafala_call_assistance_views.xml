@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="linhafala_assistance_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.assistance.tree</field>
+        <field name="model">linhafala.chamada.assistance</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="call_id" />
+                <field name="fullname" />
+                <field name="contact" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Linha Fala Configuration/Call & Opportunities/Call Menu -->
+    <record id="linhafala_assistance_action" model="ir.actions.act_window">
+        <field name="name">Assistências</field>
+        <field name="res_model">linhafala.chamada.assistance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registar assistências ou contactos recebidos
+            </p>
+            <p>
+                Usar nova assistência para explicar e detalhar um novo contacto.
+            </p>
+        </field>
+    </record>
+
+    <!-- Form view definition -->
+    <record id="linhafala_chamada_assistance_form_view" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.form</field>
+        <field name="model">linhafala.chamada.assistance</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form string="Formulário de assistências linha fala criança"
+                class="o_lead_opportunity_form" js_class="crm_form">
+                <header>
+                    <button id="button_confirm" name="action_confirm" string="Confirm"
+                        class="btn-primary" states="draft"
+                        confirm="Are you sure that you need to confirm ?"
+                        type="object" />
+                    <button id="button_done" name="action_done" string="Mark As Done"
+                        class="btn-primary" states="confirm"
+                        type="object" />
+                    <button id="button_draft" name="action_draft" string="Set To Draft"
+                        class="btn-primary"
+                        states="Dentro do sistema" type="object" />
+                    <button id="button_cancel" name="action_cancel" string="Encerrado"
+                        states="Dentro do sistema,Encerrado,Assistido"
+                        confirm="Are you sure that you need to Encerrar ?"
+                        type="object" />
+                    <field name="callcaseassistance_status" widget="statusbar"
+                        statusbar_visible="Dentro do sistema,Encerrado,Assistido" />
+                </header>
+                <!-- Add fields here -->
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field class="text-break" name="assistance_id"
+                                placeholder="Número da assisdtência (auto)" />
+                        </h1>
+                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                        <group>
+                            <group col="3">
+                                <field name="call_id" readonly="1"/>
+                                <field name="fullname" />
+                                <field name="contact" />
+                            </group>
+                            <group col="3">
+                                <field name="gender" />
+                                <field name="age" />
+                            </group>
+                            <group col="3">
+                                <field name="category" />
+                                <field name="subcategory" />
+                            </group>
+                            <group col="3">
+                                <field name="callcaseassistance_status" />
+                                <field name="callcaseassistance_priority" />
+                                <field name="resolution_type" />
+                            </group>
+                            <group col="3">
+                                <field name="provincia" />
+                                <field name="distrito" />
+                                <field name="bairro" />
+                            </group>
+                            <group col="3">
+                                <field name="reporter" />
+                                <field name="created_at" />
+                                <field name="created_by" />
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Detalhes" name="detailed_description_section">
+                                <field name="detailed_description" />
+                            </page>
+                            <page string="Referências de Assistências" name="assistance_references">
+                                <field name="assistance_referral_line_ids" widget="one2many">
+                                    <tree>
+                                        <field name="area_type" />
+                                        <field name="reference_entity" />
+                                        <field name="spokes_person" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </div>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

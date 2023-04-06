@@ -11,6 +11,7 @@
     'data': [
         'views/linhafala_menus.xml',
         'views/linhafala_calls_views.xml',
+        'views/linhafala_call_assistance_views.xml',
         'views/linhafala_cases_views.xml',
         'views/linhafala_case_form_view.xml',
         'views/linhafala_configurations_views.xml',

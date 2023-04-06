@@ -262,6 +262,10 @@ class CasoSubcategoria(models.Model):
 class CallCaseAssistance(models.Model):
     _name = "linhafala.chamada.assistance"
     _description = "Formulário de Assistências linha fala criança"
+    _inherit = [
+        'mail.thread', 
+        'mail.activity.mixin'
+        ]
 
     assistance_id = fields.Char(string="Assistência No.", readonly=True)
     call_id = fields.Many2one(
@@ -346,6 +350,18 @@ class CallCaseAssistance(models.Model):
         if vals.get('assistance_id', '/') == '/':
             vals['assistance_id'] = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
         return super(CallCaseAssistance, self).create(vals)
+    
+    def action_confirm(self):
+        self.callcaseassistance_status = 'Aberto/Pendente'
+
+    def action_done(self):
+        self.callcaseassistance_status = 'Assistido'
+
+    def action_draft(self):
+        self.callcaseassistance_status = 'Dentro do sistema'
+
+    def action_cancel(self):
+        self.callcaseassistance_status = 'Encerrado'
     
     @api.model
     def _register_hook(self):

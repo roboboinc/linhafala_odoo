@@ -11,18 +11,6 @@
         </field>
     </record>
 
-    <record id="linhafala_assistance_view_tree" model="ir.ui.view">
-        <field name="name">linhafala.assistance.tree</field>
-        <field name="model">linhafala.chamada.assistance</field>
-        <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="call_id" />
-                <field name="fullname" />
-                <field name="contact" />
-            </tree>
-        </field>
-    </record>
-
     <!-- Linha Fala Configuration/Call & Opportunities/Call Menu -->
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
@@ -38,27 +26,13 @@
         </field>
     </record>
 
-    <record id="linhafala_assistance_action" model="ir.actions.act_window">
-        <field name="name">Assistências</field>
-        <field name="res_model">linhafala.chamada.assistance</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Registar assistências ou contactos recebidos
-            </p>
-            <p>
-                Usar nova assistência para explicar e detalhar um novo contacto.
-            </p>
-        </field>
-    </record>
-
     <!-- Form view definition -->
     <record id="linhafala_chamada_form_view" model="ir.ui.view">
         <field name="name">linhafala.chamada.form</field>
         <field name="model">linhafala.chamada</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
-            <form string="Formulário de Assistências linha fala criança"
+            <form string="Formulário de chamada linha fala criança"
                 class="o_lead_opportunity_form" js_class="crm_form">
                 <header>
                     <button id="button_confirm" name="action_confirm" string="Confirm" class="btn-primary" states="draft"
@@ -72,10 +46,6 @@
                             confirm="Are you sure that you need to Encerrar ?"
                             type="object"/>
                     <field name="callcaseassistance_status" widget="statusbar" statusbar_visible="Dentro do sistema,Encerrado,Assistido"/>
-                    <group>
-                        <!-- Reuse the source form view -->
-                        <button name="create_a_new_case" type="object" string="Criar Caso Associado"/>
-                  </group>
                 </header>
                 <!-- Add fields here -->
                 <sheet>

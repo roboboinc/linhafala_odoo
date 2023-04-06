@@ -3,7 +3,7 @@ import uuid
 
 class Chamada(models.Model):
     _name = "linhafala.chamada"
-    _description = "Formulário de Assistências linha fala criança"
+    _description = "Formulário de chamadas linha fala criança"
     _inherit = [
         'mail.thread', 
         'mail.activity.mixin'
@@ -139,6 +139,8 @@ class Chamada(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     case_line_ids = fields.One2many('linhafala.caso', 'call_id',
                                                 string="Linhas de Casos")
+    assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
+                                                string="Linhas de Assistências")
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -243,3 +245,100 @@ class ActWindow(models.Model):
 #         # 'kanban': {'view_id': kanban_view_id, 'view_mode': 'kanban'},
 #     })
 #     return res
+
+class CallCaseAssistance(models.Model):
+    _name = "linhafala.chamada.assistance"
+    _description = "Formulário de Assistências linha fala criança"
+
+    assistance_id = fields.Char(string="Assistência No.", readonly=True)
+    call_id = fields.Many2one(
+        comodel_name='linhafala.chamada', string="Chamada")
+    fullname = fields.Char(string="Benificiário")
+    contact = fields.Char(string="Contacto") 
+    provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia")
+    distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto") #,
+                            #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
+    bairro = fields.Char(string="Bairro")
+    gender = fields.Selection(
+        string='Sexo',
+        selection=[
+            ("male", "Masculino"),
+            ("female", "Feminino"),
+            ("other", "Desconhecido"),
+        ],
+        help="Sexo"
+    )
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)]  + [('81+', '81+')],
+                                    string='Idade')
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'})
+    category = fields.Many2one(comodel_name='linhafala.categoria', string="Categoria")
+    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
+    callcaseassistance_status = fields.Selection(
+        string='Estado',
+        selection=[
+            ("Encerrado", "Encerrado"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Assistido","Assistido")
+        ],
+        default="Aberto/Pendente",
+        help="Estado"
+    )
+    callcaseassistance_priority = fields.Selection(
+        string='Período de Resolução',
+        selection=[
+            ("Muito Urgente", "Muito Urgente"),
+            ("Urgente", "Urgente"),
+            ("Moderado", "Moderado"),
+            ("Não Aplicável", "Não Aplicável"),
+        ],
+        default="Moderado",
+        help="Período de Resolução"
+    )
+    resolution_type = fields.Selection(
+        string='Tratamento',
+        selection=[
+            ("Aconselhamento LFC", "Aconselhamento LFC"),
+            ("Encaminhado", "Encaminhado"),
+            ("Não encaminhado", "Não encaminhado"),
+        ],
+        default="Aconselhamento LFC",
+        help="Tratamento"
+    )
+    reporter = fields.Many2one('res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
+    created_at = fields.Datetime(string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    updated_at = fields.Datetime(string='Data de actualizaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    created_by = fields.Many2one('res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+    is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)
+    uuid = fields.Char(string='UUID', readonly=True)
+
+    _sql_constraints = [
+        ('unique_assistance_id', 'unique(assistance_id)', 'The assistance id must be unique'),
+    ]
+
+    def write(self, vals):
+        if vals:
+            vals['updated_at'] = fields.Datetime.now()
+        return super(CallCaseAssistance, self).write(vals)
+    
+    @api.model
+    def create(self, vals):
+        vals['uuid'] = str(uuid.uuid4())
+        return super(CallCaseAssistance, self).create(vals)
+    
+    @api.model
+    def create(self, vals):
+        if vals.get('assistance_id', '/') == '/':
+            vals['assistance_id'] = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
+        return super(CallCaseAssistance, self).create(vals)
+    
+    @api.model
+    def _register_hook(self):
+        # Register the new sequence
+        seq = self.env['ir.sequence'].create({
+            'name': 'Linha Fala Chamadas Assistance ID Sequence',
+            'code': 'linhafala.chamada.assistance_id.seq',
+            'prefix': 'LFC-Assist-',
+            'padding': 4,
+        })
+        return super(CallCaseAssistance, self)._register_hook()

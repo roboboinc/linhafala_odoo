@@ -11,6 +11,18 @@
         </field>
     </record>
 
+    <record id="linhafala_assistance_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.assistance.tree</field>
+        <field name="model">linhafala.chamada.assistance</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="call_id" />
+                <field name="fullname" />
+                <field name="contact" />
+            </tree>
+        </field>
+    </record>
+
     <!-- Linha Fala Configuration/Call & Opportunities/Call Menu -->
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
@@ -22,6 +34,20 @@
             </p>
             <p>
                 Usar nova chamada para explicar e detalhar um novo contacto.
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_assistance_action" model="ir.actions.act_window">
+        <field name="name">Assistências</field>
+        <field name="res_model">linhafala.chamada.assistance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registar assistências ou contactos recebidos
+            </p>
+            <p>
+                Usar nova assistência para explicar e detalhar um novo contacto.
             </p>
         </field>
     </record>
@@ -111,6 +137,15 @@
                                         <field name="case_id" />
                                         <field name="case_status" />
                                         <field name="case_priority" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Assistência(s) Relacionadas" name="assistance">
+                                <field name="assistance_line_ids" widget="one2many">
+                                    <tree>
+                                        <field name="assistance_id" />
+                                        <field name="fullname" />
+                                        <field name="callcaseassistance_status" />
                                     </tree>
                                 </field>
                             </page>

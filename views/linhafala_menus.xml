@@ -11,19 +11,29 @@
         id="linhafala_chamada_menu_action"
         name="Chamada"
         action="linhafala_chamada_action"
-        parent="linhafala_menu_root" />
+        parent="linhafala_menu_root"
+        sequence="1" />
 
     <menuitem
         id="linhafala_caso_menu_action"
         name="Caso"
         action="linhafala_caso_action"
-        parent="linhafala_menu_root" />
+        parent="linhafala_menu_root"
+        sequence="2" />
+
+    <menuitem
+        id="linhafala_forwarding_institution_menu_action"
+        name="Instituição de encaminhamento"
+        action="linhafala_caso_forwarding_institution_action"
+        parent="linhafala_menu_root"
+        sequence="3" />
 
     <!-- CONFIGURATION -->
     <menuitem
         id="linhafala_menu_config"
         name="Configuration"
-        parent="linhafala_menu_root" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
+        parent="linhafala_menu_root"
+        sequence="5" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
 
     <menuitem
         id="linhafala_province_menu_action"
@@ -73,6 +83,27 @@
         action="linhafala_case_type_classification_action"
         parent="linhafala_menu_config"
         sequence="6" />
+
+    <menuitem
+        id="linhafala_caso_referencearea_menu_action"
+        name="Área Institucional ou Näo Institucional"
+        action="linhafala_caso_referencearea_action"
+        parent="linhafala_menu_config"
+        sequence="7" />
+
+    <menuitem
+        id="linhafala_caso_referenceentity_menu_action"
+        name="Entidade de referência"
+        action="linhafala_caso_referenceentity_action"
+        parent="linhafala_menu_config"
+        sequence="8" />
+
+    <menuitem
+        id="linhafala_caso_casereference_menu_action"
+        name="Pessoa de Contacto"
+        action="linhafala_caso_casereference_action"
+        parent="linhafala_menu_config"
+        sequence="9" />
 
 
 </odoo>

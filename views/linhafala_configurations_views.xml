@@ -86,6 +86,50 @@
         </field>
     </record>
 
+    <record id="linhafala_caso_referencearea_action" model="ir.actions.act_window">
+        <field name="name">Área Institucional ou Näo Institucional</field>
+        <field name="res_model">linhafala.caso.referencearea</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Área Institucional ou Näo Institucional
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_referenceentity_action" model="ir.actions.act_window">
+        <field name="name">Tipo de instituição</field>
+        <field name="res_model">linhafala.caso.referenceentity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Tipo de instituição
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_forwarding_institution_action" model="ir.actions.act_window">
+        <field name="name">Instituição de encaminhamento</field>
+        <field name="res_model">linhafala.caso.forwarding_institution</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Tipo de instituição
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_casereference_action" model="ir.actions.act_window">
+        <field name="name">Pessoas de Contacto</field>
+        <field name="res_model">linhafala.caso.casereference</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Pessoa de Contacto
+            </p>
+        </field>
+    </record>
+
     <!-- Configuration data for Casos dependent values-->
 
     <record id="linhafala_caso_categoria_view_tree" model="ir.ui.view">
@@ -150,6 +194,49 @@
             <p class="o_view_nocontent_smiling_face">
                 Gerir Classificaçäo Provisória do Caso
             </p>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_referencearea_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.referencearea.tree</field>
+        <field name="model">linhafala.caso.referencearea</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="area_type" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_referenceentity_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.referenceentity.tree</field>
+        <field name="model">linhafala.caso.referenceentity</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="reference_area" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_forwarding_institution_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.forwarding_institution.tree</field>
+        <field name="model">linhafala.caso.forwarding_institution</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="case_id" />
+                <field name="reference_area" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_casereference_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.casereference.tree</field>
+        <field name="model">linhafala.caso.casereference</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+            </tree>
         </field>
     </record>
 </odoo>

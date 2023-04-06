@@ -271,3 +271,78 @@ class PersonInvolved(models.Model):
                              string='Classe')
     case_id = fields.Many2one("linhafala.caso", string="Caso")
 
+
+class ReferenceArea(models.Model):
+    _name = "linhafala.caso.referencearea"
+    _description = "Área Institucional ou Näo Institucional"
+
+    name = fields.Char(string="Referencia", required=True)
+    area_type = fields.Selection(
+        string='Tipo de instituição',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Tipo de instituição"
+    )
+
+class ReferenceEntity(models.Model):
+    _name = "linhafala.caso.referenceentity"
+    _description = "Entidade de referência"
+
+    name = fields.Char(string="Nome de entidade", required=True)
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+
+class CaseReference(models.Model):
+    _name = "linhafala.caso.casereference"
+    _description = "Pessoa de Contacto"
+
+    name = fields.Char(string="Nome de entidade", required=True)
+    area_type = fields.Selection(
+        string='Tipo de instituição',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Tipo de instituição"
+    )
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia")
+    reference_id = fields.Char(string="ID daReferencia", required=True)
+
+class ForwardingInstitutions(models.Model):
+    _name = "linhafala.caso.forwarding_institution"
+    _description = "Instituição de encaminhamento"
+
+    case_id = fields.Many2one("linhafala.caso", string="Caso")
+    area_type = fields.Selection(
+        string='Tipo de Área',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Tipo de Área"
+    )
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    case_reference = fields.Many2one(
+        comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
+    spokes_person = fields.Char(string="Pessoa de Responsável", required=True)
+    spokes_person_phone = fields.Char(string="Telefone do Responsável")
+    case_status = fields.Selection(
+        string='Estado do caso',
+        selection=[
+            ("Encerrado", "Encerrado"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Assistido", "Assistido")
+        ],
+        help="Estado do caso"
+    )

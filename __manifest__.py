@@ -22,6 +22,7 @@
         'data/linhafala.caso.categoria.csv',
         'data/linhafala.caso.subcategoria.csv',
         'data/linhafala.caso.case_type_classification.csv',
+        'data/linhafala.caso.referencearea.csv',
     ],
     'assets': {
     },

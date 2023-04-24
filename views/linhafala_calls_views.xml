@@ -7,6 +7,7 @@
             <tree string="Channel">
                 <field name="call_id" />
                 <field name="caller_language" />
+                <field name="callcaseassistance_status" />
             </tree>
         </field>
     </record>

@@ -206,9 +206,6 @@ class Chamada(models.Model):
     @api.onchange('category')
     def _category_onchange(self):
         # Restrict the Subcategories to the current category.
-        subcategory = Chamada.objects.filter(category=self.category_id)
-        print (subcategory)
-        return subcategory
         for rec in self:
             return {'value': {'subcategory': False}, 'domain': {'subcategory': [('categoria_id', '=', rec.category.id)]}}
         

@@ -4,7 +4,7 @@
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Channel" decoration-success="callcaseassistance_status=='Encerrado'" decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
                 <field name="call_id" />
                 <field name="caller_language" />
                 <field name="callcaseassistance_status" />

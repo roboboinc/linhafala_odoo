@@ -37,6 +37,7 @@
                                     <field name="case_type_classification" />
                                 </group>
                                 <group col="3">
+                                    <field name="data_ocorrencia" />
                                     <field name="created_at" />
                                     <field name="updated_at" />
                                     <field name="reporter_by" />

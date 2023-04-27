@@ -5,22 +5,22 @@
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
             <tree string="Channel" decoration-info="case_status=='Dentro do sistema'" decoration-primary="case_status=='Assistido'" decoration-success="case_status=='Encerrado'" decoration-warning="case_status=='Aberto/Pendente'">
-                <field name="case_id" />
-                <field name="case_type_classification" />
-                <field name="reporter_by" />
-                <field name="resolution_type" />
-                <field name="case_type" />
-                <field name="secundary_case_type" />
-                <field name="place_occurrence" />
-                <field name="case_priority" />
-                <field name="created_by" />
-                <field name="created_at" />
-                <field name="data_ocorrencia" />
+                <field name="case_id" optional="show"/>
+                <field name="case_type_classification"  optional="hide"/>
+                <field name="reporter_by"  optional="show"/>
+                <field name="resolution_type"  optional="show"/>
+                <field name="case_type"  optional="show"/>
+                <field name="secundary_case_type"  optional="hide"/>
+                <field name="place_occurrence"  optional="show"/>
+                <field name="case_priority"  optional="hide"/>
+                <field name="created_by"  optional="hide"/>
+                <field name="created_at"  optional="hide"/>
+                <field name="data_ocorrencia"  optional="hide"/>
                 <field decoration-info="case_status=='Dentro do sistema'" 
                        decoration-primary="case_status=='Assistido'" 
                        decoration-success="case_status=='Encerrado'" 
                        decoration-warning="case_status=='Aberto/Pendente'" 
-                       widget="badge" name="case_status" />
+                       widget="badge" name="case_status"  optional="hide"/>
                 </tree>
         </field>
     </record>

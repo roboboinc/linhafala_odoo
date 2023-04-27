@@ -33,22 +33,16 @@
         <field name="model">linhafala.chamada</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
-            <form string="Formulário de chamada linha fala criança"
+            <!-- <form string="Formulário de chamada linha fala criança"
                 class="o_lead_opportunity_form" js_class="crm_form">
-                <header>
-                    <button id="button_confirm" name="action_confirm" string="Confirm" class="btn-primary" states="draft"
-                            confirm="Are you sure that you need to confirm ?"
-                            type="object"/>
-                    <button id="button_done" name="action_done" string="Mark As Done" class="btn-primary" states="confirm"
-                            type="object"/>
-                    <button id="button_draft" name="action_draft" string="Set To Draft" class="btn-primary"
-                            states="Dentro do sistema" type="object"/>
-                    <button id="button_cancel" name="action_cancel" string="Encerrado" states="Dentro do sistema,Encerrado,Assistido"
-                            confirm="Are you sure that you need to Encerrar ?"
-                            type="object"/>
-                    <field name="callcaseassistance_status" widget="statusbar" statusbar_visible="Dentro do sistema,Encerrado,Assistido"/>
-                </header>
+                 -->
+
+
                 <!-- Add fields here -->
+            <form>
+                <header>
+                    <field name="callcaseassistance_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -108,6 +102,7 @@
                                         <field name="case_id" />
                                         <field name="case_status" />
                                         <field name="case_priority" />
+                                        
                                     </tree>
                                 </field>
                             </page>

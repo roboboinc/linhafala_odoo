@@ -9,6 +9,7 @@
                 <field name="call_id" />
                 <field name="fullname" />
                 <field name="contact" />
+                <field name="callcaseassistance_status" />
             </tree>
         </field>
     </record>
@@ -34,25 +35,9 @@
         <field name="model">linhafala.chamada.assistance</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
-            <form string="Formulário de assistências linha fala criança"
-                class="o_lead_opportunity_form" js_class="crm_form">
+            <form>
                 <header>
-                    <button id="button_confirm" name="action_confirm" string="Confirm"
-                        class="btn-primary" states="draft"
-                        confirm="Are you sure that you need to confirm ?"
-                        type="object" />
-                    <button id="button_done" name="action_done" string="Mark As Done"
-                        class="btn-primary" states="confirm"
-                        type="object" />
-                    <button id="button_draft" name="action_draft" string="Set To Draft"
-                        class="btn-primary"
-                        states="Dentro do sistema" type="object" />
-                    <button id="button_cancel" name="action_cancel" string="Encerrado"
-                        states="Dentro do sistema,Encerrado,Assistido"
-                        confirm="Are you sure that you need to Encerrar ?"
-                        type="object" />
-                    <field name="callcaseassistance_status" widget="statusbar"
-                        statusbar_visible="Dentro do sistema,Encerrado,Assistido" />
+                    <field name="callcaseassistance_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <!-- Add fields here -->
                 <sheet>
@@ -102,7 +87,7 @@
                                     <tree>
                                         <field name="area_type" />
                                         <field name="reference_entity" />
-                                        <field name="spokes_person" />
+                                        <field name="spokes_person" />                                       
                                     </tree>
                                 </field>
                             </page>

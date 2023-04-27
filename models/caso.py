@@ -23,7 +23,7 @@ class Caso(models.Model):
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
         ], default="Aberto/Pendente",
-        help="Estado do caso"
+        help="Estado do caso", required=True
     )
     case_priority = fields.Selection(
         string='Período de Resolução',
@@ -34,7 +34,7 @@ class Caso(models.Model):
             ("Não Aplicável", "Não Aplicável"),
         ],
         default="Moderado",
-        help="Período de Resolução"
+        help="Período de Resolução", required=True
     )
     resolution_type = fields.Selection(
         string='Período de Resolução',
@@ -44,7 +44,7 @@ class Caso(models.Model):
             ("Não encaminhado", "Não encaminhado"),
         ],
         default="Aconselhamento LFC",
-        help="Tratamento do caso"
+        help="Tratamento do caso", required=True
     )
     place_occurrence = fields.Selection(
         string='Período de Resolução',
@@ -56,14 +56,14 @@ class Caso(models.Model):
             ("Outros", "Outros")
         ],
         default="Escola",
-        help="Local de Ocorrencia"
+        help="Local de Ocorrencia", required=True
     )
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
                                        'style': 'height: 500px;'})
     case_type = fields.Many2one(
-        comodel_name='linhafala.caso.categoria', string="Categoria")
+        comodel_name='linhafala.caso.categoria', string="Categoria", required=True)
     secundary_case_type = fields.Many2one(
-        comodel_name='linhafala.caso.subcategoria', string="Subcategoria")
+        comodel_name='linhafala.caso.subcategoria', string="Subcategoria", required=True)
     case_type_classification = fields.Many2one(
         comodel_name='linhafala.caso.case_type_classification', string="Classificaçäo Provisória")
 
@@ -203,14 +203,14 @@ class PersonInvolved(models.Model):
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
         ],
-        help="Categoria"
+        help="Categoria", required=True
     )
     contact = fields.Char(string="Contacto")
     alternate_contact = fields.Char(string="Contacto Alternativo")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia")
+        comodel_name='linhafala.provincia', string="Provincia", required=True)
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")  # ,
+        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     living_relatives = fields.Selection(
@@ -266,7 +266,7 @@ class PersonInvolved(models.Model):
             ("female", "Feminino"),
             ("other", "Desconhecido"),
         ],
-        help="Sexo"
+        help="Sexo", required=True
     )
     age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
                            string='Idade')
@@ -350,5 +350,5 @@ class ForwardingInstitutions(models.Model):
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
         ],default="Aberto/Pendente",
-        help="Estado do caso"
+        help="Estado do caso", required=True
     )

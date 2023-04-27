@@ -17,11 +17,11 @@ class Caso(models.Model):
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[
-            ("Encerrado", "Encerrado"),
-            ("Dentro do sistema", "Dentro do sistema"),
             ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
-            ("Assistido", "Assistido")
+            ("Encerrado", "Encerrado")
         ],
         help="Estado do caso"
     )
@@ -341,10 +341,11 @@ class ForwardingInstitutions(models.Model):
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[
-            ("Encerrado", "Encerrado"),
-            ("Dentro do sistema", "Dentro do sistema"),
             ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Assistido", "Assistido")
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
+            ("No Arquivo Morto", "No Arquivo Morto"),
+            ("Encerrado", "Encerrado")
         ],
         help="Estado do caso"
     )

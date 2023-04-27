@@ -114,10 +114,10 @@ class Chamada(models.Model):
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
-            ("Encerrado", "Encerrado"),
-            ("Dentro do sistema", "Dentro do sistema"),
             ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Assistido","Assistido")
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido","Assistido"),
+            ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
         help="Estado"
@@ -291,10 +291,10 @@ class CallCaseAssistance(models.Model):
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
-            ("Encerrado", "Encerrado"),
-            ("Dentro do sistema", "Dentro do sistema"),
             ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Assistido","Assistido")
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido","Assistido"),
+            ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
         help="Estado"
@@ -396,10 +396,10 @@ class AssistanceReferall(models.Model):
     assistance_status = fields.Selection(
         string='Estado do caso',
         selection=[
-            ("Encerrado", "Encerrado"),
-            ("Dentro do sistema", "Dentro do sistema"),
             ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Assistido", "Assistido")
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
+            ("Encerrado", "Encerrado")
         ],
         help="Estado do caso"
     )

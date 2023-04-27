@@ -51,7 +51,7 @@ class Chamada(models.Model):
             ("Siswati", "Siswati - (swati)"),
             ("Chewa", "Chewa - (Chichewa)")
         ],
-        help="Type is used to separate Languages"
+        help="Type is used to separate Languages", required=True
     )
     fullname = fields.Char(string="Nome completo") # TODO: Create new contact for each callee on contacts app?
     contact = fields.Char(string="Contacto") 
@@ -72,8 +72,8 @@ class Chamada(models.Model):
     )
 
     nr_identication = fields.Char(string="Numero de Identificação") 
-    provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia")
-    distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto") #,
+    provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia", required=True)
+    distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto", required=True) #,
                             #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
@@ -83,7 +83,7 @@ class Chamada(models.Model):
             ("female", "Feminino"),
             ("other", "Desconhecido"),
         ],
-        help="Sexo"
+        help="Sexo", required=True
     )
     age = fields.Selection([(str(i), str(i)) for i in range(6, 81)]  + [('81+', '81+')],
                                     string='Idade')
@@ -91,10 +91,10 @@ class Chamada(models.Model):
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]  
                              + [('Ensino Superior', 'Ensino Superior')],
                                     string='Classe')
-    school = fields.Char(string="Escola") 
-    call_start = fields.Datetime(string='Hora de início da chamada', default=fields.Datetime.now, readonly=True)
-    call_end = fields.Datetime(string='Hora de fim da chamada', readonly=False)
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'})
+    school = fields.Char(string="Escola", required=True) 
+    call_start = fields.Datetime(string='Hora de início da chamada', default=fields.Datetime.now, readonly=True, required=True)
+    call_end = fields.Datetime(string='Hora de fim da chamada', readonly=False, required=True)
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=True)
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -110,7 +110,7 @@ class Chamada(models.Model):
         help="Como conhece a LFC"
     )
     category = fields.Many2one(comodel_name='linhafala.categoria', string="Categoria")
-    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
+    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo", required=True)
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
@@ -120,7 +120,7 @@ class Chamada(models.Model):
             ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
-        help="Estado"
+        help="Estado", required=True
     )
     resolution_type = fields.Selection(
         string='Tratamento',

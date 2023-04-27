@@ -70,6 +70,7 @@ class Chamada(models.Model):
         ],
         help="Tipo de documento de identificação"
     )
+
     nr_identication = fields.Char(string="Numero de Identificação") 
     provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto") #,

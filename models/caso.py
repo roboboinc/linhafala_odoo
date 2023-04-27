@@ -69,6 +69,9 @@ class Caso(models.Model):
 
     reporter_by = fields.Many2one(
         'res.users', string='Gestão', default=lambda self: self.env.user, readonly=True)
+    data_ocorrencia = fields.Datetime(string="Data de Ocorrência", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+
+
     created_at = fields.Datetime(
         string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
     updated_at = fields.Datetime(string='Data de actualizaçäo',

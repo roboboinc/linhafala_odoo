@@ -22,7 +22,7 @@ class Caso(models.Model):
             ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
-        ],
+        ], default="Aberto/Pendente",
         help="Estado do caso"
     )
     case_priority = fields.Selection(
@@ -346,6 +346,6 @@ class ForwardingInstitutions(models.Model):
             ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
-        ],
+        ],default="Aberto/Pendente",
         help="Estado do caso"
     )

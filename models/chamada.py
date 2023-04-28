@@ -70,7 +70,6 @@ class Chamada(models.Model):
         ],
         help="Tipo de documento de identificação"
     )
-
     nr_identication = fields.Char(string="Numero de Identificação") 
     provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia", required=True)
     distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto", required=True) #,
@@ -283,6 +282,7 @@ class CallCaseAssistance(models.Model):
         ],
         help="Sexo", required=True
     )
+    
     age = fields.Selection([(str(i), str(i)) for i in range(6, 81)]  + [('81+', '81+')],
                                     string='Idade')
     detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=True)

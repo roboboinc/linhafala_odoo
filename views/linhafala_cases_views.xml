@@ -20,7 +20,7 @@
                        decoration-primary="case_status=='Assistido'" 
                        decoration-success="case_status=='Encerrado'" 
                        decoration-warning="case_status=='Aberto/Pendente'" 
-                       widget="badge" name="case_status"  optional="hide"/>
+                       widget="badge" name="case_status"  optional="show"/>
                 </tree>
         </field>
     </record>

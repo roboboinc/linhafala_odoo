@@ -6,14 +6,22 @@
         <field name="model">linhafala.chamada.assistance</field>
         <field name="arch" type="xml">
             <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'" decoration-primary="callcaseassistance_status=='Assistido'" decoration-success="callcaseassistance_status=='Encerrado'" decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
-                <field name="call_id" />
-                <field name="fullname" />
-                <field name="contact" />
+                <field name="call_id" optional="hide" />
+                <field name="fullname" optional="show" />
+                <field name="provincia" optional="show" />
+                <field name="distrito" optional="hide" />
+                <field name="bairro" optional="hide" />
+                <field name="gender" optional="show" />
+                <field name="age" optional="hide" />
+                <field name="category" optional="show" />
+                <field name="subcategory" optional="show" />
+                <field name="created_at" optional="hide" />
+                <field name="created_by" optional="show" />
                 <field decoration-info="callcaseassistance_status=='Dentro do sistema'" 
                     decoration-primary="callcaseassistance_status=='Assistido'" 
                     decoration-success="callcaseassistance_status=='Encerrado'" 
                     decoration-warning="callcaseassistance_status=='Aberto/Pendente'" 
-                    widget="badge" name="callcaseassistance_status" />
+                    widget="badge" name="callcaseassistance_status" optional="show"/>
             </tree>
         </field>
     </record>

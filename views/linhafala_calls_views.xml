@@ -5,13 +5,29 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'" decoration-primary="callcaseassistance_status=='Assistido'" decoration-success="callcaseassistance_status=='Encerrado'" decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
-                <field name="call_id" />
-                <field name="caller_language" />
+                <field name="call_id" optional="hide" />
+                <field name="contact_type" optional="hide" />
+                <field name="alternate_contact" optional="hide" />
+                <field name="id_number" optional="hide" />
+                <field name="nr_identication" optional="show" />
+                <field name="wants_to_be_annonymous" optional="hide" />
+                <field name="provincia" optional="show" />
+                <field name="distrito" optional="hide" />
+                <field name="gender" optional="show" />
+                <field name="age" optional="hide" />
+                <field name="call_start" optional="hide" />
+                <field name="call_end" optional="hide" />
+                <field name="how_knows_lfc" optional="hide" />
+                <field name="subcategory" optional="hide" />
+                <field name="bairro" optional="hide" />
+                <field name="created_at" optional="hide" />
+                <field name="created_by" optional="show" />
+                <field name="caller_language" optional="show" />
                 <field decoration-info="callcaseassistance_status=='Dentro do sistema'" 
                        decoration-primary="callcaseassistance_status=='Assistido'" 
                        decoration-success="callcaseassistance_status=='Encerrado'" 
                        decoration-warning="callcaseassistance_status=='Aberto/Pendente'" 
-                       widget="badge" name="callcaseassistance_status" />
+                       widget="badge" name="callcaseassistance_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -84,7 +100,8 @@
                                 <field name="grade" />
                                 <field name="school" />
                             </group>
-                            <group col="3">
+                            <group col="4">
+                                <field name="caller_language" />
                                 <field name="provincia" />
                                 <field name="distrito" />
                                 <field name="bairro" />

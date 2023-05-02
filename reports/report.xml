@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report id="report_case_card"
+        string="Case Report"
+        model="linhafala.caso"
+        report_type="qweb-pdf"
+        name="linhafala_odoo.report_case"
+        file="linhafala_odoo.report_case" />
+</odoo>

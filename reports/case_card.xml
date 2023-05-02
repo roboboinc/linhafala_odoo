@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_case">
-        <t t-call="web.external_layout">
-            <t t-call="web.html_container">
-                <t t-foreach="docs" t-as="doc">
-                    <h2>Relatório de Casos</h2>I
-                </t>
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2>Relatório de Casos</h2>
+                        </div>
+                    </div>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Classificação Provisória</th>
+                                <th>Data de Ocorrência</th>
+                                <th>Período de Resolução</th>
+                                <th>Tipo de Caso</th>
+                                <th>Subcategoria</th>
+                                <th>Local de Ocorrência</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <tr>
+                                    <td>
+                                        <t t-esc="doc.case_id" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.case_type_classification" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.data_ocorrencia" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.resolution_type" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.case_type" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.secundary_case_type" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.place_occurrence" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.case_status" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
             </t>
         </t>
     </template>

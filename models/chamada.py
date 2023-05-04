@@ -1,13 +1,14 @@
 from odoo import api, fields, models
 import uuid
 
+
 class Chamada(models.Model):
     _name = "linhafala.chamada"
     _description = "Formulário de chamadas linha fala criança"
     _inherit = [
-        'mail.thread', 
+        'mail.thread',
         'mail.activity.mixin'
-        ]
+    ]
 
     call_id = fields.Char(string="Id da chamada", readonly=True)
     contact_type = fields.Selection(
@@ -26,36 +27,65 @@ class Chamada(models.Model):
     caller_language = fields.Selection(
         string='Lingua/Dialetos',
         selection=[("Português ", "Português "),
-            ("Inglês ", "Inglês"),
-            ("Kimwani", "Kimwani - (Kimwani)"),
-            ("Shimakonde", "Shimakonde - (makonde)"),
-            ("Ciyaawo", "Ciyaawo - (Yaawo)"),
-            ("Emakhuwa", "Emakhuwa - (macua)"),
-            ("Ekoti", "Ekoti - (koti)"),
-            ("Elomowe", "Elomowe - (lomowe)"),
-            ("Echuwabo", "Echuwabo -(Chuwabo)"),
-            ("Cinyaja", "Cinyaja - (nyanja)"),
-            ("Cinyungwe", "Cinyungwe - ( Nyugue)"),
-            ("Cisena", "Cisena - (sena)"),
-            ("Cibalke", "Cibalke - (Balke)"),
-            ("Cimanyika", "Cimanyika - Chimanyika)"),
-            ("Cindau", "Cindau - (Ndau)"),
-            ("Ciwute", "Ciwute - (chiute)"),
-            ("Guitonga", "Guitonga"),
-            ("Citshwa", "Citshwa - (xitwa)"),
-            ("Cicope", "Cicope -(shope)"),
-            ("Xichangana", "Xichangana - (changana)"),
-            ("Xirhonga", "Xirhonga -(ronga)"),
-            ("Kiswahili", "Kiswahili - (swahili)"),
-            ("Isizulo", "Isizulo - (zulo)"),
-            ("Siswati", "Siswati - (swati)"),
-            ("Chewa", "Chewa - (Chichewa)")
-        ],
+                   ("Inglês ", "Inglês"),
+                   ("Kimwani", "Kimwani - (Kimwani)"),
+                   ("Shimakonde", "Shimakonde - (makonde)"),
+                   ("Ciyaawo", "Ciyaawo - (Yaawo)"),
+                   ("Emakhuwa", "Emakhuwa - (macua)"),
+                   ("Ekoti", "Ekoti - (koti)"),
+                   ("Elomowe", "Elomowe - (lomowe)"),
+                   ("Echuwabo", "Echuwabo -(Chuwabo)"),
+                   ("Cinyaja", "Cinyaja - (nyanja)"),
+                   ("Cinyungwe", "Cinyungwe - ( Nyugue)"),
+                   ("Cisena", "Cisena - (sena)"),
+                   ("Cibalke", "Cibalke - (Balke)"),
+                   ("Cimanyika", "Cimanyika - Chimanyika)"),
+                   ("Cindau", "Cindau - (Ndau)"),
+                   ("Ciwute", "Ciwute - (chiute)"),
+                   ("Guitonga", "Guitonga"),
+                   ("Citshwa", "Citshwa - (xitwa)"),
+                   ("Cicope", "Cicope -(shope)"),
+                   ("Xichangana", "Xichangana - (changana)"),
+                   ("Xirhonga", "Xirhonga -(ronga)"),
+                   ("Kiswahili", "Kiswahili - (swahili)"),
+                   ("Isizulo", "Isizulo - (zulo)"),
+                   ("Siswati", "Siswati - (swati)"),
+                   ("Chewa", "Chewa - (Chichewa)")
+                   ],
         help="Type is used to separate Languages", required=True
     )
-    fullname = fields.Char(string="Nome completo") # TODO: Create new contact for each callee on contacts app?
-    contact = fields.Char(string="Contacto") 
-    alternate_contact  = fields.Char(string="Contacto Alternativo") 
+    victim_relationship = fields.Selection(
+        string='Relação com a(s) vítima(s):',
+        selection=[
+            ("Mentora", "Mentora"),
+            ("Não aplicavél", "Não aplicavél"),
+            ("Denunciante", "Denunciante"),
+            ("Vitima", "Vitima"),
+            ("Nenhuma", "Nenhuma"),
+            ("Outros", "Outros"),
+            ("Colega", "Colega"),
+            ("Primo(a)", "Primo(a)"),
+            ("Esposo", "Esposo"),
+            ("Namorado", "Namorado"),
+            ("Amigo", "Amigo"),
+            ("Educador(a)", "Educador(a)"),
+            ("Professor(a)", "Professor(a)"),
+            ("Empregador", "Empregador"),
+            ("Irmã(o)", "Irmã(o)"),
+            ("Avo", "Avo"),
+            ("Vizinho (a)", "Vizinho (a)"),
+            ("Madrasta", "Madrasta"),
+            ("Padrasto", "Padrasto"),
+            ("Tio(a)", "Tio(a)"),
+            ("Pai", "Pai"),
+            ("Mãe", "Mãe"),
+        ],
+        help="Relação com a(s) vítima(s):"
+    )
+    # TODO: Create new contact for each callee on contacts app?
+    fullname = fields.Char(string="Nome completo")
+    contact = fields.Char(string="Contacto")
+    alternate_contact = fields.Char(string="Contacto Alternativo")
     wants_to_be_annonymous = fields.Boolean("Deja permanecer Anónimo")
     id_number = fields.Selection(
         string='Tipo de Identificação',
@@ -70,10 +100,12 @@ class Chamada(models.Model):
         ],
         help="Tipo de documento de identificação"
     )
-    nr_identication = fields.Char(string="Numero de Identificação") 
-    provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia", required=True)
-    distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto", required=True) #,
-                            #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
+    nr_identication = fields.Char(string="Numero de Identificação")
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia", required=True)
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
+    #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
         string='Sexo',
@@ -84,16 +116,19 @@ class Chamada(models.Model):
         ],
         help="Sexo", required=True
     )
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)]  + [('81+', '81+')],
-                                    string='Idade')
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
+                           string='Idade')
     on_school = fields.Boolean("Estuda?")
-    grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]  
+    grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
-                                    string='Classe')
-    school = fields.Char(string="Escola", required=True) 
-    call_start = fields.Datetime(string='Hora de início da chamada', default=fields.Datetime.now, readonly=True, required=True)
-    call_end = fields.Datetime(string='Hora de fim da chamada', readonly=False, required=True)
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=True)
+                             string='Classe')
+    school = fields.Char(string="Escola", required=True)
+    call_start = fields.Datetime(string='Hora de início da chamada',
+                                 default=fields.Datetime.now, readonly=True, required=True)
+    call_end = fields.Datetime(
+        string='Hora de fim da chamada', readonly=False, required=True)
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={
+                                       'style': 'height: 500px;'}, required=True)
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -101,21 +136,23 @@ class Chamada(models.Model):
             ("Rádio", "Rádio"),
             ("Internet", "Internet"),
             ("Televisão", "Televisão"),
-            ("Brochuras","Brochuras"),
+            ("Brochuras", "Brochuras"),
             ("Panfletos", "Panfletos"),
-            ("Cartazes","Cartazes"),
-            ("Outros","Outros")
+            ("Cartazes", "Cartazes"),
+            ("Outros", "Outros")
         ],
         help="Como conhece a LFC"
     )
-    category = fields.Many2one(comodel_name='linhafala.categoria', string="Categoria", required=True)
-    subcategory = fields.Many2one(comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo", required=True)
+    category = fields.Many2one(
+        comodel_name='linhafala.categoria', string="Categoria", required=True)
+    subcategory = fields.Many2one(
+        comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo", required=True)
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
             ("Aberto/Pendente", "Aberto/Pendente"),
             ("Dentro do sistema", "Dentro do sistema"),
-            ("Assistido","Assistido"),
+            ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
@@ -131,16 +168,20 @@ class Chamada(models.Model):
         default="Aconselhamento LFC",
         help="Tratamento"
     )
-    reporter = fields.Many2one('res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
-    created_at = fields.Datetime(string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
-    updated_at = fields.Datetime(string='Data de actualizaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
-    created_by = fields.Many2one('res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+    reporter = fields.Many2one(
+        'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
+    created_at = fields.Datetime(
+        string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    updated_at = fields.Datetime(string='Data de actualizaçäo',
+                                 default=lambda self: fields.Datetime.now(), readonly=True)
+    created_by = fields.Many2one(
+        'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)
     uuid = fields.Char(string='UUID', readonly=True)
     case_line_ids = fields.One2many('linhafala.caso', 'call_id',
-                                                string="Linhas de Casos")
+                                    string="Linhas de Casos")
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
-                                                string="Linhas de Assistências")
+                                          string="Linhas de Assistências")
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -150,23 +191,24 @@ class Chamada(models.Model):
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         return super(Chamada, self).write(vals)
-    
+
     def unlink(self):
         for record in self:
             record.write({'is_deleted': True})
         return super(Chamada, self).unlink()
-    
+
     @api.model
     def create(self, vals):
         vals['uuid'] = str(uuid.uuid4())
         return super(Chamada, self).create(vals)
-    
+
     @api.model
     def create(self, vals):
         if vals.get('call_id', '/') == '/':
-            vals['call_id'] = self.env['ir.sequence'].next_by_code('linhafala.chamada.call_id.seq') or '/'
+            vals['call_id'] = self.env['ir.sequence'].next_by_code(
+                'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
-    
+
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
 
@@ -185,10 +227,10 @@ class Chamada(models.Model):
     #         # values = self.env['linhafala.distrito'].search([(('provincia', '=', record.provincia.id))])
     #         # record.allowed_distrito_values = values
     #         return record.provincia.id
-    
 
     def create_a_new_case(self):
-        new_related_model = self.env['linhafala.caso'].create({'call_id': self.id})
+        new_related_model = self.env['linhafala.caso'].create(
+            {'call_id': self.id})
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'linhafala.caso',
@@ -196,19 +238,19 @@ class Chamada(models.Model):
             'res_id': new_related_model.id,
             'target': 'current',
         }
-    
+
     @api.onchange('provincia')
     def _provincia_onchange(self):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
 
-    # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow    
+    # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow
     @api.onchange('category')
     def _category_onchange(self):
         # Restrict the Subcategories to the current category.
         for rec in self:
             return {'value': {'subcategory': False}, 'domain': {'subcategory': [('categoria_id', '=', rec.category.id)]}}
-        
+
     @api.model
     def _register_hook(self):
         # Register the new sequence
@@ -220,8 +262,10 @@ class Chamada(models.Model):
         })
         return super(Chamada, self)._register_hook()
 
-# Override the Delete button action   
-# TODO: Validate whether the function works     
+# Override the Delete button action
+# TODO: Validate whether the function works
+
+
 class ActWindow(models.Model):
     _inherit = 'ir.actions.act_window'
 
@@ -231,7 +275,7 @@ class ActWindow(models.Model):
         for record in model.browse(ids):
             record.write({'is_deleted': True})
         return {'type': 'ir.actions.act_window_close'}
-    
+
 # @api.model
 # def get_action_views(self):
 #     res = super(Chamada, self).get_action_views()
@@ -243,35 +287,41 @@ class ActWindow(models.Model):
 #     })
 #     return res
 
+
 class CallCaseAssistenceCategory(models.Model):
     _name = "linhafala.chamada.assistance.categoria"
     _description = "Categoria de Assistências"
 
     name = fields.Char(string="Categoria", required=True)
 
+
 class CasoSubcategoria(models.Model):
     _name = "linhafala.chamada.assistance.subcategoria"
     _description = "Subcategoria de Assistências"
 
     name = fields.Char(string="Nome da Subcategoria", required=True)
-    parent_category = fields.Many2one("linhafala.chamada.assistance.categoria", string="Categoria do caso", required=True)
+    parent_category = fields.Many2one(
+        "linhafala.chamada.assistance.categoria", string="Categoria do caso", required=True)
+
 
 class CallCaseAssistance(models.Model):
     _name = "linhafala.chamada.assistance"
     _description = "Formulário de Assistências linha fala criança"
     _inherit = [
-        'mail.thread', 
+        'mail.thread',
         'mail.activity.mixin'
-        ]
+    ]
 
     assistance_id = fields.Char(string="Assistência No.", readonly=True)
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
     fullname = fields.Char(string="Benificiário")
-    contact = fields.Char(string="Contacto") 
-    provincia = fields.Many2one(comodel_name='linhafala.provincia', string="Provincia", required=True)
-    distrito = fields.Many2one(comodel_name='linhafala.distrito', string="Districto", required=True) #,
-                            #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
+    contact = fields.Char(string="Contacto")
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia", required=True)
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
+    #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
         string='Sexo',
@@ -282,18 +332,21 @@ class CallCaseAssistance(models.Model):
         ],
         help="Sexo", required=True
     )
-    
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)]  + [('81+', '81+')],
-                                    string='Idade')
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=True)
-    category = fields.Many2one(comodel_name='linhafala.chamada.assistance.categoria', string="Categoria", required=True)
-    subcategory = fields.Many2one(comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria", required=True)
+
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
+                           string='Idade')
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={
+                                       'style': 'height: 500px;'}, required=True)
+    category = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.categoria', string="Categoria", required=True)
+    subcategory = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria", required=True)
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
             ("Aberto/Pendente", "Aberto/Pendente"),
             ("Dentro do sistema", "Dentro do sistema"),
-            ("Assistido","Assistido"),
+            ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
@@ -320,35 +373,41 @@ class CallCaseAssistance(models.Model):
         default="Aconselhamento LFC",
         help="Tratamento"
     )
-    reporter = fields.Many2one('res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
-    created_at = fields.Datetime(string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
-    updated_at = fields.Datetime(string='Data de actualizaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
-    created_by = fields.Many2one('res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+    reporter = fields.Many2one(
+        'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
+    created_at = fields.Datetime(
+        string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    updated_at = fields.Datetime(string='Data de actualizaçäo',
+                                 default=lambda self: fields.Datetime.now(), readonly=True)
+    created_by = fields.Many2one(
+        'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)
     uuid = fields.Char(string='UUID', readonly=True)
     assistance_referral_line_ids = fields.One2many('linhafala.chamada.assistance.referral', 'assistance_id',
-                                                string="Linhas de Referências de Assistências")
+                                                   string="Linhas de Referências de Assistências")
 
     _sql_constraints = [
-        ('unique_assistance_id', 'unique(assistance_id)', 'The assistance id must be unique'),
+        ('unique_assistance_id', 'unique(assistance_id)',
+         'The assistance id must be unique'),
     ]
 
     def write(self, vals):
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         return super(CallCaseAssistance, self).write(vals)
-    
+
     @api.model
     def create(self, vals):
         vals['uuid'] = str(uuid.uuid4())
         return super(CallCaseAssistance, self).create(vals)
-    
+
     @api.model
     def create(self, vals):
         if vals.get('assistance_id', '/') == '/':
-            vals['assistance_id'] = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
+            vals['assistance_id'] = self.env['ir.sequence'].next_by_code(
+                'linhafala.chamada.assistance_id.seq') or '/'
         return super(CallCaseAssistance, self).create(vals)
-    
+
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
 
@@ -360,7 +419,7 @@ class CallCaseAssistance(models.Model):
 
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
-    
+
     @api.model
     def _register_hook(self):
         # Register the new sequence
@@ -371,12 +430,14 @@ class CallCaseAssistance(models.Model):
             'padding': 4,
         })
         return super(CallCaseAssistance, self)._register_hook()
-    
+
+
 class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
     _description = "Instituição de encaminhamento de assistência"
 
-    assistance_id = fields.Many2one("linhafala.chamada.assistance", string="Assistência")
+    assistance_id = fields.Many2one(
+        "linhafala.chamada.assistance", string="Assistência")
     area_type = fields.Selection(
         string='Tipo de Área',
         selection=[

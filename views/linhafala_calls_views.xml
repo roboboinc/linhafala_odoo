@@ -4,7 +4,10 @@
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'" decoration-primary="callcaseassistance_status=='Assistido'" decoration-success="callcaseassistance_status=='Encerrado'" decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                decoration-primary="callcaseassistance_status=='Assistido'"
+                decoration-success="callcaseassistance_status=='Encerrado'"
+                decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
                 <field name="call_id" optional="hide" />
                 <field name="contact_type" optional="hide" />
                 <field name="alternate_contact" optional="hide" />
@@ -23,11 +26,12 @@
                 <field name="created_at" optional="hide" />
                 <field name="created_by" optional="show" />
                 <field name="caller_language" optional="show" />
-                <field decoration-info="callcaseassistance_status=='Dentro do sistema'" 
-                       decoration-primary="callcaseassistance_status=='Assistido'" 
-                       decoration-success="callcaseassistance_status=='Encerrado'" 
-                       decoration-warning="callcaseassistance_status=='Aberto/Pendente'" 
-                       widget="badge" name="callcaseassistance_status" optional="show" />
+                <field name="victim_relationship" optional="show" />
+                <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                    decoration-primary="callcaseassistance_status=='Assistido'"
+                    decoration-success="callcaseassistance_status=='Encerrado'"
+                    decoration-warning="callcaseassistance_status=='Aberto/Pendente'"
+                    widget="badge" name="callcaseassistance_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -58,10 +62,12 @@
                  -->
 
 
-                <!-- Add fields here -->
+            <!-- Add fields here -->
             <form>
                 <header>
-                    <field name="callcaseassistance_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                    <field name="callcaseassistance_status" widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -79,6 +85,7 @@
                             <group col="3">
                                 <field name="alternate_contact" />
                                 <field name="wants_to_be_annonymous" />
+                                <field name="victim_relationship" />
                             </group>
                             <group col="4">
                                 <field name="id_number" />
@@ -111,7 +118,7 @@
                                 <field name="call_end" />
                                 <field name="reporter" />
                             </group>
-                            
+
                         </group>
                         <notebook>
                             <page string="Detalhes" name="detailed_description_section">
@@ -123,7 +130,7 @@
                                         <field name="case_id" />
                                         <field name="case_status" />
                                         <field name="case_priority" />
-                                        
+
                                     </tree>
                                 </field>
                             </page>

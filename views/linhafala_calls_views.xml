@@ -1,5 +1,38 @@
 <?xml version="1.0"?>
 <odoo>
+
+    <record id="view_calls_kanban" model="ir.ui.view">
+        <field name="name">linhafala.chamada.kanban</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <kanban default_order="id asc">
+                <!-- <field name="id" /> -->
+                <field name="created_by" />
+                <field name="bairro" />
+                <field name="gender" />
+                <field name="age" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <!-- <li> ID: <field name="id" />
+                                    </li>
+                                    <li> Name: <field name="bairro" />
+                                    </li> -->
+                                    <li> Age: <field name="age" />
+                                    </li>
+                                    <li> Gender: <field name="gender" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_calls_view_tree" model="ir.ui.view">
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
@@ -40,7 +73,7 @@
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
         <field name="res_model">linhafala.chamada</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar chamadas ou contactos recebidos

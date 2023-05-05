@@ -5,25 +5,22 @@
         <field name="name">linhafala.chamada.kanban</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <kanban default_order="id asc">
-                <!-- <field name="id" /> -->
-                <field name="created_by" />
-                <field name="bairro" />
-                <field name="gender" />
+            <kanban default_group_by="callcaseassistance_status">
+                <field name="call_id" />
+                <field name="fullname" />
                 <field name="age" />
+                <field name="gender" />
+                 <field name="created_by" />
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
                                 <ul>
-                                    <!-- <li> ID: <field name="id" />
-                                    </li>
-                                    <li> Name: <field name="bairro" />
-                                    </li> -->
-                                    <li> Age: <field name="age" />
-                                    </li>
-                                    <li> Gender: <field name="gender" />
-                                    </li>
+                                    <li> ID: <field name="call_id" /></li>
+                                    <li> Name: <field name="fullname" /></li>
+                                    <li> Age: <field name="age" /></li>
+                                    <li> Gender: <field name="gender" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
                                 </ul>
                             </div>
                         </div>
@@ -42,6 +39,7 @@
                 decoration-success="callcaseassistance_status=='Encerrado'"
                 decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
                 <field name="call_id" optional="hide" />
+                  <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />
                 <field name="alternate_contact" optional="hide" />
                 <field name="id_number" optional="hide" />

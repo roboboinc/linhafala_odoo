@@ -1,11 +1,43 @@
 <?xml version="1.0"?>
 <odoo>
 
+    <record id="view_calls_kanban" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.kanban</field>
+        <field name="model">linhafala.chamada.assistance</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="callcaseassistance_status">
+                <field name="call_id" />
+                <field name="fullname" />
+                <field name="age" />
+                <field name="gender" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="call_id" /></li>
+                                    <li> Benificiário: <field name="fullname" /></li>
+                                    <li> Age: <field name="age" /></li>
+                                    <li> Gender: <field name="gender" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_assistance_view_tree" model="ir.ui.view">
         <field name="name">linhafala.assistance.tree</field>
         <field name="model">linhafala.chamada.assistance</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'" decoration-primary="callcaseassistance_status=='Assistido'" decoration-success="callcaseassistance_status=='Encerrado'" decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                decoration-primary="callcaseassistance_status=='Assistido'"
+                decoration-success="callcaseassistance_status=='Encerrado'"
+                decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="show" />
                 <field name="provincia" optional="show" />
@@ -17,11 +49,11 @@
                 <field name="subcategory" optional="show" />
                 <field name="created_at" optional="hide" />
                 <field name="created_by" optional="show" />
-                <field decoration-info="callcaseassistance_status=='Dentro do sistema'" 
-                    decoration-primary="callcaseassistance_status=='Assistido'" 
-                    decoration-success="callcaseassistance_status=='Encerrado'" 
-                    decoration-warning="callcaseassistance_status=='Aberto/Pendente'" 
-                    widget="badge" name="callcaseassistance_status" optional="show"/>
+                <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                    decoration-primary="callcaseassistance_status=='Assistido'"
+                    decoration-success="callcaseassistance_status=='Encerrado'"
+                    decoration-warning="callcaseassistance_status=='Aberto/Pendente'"
+                    widget="badge" name="callcaseassistance_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -30,7 +62,7 @@
     <record id="linhafala_assistance_action" model="ir.actions.act_window">
         <field name="name">Assistências</field>
         <field name="res_model">linhafala.chamada.assistance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar assistências ou contactos recebidos
@@ -49,7 +81,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="callcaseassistance_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                    <field name="callcaseassistance_status" widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <!-- Add fields here -->
                 <sheet>
@@ -61,7 +95,7 @@
                         <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                         <group>
                             <group col="3">
-                                <field name="call_id" readonly="1"/>
+                                <field name="call_id" readonly="1" />
                                 <field name="fullname" />
                                 <field name="contact" />
                             </group>
@@ -99,7 +133,7 @@
                                     <tree>
                                         <field name="area_type" />
                                         <field name="reference_entity" />
-                                        <field name="spokes_person" />                                       
+                                        <field name="spokes_person" />
                                     </tree>
                                 </field>
                             </page>

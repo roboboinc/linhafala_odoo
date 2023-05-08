@@ -14,4 +14,3 @@ __pycache__/
 
 # Local database files
 *.db
-models/__pycache__/caso.cpython-39.pyc

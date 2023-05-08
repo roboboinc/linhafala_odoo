@@ -1,2 +1,2 @@
-# linhafala_odoo
-Odoo module for Linha Fala Crianca App migration.
+# LFC - Assistance
+Odoo module for Linha Fala Criança App.

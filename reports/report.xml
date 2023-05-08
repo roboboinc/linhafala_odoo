@@ -4,6 +4,6 @@
         string="Case Report"
         model="linhafala.caso"
         report_type="qweb-pdf"
-        name="linhafala_odoo.report_case"
-        file="linhafala_odoo.report_case" />
+        name="linhafala.report_case"
+        file="linhafala.report_case" />
 </odoo>

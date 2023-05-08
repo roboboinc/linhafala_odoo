@@ -1,0 +1,17 @@
+# Odoo compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Odoo log files
+*.log
+
+# Text editor temporary files
+*.swp
+
+# macOS Finder files
+.DS_Store
+
+# Local database files
+*.db
+models/__pycache__/caso.cpython-39.pyc

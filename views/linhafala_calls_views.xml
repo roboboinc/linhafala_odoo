@@ -70,81 +70,52 @@
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field class="text-break" name="call_id"
+
+                    <h1> Formulário de chamada linha fala criança <h3>
+                            <field class="text-break"
+                                name="call_id"
                                 placeholder="Número de chamada (auto)" />
-                        </h1>
-                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
-                        <group>
-                            <group col="3">
-                                <field name="fullname" />
-                                <field name="contact" />
-                                <field name="contact_type" />
-                            </group>
-                            <group col="3">
-                                <field name="alternate_contact" />
-                                <field name="wants_to_be_annonymous" />
-                                <field name="victim_relationship" />
-                            </group>
-                            <group col="4">
-                                <field name="id_number" />
-                                <field name="nr_identication" />
-                                <field name="gender" />
-                                <field name="age" />
-                            </group>
-                            <group col="3">
-                                <field name="how_knows_lfc" />
-                                <field name="category" invisible="1" />
-                                <field name="subcategory" />
-                            </group>
-                            <group col="3">
-                                <field name="callcaseassistance_status" />
-                            </group>
-                            <group col="3">
-                                <field name="on_school" />
-                                <field name="grade" />
-                                <field name="school" />
-                            </group>
-                            <group col="4">
-                                <field name="caller_language" />
-                                <field name="provincia" />
-                                <field name="distrito" />
-                                <field name="bairro" />
-                            </group>
-                            <group col="3">
-                                <field name="call_start" />
-                                <field name="call_end" />
-                                <field name="reporter" />
-                            </group>
+                        </h3>
+                    </h1>
+                    <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                    <div class="row w-100">
+                        <div class="col-md-3 mt-2">
+                            <p><strong>Nome:</strong> <field name="fullname" /></p>
+                            
+                        </div>
+                        <div class="col-md-3 mt-2">
+                           <p><strong>Nome:</strong> <field name="fullname" /></p>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <notebook>
+                                <page string="Detalhes" name="detailed_description_section">
+                                    <field name="detailed_description" />
+                                </page>
+                                <page string="Caso(s) Relacionados" name="cases">
+                                    <field name="case_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="case_id" />
+                                            <field name="case_status" />
+                                            <field name="case_priority" />
 
-                        </group>
-                        <notebook>
-                            <page string="Detalhes" name="detailed_description_section">
-                                <field name="detailed_description" />
-                            </page>
-                            <page string="Caso(s) Relacionados" name="cases">
-                                <field name="case_line_ids" widget="one2many">
-                                    <tree>
-                                        <field name="case_id" />
-                                        <field name="case_status" />
-                                        <field name="case_priority" />
-
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Assistência(s) Relacionadas" name="assistance">
-                                <field name="assistance_line_ids" widget="one2many">
-                                    <tree>
-                                        <field name="assistance_id" />
-                                        <field name="fullname" />
-                                        <field name="callcaseassistance_status" />
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
-
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Assistência(s) Relacionadas" name="assistance">
+                                    <field name="assistance_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="assistance_id" />
+                                            <field name="fullname" />
+                                            <field name="callcaseassistance_status" />
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </div>
                     </div>
+
+
                 </sheet>
 
                 <div class="oe_chatter">

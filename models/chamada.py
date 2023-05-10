@@ -158,16 +158,6 @@ class Chamada(models.Model):
         default="Aberto/Pendente",
         help="Estado", required=True
     )
-    resolution_type = fields.Selection(
-        string='Tratamento',
-        selection=[
-            ("Aconselhamento LFC", "Aconselhamento LFC"),
-            ("Encaminhado", "Encaminhado"),
-            ("Não encaminhado", "Não encaminhado"),
-        ],
-        default="Aconselhamento LFC",
-        help="Tratamento"
-    )
     reporter = fields.Many2one(
         'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
     created_at = fields.Datetime(

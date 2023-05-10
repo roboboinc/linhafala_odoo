@@ -95,12 +95,11 @@
                             </group>
                             <group col="3">
                                 <field name="how_knows_lfc" />
-                                <field name="category" />
+                                <field name="category" invisible="1" />
                                 <field name="subcategory" />
                             </group>
                             <group col="3">
                                 <field name="callcaseassistance_status" />
-                                <field name="resolution_type" />
                             </group>
                             <group col="3">
                                 <field name="on_school" />

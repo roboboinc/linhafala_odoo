@@ -129,7 +129,7 @@ class Chamada(models.Model):
         ],
         help="Sexo", required=True
     )
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
@@ -224,6 +224,12 @@ class Chamada(models.Model):
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
 
+    def action_shutdown(self):
+        return ""
+    
+    def action_silent(self):
+        return ""
+    
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
     #     for record in self:

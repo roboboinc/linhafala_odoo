@@ -21,7 +21,20 @@ class Chamada(models.Model):
             ("Telefónica", "Telefónica"),
             ("Email", "Email"),
             ("Redes Sociais", "Redes Sociais"),
-        ],
+        ], default="Telefónica",
+        help="Type is used to separate Contact types"
+    )
+    type_of_intervention = fields.Selection(
+        string='Tipo de Intervenção / Motivo',
+        selection=[
+            ("Agradecimento", "Agradecimento"),
+            ("Chamada de Assistência", "Chamada de Assistência"),
+            ("Comportamento", "Comportamento"),
+            ("Caso", "Caso"),
+            ("Perdida", "Perdida"),
+            ("Engano", "Engano"),
+            ("Informação Geral sobre a LFC", "Informação Geral sobre a LFC"),
+        ], default="",
         help="Type is used to separate Contact types"
     )
     caller_language = fields.Selection(

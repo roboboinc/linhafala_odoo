@@ -65,7 +65,7 @@ class Chamada(models.Model):
                    ("Siswati", "Siswati - (swati)"),
                    ("Chewa", "Chewa - (Chichewa)")
                    ],
-        help="Type is used to separate Languages", required=True
+        help="Type is used to separate Languages"
     )
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
@@ -115,9 +115,9 @@ class Chamada(models.Model):
     )
     nr_identication = fields.Char(string="Numero de Identificação")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia", required=True)
+        comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
+        comodel_name='linhafala.distrito', string="Districto")  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
@@ -127,7 +127,7 @@ class Chamada(models.Model):
             ("female", "Feminino"),
             ("other", "Desconhecido"),
         ],
-        help="Sexo", required=True
+        help="Sexo"
     )
     age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
                            string='Idade')
@@ -135,13 +135,13 @@ class Chamada(models.Model):
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
-    school = fields.Char(string="Escola", required=True)
+    school = fields.Char(string="Escola")
     call_start = fields.Datetime(string='Hora de início da chamada',
-                                 default=fields.Datetime.now, readonly=True, required=True)
+                                 default=fields.Datetime.now, readonly=True)
     call_end = fields.Datetime(
-        string='Hora de fim da chamada', readonly=False, required=True)
+        string='Hora de fim da chamada', readonly=False)
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'}, required=True)
+                                       'style': 'height: 500px;'})
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -157,9 +157,9 @@ class Chamada(models.Model):
         help="Como conhece a LFC"
     )
     category = fields.Many2one(
-        comodel_name='linhafala.categoria', string="Categoria", required=True)
+        comodel_name='linhafala.categoria', string="Categoria")
     subcategory = fields.Many2one(
-        comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo", required=True)
+        comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
@@ -169,7 +169,7 @@ class Chamada(models.Model):
             ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
-        help="Estado", required=True
+        help="Estado"
     )
     reporter = fields.Many2one(
         'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
@@ -301,16 +301,16 @@ class CallCaseAssistenceCategory(models.Model):
     _name = "linhafala.chamada.assistance.categoria"
     _description = "Categoria de Assistências"
 
-    name = fields.Char(string="Categoria", required=True)
+    name = fields.Char(string="Categoria")
 
 
 class CasoSubcategoria(models.Model):
     _name = "linhafala.chamada.assistance.subcategoria"
     _description = "Subcategoria de Assistências"
 
-    name = fields.Char(string="Nome da Subcategoria", required=True)
+    name = fields.Char(string="Nome da Subcategoria")
     parent_category = fields.Many2one(
-        "linhafala.chamada.assistance.categoria", string="Categoria do caso", required=True)
+        "linhafala.chamada.assistance.categoria", string="Categoria do caso")
 
 
 class CallCaseAssistance(models.Model):
@@ -327,9 +327,9 @@ class CallCaseAssistance(models.Model):
     fullname = fields.Char(string="Benificiário")
     contact = fields.Char(string="Contacto")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia", required=True)
+        comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
+        comodel_name='linhafala.distrito', string="Districto")  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
@@ -339,17 +339,17 @@ class CallCaseAssistance(models.Model):
             ("female", "Feminino"),
             ("other", "Desconhecido"),
         ],
-        help="Sexo", required=True
+        help="Sexo"
     )
 
     age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
                            string='Idade')
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'}, required=True)
+                                       'style': 'height: 500px;'})
     category = fields.Many2one(
-        comodel_name='linhafala.chamada.assistance.categoria', string="Categoria", required=True)
+        comodel_name='linhafala.chamada.assistance.categoria', string="Categoria")
     subcategory = fields.Many2one(
-        comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria", required=True)
+        comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria")
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
@@ -359,7 +359,7 @@ class CallCaseAssistance(models.Model):
             ("Encerrado", "Encerrado")
         ],
         default="Aberto/Pendente",
-        help="Estado", required=True
+        help="Estado"
     )
     callcaseassistance_priority = fields.Selection(
         string='Período de Resolução',
@@ -370,7 +370,7 @@ class CallCaseAssistance(models.Model):
             ("Não Aplicável", "Não Aplicável"),
         ],
         default="Moderado",
-        help="Período de Resolução", required=True
+        help="Período de Resolução"
     )
     resolution_type = fields.Selection(
         string='Tratamento',
@@ -461,7 +461,7 @@ class AssistanceReferall(models.Model):
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa de Responsável", required=True)
+    spokes_person = fields.Char(string="Pessoa de Responsável")
     spokes_person_phone = fields.Char(string="Telefone do Responsável")
     assistance_status = fields.Selection(
         string='Estado do caso',
@@ -471,5 +471,5 @@ class AssistanceReferall(models.Model):
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
         ],
-        help="Estado do caso", required=True
+        help="Estado do caso"
     )

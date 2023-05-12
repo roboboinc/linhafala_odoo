@@ -101,11 +101,11 @@
                                 <field name="caller_language" />
                             </p>
                             <p>
-                                <strong>Contacto Alterativo: </strong>
+                                <strong title="Campo Opcional">Contacto Alterativo: </strong>
                                 <field name="alternate_contact" />
                             </p>
                             <p>
-                                <strong>Nome Completo: </strong>
+                                <strong title="Campo Opcional">Nome Completo: </strong>
                                 <field name="fullname" />
                             </p>
                             <p>

@@ -98,8 +98,8 @@ class Chamada(models.Model):
     )
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
-    contact = fields.Char(string="Contacto")
-    alternate_contact = fields.Char(string="Contacto Alternativo")
+    contact = fields.Char(string="Contacto", widget="phone_raw", size=13, min_length=9, default="+258")
+    alternate_contact = fields.Char(string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
     wants_to_be_annonymous = fields.Boolean("Consetimento Informado")
     id_number = fields.Selection(
         string='Tipo de Identificação',

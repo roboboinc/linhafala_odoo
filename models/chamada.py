@@ -99,7 +99,7 @@ class Chamada(models.Model):
     fullname = fields.Char(string="Nome completo")
     contact = fields.Char(string="Contacto")
     alternate_contact = fields.Char(string="Contacto Alternativo")
-    wants_to_be_annonymous = fields.Boolean("Deja permanecer Anónimo")
+    wants_to_be_annonymous = fields.Boolean("Consetimento Informado")
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[
@@ -113,9 +113,9 @@ class Chamada(models.Model):
         ],
         help="Tipo de documento de identificação"
     )
-    nr_identication = fields.Char(string="Numero de Identificação")
+    nr_identication = fields.Char(string="Número de Identificação")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia")
+        comodel_name='linhafala.provincia', string="Província")
     distrito = fields.Many2one(
         comodel_name='linhafala.distrito', string="Districto")  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
@@ -157,7 +157,7 @@ class Chamada(models.Model):
         help="Como conhece a LFC"
     )
     category = fields.Many2one(
-        comodel_name='linhafala.categoria', string="Categoria")
+        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     subcategory = fields.Many2one(
         comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
     callcaseassistance_status = fields.Selection(
@@ -185,6 +185,7 @@ class Chamada(models.Model):
                                     string="Linhas de Casos")
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
+
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -225,11 +226,14 @@ class Chamada(models.Model):
         self.callcaseassistance_status = 'Encerrado'
 
     def action_shutdown(self):
-        return ""
-    
+        self.category = 1
+
     def action_silent(self):
-        return ""
-    
+        self.category = 1
+
+    def action_edit(self):
+        self.category = 2
+
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
     #     for record in self:

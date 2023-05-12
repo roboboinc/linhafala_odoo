@@ -10,15 +10,16 @@ class Chamada(models.Model):
         'mail.activity.mixin'
     ]
 
-    call_id = fields.Char(string="Id da chamada", readonly=True)
+    call_id = fields.Char(string="ID da chamada", readonly=True)
     contact_type = fields.Selection(
-        string='Tipo de contacto',
+        string='Fonte de Informação',
         selection=[
             ("SMS BIZ", "SMS BIZ"),
             ("LInha Verde 1458", "LInha Verde 1458"),
             ("Não definido", "Não definido"),
             ("Presencial", "Presencial"),
             ("Telefónica", "Telefónica"),
+             ("Palestras", "Palestras"),
             ("Email", "Email"),
             ("Redes Sociais", "Redes Sociais"),
         ], default="Telefónica",
@@ -230,9 +231,6 @@ class Chamada(models.Model):
 
     def action_silent(self):
         self.category = 1
-
-    def action_edit(self):
-        self.category = 2
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):

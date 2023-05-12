@@ -69,7 +69,7 @@ class Chamada(models.Model):
         help="Type is used to separate Languages"
     )
     victim_relationship = fields.Selection(
-        string='Relação com a(s) vítima(s):',
+        string='Relação com a(s) Vítima(s):',
         selection=[
             ("Mentora", "Mentora"),
             ("Não aplicavél", "Não aplicavél"),
@@ -97,7 +97,7 @@ class Chamada(models.Model):
         help="Relação com a(s) vítima(s):"
     )
     # TODO: Create new contact for each callee on contacts app?
-    fullname = fields.Char(string="Nome completo")
+    fullname = fields.Char(string="Nome Completo")
     contact = fields.Char(string="Contacto")
     alternate_contact = fields.Char(string="Contacto Alternativo")
     wants_to_be_annonymous = fields.Boolean("Consetimento Informado")

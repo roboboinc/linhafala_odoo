@@ -92,7 +92,7 @@
                     <div class="row w-100">
                         <div class="col-md-3 mt-2">
                             <p>
-                                <strong>Tipo de Contacto: </strong>
+                                <strong>Fonte de Informação: </strong>
                                 <field name="contact_type" />
                             </p>
                             <p>
@@ -104,7 +104,7 @@
                                 <field name="alternate_contact" />
                             </p>
                             <p>
-                                <strong>Nome completo: </strong>
+                                <strong>Nome Completo: </strong>
                                 <field name="fullname" />
                             </p>
                             <p>
@@ -123,7 +123,7 @@
                         </div>
                         <div class="col-md-3 mt-2">
                             <p>
-                                <strong>Consetimento: </strong>
+                                <strong>Consetimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
                             <p>
@@ -183,7 +183,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <p>
-                                        <strong>Classe: </strong>
+                                        <strong>Qual a Classe ?: </strong>
                                         <field name="grade" />
                                     </p>
                                     <p>

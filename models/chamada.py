@@ -471,7 +471,7 @@ class AssistanceReferall(models.Model):
             ("Aberto/Pendente", "Aberto/Pendente"),
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
-            ("Encerrado", "Encerrado")
+            ("Encerrado", "Encerrado"),
         ],
         help="Estado do caso"
     )

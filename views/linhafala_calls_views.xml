@@ -91,7 +91,7 @@
                     </h1>
                     <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                     <div class="row w-100">
-                        <div class="col-md-3 mt-2">
+                        <div class="col-md-3 mt-3">
                             <p>
                                 <strong>Fonte de Informação: </strong>
                                 <field name="contact_type" />
@@ -157,7 +157,7 @@
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <notebook>
+                            <notebook class="mb-3">
                                 <page string="Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
@@ -183,11 +183,11 @@
                             </notebook>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p>
+                                    <p attrs="{'invisible': [('on_school','=',False)]}">
                                         <strong>Qual a Classe ?: </strong>
                                         <field name="grade" />
                                     </p>
-                                    <p>
+                                    <p attrs="{'invisible': [('on_school','=',False)]}">
                                         <strong>Nome da Escola / Universidade: </strong>
                                         <field name="school" />
                                     </p>

@@ -100,15 +100,15 @@
                                 <strong>Lingua/Dialeto: </strong>
                                 <field name="caller_language" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong title="Campo Opcional">Contacto Alterativo: </strong>
                                 <field name="alternate_contact" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong title="Campo Opcional">Nome Completo: </strong>
                                 <field name="fullname" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Número de Identificação: </strong>
                                 <field name="nr_identication" />
                             </p>
@@ -116,7 +116,7 @@
                                 <strong>Distrito: </strong>
                                 <field name="distrito" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Gênero: </strong>
                                 <field name="gender" />
                             </p>
@@ -127,7 +127,7 @@
                                 <strong>Consetimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}"> 
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
@@ -147,7 +147,7 @@
                                 <strong>Bairro: </strong>
                                 <field name="bairro" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Idade: </strong>
                                 <field name="age" />
                             </p>

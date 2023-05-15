@@ -36,8 +36,8 @@ class Caso(models.Model):
         default="Moderado",
         help="Período de Resolução", required=True
     )
-    resolution_type = fields.Selection(
-        string='Período de Resolução',
+    case_handling = fields.Selection(
+        string='Tratamento do caso',
         selection=[
             ("Aconselhamento LFC", "Aconselhamento LFC"),
             ("Encaminhado", "Encaminhado"),

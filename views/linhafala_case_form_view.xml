@@ -9,75 +9,92 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="case_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
+                        <field name="case_status" widget="statusbar" options="{'clickable': '1'}"
+                            statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
                     </header>
 
-                    <!-- Add fields here -->
                     <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field class="text-break" name="case_id"
+
+                        <h1> Formulário de casos linha fala criança <h3>
+                                <field class="text-break"
+                                    name="case_id"
                                     placeholder="Número do caso (auto)" />
-                                <field class="text-break" name="call_id"
-                                    placeholder="Número da chamada (auto)" />
-                            </h1>
-                            <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
-                            <group>
-                                <group col="3">
-                                    <!-- <field name="call_id.fullname" readonly="1"/> -->
+                            </h3>
+                        </h1>
+                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                        <div class="row w-100">
+                            <div class="col-md-3 mt-3">
+                                <p>
+                                    <strong>Categoria do Caso: </strong>
+                                    <field name="" />
+                                </p>
+                                <p>
+                                    <strong>Sub Categoria do Caso: </strong>
+                                    <field name="" />
+                                </p>
+                                <p>
+                                    <strong title="Campo Opcional">Classificação Provisoria: </strong>
+                                    <field name="" />
+                                </p>
+                            </div>
+                            <div class="col-md-3 mt-2">
+                                <p>
+                                    <strong title="Campo Opcional">Local de Ocorrência do incidente: </strong>
+                                    <field name="" />
+                                </p>
+                                <p>
+                                    <strong title="Campo Opcional">Tratamento do Caso: </strong>
+                                    <field name="" />
+                                </p>
+                                <p>
+                                    <strong>Periodo de Resolução: </strong>
                                     <field name="case_priority" />
-                                </group>
-                                <group col="3">
-                                    <field name="place_occurrence" />
-                                    <field name="resolution_type" />
-                                </group>
-                                <group col="4">
-                                    <field name="case_type" />
-                                    <field name="secundary_case_type" />
-                                    <field name="case_type_classification" />
-                                </group>
-                                <group col="3">
-                                    <field name="data_ocorrencia" />
-                                    <field name="created_at" />
-                                    <field name="updated_at" />
-                                    <field name="reporter_by" />
-                                </group>
-                            </group>
-                            <notebook>
-                                <page string="Detalhes" name="detailed_description_section">
-                                    <field name="detailed_description" />
-                                </page>
-                                <page string="Pessoas envolvidas" name="persons">
-                                    <field name="persons_involved_line_ids" widget="one2many">
-                                        <tree>
-                                            <field name="fullname" />
-                                            <field name="person_type" />
-                                            <field name="victim_relationship" />
-                                            <field name="provincia" />
-                                            <field name="gender" />
-                                        </tree>
-                                    </field>
-                                </page>
-                                <page string="Encaminhamentos" name="forwarding_institution">
-                                    <field name="forwarding_institution_line_ids" widget="one2many">
-                                        <tree string="Channel" decoration-info="case_status=='Dentro do sistema'" decoration-primary="case_status=='Assistido'" decoration-success="case_status=='Encerrado'" decoration-warning="case_status=='Aberto/Pendente'">
-                                            <field name="reference_entity" />
-                                            <field name="case_reference" />
-                                            <!-- <field name="case_reference" /> --> <!-- TODO: Ensure we can access the relationship -->
-                                            <field name="reference_area" />
-                                            <field decoration-info="case_status=='Dentro do sistema'" 
-                                                   decoration-primary="case_status=='Assistido'" 
-                                                   decoration-success="case_status=='Encerrado'" 
-                                                   decoration-warning="case_status=='Aberto/Pendente'" 
-                                                   widget="badge" name="case_status" />
-                                        </tree>
-                                    </field>
-                                </page>
-                            </notebook>
-
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <notebook>
+                                    <page string="Detalhes" name="detailed_description_section">
+                                        <field name="detailed_description" />
+                                    </page>
+                                    <page string="Pessoas envolvidas" name="persons">
+                                        <field name="persons_involved_line_ids" widget="one2many">
+                                            <tree>
+                                                <field name="fullname" />
+                                                <field name="person_type" />
+                                                <field name="victim_relationship" />
+                                                <field name="provincia" />
+                                                <field name="gender" />
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page string="Encaminhamentos" name="forwarding_institution">
+                                        <field name="forwarding_institution_line_ids"
+                                            widget="one2many">
+                                            <tree string="Channel"
+                                                decoration-info="case_status=='Dentro do sistema'"
+                                                decoration-primary="case_status=='Assistido'"
+                                                decoration-success="case_status=='Encerrado'"
+                                                decoration-warning="case_status=='Aberto/Pendente'">
+                                                <field name="reference_entity" />
+                                                <field name="case_reference" />
+                                                <!-- <field name="case_reference" /> --> <!-- TODO: Ensure we
+                                                can access the relationship -->
+                                                <field name="reference_area" />
+                                                <field
+                                                    decoration-info="case_status=='Dentro do sistema'"
+                                                    decoration-primary="case_status=='Assistido'"
+                                                    decoration-success="case_status=='Encerrado'"
+                                                    decoration-warning="case_status=='Aberto/Pendente'"
+                                                    widget="badge" name="case_status" />
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </div>
                         </div>
-                    </sheet>
 
+
+                    </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" />
                         <field name="activity_ids" />
@@ -88,3 +105,7 @@
         </record>
     </data>
 </odoo>
+
+
+
+                     

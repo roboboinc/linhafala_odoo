@@ -1,3 +1,4 @@
+from xml.dom import ValidationErr
 from odoo import api, fields, models
 import uuid
 
@@ -11,6 +12,8 @@ class Chamada(models.Model):
     ]
 
     call_id = fields.Char(string="ID da chamada", readonly=True)
+    category = fields.Many2one(
+        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     contact_type = fields.Selection(
         string='Fonte de Informação',
         selection=[
@@ -19,7 +22,7 @@ class Chamada(models.Model):
             ("Não definido", "Não definido"),
             ("Presencial", "Presencial"),
             ("Telefónica", "Telefónica"),
-             ("Palestras", "Palestras"),
+            ("Palestras", "Palestras"),
             ("Email", "Email"),
             ("Redes Sociais", "Redes Sociais"),
         ], default="Telefónica",
@@ -35,7 +38,7 @@ class Chamada(models.Model):
             ("Perdida", "Perdida"),
             ("Engano", "Engano"),
             ("Informação Geral sobre a LFC", "Informação Geral sobre a LFC"),
-        ], default="",
+        ],
         help="Type is used to separate Contact types"
     )
     caller_language = fields.Selection(
@@ -65,7 +68,7 @@ class Chamada(models.Model):
                    ("Isizulo", "Isizulo - (zulo)"),
                    ("Siswati", "Siswati - (swati)"),
                    ("Chewa", "Chewa - (Chichewa)")
-                   ],
+                   ], required=True,
         help="Type is used to separate Languages"
     )
     victim_relationship = fields.Selection(
@@ -98,8 +101,10 @@ class Chamada(models.Model):
     )
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
-    contact = fields.Char(string="Contacto", widget="phone_raw", size=13, min_length=9, default="+258")
-    alternate_contact = fields.Char(string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
+    contact = fields.Char(string="Contacto", widget="phone_raw",
+                          size=13, min_length=9, default="+258")
+    alternate_contact = fields.Char(
+        string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
     wants_to_be_annonymous = fields.Boolean("Consetimento Informado")
     id_number = fields.Selection(
         string='Tipo de Identificação',
@@ -116,9 +121,9 @@ class Chamada(models.Model):
     )
     nr_identication = fields.Char(string="Número de Identificação")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Província")
+        comodel_name='linhafala.provincia', string="Província", required=True)
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")  # ,
+        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
@@ -127,22 +132,22 @@ class Chamada(models.Model):
             ("male", "Masculino"),
             ("female", "Feminino"),
             ("other", "Desconhecido"),
-        ],
+        ], required=True,
         help="Sexo"
     )
     age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
                            string='Idade')
-    on_school = fields.Boolean("Estuda?")
+    on_school = fields.Boolean("Estuda?", required=True)
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
     school = fields.Char(string="Escola")
     call_start = fields.Datetime(string='Hora de início da chamada',
-                                 default=fields.Datetime.now, readonly=True)
+                                 default=fields.Datetime.now, readonly=True, required=True)
     call_end = fields.Datetime(
         string='Hora de fim da chamada', readonly=False)
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'})
+                                       'style': 'height: 500px;'}, required=True)
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -157,8 +162,7 @@ class Chamada(models.Model):
         ],
         help="Como conhece a LFC"
     )
-    category = fields.Many2one(
-        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
+
     subcategory = fields.Many2one(
         comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
     callcaseassistance_status = fields.Selection(
@@ -186,7 +190,6 @@ class Chamada(models.Model):
                                     string="Linhas de Casos")
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
-
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -231,6 +234,7 @@ class Chamada(models.Model):
 
     def action_silent(self):
         self.category = 1
+
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):

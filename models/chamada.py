@@ -105,7 +105,7 @@ class Chamada(models.Model):
                           size=13, min_length=9, default="+258")
     alternate_contact = fields.Char(
         string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
-    wants_to_be_annonymous = fields.Boolean("Consetimento Informado")
+    wants_to_be_annonymous = fields.Boolean("Consetimento Informado", default=True)
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[

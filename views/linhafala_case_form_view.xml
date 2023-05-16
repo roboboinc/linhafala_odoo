@@ -78,11 +78,11 @@
                                                                 <strong>Consentimento Informado: </strong>
                                                                 <field name="wants_to_be_annonymous" />
                                                             </p>
-                                                            <p>
+                                                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                                                 <strong>Nome Completo: </strong>
                                                                 <field name="fullname" />
                                                             </p>
-                                                            <p>
+                                                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                                                 <strong>Contacto: </strong>
                                                                 <field name="contact" />
                                                             </p>

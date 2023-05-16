@@ -36,6 +36,17 @@ class Caso(models.Model):
         default="Moderado",
         help="Período de Resolução", required=True
     )
+    resolution_type = fields.Selection(
+        string='Tratamento do caso',
+        selection=[
+            ("Aconselhamento LFC", "Aconselhamento LFC"),
+            ("Encaminhado", "Encaminhado"),
+            ("Não encaminhado", "Não encaminhado"),
+        ],
+        default="Aconselhamento LFC",
+        help="Tratamento do caso", required=True
+    )
+
     case_handling = fields.Selection(
         string='Tratamento do caso',
         selection=[
@@ -47,7 +58,7 @@ class Caso(models.Model):
         help="Tratamento do caso", required=True
     )
     place_occurrence = fields.Selection(
-        string='Período de Resolução',
+        string='Local de Ocor',
         selection=[
             ("Escola", "Escola"),
             ("Casa de parente / vizinho", "Casa de parente / vizinho"),
@@ -194,7 +205,7 @@ class PersonInvolved(models.Model):
         help="Tipo de documento de identificação"
     )
     nr_identication = fields.Char(string="Numero de Identificação")
-    wants_to_be_annonymous = fields.Boolean("Deja permanecer Anónimo")
+    wants_to_be_annonymous = fields.Boolean("Consentimento Informado")
     person_type = fields.Selection(
         string='Categoria',
         selection=[

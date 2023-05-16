@@ -124,7 +124,7 @@
                         </div>
                         <div class="col-md-3 mt-2">
                             <p>
-                                <strong>Consetimento Informado: </strong>
+                                <strong>Consentimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}"> 

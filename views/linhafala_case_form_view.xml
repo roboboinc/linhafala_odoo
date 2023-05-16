@@ -26,29 +26,41 @@
                             <div class="col-md-3 mt-3">
                                 <p>
                                     <strong>Categoria do Caso: </strong>
-                                    <field name="" />
+                                    <field name="case_type" />
                                 </p>
                                 <p>
                                     <strong>Sub Categoria do Caso: </strong>
-                                    <field name="" />
+                                    <field name="secundary_case_type" />
                                 </p>
                                 <p>
                                     <strong title="Campo Opcional">Classificação Provisoria: </strong>
-                                    <field name="" />
+                                    <field name="case_type_classification" />
+                                </p>
+                                <p>
+                                    <strong title="Campo Opcional">Criado Por: </strong>
+                                    <field name="created_by" />
                                 </p>
                             </div>
                             <div class="col-md-3 mt-2">
                                 <p>
                                     <strong title="Campo Opcional">Local de Ocorrência do incidente: </strong>
-                                    <field name="" />
+                                    <field name="place_occurrence" />
                                 </p>
                                 <p>
                                     <strong title="Campo Opcional">Tratamento do Caso: </strong>
-                                    <field name="" />
+                                    <field name="case_handling" />
                                 </p>
                                 <p>
                                     <strong>Periodo de Resolução: </strong>
                                     <field name="case_priority" />
+                                </p>
+                                <p>
+                                    <strong>Data de Ocorrência: </strong>
+                                    <field name="data_ocorrencia" />
+                                </p>
+                                <p>
+                                    <strong>Data de Criação: </strong>
+                                    <field name="created_at" />
                                 </p>
                             </div>
                             <div class="col-md-6">
@@ -58,10 +70,66 @@
                                     </page>
                                     <page string="Pessoas envolvidas" name="persons">
                                         <field name="persons_involved_line_ids" widget="one2many">
+                                            <form>
+                                                <sheet>
+                                                    <div class="row w-100">
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <strong>Consentimento Informado: </strong>
+                                                                <field name="wants_to_be_annonymous" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Nome Completo: </strong>
+                                                                <field name="fullname" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Contacto: </strong>
+                                                                <field name="contact" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Categoria dos envolvidos: </strong>
+                                                                <field
+                                                                    name="person_type" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Tipo
+                                                                    de Identificação: </strong>
+                                                                <field
+                                                                    name="id_number" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <strong>
+                                                                    Província: </strong>
+                                                                <field name="provincia" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>
+                                                                    Distrito: </strong>
+                                                                <field name="distrito"
+                                                                />
+                                                            </p>
+                                                            <p>
+                                                                <strong>
+                                                                    Bairro: </strong>
+                                                                <field name="bairro" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Gênero: </strong>
+                                                                <field name="gender" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Idade: </strong>
+                                                                <field name="age" />
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </sheet>
+                                            </form>
                                             <tree>
                                                 <field name="fullname" />
                                                 <field name="person_type" />
-                                                <field name="victim_relationship" />
                                                 <field name="provincia" />
                                                 <field name="gender" />
                                             </tree>

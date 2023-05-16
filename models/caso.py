@@ -205,7 +205,7 @@ class PersonInvolved(models.Model):
         help="Tipo de documento de identificação"
     )
     nr_identication = fields.Char(string="Numero de Identificação")
-    wants_to_be_annonymous = fields.Boolean("Consentimento Informado")
+    wants_to_be_annonymous = fields.Boolean("Consentimento Informado", default=True)
     person_type = fields.Selection(
         string='Categoria',
         selection=[
@@ -279,7 +279,7 @@ class PersonInvolved(models.Model):
         ],
         help="Sexo", required=True
     )
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]

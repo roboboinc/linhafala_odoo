@@ -1,6 +1,33 @@
 <?xml version="1.0"?>
 <odoo>
 
+    <record id="view_assistance_kanban" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.kanban</field>
+        <field name="model">linhafala.chamada.assistance</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="callcaseassistance_status">
+                <field name="fullname" />
+                <field name="age" />
+                <field name="gender" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> Benificiário: <field name="fullname" /></li>
+                                    <li> Age: <field name="age" /></li>
+                                    <li> Gender: <field name="gender" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_assistance_view_tree" model="ir.ui.view">
         <field name="name">linhafala.assistance.tree</field>
         <field name="model">linhafala.chamada.assistance</field>
@@ -33,7 +60,7 @@
     <record id="linhafala_assistance_action" model="ir.actions.act_window">
         <field name="name">Assistências</field>
         <field name="res_model">linhafala.chamada.assistance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar assistências ou contactos recebidos
@@ -112,6 +139,7 @@
                                 <strong>Sub Categoria: </strong>
                                 <field name="subcategory" />
                             </p>
+
 
                         </div>
                         <div class="col-md-6">

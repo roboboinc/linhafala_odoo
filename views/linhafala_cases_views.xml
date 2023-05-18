@@ -1,27 +1,59 @@
 <?xml version="1.0"?>
 <odoo>
+
+
+    <record id="view_cases_kanban" model="ir.ui.view">
+        <field name="name">linhafala.caso.kanban</field>
+        <field name="model">linhafala.caso</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="case_status">
+                <field name="case_id" />
+                <field name="case_priority" />
+                <field name="place_occurrence" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="case_id" /></li>
+                                    <li> Periodo de Resolução: <field name="case_priority" /></li>
+                                    <li> Local de Ocorrência: <field name="place_occurrence" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_case_view_tree" model="ir.ui.view">
         <field name="name">linhafala.caso.tree</field>
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="case_status=='Dentro do sistema'" decoration-primary="case_status=='Assistido'" decoration-success="case_status=='Encerrado'" decoration-warning="case_status=='Aberto/Pendente'">
-                <field name="case_id" optional="show"/>
-                <field name="case_type_classification"  optional="hide"/>
-                <field name="reporter_by"  optional="show"/>
-                <field name="resolution_type"  optional="show"/>
-                <field name="case_type"  optional="show"/>
-                <field name="secundary_case_type"  optional="hide"/>
-                <field name="place_occurrence"  optional="show"/>
-                <field name="case_priority"  optional="hide"/>
-                <field name="created_by"  optional="hide"/>
-                <field name="created_at"  optional="hide"/>
-                <field name="data_ocorrencia"  optional="hide"/>
-                <field decoration-info="case_status=='Dentro do sistema'" 
-                       decoration-primary="case_status=='Assistido'" 
-                       decoration-success="case_status=='Encerrado'" 
-                       decoration-warning="case_status=='Aberto/Pendente'" 
-                       widget="badge" name="case_status"  optional="show"/>
-                </tree>
+            <tree string="Channel" decoration-info="case_status=='Dentro do sistema'"
+                decoration-primary="case_status=='Assistido'"
+                decoration-success="case_status=='Encerrado'"
+                decoration-warning="case_status=='Aberto/Pendente'">
+                <field name="case_id" optional="show" />
+                <field name="case_type_classification" optional="hide" />
+                <field name="reporter_by" optional="show" />
+                <field name="resolution_type" optional="show" />
+                <field name="case_type" optional="show" />
+                <field name="secundary_case_type" optional="hide" />
+                <field name="place_occurrence" optional="show" />
+                <field name="case_priority" optional="hide" />
+                <field name="created_by" optional="hide" />
+                <field name="created_at" optional="hide" />
+                <field name="data_ocorrencia" optional="hide" />
+                <field decoration-info="case_status=='Dentro do sistema'"
+                    decoration-primary="case_status=='Assistido'"
+                    decoration-success="case_status=='Encerrado'"
+                    decoration-warning="case_status=='Aberto/Pendente'"
+                    widget="badge" name="case_status" optional="show" />
+            </tree>
         </field>
     </record>
 
@@ -29,7 +61,7 @@
     <record id="linhafala_caso_action" model="ir.actions.act_window">
         <field name="name">Casos</field>
         <field name="res_model">linhafala.caso</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar Casos

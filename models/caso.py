@@ -2,7 +2,6 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError
 import uuid
 
-
 class Caso(models.Model):
     _name = "linhafala.caso"
     _description = "Formulário de Caso linha fala criança"
@@ -93,7 +92,7 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    persons_involved_line_ids = fields.One2many('linhafala.caso.person_involved', 'case_id',
+    persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
                                                 string="Person Involved lines")
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                 string="Instituição de encaminhamento")
@@ -190,6 +189,7 @@ class PersonInvolved(models.Model):
     _name = "linhafala.caso.person_involved"
     _description = "Person Involved Lines"
 
+
     fullname = fields.Char(string="Nome completo", required=True)
     id_number = fields.Selection(
         string='Tipo de Identificação',
@@ -279,7 +279,7 @@ class PersonInvolved(models.Model):
         ],
         help="Sexo", required=True
     )
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]

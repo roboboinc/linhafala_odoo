@@ -2,7 +2,6 @@ from odoo import api, fields, models
 from odoo.exceptions import UserError
 import uuid
 
-
 class Caso(models.Model):
     _name = "linhafala.caso"
     _description = "Formulário de Caso linha fala criança"
@@ -37,7 +36,18 @@ class Caso(models.Model):
         help="Período de Resolução", required=True
     )
     resolution_type = fields.Selection(
-        string='Período de Resolução',
+        string='Tratamento do caso',
+        selection=[
+            ("Aconselhamento LFC", "Aconselhamento LFC"),
+            ("Encaminhado", "Encaminhado"),
+            ("Não encaminhado", "Não encaminhado"),
+        ],
+        default="Aconselhamento LFC",
+        help="Tratamento do caso", required=True
+    )
+
+    case_handling = fields.Selection(
+        string='Tratamento do caso',
         selection=[
             ("Aconselhamento LFC", "Aconselhamento LFC"),
             ("Encaminhado", "Encaminhado"),
@@ -47,7 +57,7 @@ class Caso(models.Model):
         help="Tratamento do caso", required=True
     )
     place_occurrence = fields.Selection(
-        string='Período de Resolução',
+        string='Local de Ocor',
         selection=[
             ("Escola", "Escola"),
             ("Casa de parente / vizinho", "Casa de parente / vizinho"),
@@ -82,7 +92,7 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    persons_involved_line_ids = fields.One2many('linhafala.caso.person_involved', 'case_id',
+    persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
                                                 string="Person Involved lines")
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                 string="Instituição de encaminhamento")
@@ -179,6 +189,7 @@ class PersonInvolved(models.Model):
     _name = "linhafala.caso.person_involved"
     _description = "Person Involved Lines"
 
+
     fullname = fields.Char(string="Nome completo", required=True)
     id_number = fields.Selection(
         string='Tipo de Identificação',
@@ -194,7 +205,7 @@ class PersonInvolved(models.Model):
         help="Tipo de documento de identificação"
     )
     nr_identication = fields.Char(string="Numero de Identificação")
-    wants_to_be_annonymous = fields.Boolean("Deja permanecer Anónimo")
+    wants_to_be_annonymous = fields.Boolean("Consentimento Informado", default=True)
     person_type = fields.Selection(
         string='Categoria',
         selection=[
@@ -268,7 +279,7 @@ class PersonInvolved(models.Model):
         ],
         help="Sexo", required=True
     )
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]

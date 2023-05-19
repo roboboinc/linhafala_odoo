@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Odoo compiled files
 __pycache__/
 *.pyc
@@ -16,6 +17,9 @@ __pycache__/
 # Local database files
 *.db
 =======
+=======
+
+>>>>>>> 6ac607f91698ec4148d1b6d000bb65f605da73ff
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -47,4 +51,7 @@ Thumbs.db
 *.key
 *.pem
 *.secret
+<<<<<<< HEAD
 >>>>>>> LAT-39-review-and-update-the-calls-layout
+=======
+>>>>>>> 6ac607f91698ec4148d1b6d000bb65f605da73ff

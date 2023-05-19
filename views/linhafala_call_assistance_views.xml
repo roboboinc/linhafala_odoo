@@ -83,63 +83,84 @@
                         options="{'clickable': '1'}"
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
-                <!-- Add fields here -->
                 <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field class="text-break" name="assistance_id"
-                                placeholder="Número da assisdtência (auto)" />
-                        </h1>
-                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
-                        <group>
-                            <group col="3">
-                                <field name="call_id" readonly="1" />
+                    <h1 class="my-3"> Formulário de Assistência LFC <h3>
+                            <field class="text-break"
+                                name="call_id"
+                                placeholder="Número de chamada (auto)" />
+                        </h3>
+                    </h1>
+                    <div class="row w-100">
+                        <div class="col-md-3">
+                            <p>
+                                <strong>Benificiário: </strong>
                                 <field name="fullname" />
-                                <field name="contact" />
-                            </group>
-                            <group col="3">
-                                <field name="gender" />
-                                <field name="age" />
-                            </group>
-                            <group col="3">
-                                <field name="category" />
-                                <field name="subcategory" />
-                            </group>
-                            <group col="3">
-                                <field name="callcaseassistance_status" />
-                                <field name="callcaseassistance_priority" />
-                                <field name="resolution_type" />
-                            </group>
-                            <group col="3">
+                            </p>
+                            <p>
+                                <strong>Província: </strong>
                                 <field name="provincia" />
-                                <field name="distrito" />
+                            </p>
+                            <p>
+                                <strong>Bairro: </strong>
                                 <field name="bairro" />
-                            </group>
-                            <group col="3">
-                                <field name="reporter" />
-                                <field name="created_at" />
-                                <field name="created_by" />
-                            </group>
+                            </p>
+                            <p>
+                                <strong>
+                                    Categoria: </strong>
+                                <field name="category" />
+                            </p>
+                            <p>
+                                <strong>Periodo de Resolução: </strong>
+                                <field name="callcaseassistance_priority" />
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                <strong>Contacto: </strong>
+                                <field name="contact" />
+                            </p>
+                            <p>
+                                <strong>Distrito: </strong>
+                                <field
+                                    name="distrito" />
+                            </p>
+                            <p>
+                                <strong>
+                                    Gênero: </strong>
+                                <field name="gender" />
+                            </p>
+                            <p>
+                                <strong>
+                                    Idade: </strong>
+                                <field name="age"
+                                />
+                            </p>
+                            <p>
+                                <strong>Sub Categoria: </strong>
+                                <field name="subcategory" />
+                            </p>
 
-                        </group>
-                        <notebook>
-                            <page string="Detalhes" name="detailed_description_section">
-                                <field name="detailed_description" />
-                            </page>
-                            <page string="Referências de Assistências" name="assistance_references">
-                                <field name="assistance_referral_line_ids" widget="one2many">
-                                    <tree>
-                                        <field name="area_type" />
-                                        <field name="reference_entity" />
-                                        <field name="spokes_person" />
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
 
+                        </div>
+                        <div class="col-md-6">
+                            <notebook>
+                                <page string="Detalhes" name="detailed_description_section">
+                                    <field name="detailed_description" />
+                                </page>
+                                <page string="Referências de Assistências"
+                                    name="assistance_references">
+                                    <field name="assistance_referral_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="area_type" />
+                                            <field name="reference_entity" />
+                                            <field name="spokes_person" />
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </div>
                     </div>
                 </sheet>
-
                 <div class="oe_chatter">
                     <field name="message_follower_ids" />
                     <field name="activity_ids" />

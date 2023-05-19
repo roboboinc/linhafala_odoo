@@ -146,8 +146,7 @@ class Chamada(models.Model):
                                  default=fields.Datetime.now, readonly=True, required=True)
     call_end = fields.Datetime(
         string='Hora de fim da chamada', readonly=False)
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'}, required=True)
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=False)
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -348,10 +347,9 @@ class CallCaseAssistance(models.Model):
         help="Sexo"
     )
 
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 81)] + [('81+', '81+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
                            string='Idade')
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'})
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=False)
     category = fields.Many2one(
         comodel_name='linhafala.chamada.assistance.categoria', string="Categoria")
     subcategory = fields.Many2one(

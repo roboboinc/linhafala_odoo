@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Odoo compiled files
 __pycache__/
 *.pyc
@@ -14,3 +15,36 @@ __pycache__/
 
 # Local database files
 *.db
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings
+.env
+venv/
+env/
+env.bak/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Other generated files
+*.pyc
+.DS_Store
+*.swp
+Thumbs.db
+
+# Other sensitive or private information
+*.key
+*.pem
+*.secret
+>>>>>>> LAT-39-review-and-update-the-calls-layout

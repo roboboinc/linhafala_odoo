@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="case_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                        <field name="case_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
                     </header>
 
                     <!-- Add fields here -->

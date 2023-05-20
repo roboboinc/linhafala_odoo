@@ -3,7 +3,7 @@
     <data>
         <report id="report_calls_card"
             string="Calls Report"
-            model="linhafala.caso"
+            model="linhafala.chamada"
             report_type="qweb-pdf"
             name="linhafala_odoo.report_calls"
             file="linhafala_odoo.report_calls" />

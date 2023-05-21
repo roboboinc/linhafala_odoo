@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <report id="report_calls_card"
-            string="Calls Report"
-            model="linhafala.chamada"
-            report_type="qweb-pdf"
-            name="linhafala_odoo.report_calls"
-            file="linhafala_odoo.report_calls" />
-    </data>
-
-    <data>
         <report id="report_case_card"
             string="Case Report"
             model="linhafala.caso"
             report_type="qweb-pdf"
             name="linhafala_odoo.report_case"
             file="linhafala_odoo.report_case" />
+
+        <report id="report_calls_card"
+            string="Calls Report"
+            model="linhafala.chamada"
+            report_type="qweb-pdf"
+            name="linhafala_odoo.report_calls"
+            file="linhafala_odoo.report_calls" />
     </data>
 </odoo>

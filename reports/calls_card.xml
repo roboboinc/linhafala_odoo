@@ -26,29 +26,29 @@
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="doc">
-                                <!-- <tr>
+                                <tr>
                                     <td>
-                                        <t t-esc="doc.call_id.fullname" />
+                                        <t t-esc="doc.fullname" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.contact" />
+                                        <t t-esc="doc.contact" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.alternate_contact" />
+                                        <t t-esc="doc.alternate_contact" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.age" />
+                                        <t t-esc="doc.age" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.gender" />
+                                        <t t-esc="doc.gender" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.victim_relationship" />
+                                        <t t-esc="doc.victim_relationship" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.caller_language" />
+                                        <t t-esc="doc.caller_language" />
                                     </td>
-                                </tr> -->
+                                </tr>
                             </t>
                         </tbody>
                     </table>
@@ -172,8 +172,8 @@
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
                     <t t-foreach="docs" t-as="doc">
 
-                        <!-- <t
-                            t-esc="doc.call_id.detailed_description" /> -->
+                        <t
+                            t-esc="doc.detailed_description" />
                         <br />
 
                     </t>

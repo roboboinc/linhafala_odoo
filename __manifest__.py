@@ -29,6 +29,7 @@
         'data/linhafala.chamada.assistance.subcategoria.csv',
         'reports/case_card.xml',
         'reports/calls_card.xml',
+        'reports/assistance_card.xml',
         'reports/report.xml',
 
     ],

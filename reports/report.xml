@@ -14,5 +14,12 @@
             report_type="qweb-pdf"
             name="linhafala_odoo.report_calls"
             file="linhafala_odoo.report_calls" />
+
+        <report id="report_assistance_card"
+            string="Assistance Report"
+            model="linhafala.chamada.assistance"
+            report_type="qweb-pdf"
+            name="linhafala_odoo.report_assistance"
+            file="linhafala_odoo.report_assistance" />
     </data>
 </odoo>

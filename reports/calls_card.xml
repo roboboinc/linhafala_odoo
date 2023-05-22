@@ -26,7 +26,7 @@
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="doc">
-                                <tr>
+                                <!-- <tr>
                                     <td>
                                         <t t-esc="doc.fullname" />
                                     </td>
@@ -48,7 +48,7 @@
                                     <td>
                                         <t t-esc="doc.caller_language" />
                                     </td>
-                                </tr>
+                                </tr> -->
                             </t>
                         </tbody>
                     </table>
@@ -69,22 +69,22 @@
                             <t t-foreach="docs" t-as="doc">
                                 <!-- <tr>
                                     <td>
-                                        <t t-esc="doc." />
+                                        <t t-esc="doc.person_id.fullname" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc." />
+                                        <t t-esc="doc.person_id." />
                                     </td>
                                     <td>
-                                        <t t-esc="doc." />
+                                        <t t-esc="doc.person_id." />
                                     </td>
                                     <td>
-                                        <t t-esc="doc." />
+                                        <t t-esc="doc.person_id." />
                                     </td>
                                     <td>
-                                        <t t-esc="doc." />
+                                        <t t-esc="doc.person_id." />
                                     </td>
                                     <td>
-                                        <t t-esc="doc." />
+                                        <t t-esc="doc.person_id." />
                                     </td>
                                 </tr> -->
                             </t>
@@ -172,9 +172,9 @@
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
                     <t t-foreach="docs" t-as="doc">
 
-                        <t
+                        <!-- <t
                             t-esc="doc.detailed_description" />
-                        <br />
+                        <br /> -->
 
                     </t>
                 </div>

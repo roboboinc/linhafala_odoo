@@ -49,6 +49,17 @@ class moz_learning_complaint_details(models.Model):
         help="Especifique"
     )
 
+    type_of_vbg = fields.Selection(
+        string='Qual o tipo',
+        selection=[
+            ("Abuso Sexual", "Abuso Sexual"),
+            ("Assédio Sexual", "Assédio Sexual"),
+            ("Exploração Sexual", "Exploração Sexual"),
+            ("Outras formas de VBG", "Outras formas de VBG"),
+        ],
+        help="Qual o tipo"
+    )
+
     level_of_urgency = fields.Selection(
         string='Nivel de urgência',
         selection=[
@@ -103,5 +114,5 @@ class moz_learning_complaint_details(models.Model):
 
     updated_at = fields.Datetime(string='Data de actualizaçäo',
                                  default=lambda self: fields.Datetime.now(), readonly=True)
-    
+
     specify_others = fields.Char(string="Especifique Outros")

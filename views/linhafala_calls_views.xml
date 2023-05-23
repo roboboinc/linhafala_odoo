@@ -192,7 +192,7 @@
                                 <page string="Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
-                                <page string="Caso(s) Relacionados" name="cases">
+                                <page attrs="{'invisible': [('type_of_intervention','!=','Caso')]}" string="Caso(s) Relacionados" name="cases">
                                     <field name="case_line_ids" widget="one2many">
                                         <tree>
                                             <field name="case_id" />
@@ -202,7 +202,7 @@
                                         </tree>
                                     </field>
                                 </page>
-                                <page string="Assistência(s) Relacionadas" name="assistance">
+                                <page attrs="{'invisible': [('type_of_intervention','!=','Chamada de Assistência')]}" string="Assistência(s) Relacionadas" name="assistance">
                                     <field name="assistance_line_ids" widget="one2many">
                                         <tree>
                                             <field name="assistance_id" />
@@ -210,6 +210,9 @@
                                             <field name="callcaseassistance_status" />
                                         </tree>
                                     </field>
+                                </page>
+                                <page string="Moz Leaning" name="detailed_description_section">
+                                    <field name="detailed_description" />
                                 </page>
                             </notebook>
                             <div class="row">

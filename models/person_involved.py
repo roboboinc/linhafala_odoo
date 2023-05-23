@@ -8,6 +8,11 @@ class PersonInvolved(models.Model):
 
     person_id = fields.Char(string="ID person_involved", readonly=True)
     fullname = fields.Char(string="Nome completo", required=True)
+
+    address = fields.Char(string="Endereço da Vitima")
+
+    email = fields.Char(string="Endereço Eletronico")
+    
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[

@@ -39,7 +39,7 @@
                 decoration-success="callcaseassistance_status=='Encerrado'"
                 decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
                 <field name="call_id" optional="hide" />
-                  <field name="fullname" optional="hide" />
+                <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />
                 <field name="contact" optional="show" />
                 <field name="alternate_contact" optional="hide" />

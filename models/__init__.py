@@ -9,3 +9,4 @@ from . import caso_subcategoria
 from . import case_type_classification
 from . import knowledgebase
 from . import person_involved
+from . import moz_learning

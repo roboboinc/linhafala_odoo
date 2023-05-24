@@ -1,6 +1,35 @@
 <?xml version="1.0"?>
 <odoo>
 
+    <record id="view_moz_learning_kanban" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.kanban</field>
+        <field name="model">linhafala.moz_learning</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="level_of_urgency">
+                <field name="moz_learning_id" />
+                <field name="fullname" />
+                <field name="contact" />
+                <field name="gender" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="moz_learning_id" /></li>
+                                    <li> Name: <field name="fullname" /></li>
+                                    <li> Gender: <field name="gender" /></li>
+                                    <li> Contacto: <field name="contact" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_moz_learning_view_tree" model="ir.ui.view">
         <field name="name">linhafala.moz_learning.tree</field>
         <field name="model">linhafala.moz_learning</field>
@@ -33,6 +62,7 @@
                 <field name="process_situation" optional="hide" />
                 <field name="updated_at" optional="hide" />
                 <field name="specify_others" optional="hide" />
+                <field name="created_by" optional="show" />
             </tree>
         </field>
     </record>
@@ -41,7 +71,12 @@
     <record id="linhafala_moz_learning_action" model="ir.actions.act_window">
         <field name="name">Moz Learning</field>
         <field name="res_model">linhafala.moz_learning</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registe informações do Moz Learning
+            </p>
+        </field>
     </record>
 
     <record id="linhafala_moz_learning_form_view" model="ir.ui.view">

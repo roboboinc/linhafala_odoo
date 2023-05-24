@@ -1,5 +1,51 @@
 <?xml version="1.0"?>
 <odoo>
 
-   
+    <record id="linhafala_moz_learning_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.tree</field>
+        <field name="model">linhafala.moz_learning</field>
+        <field name="arch" type="xml">
+            <tree>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="linhafala_moz_learning_action" model="ir.actions.act_window">
+        <field name="name">Moz Learning</field>
+        <field name="res_model">linhafala.moz_learning</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registar chamadas ou contactos recebidos
+            </p>
+            <p>
+                Usar nova chamada para explicar e detalhar um novo contacto.
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_moz_learning_form_view" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.form</field>
+        <field name="model">linhafala.moz_learning</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+
+                </header>
+                <sheet>
+
+
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
 </odoo>

@@ -6,7 +6,19 @@
         <field name="model">linhafala.moz_learning</field>
         <field name="arch" type="xml">
             <tree>
-
+                <field name="moz_learning_id" optional="show" />
+                <field name="fullname" optional="show" />
+                <field name="contact" optional="show" />
+                <field name="gender" optional="show" />
+                <field name="birthd_date" optional="show" />
+                <field name="id_number" optional="hide" />
+                <field name="provincia" optional="show" />
+                <field name="distrito" optional="show" />
+                <field name="administrative_post" optional="hide" />
+                <field name="locality" optional="show" />
+                <field name="community" optional="hide" />
+                <field name="isVictim" optional="hide" />
+                <field name="wants_to_be_annonymous" optional="hide" />
             </tree>
         </field>
     </record>
@@ -16,14 +28,6 @@
         <field name="name">Moz Learning</field>
         <field name="res_model">linhafala.moz_learning</field>
         <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Registar chamadas ou contactos recebidos
-            </p>
-            <p>
-                Usar nova chamada para explicar e detalhar um novo contacto.
-            </p>
-        </field>
     </record>
 
     <record id="linhafala_moz_learning_form_view" model="ir.ui.view">

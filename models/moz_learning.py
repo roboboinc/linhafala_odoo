@@ -11,15 +11,16 @@ class MozLearning(models.Model):
         'mail.activity.mixin'
     ]
 
-    moz_learning_id = fields.Char(string="ID Moz Learning", readonly=True, unique=True)
-
+    moz_learning_id = fields.Char(
+        string="ID Moz Learning", readonly=True, unique=True)
 
     wants_to_be_annonymous = fields.Boolean(
         "Consetimento Informado", default=True)
 
     fullname = fields.Char(string="Nome Completo", required=True)
 
-    birthd_date = fields.Datetime(string="Data de Nascimento", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+    birthd_date = fields.Datetime(
+        string="Data de Nascimento", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
 
     gender = fields.Selection(
         string='Sexo',
@@ -32,7 +33,7 @@ class MozLearning(models.Model):
 
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
-    
+
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[
@@ -49,13 +50,13 @@ class MozLearning(models.Model):
 
     isVictim = fields.Boolean(
         "O Denunciante é Vítima ?")
-    
+
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Província")
 
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto") 
-    
+        comodel_name='linhafala.distrito', string="Districto")
+
     administrative_post = fields.Char(string="Posto Administrativo")
 
     locality = fields.Char(string="Localidade")
@@ -142,7 +143,7 @@ class MozLearning(models.Model):
         string="Nome do ponto focal que recebeu a reclamação (caso tenha sido recebida presencialmente)")
 
     focal_point_contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação", widget="phone_raw",
-                          size=13, min_length=9, default="+258")
+                                      size=13, min_length=9, default="+258")
 
     moz_learning_details = fields.Char(string="Resumo da queixa")
 
@@ -164,3 +165,6 @@ class MozLearning(models.Model):
                                  default=lambda self: fields.Datetime.now(), readonly=True)
 
     specify_others = fields.Char(string="Especifique Outros")
+
+    created_by = fields.Many2one(
+        'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)

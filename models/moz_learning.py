@@ -30,9 +30,12 @@ class MozLearning(models.Model):
         ], required=True,
         help="Sexo"
     )
+    have_a_phone = fields.Boolean(
+        "Tem Telefone")
 
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
+    other_means_of_contact = fields.Char(string="Outro meio de Contacto")
 
     id_number = fields.Selection(
         string='Tipo de Identificação',
@@ -47,6 +50,9 @@ class MozLearning(models.Model):
         ],
         help="Tipo de documento de identificação"
     )
+
+    document_number = fields.Char(string="Numero do documento", widget="phone_raw",
+                          size=13 )
 
     isVictim = fields.Boolean(
         "O Denunciante é Vítima ?")

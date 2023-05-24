@@ -90,6 +90,135 @@
                 </header>
                 <sheet>
 
+                    <h1> Formulário do Moz Learning LFC <h3>
+                            <field class="text-break"
+                                name="moz_learning_id"
+                                placeholder="Número de Moz Learning (auto)" />
+                        </h3>
+                    </h1>
+
+                    <div class="row w-100">
+                        <div class="col-md-3">
+                            <h3 class="text-muted"><span class="text-dark">A.</span> Identificação
+                                do reclamante</h3>
+                            <p>
+                                <strong>Consetimento Informado da reclamação: </strong>
+                                <field name="wants_to_be_annonymous" />
+                            </p>
+                            <p>
+                                <strong>Nome do Reclamante: </strong>
+                                <field name="fullname" />
+                            </p>
+                            <p>
+                                <strong>Data de Nascimento: </strong>
+                                <field name="birthd_date" />
+                            </p>
+                            <p>
+                                <strong>Gênero: </strong>
+                                <field name="gender" />
+                            </p>
+                            <p>
+                                <strong>Contacto: </strong>
+                                <field name="contact" />
+                            </p>
+                            <p>
+                                <strong>Outro meio de Contacto: </strong>
+                                <field name="other_means_of_contact" />
+                            </p>
+                            <p>
+                                <strong>Documento de Identificação: </strong>
+                                <field name="id_number" />
+                            </p>
+                            <p>
+                                <strong>Número do Documento: </strong>
+                                <field name="document_number" />
+                            </p>
+                            <p>
+                                <strong>O Denúnciante é Vítima ?: </strong>
+                                <field name="isVictim" />
+                            </p>
+
+                        </div>
+                        <div class="col-md-3 mt-1">
+                            <p>
+                                <strong>Consentimento Informado: </strong>
+                                <!-- <field name="wants_to_be_annonymous" /> -->
+                            </p>
+                            <p>
+                                <strong>Contacto: </strong>
+                                <!-- <field name="contact" /> -->
+                            </p>
+                            <p>
+                                <strong>Relação com a Vítima: </strong>
+                                <!-- <field name="victim_relationship" /> -->
+                            </p>
+                            <p>
+                                <strong>Tipo de Identificação: </strong>
+                                <!-- <field name="id_number" /> -->
+                            </p>
+                            <p>
+                                <strong>Província: </strong>
+                                <!-- <field name="provincia" /> -->
+                            </p>
+                            <p>
+                                <strong>Bairro: </strong>
+                                <!-- <field name="bairro" /> -->
+                            </p>
+                            <p>
+                                <strong>Idade: </strong>
+                                <!-- <field name="age" /> -->
+                            </p>
+                            <p>
+                                <strong>Frequênta a Escola?: </strong>
+                                <!-- <field name="on_school" /> -->
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <notebook class="mb-3">
+                                <page string="Detalhes sobre a reclamação" name="moz_learning">
+                                    <field name="moz_learning_id">
+
+                                    </field>
+                                </page>
+                                <page string="Pessoas Envolvdas" name="moz_learning">
+                                    <field name="moz_learning_id">
+                                       
+                                    </field>
+                                </page>
+                            </notebook>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>
+                                        <strong>Qual a Classe ?: </strong>
+                                        <!-- <field name="grade" /> -->
+                                    </p>
+                                    <p>
+                                        <strong>Nome da Escola / Universidade: </strong>
+                                        <!-- <field name="school" /> -->
+                                    </p>
+                                    <p>
+                                        <strong>Tipo de intervenção / Motivo: </strong>
+                                        <!-- <field name="type_of_intervention" /> -->
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>
+                                        <strong>Como Conhece a LFC: </strong>
+                                        <!-- <field name="how_knows_lfc" /> -->
+                                    </p>
+
+                                    <p>
+                                        <strong>Hora de inicio da chamada: </strong>
+                                        <!-- <field name="call_start" /> -->
+                                    </p>
+                                    <p>
+                                        <strong>Hora de fim da chamada: </strong>
+                                        <!-- <field name="call_end" /> -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </sheet>
 

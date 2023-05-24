@@ -3,7 +3,7 @@ from odoo import api, fields, models
 import uuid
 
 
-class Moz_Learning(models.Model):
+class MozLearning(models.Model):
     _name = "linhafala.moz_learning"
     _description = "Formulário Moz Learning"
     _inherit = [
@@ -11,7 +11,8 @@ class Moz_Learning(models.Model):
         'mail.activity.mixin'
     ]
 
-    moz_learning_id = fields.Char(string="ID Moz Learning", readonly=True)
+    moz_learning_id = fields.Char(string="ID Moz Learning", readonly=True, unique=True)
+
 
     wants_to_be_annonymous = fields.Boolean(
         "Consetimento Informado", default=True)

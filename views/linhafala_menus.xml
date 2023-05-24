@@ -27,6 +27,13 @@
         action="linhafala_assistance_action"
         parent="linhafala_menu_root"
         sequence="3" />
+    <menuitem
+        id="linhafala_moz_learning_menu_action"
+        name="Moz Learning"
+        action="linhafala_moz_learning_action"
+        parent="linhafala_menu_root"
+        sequence="4" />
+
 
     <menuitem
         id="linhafala_assistance_referral_menu_action"

@@ -141,7 +141,7 @@ class MozLearning(models.Model):
     focal_point_name = fields.Char(
         string="Nome do ponto focal que recebeu a reclamação (caso tenha sido recebida presencialmente)")
 
-    contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação", widget="phone_raw",
+    focal_point_contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação", widget="phone_raw",
                           size=13, min_length=9, default="+258")
 
     moz_learning_details = fields.Char(string="Resumo da queixa")

@@ -19,6 +19,20 @@
                 <field name="community" optional="hide" />
                 <field name="isVictim" optional="hide" />
                 <field name="wants_to_be_annonymous" optional="hide" />
+                <field name="complaint_eligibility" optional="hide" />
+                <field name="complaint_related_to" optional="hide" />
+                <field name="specify" optional="hide" />
+                <field name="type_of_vbg" optional="hide" />
+                <field name="level_of_urgency" optional="hide" />
+                <field name="date_of_occurrence" optional="hide" />
+                <field name="complaint_reception_channel" optional="hide" />
+                <field name="focal_point_name" optional="hide" />
+                <field name="focal_point_contact" optional="hide" />
+                <field name="moz_learning_details" optional="hide" />
+                <field name="date_of_receipt" optional="hide" />
+                <field name="process_situation" optional="hide" />
+                <field name="updated_at" optional="hide" />
+                <field name="specify_others" optional="hide" />
             </tree>
         </field>
     </record>

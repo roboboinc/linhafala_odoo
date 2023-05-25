@@ -10,7 +10,7 @@
                 <field name="fullname" />
                 <field name="age" />
                 <field name="gender" />
-                 <field name="created_by" />
+                <field name="created_by" />
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
@@ -158,7 +158,7 @@
                                 <strong>Consentimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}"> 
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
@@ -192,7 +192,8 @@
                                 <page string="Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
-                                <page attrs="{'invisible': [('type_of_intervention','!=','Caso')]}" string="Caso(s) Relacionados" name="cases">
+                                <page attrs="{'invisible': [('type_of_intervention','!=','Caso')]}"
+                                    string="Caso(s) Relacionados" name="cases">
                                     <field name="case_line_ids" widget="one2many">
                                         <tree>
                                             <field name="case_id" />
@@ -202,7 +203,9 @@
                                         </tree>
                                     </field>
                                 </page>
-                                <page attrs="{'invisible': [('type_of_intervention','!=','Chamada de Assistência')]}" string="Assistência(s) Relacionadas" name="assistance">
+                                <page
+                                    attrs="{'invisible': [('type_of_intervention','!=','Chamada de Assistência')]}"
+                                    string="Assistência(s) Relacionadas" name="assistance">
                                     <field name="assistance_line_ids" widget="one2many">
                                         <tree>
                                             <field name="assistance_id" />
@@ -211,8 +214,14 @@
                                         </tree>
                                     </field>
                                 </page>
-                                <page string="Moz Leaning" name="detailed_description_section">
-                                    <field name="detailed_description" />
+                                <page string="Moz Leaning" name="moz_learning">
+                                    <field name="moz_learning_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="moz_learning_id" />
+                                            <field name="fullname" />
+                                            <field name="gender" />
+                                        </tree>
+                                    </field>
                                 </page>
                             </notebook>
                             <div class="row">

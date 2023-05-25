@@ -98,7 +98,7 @@
                     </h1>
 
                     <div class="row w-100">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <h3 class="text-muted"><span class="text-dark">A.</span> Identificação
                                 do reclamante</h3>
                             <p>
@@ -139,84 +139,71 @@
                             </p>
 
                         </div>
-                        <div class="col-md-3 mt-1">
-                            <p>
-                                <strong>Consentimento Informado: </strong>
-                                <!-- <field name="wants_to_be_annonymous" /> -->
-                            </p>
-                            <p>
-                                <strong>Contacto: </strong>
-                                <!-- <field name="contact" /> -->
-                            </p>
-                            <p>
-                                <strong>Relação com a Vítima: </strong>
-                                <!-- <field name="victim_relationship" /> -->
-                            </p>
-                            <p>
-                                <strong>Tipo de Identificação: </strong>
-                                <!-- <field name="id_number" /> -->
-                            </p>
-                            <p>
-                                <strong>Província: </strong>
-                                <!-- <field name="provincia" /> -->
-                            </p>
-                            <p>
-                                <strong>Bairro: </strong>
-                                <!-- <field name="bairro" /> -->
-                            </p>
-                            <p>
-                                <strong>Idade: </strong>
-                                <!-- <field name="age" /> -->
-                            </p>
-                            <p>
-                                <strong>Frequênta a Escola?: </strong>
-                                <!-- <field name="on_school" /> -->
-                            </p>
-                        </div>
                         <div class="col-md-6">
                             <notebook class="mb-3">
                                 <page string="Detalhes sobre a reclamação" name="moz_learning">
-                                    <field name="moz_learning_id">
 
-                                    </field>
                                 </page>
-                                <page string="Pessoas Envolvdas" name="moz_learning">
-                                    <field name="moz_learning_id">
-                                       
-                                    </field>
+                                <page string="Pessoas Envolvdas" name="persons">
+                                    <form>
+                                        <sheet>
+                                            <div class="row w-100">
+                                                <div class="col-md-6">
+                                                    <p>
+                                                        <strong>Consentimento Informado: </strong>
+                                                        <!-- <field name="wants_to_be_annonymous" /> -->
+                                                    </p>
+                                                    <p
+                                                        attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                                        <strong>Nome Completo: </strong>
+                                                        <!-- <field name="fullname" /> -->
+                                                    </p>
+                                                    <p
+                                                        attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                                        <strong>Contacto: </strong>
+                                                        <!-- <field name="contact" /> -->
+                                                    </p>
+                                                    <p>
+                                                        <strong>Categoria dos envolvidos: </strong>
+                                                        <!-- <field name="person_type" /> -->
+                                                    </p>
+                                                    <p>
+                                                        <strong>Tipo
+                                                            de Identificação: </strong>
+                                                        <!-- <field name="id_number" /> -->
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>
+                                                        <strong>
+                                                            Província: </strong>
+                                                        <!-- <field name="provincia" /> -->
+                                                    </p>
+                                                    <p>
+                                                        <strong>
+                                                            Distrito: </strong>
+                                                        <!-- <field name="distrito"
+                                                        /> -->
+                                                    </p>
+                                                    <p>
+                                                        <strong>
+                                                            Bairro: </strong>
+                                                        <!-- <field name="bairro" /> -->
+                                                    </p>
+                                                    <p>
+                                                        <strong>Gênero: </strong>
+                                                        <!-- <field name="gender" /> -->
+                                                    </p>
+                                                    <p>
+                                                        <strong>Idade: </strong>
+                                                        <!-- <field name="age" /> -->
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </sheet>
+                                    </form>
                                 </page>
                             </notebook>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>
-                                        <strong>Qual a Classe ?: </strong>
-                                        <!-- <field name="grade" /> -->
-                                    </p>
-                                    <p>
-                                        <strong>Nome da Escola / Universidade: </strong>
-                                        <!-- <field name="school" /> -->
-                                    </p>
-                                    <p>
-                                        <strong>Tipo de intervenção / Motivo: </strong>
-                                        <!-- <field name="type_of_intervention" /> -->
-                                    </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>
-                                        <strong>Como Conhece a LFC: </strong>
-                                        <!-- <field name="how_knows_lfc" /> -->
-                                    </p>
-
-                                    <p>
-                                        <strong>Hora de inicio da chamada: </strong>
-                                        <!-- <field name="call_start" /> -->
-                                    </p>
-                                    <p>
-                                        <strong>Hora de fim da chamada: </strong>
-                                        <!-- <field name="call_end" /> -->
-                                    </p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

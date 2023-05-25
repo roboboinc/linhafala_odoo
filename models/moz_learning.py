@@ -13,6 +13,9 @@ class MozLearning(models.Model):
 
     moz_learning_id = fields.Char(
         string="ID Moz Learning", readonly=True, unique=True)
+    
+    call_id = fields.Many2one(
+        comodel_name='linhafala.chamada', string="Chamada")
 
     wants_to_be_annonymous = fields.Boolean(
         "Consetimento Informado", default=True)

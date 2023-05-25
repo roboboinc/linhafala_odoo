@@ -17,6 +17,9 @@ class MozLearning(models.Model):
     persons_involved_moz_learning_line_ids = fields.One2many('linhafala.person_involved', 'moz_learning_id',
                                           string="Pessoas envolvidas")
     
+    moz_learning_complaint_details_line_ids = fields.One2many('linhafala.moz_learning_complaint_details', 'moz_learning_complaint__details_id',
+                                          string="Formulário de Detalhes do Moz Learning")
+    
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 

@@ -216,7 +216,8 @@ class PersonInvolved(models.Model):
         ],
         help="Categoria", required=True
     )
-    contact = fields.Char(string="Contacto")
+    contact = fields.Char(string="Contacto", widget="phone_raw",
+                          size=13, min_length=9, default="+258")
     alternate_contact = fields.Char(string="Contacto Alternativo")
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia", required=True)

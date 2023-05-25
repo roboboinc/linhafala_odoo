@@ -189,6 +189,9 @@ class Chamada(models.Model):
                                     string="Linhas de Casos")
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
+    
+    moz_learning_line_ids = fields.One2many('linhafala.moz_learning', 'call_id',
+                                          string="Linhas do Moz Learning")
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),

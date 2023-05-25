@@ -145,63 +145,14 @@
 
                                 </page>
                                 <page string="Pessoas Envolvdas" name="persons">
-                                    <form>
-                                        <sheet>
-                                            <div class="row w-100">
-                                                <div class="col-md-6">
-                                                    <p>
-                                                        <strong>Consentimento Informado: </strong>
-                                                        <!-- <field name="wants_to_be_annonymous" /> -->
-                                                    </p>
-                                                    <p
-                                                        attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
-                                                        <strong>Nome Completo: </strong>
-                                                        <!-- <field name="fullname" /> -->
-                                                    </p>
-                                                    <p
-                                                        attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
-                                                        <strong>Contacto: </strong>
-                                                        <!-- <field name="contact" /> -->
-                                                    </p>
-                                                    <p>
-                                                        <strong>Categoria dos envolvidos: </strong>
-                                                        <!-- <field name="person_type" /> -->
-                                                    </p>
-                                                    <p>
-                                                        <strong>Tipo
-                                                            de Identificação: </strong>
-                                                        <!-- <field name="id_number" /> -->
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>
-                                                        <strong>
-                                                            Província: </strong>
-                                                        <!-- <field name="provincia" /> -->
-                                                    </p>
-                                                    <p>
-                                                        <strong>
-                                                            Distrito: </strong>
-                                                        <!-- <field name="distrito"
-                                                        /> -->
-                                                    </p>
-                                                    <p>
-                                                        <strong>
-                                                            Bairro: </strong>
-                                                        <!-- <field name="bairro" /> -->
-                                                    </p>
-                                                    <p>
-                                                        <strong>Gênero: </strong>
-                                                        <!-- <field name="gender" /> -->
-                                                    </p>
-                                                    <p>
-                                                        <strong>Idade: </strong>
-                                                        <!-- <field name="age" /> -->
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </sheet>
-                                    </form>
+                                    <field name="persons_involved_moz_learning_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="fullname" />
+                                             <field name="gender" />
+                                            <field name="victim_relationship" />
+                                            <field name="contact" />
+                                        </tree>
+                                    </field>
                                 </page>
                             </notebook>
                         </div>

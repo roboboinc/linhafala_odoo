@@ -153,21 +153,108 @@
                             </p>
                             <p>
                                 <strong>Posto Administrativo: </strong>
-                                <field name="birthd_date" />
+                                <field name="administrative_post" />
                             </p>
                             <p>
                                 <strong>Localidade: </strong>
-                                <field name="gender" />
+                                <field name="locality" />
                             </p>
                             <p>
                                 <strong>Comunidade/Bairro - Escola: </strong>
-                                <field name="contact" />
+                                <field name="community" />
                             </p>
                         </div>
                         <div class="col-md-6">
                             <notebook class="mb-3">
                                 <page string="Detalhes sobre a reclamação" name="moz_learning">
+                                    <field name="moz_learning_complaint_details_line_ids"
+                                        widget="one2many">
+                                        <form>
+                                            <sheet>
+                                                <div class="row w-100">
+                                                    <div class="col-md-6">
+                                                        <h3 class="text-muted"><span
+                                                                class="text-dark">C.</span> Detalhes
+                                                            sobre a reclamação</h3>
+                                                        <p>
+                                                            <strong>Elegibilidade da Queixa: </strong>
+                                                            <field name="complaint_eligibility" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Projecto Relacionado ao caso: </strong>
+                                                            <field name="related_project_case" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Reclamação Reclacionada a: </strong>
+                                                            <field name="complaint_related_to" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Especifique: </strong>
+                                                            <field name="specify" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Qual o tipo: </strong>
+                                                            <field name="type_of_vbg" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Nivel de urgência: </strong>
+                                                            <field name="level_of_urgency" />
+                                                        </p>
 
+                                                    </div>
+                                                    <div class="col-md-6 mt-5">
+                                                        <p>
+                                                            <strong>Canal de recepção da reclamação: </strong>
+                                                            <field
+                                                                name="complaint_reception_channel" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Nome do Ponto focal Receptora: </strong>
+                                                            <field name="focal_point_name" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Contacto do Ponto focal
+                                                                Receptora: </strong>
+                                                            <field name="focal_point_contact" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Resumo da queixa: </strong>
+                                                            <field name="moz_learning_details" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Data de recepção: </strong>
+                                                            <field name="date_of_receipt" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Data de Ocorrência: </strong>
+                                                            <field name="date_of_occurrence" />
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </sheet>
+                                        </form>
+                                        <tree>
+                                            <field name="moz_learning_complaint__details_id"
+                                                optional="show" />
+                                            <field name="related_project_case" optional="show" />
+                                            <field name="complaint_eligibility" optional="show" />
+                                            <field name="complaint_related_to" optional="show" />
+                                            <field name="specify" optional="hide" />
+                                            <field name="type_of_vbg" optional="hide" />
+                                            <field name="level_of_urgency" optional="hide" />
+                                            <field name="date_of_occurrence" optional="hide" />
+                                            <field name="complaint_reception_channel"
+                                                optional="hide" />
+                                            <field name="focal_point_name" optional="hide" />
+                                            <field name="focal_point_contact" optional="hide" />
+                                            <field name="moz_learning_details" optional="hide" />
+                                            <field name="date_of_receipt" optional="hide" />
+                                            <field name="process_situation" optional="hide" />
+                                            <field name="specify_others" optional="hide" />
+                                            <field name="updated_at" optional="hide" />
+                                            <field name="created_by" optional="hide" />
+                                        </tree>
+                                    </field>
                                 </page>
                                 <page string="Pessoas Envolvdas" name="persons">
                                     <field name="persons_involved_moz_learning_line_ids"
@@ -218,6 +305,7 @@
                                             </sheet>
                                         </form>
                                         <tree>
+                                            <field name="person_id" optional="show" />
                                             <field name="fullname" optional="show" />
                                             <field name="gender" optional="show" />
                                             <field name="victim_relationship" optional="show" />

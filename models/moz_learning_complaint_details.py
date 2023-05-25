@@ -13,6 +13,19 @@ class MozLearningComplaintDetails(models.Model):
 
     moz_learning_complaint__details_id = fields.Char(
         string="ID Detalhes do Moz Learning", readonly=True, unique=True)
+    
+    
+    moz_learning_id = fields.Many2one(
+        comodel_name='linhafala.moz_learning', string="Moz Learning")
+
+    complaint_eligibility = fields.Selection(
+        string='Elegibilidade da Queixa',
+        selection=[
+            ("Procedente", "Procedente"),
+            ("Não Procedente", "Não Procedente")
+        ],
+        help="Elegibilidade da Queixa"
+    )
 
     related_project_case = fields.Selection(
         string='Indique o Projecto ao qual o caso está relacionado',
@@ -23,14 +36,6 @@ class MozLearningComplaintDetails(models.Model):
         help="Indique o Projecto ao qual o caso está relacionado"
     )
 
-    complaint_eligibility = fields.Selection(
-        string='Elegibilidade da Queixa',
-        selection=[
-            ("Procedente", "Procedente"),
-            ("Não Procedente", "Não Procedente")
-        ],
-        help="Elegibilidade da Queixa"
-    )
 
     complaint_related_to = fields.Selection(
         string='Esta é uma reclamação reclacionada a',

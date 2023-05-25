@@ -13,8 +13,15 @@ class MozLearningComplaintDetails(models.Model):
 
     moz_learning_complaint__details_id = fields.Char(
         string="ID Detalhes do Moz Learning", readonly=True, unique=True)
-    
-    
+
+    related_project_case = fields.Selection(
+        string='Indique o Projecto ao qual o caso está relacionado',
+        selection=[
+            ("Improvement of Skills Development in Mozambique", "Improvement of Skills Development in Mozambique"),
+            ("Improving Learning and Empowering Girls in Mozambique", "Improving Learning and Empowering Girls in Mozambique")
+        ],
+        help="Indique o Projecto ao qual o caso está relacionado"
+    )
 
     complaint_eligibility = fields.Selection(
         string='Elegibilidade da Queixa',

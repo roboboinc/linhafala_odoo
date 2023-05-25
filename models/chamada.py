@@ -105,7 +105,8 @@ class Chamada(models.Model):
                           size=13, min_length=9, default="+258")
     alternate_contact = fields.Char(
         string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
-    wants_to_be_annonymous = fields.Boolean("Consetimento Informado", default=True)
+    wants_to_be_annonymous = fields.Boolean(
+        "Consetimento Informado", default=True)
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[
@@ -135,7 +136,7 @@ class Chamada(models.Model):
         ], required=True,
         help="Sexo"
     )
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?", required=True)
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
@@ -146,7 +147,8 @@ class Chamada(models.Model):
                                  default=fields.Datetime.now, readonly=True, required=True)
     call_end = fields.Datetime(
         string='Hora de fim da chamada', readonly=False)
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=False)
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={
+                                       'style': 'height: 500px;'}, required=False)
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -189,9 +191,9 @@ class Chamada(models.Model):
                                     string="Linhas de Casos")
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
-    
+
     moz_learning_line_ids = fields.One2many('linhafala.moz_learning', 'call_id',
-                                          string="Linhas do Moz Learning")
+                                            string="Linhas do Moz Learning")
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -236,7 +238,6 @@ class Chamada(models.Model):
 
     def action_silent(self):
         self.category = 1
-
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
@@ -333,7 +334,8 @@ class CallCaseAssistance(models.Model):
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
     fullname = fields.Char(string="Benificiário")
-    contact = fields.Char(string="Contacto")
+    contact = fields.Char(string="Contacto", widget="phone_raw",
+                          size=13, min_length=9, default="+258")
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(
@@ -350,9 +352,10 @@ class CallCaseAssistance(models.Model):
         help="Sexo"
     )
 
-    age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
+    age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={'style': 'height: 500px;'}, required=False)
+    detailed_description = fields.Html(string='Descrição detalhada', attrs={
+                                       'style': 'height: 500px;'}, required=False)
     category = fields.Many2one(
         comodel_name='linhafala.chamada.assistance.categoria', string="Categoria")
     subcategory = fields.Many2one(

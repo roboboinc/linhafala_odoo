@@ -14,6 +14,9 @@ class MozLearning(models.Model):
     moz_learning_id = fields.Char(
         string="ID Moz Learning", readonly=True, unique=True)
     
+    persons_involved_moz_learning_line_ids = fields.One2many('linhafala.person_involved', 'moz_learning_id',
+                                          string="Pessoas envolvidas")
+    
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 
@@ -55,7 +58,7 @@ class MozLearning(models.Model):
     )
 
     document_number = fields.Char(string="Numero do documento", widget="phone_raw",
-                          size=13 )
+                                  size=13)
 
     isVictim = fields.Boolean(
         "O Denunciante é Vítima ?")

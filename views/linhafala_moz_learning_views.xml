@@ -97,8 +97,8 @@
                         </h3>
                     </h1>
 
-                    <div class="row w-100">
-                        <div class="col-md-6">
+                    <div class="row w-100 my-2">
+                        <div class="col-md-4">
                             <h3 class="text-muted"><span class="text-dark">A.</span> Identificação
                                 do reclamante</h3>
                             <p>
@@ -121,6 +121,8 @@
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
+                        </div>
+                        <div class="col-md-4 mt-4 pt-1">
                             <p>
                                 <strong>Outro meio de Contacto: </strong>
                                 <field name="other_means_of_contact" />
@@ -137,7 +139,30 @@
                                 <strong>O Denúnciante é Vítima ?: </strong>
                                 <field name="isVictim" />
                             </p>
-
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="text-muted"><span class="text-dark">B.</span> Dados sobre a
+                                localização</h3>
+                            <p>
+                                <strong>Província: </strong>
+                                <field name="provincia" />
+                            </p>
+                            <p>
+                                <strong>Distrito: </strong>
+                                <field name="distrito" />
+                            </p>
+                            <p>
+                                <strong>Posto Administrativo: </strong>
+                                <field name="birthd_date" />
+                            </p>
+                            <p>
+                                <strong>Localidade: </strong>
+                                <field name="gender" />
+                            </p>
+                            <p>
+                                <strong>Comunidade/Bairro - Escola: </strong>
+                                <field name="contact" />
+                            </p>
                         </div>
                         <div class="col-md-6">
                             <notebook class="mb-3">
@@ -145,12 +170,62 @@
 
                                 </page>
                                 <page string="Pessoas Envolvdas" name="persons">
-                                    <field name="persons_involved_moz_learning_line_ids" widget="one2many">
+                                    <field name="persons_involved_moz_learning_line_ids"
+                                        widget="one2many">
+                                        <form>
+                                            <sheet>
+                                                <div class="row w-100">
+                                                    <div class="col-md-6">
+                                                        <p>
+                                                            <strong>Nome Completo: </strong>
+                                                            <field name="fullname" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Gênero: </strong>
+                                                            <field name="gender" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Qual o outro?: </strong>
+                                                            <field name="what_other" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Idade: </strong>
+                                                            <field name="age" />
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>
+                                                            <strong>Endereço da Vítima: </strong>
+                                                            <field name="address" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Contacto da Vítima: </strong>
+                                                            <field name="contact" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Correio Eletronico da Vítima: </strong>
+                                                            <field
+                                                                name="email" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Relação da Vítima com o
+                                                                Denúnciante: </strong>
+                                                            <field name="victim_relationship" />
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </sheet>
+                                        </form>
                                         <tree>
-                                            <field name="fullname" />
-                                             <field name="gender" />
-                                            <field name="victim_relationship" />
-                                            <field name="contact" />
+                                            <field name="fullname" optional="show" />
+                                            <field name="gender" optional="show" />
+                                            <field name="victim_relationship" optional="show" />
+                                            <field name="contact" optional="show" />
+                                            <field name="what_other" optional="hide" />
+                                            <field name="age" optional="hide" />
+                                            <field name="address" optional="hide" />
+                                            <field name="email" optional="hide" />
                                         </tree>
                                     </field>
                                 </page>

@@ -2,6 +2,7 @@ from xml.dom import ValidationErr
 from odoo import api, fields, models
 import uuid
 
+
 class PersonInvolved(models.Model):
     _name = "linhafala.person_involved"
     _description = "Person Involved Lines"
@@ -13,10 +14,10 @@ class PersonInvolved(models.Model):
 
     fullname = fields.Char(string="Nome completo", required=True)
 
-    address = fields.Char(string="Endereço da Vitima")
+    address = fields.Char(string="Endereço da Vítima", email=True)
 
     email = fields.Char(string="Endereço Eletronico")
-    
+
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[
@@ -43,7 +44,9 @@ class PersonInvolved(models.Model):
         ],
         help="Categoria", required=True
     )
-    contact = fields.Char(string="Contacto")
+    contact = fields.Char(string="Contacto", widget="phone_raw",
+                          size=13, min_length=9, default="+258")
+
     alternate_contact = fields.Char(string="Contacto Alternativo")
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia", required=True)
@@ -106,8 +109,9 @@ class PersonInvolved(models.Model):
         ],
         help="Sexo", required=True
     )
+    what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
-                           string='Idade')
+                           string='Idade', required=True)
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],

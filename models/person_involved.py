@@ -7,6 +7,10 @@ class PersonInvolved(models.Model):
     _description = "Person Involved Lines"
 
     person_id = fields.Char(string="ID person_involved", readonly=True)
+
+    moz_learning_id = fields.Many2one(
+        comodel_name='linhafala.moz_learning', string="Moz Learning")
+
     fullname = fields.Char(string="Nome completo", required=True)
 
     address = fields.Char(string="Endereço da Vitima")

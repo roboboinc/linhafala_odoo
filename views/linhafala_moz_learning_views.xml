@@ -164,7 +164,7 @@
                                 <field name="community" />
                             </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <notebook class="mb-3">
                                 <page string="Detalhes sobre a reclamação" name="moz_learning">
                                     <field name="moz_learning_complaint_details_line_ids"

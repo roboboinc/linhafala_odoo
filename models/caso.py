@@ -11,8 +11,15 @@ class Caso(models.Model):
     ]
 
     case_id = fields.Char(string="Id do caso", readonly=True)
+
+    person_id = fields.One2many('linhafala.person_involved', 'case_id',
+                                string="Person_involved") #Quando e adicionado mais de 1 pessoa envolvida da erro
+    ref_id=fields.Many2one(
+        comodel_name='linhafala.caso.casereference', string="Reference") #ID da referencia da classe (linhafala.caso.casereference)
+
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
+    
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[
@@ -92,8 +99,8 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
-                                                string="Person Involved lines")
+    #persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
+                                                #string="Person Involved lines")
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                 string="Instituição de encaminhamento")
 
@@ -313,6 +320,9 @@ class ReferenceEntity(models.Model):
 class CaseReference(models.Model):
     _name = "linhafala.caso.casereference"
     _description = "Pessoa de Contacto"
+
+
+    ref_id = fields.Char(string="Id reference", readonly=True)
 
     name = fields.Char(string="Nome de entidade", required=True)
     area_type = fields.Selection(

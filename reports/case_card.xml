@@ -11,88 +11,134 @@
                     </div>
                     <br />
                     <br />
-                    <h3>Dados do Denuciante</h3>
+                    <h3>Dados do Caso</h3>
                     <table class="table table-condensed">
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Telefone</th>
-                                <th>Alternativo</th>
-                                <th>Idade</th>
-                                <th>Sexo</th>
-                                <th>Relação &lt;=&gt; Vitima</th>
-                                <th>Lingua</th>
+                                <th>Categoria do Caso</th>
+                                <th>Sub Categoria do Caso</th>
+                                <th>Classificação Provisoria</th>
+                                <th>Criado Por</th>
+                                <th>Local de Ocorrência do incidente</th>
+                                <th>Tratamento do Caso</th>
+                                <th>Periodo de Resolução</th>
+                                <th>Data de Ocorrência</th>
+                                <th>Data de Criação</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="doc">
                                 <tr>
                                     <td>
-                                        <t t-esc="doc.call_id.fullname" />
+                                        <t t-esc="doc.case_type" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.contact" />
+                                        <t t-esc="doc.secundary_case_type" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.alternate_contact" />
+                                        <t t-esc="doc.case_type_classification" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.age" />
+                                        <t t-esc="doc.created_by" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.gender" />
+                                        <t t-esc="doc.place_occurrence"/>
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.victim_relationship" />
+                                        <t t-esc="doc.resolution_type" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.caller_language" />
+                                        <t t-esc="doc.case_priority" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.data_ocorrencia" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.created_at" />
                                     </td>
                                 </tr>
                             </t>
                         </tbody>
                     </table>
                     <br />
-                    <h3>Dados do Perpetrador</h3>
+                    <h3>Pessoas Envolvidas</h3>
                     <table class="table table-condensed">
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Telefone</th>
-                                <th>Alternativo</th>
-                                <th>Idade</th>
-                                <th>Sexo</th>
-                                <th>Relação &lt;=&gt; Vitima</th>
+                                <th>Gênero</th>
+                                <th>Categoria</th>
+                                <th>Provincia</th>
+                                <!--<th>Contacto</th>
+                                <th>Relação &lt;=&gt; Vitima</th>-->
                             </tr>
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="doc">
                                 <tr>
                                     <td>
-                                        <!-- <t t-esc="doc." /> -->
+                                        <t t-esc="doc.person_id.fullname" />
                                     </td>
                                     <td>
-                                        <!-- <t t-esc="doc." /> -->
+                                        <t t-esc="doc.person_id.gender" />
                                     </td>
                                     <td>
-                                        <!-- <t t-esc="doc." /> -->
+                                        <t t-esc="doc.person_id.person_type" />
                                     </td>
                                     <td>
-                                        <!-- <t t-esc="doc." /> -->
+                                        <t t-esc="doc.person_id.provincia" />
+                                    </td>
+                                    <!--<td>
+                                        <t t-esc="doc.person_id.contact" />
+                                    </td>
+                                   <td>
+                                        <t t-esc="doc.person_id.victim_relationship" />
+                                    </td>-->
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Encaminhamentos</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Entidade</th>
+                                <th>Pessoa de contacto</th>
+                                <th>Area de Referencia</th>
+                                <th>Estado do caso</th>
+                                <!--<th>Sexo</th>
+                                <th>Relação &lt;=&gt; Vitima</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <tr>
+                                    <td>
+                                        <t t-esc="doc.ref_id.reference_area" />
                                     </td>
                                     <td>
-                                        <!-- <t t-esc="doc." /> -->
+                                        <t t-esc="doc.forwarding_institution_line_ids.case_reference" />
                                     </td>
                                     <td>
-                                        <!-- <t t-esc="doc." /> -->
+                                        <t t-esc="doc.ref_id.reference_area" />
                                     </td>
+                                    <td>
+                                        <t t-esc="doc.case_status" />
+                                    </td>
+                                    <!--<td>
+                                        <t t-esc="doc.person_id.nr_identication" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.person_id.victim_relationship" />
+                                    </td>-->
                                 </tr>
                             </t>
                         </tbody>
                     </table>
                     <br />
                     <br />
-                    <h2 class="text-center">Relatório das Vitimas</h2>
+                    <!--<h2 class="text-center">Relatório das Vitimas</h2>
                     <br />
                     <div class="row align-items-center">
                         <div class="col-7">
@@ -101,48 +147,48 @@
                                 <t t-foreach="docs" t-as="doc">
                                     <li>
                                         <strong>Nome:</strong>
-                                        <!-- <t
-                                            t-esc="doc.persons_involved_line_ids.fullname" /> -->
+                                        <t
+                                            t-esc="doc.person_id.fullname" />
                                         <br />
                                         <strong>
                                             Idade:</strong>
-                                        <!-- <t t-esc="doc.persons_involved_line_ids.age" /> -->
+                                         <t t-esc="doc.persons_involved_line_ids.age" />
                                         <br />
                                         <strong>
                                             Sexo:</strong>
-                                        <!-- <t
-                                            t-esc="doc.persons_involved_line_ids.gender" /> -->
+                                        <t
+                                            t-esc="doc.persons_involved_line_ids.gender" /> 
                                         <br />
                                         <strong>Estuda?:</strong>
-                                        <!-- <t
-                                            t-esc="doc.case_type" /> -->
+                                        <t
+                                            t-esc="doc.case_type" />
                                         <br />
                                         <strong>
                                             Classe:</strong>
-                                        <!-- <t
-                                            t-esc="doc.secundary_case_type" /> -->
+                                        <t
+                                            t-esc="doc.secundary_case_type" />
                                         <br />
                                         <strong>
                                             Província:</strong>
-                                        <!-- <t
-                                            t-esc="doc.provincia" /> -->
+                                        <t
+                                            t-esc="doc.provincia" />
                                         <br />
                                         <strong>Distrito:</strong>
-                                        <!-- <t
-                                            t-esc="doc.place_occurrence" /> -->
+                                         <t
+                                            t-esc="doc.place_occurrence" />
                                         <br />
                                         <strong>Bairro:</strong>
-                                        <!-- <t
-                                            t-esc="doc.place_occurrence" /> -->
+                                         <t
+                                            t-esc="doc.place_occurrence" />
                                         <br />
                                         <strong>Contacto:</strong>
-                                        <!-- <t
-                                            t-esc="doc.place_occurrence" /> -->
+                                        <t
+                                            t-esc="doc.place_occurrence" />
                                         <br />
                                         <strong>
                                             Alternativo:</strong>
-                                        <!-- <t
-                                            t-esc="doc.place_occurrence" /> -->
+                                        <t
+                                            t-esc="doc.place_occurrence" />
                                         <br />
                                     </li>
                                 </t>
@@ -166,14 +212,14 @@
                                 </t>
                             </ul>
                         </div>
-                    </div>
+                    </div>-->
                     <br />
                     <br />
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
                     <t t-foreach="docs" t-as="doc">
 
                         <t
-                            t-esc="doc.call_id.detailed_description" />
+                            t-esc="doc.detailed_description" />
                         <br />
 
                     </t>

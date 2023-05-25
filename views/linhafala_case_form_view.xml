@@ -69,7 +69,7 @@
                                         <field name="detailed_description" />
                                     </page>
                                     <page string="Pessoas envolvidas" name="persons">
-                                        <field name="persons_involved_line_ids" widget="one2many">
+                                        <field name="person_id" widget="one2many">
                                             <form>
                                                 <sheet>
                                                     <div class="row w-100">

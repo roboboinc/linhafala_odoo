@@ -20,6 +20,9 @@ class MozLearning(models.Model):
     moz_learning_complaint_details_line_ids = fields.One2many('linhafala.moz_learning_complaint_details', 'moz_learning_complaint__details_id',
                                           string="Formulário de Detalhes do Moz Learning")
     
+    vbg_line_ids  = fields.One2many('linhafala.gender_based_violence', 'vbg_id',
+                                          string="Formulário de VBG (Violência Baseada no Gênero)")
+    
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 

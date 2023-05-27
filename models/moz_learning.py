@@ -20,7 +20,7 @@ class MozLearning(models.Model):
     moz_learning_complaint_details_line_ids = fields.One2many('linhafala.moz_learning_complaint_details', 'moz_learning_complaint__details_id',
                                           string="Formulário de Detalhes do Moz Learning")
     
-    vbg_line_ids  = fields.One2many('linhafala.gender_based_violence', 'vbg_id',
+    vbg_line_ids  = fields.One2many('linhafala.gender_based_violence', 'gender_based_violence_id',
                                           string="Formulário de VBG (Violência Baseada no Gênero)")
     
     call_id = fields.Many2one(
@@ -186,3 +186,14 @@ class MozLearning(models.Model):
 
     created_by = fields.Many2one(
         'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+
+    moz_learning_status = fields.Selection(
+        string='Estado do caso',
+        selection=[
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
+            ("Encerrado", "Encerrado"),
+        ], default="Aberto/Pendente",
+        help="Estado do caso"
+    )

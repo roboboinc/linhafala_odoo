@@ -28,8 +28,15 @@ class GenderBasedViolence(models.Model):
     reasons_for_not_signing = fields.Char(
         string="Quais as razões para não ter assinado?")
 
-    is_there_a_risk_of_retaliation = fields.Boolean(
-        "Existe risco de retaliação?: ")
+    is_there_a_risk_of_retaliation = fields.Selection(
+        string='Existe Risco de retaliação?',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+            ("Não sei", "Não sei"),
+        ],
+        help="Existe Risco de retaliação?"
+    )
 
     who_does_the_victim_live_with = fields.Selection(
         string='Com quem vive o(a) vítima?',
@@ -65,3 +72,11 @@ class GenderBasedViolence(models.Model):
         ],
         help="Estado do VBG"
     )
+
+    description_of_the_current_situation = fields.Html(string='Descrição da situação atual', attrs={
+                                       'style': 'height: 500px;'}, required=False)
+
+    updated_at = fields.Datetime(string='Data de actualizaçäo',
+                                 default=lambda self: fields.Datetime.now(), readonly=True)
+
+    solved_date = fields.Datetime(string="Data de Resolução", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")

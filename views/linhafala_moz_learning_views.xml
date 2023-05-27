@@ -7,7 +7,6 @@
         <field name="arch" type="xml">
             <kanban default_group_by="level_of_urgency">
                 <field name="moz_learning_id" />
-                <field name="fullname" />
                 <field name="contact" />
                 <field name="gender" />
                 <field name="created_by" />
@@ -17,7 +16,6 @@
                             <div class="oe_kanban_details">
                                 <ul>
                                     <li> ID: <field name="moz_learning_id" /></li>
-                                    <li> Name: <field name="fullname" /></li>
                                     <li> Gender: <field name="gender" /></li>
                                     <li> Contacto: <field name="contact" /></li>
                                     <li> Criado Por: <field name="created_by" /></li>
@@ -86,7 +84,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-
+                    <field name="moz_learning_status" widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
                 </header>
                 <sheet>
 
@@ -263,6 +263,9 @@
                                             <sheet>
                                                 <div class="row w-100">
                                                     <div class="col-md-6">
+                                                        <h3 class="text-muted"><span
+                                                                class="text-dark">A.</span>
+                                                            Identificação do reclamante ( Vítima )</h3>
                                                         <p>
                                                             <strong>Nome Completo: </strong>
                                                             <field name="fullname" />
@@ -281,7 +284,7 @@
                                                         </p>
 
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-6 mt-5">
                                                         <p>
                                                             <strong>Endereço da Vítima: </strong>
                                                             <field name="address" />
@@ -317,14 +320,28 @@
                                         </tree>
                                     </field>
                                 </page>
-                                 <page string="VBG (Violência Baseada no Gênero)" name="vbg">
+                                <page string="VBG (Violência Baseada no Gênero)" name="vbg">
                                     <field name="vbg_line_ids"
                                         widget="one2many">
                                         <form>
-
+                                            <header>
+                                                <field name="vbg_status" widget="statusbar"
+                                                    options="{'clickable': '1'}"
+                                                    statusbar_visible="Em Curso, Resolvido" />
+                                            </header>
                                         </form>
                                         <tree>
-                                        
+                                            <field name="gender_based_violence_id" optional="show" />
+                                            <field name="is_there_a_risk_of_retaliation"
+                                                optional="hide" />
+                                            <field name="vbg_connected_project" optional="hide" />
+                                            <field name="signed_informed_consent" optional="hide" />
+                                            <field name="reasons_for_not_signing" optional="hide" />
+                                            <field name="what_other" optional="hide" />
+                                            <field name="victim_occupation" optional="show" />
+                                            <field name="who_does_the_victim_live_with"
+                                                optional="show" />
+                                            <field name="vbg_status" optional="show" />
                                         </tree>
                                     </field>
                                 </page>

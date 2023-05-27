@@ -11,10 +11,10 @@ class GenderBasedViolence(models.Model):
         'mail.activity.mixin'
     ]
 
-    vbg_id = fields.Char(
+    gender_based_violence_id = fields.Char(
         string="ID da VBG", readonly=True, unique=True)
 
-    vbg_id = fields.Many2one(
+    moz_learning_id = fields.Many2one(
         comodel_name='linhafala.moz_learning', string="Moz Learning")
 
     vbg_connected_project = fields.Boolean(
@@ -55,4 +55,13 @@ class GenderBasedViolence(models.Model):
             ("Não Sabe", "Não Sabe"),
         ],
         help="Ocupação do(a) vítima"
+    )
+
+    vbg_status = fields.Selection(
+        string='Estado do VBG',
+        selection=[
+            ("Em Curso", "Em Curso"),
+            ("Resolvido", "Resolvido"),
+        ],
+        help="Estado do VBG"
     )

@@ -13,7 +13,8 @@ class Caso(models.Model):
     case_id = fields.Char(string="Id do caso", readonly=True)
 
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
-                                string="Person_involved") #Quando e adicionado mais de 1 pessoa envolvida da erro
+                                string="Person_involved")
+    
     ref_id=fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Reference") #ID da referencia da classe (linhafala.caso.casereference)
 
@@ -191,7 +192,6 @@ class Caso(models.Model):
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
 
-
 class PersonInvolved(models.Model):
     _name = "linhafala.caso.person_involved"
     _description = "Person Involved Lines"
@@ -314,6 +314,8 @@ class ReferenceEntity(models.Model):
     _name = "linhafala.caso.referenceentity"
     _description = "Entidade de referência"
 
+    refEnt_id = fields.Char(string="Id reference entity", readonly=True) #Id da Reference entity
+
     name = fields.Char(string="Nome de entidade", required=True)
     reference_area = fields.Many2one(
         comodel_name='linhafala.caso.referencearea', string="Área de Referência")
@@ -322,10 +324,11 @@ class CaseReference(models.Model):
     _name = "linhafala.caso.casereference"
     _description = "Pessoa de Contacto"
 
-
-    ref_id = fields.Char(string="Id reference", readonly=True)
-
     name = fields.Char(string="Nome de entidade", required=True)
+    
+    contact = fields.Char(string="Contacto", widget="phone_raw", #add the number of pessoa de contacto
+                          size=13, min_length=9, default="+258")
+    
     area_type = fields.Selection(
         string='Tipo de instituição',
         selection=[
@@ -342,27 +345,35 @@ class CaseReference(models.Model):
         comodel_name='linhafala.provincia', string="Provincia")
     reference_id = fields.Char(string="ID daReferencia", required=True)
 
+   
+
 class ForwardingInstitutions(models.Model):
     _name = "linhafala.caso.forwarding_institution"
     _description = "Instituição de encaminhamento"
 
     case_id = fields.Many2one("linhafala.caso", string="Caso")
-    area_type = fields.Selection(
-        string='Tipo de Área',
-        selection=[
-            ("Institucional", "Institucional"),
-            ("Não Institucional", "Não Institucional"),
-        ],
-        help="Tipo de Área"
-    )
-    reference_area = fields.Many2one(
-        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
-    reference_entity = fields.Many2one(
-        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    #area_type = fields.Selection(
+        #string='Tipo de Área',
+        #selection=[
+           #("Institucional", "Institucional"),
+           #("Não Institucional", "Não Institucional"),
+        #],
+        #help="Tipo de Área"
+    #)
+    #reference_area = fields.Many2one(
+        #comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    #reference_entity = fields.Many2one(
+        #comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    area_type = fields.Selection(string="Tipo de Área", related='case_reference.area_type')
+    reference_area = fields.Many2one(string="Área de Referência", related='case_reference.reference_area')
+    reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')
+
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa de Responsável", required=True)
-    spokes_person_phone = fields.Char(string="Telefone do Responsável")
+    spokes_person = fields.Char(string="Pessoa Responsável", required=True)
+
+    spokes_person_phone = fields.Char(string="Telefone do Responsável", related='case_reference.contact')
+
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[
@@ -374,3 +385,6 @@ class ForwardingInstitutions(models.Model):
         ],default="Aberto/Pendente",
         help="Estado do caso", required=True
     )
+
+     
+

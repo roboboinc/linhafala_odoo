@@ -29,7 +29,7 @@ class MozLearning(models.Model):
     wants_to_be_annonymous = fields.Boolean(
         "Consetimento Informado", default=True)
 
-    fullname = fields.Char(string="Nome Completo", required=True)
+    fullname = fields.Char(string="Nome Completo")
 
     birthd_date = fields.Datetime(
         string="Data de Nascimento", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
@@ -39,7 +39,7 @@ class MozLearning(models.Model):
         selection=[
             ("male", "Masculino"),
             ("female", "Feminino"),
-        ], required=True,
+        ],
         help="Sexo"
     )
     have_a_phone = fields.Boolean(

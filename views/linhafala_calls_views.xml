@@ -144,10 +144,6 @@
                                 <field name="nr_identication" />
                             </p>
                             <p>
-                                <strong>E Deficiente?: </strong>
-                                <field name="distrito" />
-                            </p>
-                            <p>
                                 <strong>Distrito: </strong>
                                 <field name="distrito" />
                             </p>

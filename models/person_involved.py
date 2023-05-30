@@ -1,5 +1,6 @@
 from xml.dom import ValidationErr
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 import uuid
 
 
@@ -42,8 +43,9 @@ class PersonInvolved(models.Model):
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
         ],
-        help="Categoria", required=True
+        help="Categoria", required=False
     )
+
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
 
@@ -117,3 +119,10 @@ class PersonInvolved(models.Model):
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
     case_id = fields.Many2one("linhafala.caso", string="Caso")
+
+    #@api.constrains('person_type')
+    def _validate_person_type(self):
+        for record in self:
+            if not record.person_type:
+                raise ValidationError("Por favor, selecione uma opção no campo categoria.")
+    # Ou adicionar uma questão adicional aqui

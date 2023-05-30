@@ -352,18 +352,6 @@ class ForwardingInstitutions(models.Model):
     _description = "Instituição de encaminhamento"
 
     case_id = fields.Many2one("linhafala.caso", string="Caso")
-    #area_type = fields.Selection(
-        #string='Tipo de Área',
-        #selection=[
-           #("Institucional", "Institucional"),
-           #("Não Institucional", "Não Institucional"),
-        #],
-        #help="Tipo de Área"
-    #)
-    #reference_area = fields.Many2one(
-        #comodel_name='linhafala.caso.referencearea', string="Área de Referência")
-    #reference_entity = fields.Many2one(
-        #comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
     area_type = fields.Selection(string="Tipo de Área", related='case_reference.area_type')
     reference_area = fields.Many2one(string="Área de Referência", related='case_reference.reference_area')
     reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')

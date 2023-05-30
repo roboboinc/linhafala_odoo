@@ -13,16 +13,16 @@ class MozLearning(models.Model):
 
     moz_learning_id = fields.Char(
         string="ID Moz Learning", readonly=True, unique=True)
-    
+
     persons_involved_moz_learning_line_ids = fields.One2many('linhafala.person_involved', 'moz_learning_id',
-                                          string="Pessoas envolvidas")
-    
+                                                             string="Pessoas envolvidas")
+
     moz_learning_complaint_details_line_ids = fields.One2many('linhafala.moz_learning_complaint_details', 'moz_learning_complaint__details_id',
-                                          string="Formulário de Detalhes do Moz Learning")
-    
-    vbg_line_ids  = fields.One2many('linhafala.gender_based_violence', 'gender_based_violence_id',
-                                          string="Formulário de VBG (Violência Baseada no Gênero)")
-    
+                                                              string="Formulário de Detalhes do Moz Learning")
+
+    vbg_line_ids = fields.One2many('linhafala.gender_based_violence', 'gender_based_violence_id',
+                                   string="Formulário de VBG (Violência Baseada no Gênero)")
+
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 
@@ -42,8 +42,14 @@ class MozLearning(models.Model):
         ],
         help="Sexo"
     )
-    have_a_phone = fields.Boolean(
-        "Tem Telefone")
+    have_a_phone = fields.Selection(
+        string='Tem telefone',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="Tem telefone"
+    )
 
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")

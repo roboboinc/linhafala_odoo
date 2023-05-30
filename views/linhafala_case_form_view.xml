@@ -145,9 +145,9 @@
                                                 decoration-warning="case_status=='Aberto/Pendente'">
                                                 <field name="reference_entity" />
                                                 <field name="case_reference" />
-                                                <!-- <field name="case_reference" /> --> <!-- TODO: Ensure we
+                                                 <!-- <field name="case_reference" /> --> <!-- TODO: Ensure we
                                                 can access the relationship -->
-                                                <field name="reference_area" />
+                                                <field name="reference_area" /> <!--used to have reference area-->
                                                 <field
                                                     decoration-info="case_status=='Dentro do sistema'"
                                                     decoration-primary="case_status=='Assistido'"

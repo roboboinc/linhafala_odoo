@@ -258,7 +258,7 @@
         <field name="arch" type="xml">
             <tree string="Channel">
                 <field name="case_id" />
-                <field name="reference_area" />
+                <field name="reference_area" /> <!--used to have reference area-->
             </tree>
         </field>
     </record>

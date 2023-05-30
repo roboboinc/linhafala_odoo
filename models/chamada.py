@@ -10,12 +10,13 @@ class Chamada(models.Model):
         'mail.thread',
         'mail.activity.mixin'
     ]
-
+    
     call_id = fields.Char(string="ID da chamada", readonly=True)
+    
     case_id = fields.One2many('linhafala.caso', 'call_id',
                                 string="Caso")
     person_id = fields.Many2many('linhafala.person_involved', 'call_id',
-                                  string="Person_involved")
+                                  string="Person_involved") # podemos adicionar mais de um perpetrador devido ao tipo de relacao usada.
     category = fields.Many2one(
         comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     contact_type = fields.Selection(
@@ -458,6 +459,13 @@ class CallCaseAssistance(models.Model):
 class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
     _description = "Instituição de encaminhamento de assistência"
+
+
+    #add the possibility to add more than one victim , perpetrator and reference age
+    #person_id = fields.Many2one('linhafala.person_involved')
+
+    #case_id = models.ManyToManyField('linhafala.caso')
+    #refEnt_id = models.ManyToManyField('linhafala.caso.referenceentity')
 
     assistance_id = fields.Many2one(
         "linhafala.chamada.assistance", string="Assistência")

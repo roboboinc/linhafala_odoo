@@ -478,15 +478,14 @@ class AssistanceReferall(models.Model):
         ],
         help="Tipo de Área"
     )
-    area_type = fields.Selection(string="Tipo de Área", related='case_reference.area_type')
-    reference_area = fields.Many2one(string="Área de Referência", related='case_reference.reference_area')
-    reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')
-
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa Responsável", required=True)
-
-    spokes_person_phone = fields.Char(string="Telefone do Responsável", related='case_reference.contact')
+    spokes_person = fields.Char(string="Pessoa de Responsável")
+    spokes_person_phone = fields.Char(string="Telefone do Responsável")
     assistance_status = fields.Selection(
         string='Estado do caso',
         selection=[

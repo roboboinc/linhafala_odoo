@@ -105,33 +105,37 @@
                                 <strong>Consetimento Informado da reclamação: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Nome do Reclamante: </strong>
                                 <field name="fullname" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Data de Nascimento: </strong>
                                 <field name="birthd_date" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Gênero: </strong>
                                 <field name="gender" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Tem telefone? : </strong>
+                                <field name="have_a_phone" />
+                            </p>
+                             <p attrs="{'invisible': [('have_a_phone','!=','Sim')]}">
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
                         </div>
                         <div class="col-md-4 mt-4 pt-1">
-                            <p>
+                            <p attrs="{'invisible': [('have_a_phone','!=','Não')]}">
                                 <strong>Outro meio de Contacto: </strong>
                                 <field name="other_means_of_contact" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Documento de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
-                            <p>
+                            <p attrs="{'invisible': [('id_number','=', False)]}" >
                                 <strong>Número do Documento: </strong>
                                 <field name="document_number" />
                             </p>
@@ -256,7 +260,7 @@
                                         </tree>
                                     </field>
                                 </page>
-                                <page string="Pessoas Envolvdas" name="persons">
+                                <page attrs="{'invisible': [('isVictim','=',False)]}" string="Pessoas Envolvdas" name="persons">
                                     <field name="persons_involved_moz_learning_line_ids"
                                         widget="one2many">
                                         <form>

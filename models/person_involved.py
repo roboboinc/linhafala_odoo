@@ -12,7 +12,7 @@ class PersonInvolved(models.Model):
     moz_learning_id = fields.Many2one(
         comodel_name='linhafala.moz_learning', string="Moz Learning")
 
-    fullname = fields.Char(string="Nome completo", required=True)
+    fullname = fields.Char(string="Nome completo")
 
     address = fields.Char(string="Endereço da Vítima", email=True)
 
@@ -42,16 +42,16 @@ class PersonInvolved(models.Model):
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
         ],
-        help="Categoria", required=True
+        help="Categoria"
     )
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
 
     alternate_contact = fields.Char(string="Contacto Alternativo")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia", required=True)
+        comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
+        comodel_name='linhafala.distrito', string="Districto")  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     living_relatives = fields.Selection(
@@ -107,11 +107,11 @@ class PersonInvolved(models.Model):
             ("female", "Feminino"),
             ("other", "Desconhecido"),
         ],
-        help="Sexo", required=True
+        help="Sexo"
     )
     what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([(str(i), str(i)) for i in range(6, 99)] + [('99+', '99+')],
-                           string='Idade', required=True)
+                           string='Idade')
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],

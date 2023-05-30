@@ -74,7 +74,7 @@ class Chamada(models.Model):
                    ("Isizulo", "Isizulo - (zulo)"),
                    ("Siswati", "Siswati - (swati)"),
                    ("Chewa", "Chewa - (Chichewa)")
-                   ], required=True,
+                   ],
         help="Type is used to separate Languages"
     )
     victim_relationship = fields.Selection(
@@ -128,9 +128,9 @@ class Chamada(models.Model):
     )
     nr_identication = fields.Char(string="Número de Identificação")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Província", required=True)
+        comodel_name='linhafala.provincia', string="Província")
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto", required=True)  # ,
+        comodel_name='linhafala.distrito', string="Districto")  # ,
     #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
@@ -139,18 +139,18 @@ class Chamada(models.Model):
             ("male", "Masculino"),
             ("female", "Feminino"),
             ("other", "Desconhecido"),
-        ], required=True,
+        ],
         help="Sexo"
     )
     age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
-    on_school = fields.Boolean("Estuda?", required=True)
+    on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
     school = fields.Char(string="Escola")
     call_start = fields.Datetime(string='Hora de início da chamada',
-                                 default=fields.Datetime.now, readonly=True, required=True)
+                                 default=fields.Datetime.now, readonly=True)
     call_end = fields.Datetime(
         string='Hora de fim da chamada', readonly=False)
     detailed_description = fields.Html(string='Descrição detalhada', attrs={

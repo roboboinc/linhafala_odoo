@@ -36,12 +36,13 @@ class Chamada(models.Model):
     type_of_intervention = fields.Selection(
         string='Tipo de Intervenção / Motivo',
         selection=[
-            ("Agradecimento", "Agradecimento"),
-            ("Chamada de Assistência", "Chamada de Assistência"),
-            ("Comportamento", "Comportamento"),
             ("Caso", "Caso"),
-            ("Perdida", "Perdida"),
             ("Engano", "Engano"),
+            ("Perdida", "Perdida"),
+            ("Moz Learning", "Moz Learning"),
+            ("Agradecimento", "Agradecimento"),
+            ("Comportamento", "Comportamento"),
+            ("Chamada de Assistência", "Chamada de Assistência"),
             ("Informação Geral sobre a LFC", "Informação Geral sobre a LFC"),
         ],
         help="Type is used to separate Contact types"

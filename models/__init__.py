@@ -11,3 +11,4 @@ from . import knowledgebase
 from . import person_involved
 from . import moz_learning
 from . import moz_learning_complaint_details
+from . import gender_based_violence

@@ -470,22 +470,14 @@ class AssistanceReferall(models.Model):
 
     assistance_id = fields.Many2one(
         "linhafala.chamada.assistance", string="Assistência")
-    area_type = fields.Selection(
-        string='Tipo de Área',
-        selection=[
-            ("Institucional", "Institucional"),
-            ("Não Institucional", "Não Institucional"),
-        ],
-        help="Tipo de Área"
-    )
-    reference_area = fields.Many2one(
-        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
-    reference_entity = fields.Many2one(
-        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    area_type = fields.Selection(string="Tipo de Área", related='case_reference.area_type')
+    #Make dynamic fields
+    reference_area = fields.Many2one(string="Área de Referência", related='case_reference.reference_area')
+    reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa de Responsável")
-    spokes_person_phone = fields.Char(string="Telefone do Responsável")
+    spokes_person = fields.Char(string="Pessoa Responsável")
+    spokes_person_phone = fields.Char(string="Telefone do Responsável", related='case_reference.contact')
     assistance_status = fields.Selection(
         string='Estado do caso',
         selection=[

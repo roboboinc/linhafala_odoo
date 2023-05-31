@@ -121,7 +121,7 @@
                                 <strong>Tem telefone? : </strong>
                                 <field name="have_a_phone" />
                             </p>
-                             <p attrs="{'invisible': [('have_a_phone','!=','Sim')]}">
+                            <p attrs="{'invisible': [('have_a_phone','!=','Sim')]}">
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
@@ -135,7 +135,7 @@
                                 <strong>Documento de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
-                            <p attrs="{'invisible': [('id_number','=', False)]}" >
+                            <p attrs="{'invisible': [('id_number','=', False)]}">
                                 <strong>Número do Documento: </strong>
                                 <field name="document_number" />
                             </p>
@@ -184,23 +184,28 @@
                                                             <strong>Elegibilidade da Queixa: </strong>
                                                             <field name="complaint_eligibility" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_eligibility','!=','Procedente')]}">
                                                             <strong>Projecto Relacionado ao caso: </strong>
                                                             <field name="related_project_case" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_eligibility','!=','Procedente')]}">
                                                             <strong>Reclamação Reclacionada a: </strong>
                                                             <field name="complaint_related_to" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_related_to','=',False)]}">
                                                             <strong>Especifique: </strong>
                                                             <field name="specify" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('specify','!=','VBG')]}">
                                                             <strong>Qual o tipo: </strong>
                                                             <field name="type_of_vbg" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_eligibility','!=','Procedente')]}">
                                                             <strong>Nivel de urgência: </strong>
                                                             <field name="level_of_urgency" />
                                                         </p>
@@ -212,13 +217,15 @@
                                                             <field
                                                                 name="complaint_reception_channel" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_reception_channel','!=','Ponto Focal Provincial de Gênero/Salvaguardas')]}">
                                                             <strong>Nome do Ponto focal Receptora: </strong>
                                                             <field name="focal_point_name" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_reception_channel','!=','Ponto Focal Provincial de Gênero/Salvaguardas')]}">
                                                             <strong>Contacto do Ponto focal
-                                                                Receptora: </strong>
+                                                                Receptor: </strong>
                                                             <field name="focal_point_contact" />
                                                         </p>
                                                         <p>
@@ -260,7 +267,8 @@
                                         </tree>
                                     </field>
                                 </page>
-                                <page attrs="{'invisible': [('isVictim','=',False)]}" string="Pessoas Envolvdas" name="persons">
+                                <page attrs="{'invisible': [('isVictim','!=',False)]}"
+                                    string="Pessoas Envolvdas" name="persons">
                                     <field name="persons_involved_moz_learning_line_ids"
                                         widget="one2many">
                                         <form>
@@ -344,33 +352,45 @@
                                                                 projecto?: </strong>
                                                             <field name="vbg_connected_project" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
                                                             <strong>Foi assinado o concentimento
                                                                 informado?: </strong>
                                                             <field name="signed_informed_consent" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('signed_informed_consent','!=','Sim')]}">
                                                             <strong>Quais as razões para não ter
                                                                 assinado?: </strong>
                                                             <field name="reasons_for_not_signing" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
                                                             <strong>Existe risco de retaliação?: </strong>
                                                             <field
                                                                 name="is_there_a_risk_of_retaliation" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
                                                             <strong>Com quem vive o(a) vítima?: </strong>
                                                             <field
                                                                 name="who_does_the_victim_live_with" />
                                                         </p>
+                                                        <p
+                                                            attrs="{'invisible': [('who_does_the_victim_live_with','!=','Outro')]}">
+                                                            <strong>Qual Outro?: </strong>
+                                                            <field
+                                                                name="what_other_live" />
+                                                        </p>
                                                     </div>
                                                     <div class="col-md-6 mt-5">
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
                                                             <strong>Ocupação do(a) vítima: </strong>
                                                             <field name="victim_occupation" />
                                                         </p>
-                                                        <p>
+                                                        <p
+                                                            attrs="{'invisible': [('victim_occupation','!=','Outro')]}">
                                                             <strong>Qual outro?: </strong>
                                                             <field name="what_other" />
                                                         </p>

@@ -149,6 +149,57 @@
                                 </page>
                                 <page string="Referências de Assistências"
                                     name="assistance_references">
+                                    <!-- <form>
+                                        <header>
+                                            <field name="callcaseassistance_status"
+                                                widget="statusbar"
+                                                options="{'clickable': '1'}"
+                                                statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                                        </header>
+                                        <sheet>
+                                            <div class="row w-100">
+                                                <div class="col-md-6">
+                                                    <p>
+                                                        <strong>Caso: </strong>
+                                                        <field
+                                                            name="call_id" />
+                                                    </p>
+                                                    <p title="Adicione a pessoa de contacto!">
+                                                        <strong>Área de Referência: </strong>
+                                                        <field name="reference_area" />
+                                                    </p>
+                                                    <p>
+                                                        <strong>Pessoa de Contacto: </strong>
+                                                        <field
+                                                            name="case_reference" />
+                                                    </p>
+                                                    <p title="Adicione a pessoa de contacto!">
+                                                        <strong>Telefone do Responsável: </strong>
+                                                        <field
+                                                            name="spokes_person_phone" />
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p title="Adicione a pessoa de contacto!">
+                                                        <strong>
+                                                            Tipo de Área: </strong>
+                                                        <field name="area_type" />
+                                                    </p>
+                                                    <p title="Adicione a pessoa de contacto!">
+                                                        <strong>
+                                                            Entidade de Referência: </strong>
+                                                        <field name="reference_entity"
+                                                        />
+                                                    </p>
+                                                    <p>
+                                                        <strong>
+                                                            Pessoa Responsável: </strong>
+                                                        <field name="spokes_person" />
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </sheet>
+                                    </form> -->
                                     <field name="assistance_referral_line_ids" widget="one2many">
                                         <tree>
                                             <field name="area_type" />

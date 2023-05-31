@@ -18,6 +18,7 @@
         'views/linhafala_knowledgebase_views.xml',
         'views/linhafala_menus.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',
         'data/linhafala.categoria.csv',

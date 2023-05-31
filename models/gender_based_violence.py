@@ -50,7 +50,7 @@ class GenderBasedViolence(models.Model):
         help="Com quem vive o(a) vítima?"
     )
 
-    what_other = fields.Char(string="Qual Outro?")
+    what_other_live = fields.Char(string="Qual Outro?")
 
     victim_occupation = fields.Selection(
         string='Ocupação do(a) vítima',
@@ -63,6 +63,8 @@ class GenderBasedViolence(models.Model):
         ],
         help="Ocupação do(a) vítima"
     )
+
+    what_other = fields.Char(string="Qual Outro?")
 
     vbg_status = fields.Selection(
         string='Estado do VBG',

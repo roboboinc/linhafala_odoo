@@ -50,7 +50,7 @@ class GenderBasedViolence(models.Model):
         help="Com quem vive o(a) vítima?"
     )
 
-    what_other = fields.Char(string="Qual Outro?")
+    what_other_live = fields.Char(string="Qual Outro?")
 
     victim_occupation = fields.Selection(
         string='Ocupação do(a) vítima',
@@ -64,6 +64,8 @@ class GenderBasedViolence(models.Model):
         help="Ocupação do(a) vítima"
     )
 
+    what_other = fields.Char(string="Qual Outro?")
+
     vbg_status = fields.Selection(
         string='Estado do VBG',
         selection=[
@@ -74,9 +76,13 @@ class GenderBasedViolence(models.Model):
     )
 
     description_of_the_current_situation = fields.Html(string='Descrição da situação atual', attrs={
-                                       'style': 'height: 500px;'}, required=False)
+        'style': 'height: 500px;'}, required=False)
+
+    description_of_dompleted_agreements = fields.Html(string='Descrição dos Acordos Concluídos', attrs={
+        'style': 'height: 500px;'}, required=False)
 
     updated_at = fields.Datetime(string='Data de actualizaçäo',
                                  default=lambda self: fields.Datetime.now(), readonly=True)
 
-    solved_date = fields.Datetime(string="Data de Resolução", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+    solved_date = fields.Datetime(
+        string="Data de Resolução", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")

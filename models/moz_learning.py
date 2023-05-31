@@ -73,7 +73,7 @@ class MozLearning(models.Model):
                                   size=13)
 
     isVictim = fields.Boolean(
-        "O Denunciante é Vítima ?")
+        "O Denunciante é Vítima ?", default=True)
 
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Província")

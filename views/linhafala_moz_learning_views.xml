@@ -405,6 +405,24 @@
                                                             <field name="solved_date" />
                                                         </p>
                                                     </div>
+                                                    <div class="col-md-12">
+                                                        <notebook>
+                                                            <page
+                                                                attrs="{'invisible': [('vbg_status','!=','Em Curso')]}"
+                                                                string="Descrição da situação atual"
+                                                                name="situação_atual">
+                                                                <field
+                                                                    name="description_of_the_current_situation" />
+                                                            </page>
+                                                            <page
+                                                                attrs="{'invisible': [('vbg_status','!=','Resolvido')]}"
+                                                                string="Descrição dos Acordos concluídos "
+                                                                name="descrição_de_conclusão">
+                                                                <field
+                                                                    name="description_of_dompleted_agreements" />
+                                                            </page>
+                                                        </notebook>
+                                                    </div>
                                                 </div>
                                             </sheet>
                                         </form>

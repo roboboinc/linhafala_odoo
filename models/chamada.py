@@ -15,8 +15,9 @@ class Chamada(models.Model):
     
     case_id = fields.One2many('linhafala.caso', 'call_id',
                                 string="Caso")
-    person_id = fields.Many2many('linhafala.person_involved', 'call_id',
-                                  string="Person_involved") # podemos adicionar mais de um perpetrador devido ao tipo de relacao usada.
+    person_id = fields.One2many('linhafala.person_involved', 'case_id',
+                                string="Person_involved")
+    
     category = fields.Many2one(
         comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     contact_type = fields.Selection(

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_lfc">
+        <field name="name">LFC Assistance App</field>
+        <field name="description">Categoria da linha fala criança</field>
+    </record>
+
+    <record id="group_linhafala_administrador" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="category_id" ref="module_category_lfc" />
+    </record>
+
+    <record id="group_linhafala_supervisor" model="res.groups">
+        <field name="name">Supervisor</field>
+        <field name="category_id" ref="module_category_lfc" />
+    </record>
+
+    <record id="group_linhafala_gestor" model="res.groups">
+        <field name="name">Gestor</field>
+        <field name="category_id" ref="module_category_lfc" />
+    </record>
+
+    <record id="group_linhafala_conselheiro" model="res.groups">
+        <field name="name">Conselheiro</field>
+        <field name="category_id" ref="module_category_lfc" />
+    </record>
+
+</odoo>

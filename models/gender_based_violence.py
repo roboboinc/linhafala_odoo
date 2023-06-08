@@ -21,7 +21,7 @@ class GenderBasedViolence(models.Model):
         "VBG está conectado ao projecto ?: ")
 
     signed_informed_consent = fields.Boolean(
-        "Foi assinado o pedido de consentimento informado ?: ")
+        "Foi assinado o pedido de consentimento informado ?: ", default=True)
 
     attachment = fields.Char(string="Anexe a fotografia do consentimento")
 

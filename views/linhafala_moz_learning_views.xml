@@ -359,7 +359,7 @@
                                                             <field name="signed_informed_consent" />
                                                         </p>
                                                         <p
-                                                            attrs="{'invisible': [('signed_informed_consent','!=','Sim')]}">
+                                                            attrs="{'invisible': [('signed_informed_consent','!=',False)]}">
                                                             <strong>Quais as razões para não ter
                                                                 assinado?: </strong>
                                                             <field name="reasons_for_not_signing" />

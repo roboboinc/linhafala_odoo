@@ -1,5 +1,6 @@
 from xml.dom import ValidationErr
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 import uuid
 
 
@@ -44,6 +45,37 @@ class PersonInvolved(models.Model):
         ],
         help="Categoria"
     )
+
+
+    @api.model
+    def _get_confirm_perpetrador(self):
+        return self.env['ir.config_parameter'].sudo().get_param('my_module.confirm_perpetrador')
+
+    @api.model
+    def _get_confirm_vitima(self):
+        return self.env['ir.config_parameter'].sudo().get_param('my_module.confirm_vitima')
+
+    @api.model
+    def create(self, vals):
+        if vals.get('person_type') != 'Vítima' and not self._get_confirm_vitima() and not self._context.get('vitima_added'):
+            raise UserError(_("Desculpe, mas é necessário adicionar uma Vítima para prosseguir."))
+
+        if vals.get('person_type') == 'Vítima':
+            vals.update({'person_type': 'Vítima'})
+            self = self.with_context(vitima_added=True)
+
+        return super().create(vals)
+
+    def write(self, vals):
+        if 'person_type' in vals and vals['person_type'] != 'Vítima' and not self._get_confirm_vitima() and not self._context.get('vitima_added'):
+            raise UserError(_("Desculpe, mas é necessário adicionar uma Vítima para prosseguir."))
+
+        if 'person_type' in vals and vals['person_type'] == 'Vítima':
+            vals.update({'person_type': 'Vítima'})
+            self = self.with_context(vitima_added=True)
+
+        return super().write(vals)
+
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
 
@@ -117,3 +149,5 @@ class PersonInvolved(models.Model):
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
     case_id = fields.Many2one("linhafala.caso", string="Caso")
+
+

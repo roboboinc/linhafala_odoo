@@ -1,5 +1,6 @@
 from xml.dom import ValidationErr
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 import uuid
 
 
@@ -181,9 +182,15 @@ class Chamada(models.Model):
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
         ],
-        default="Aberto/Pendente",
         help="Estado"
     )
+
+    @api.constrains('callcaseassistance_status')
+    def _check_callcaseassistance_status(self):
+        for record in self:
+            if record.callcaseassistance_status != 'Aberto/Pendente' and record.callcaseassistance_status != 'Dentro do sistema' and record.callcaseassistance_status != 'Assistido' and record.callcaseassistance_status != 'Encerrado':
+                raise ValidationError("Por favor, selecione o estado da chamada para prosseguir.")
+
     reporter = fields.Many2one(
         'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
     created_at = fields.Datetime(
@@ -375,9 +382,15 @@ class CallCaseAssistance(models.Model):
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
         ],
-        default="Aberto/Pendente",
         help="Estado"
     )
+
+    @api.constrains('callcaseassistance_status')
+    def _check_callcaseassistance_status(self):
+        for record in self:
+            if record.callcaseassistance_status != 'Aberto/Pendente' and record.callcaseassistance_status != 'Dentro do sistema' and record.callcaseassistance_status != 'Assistido' and record.callcaseassistance_status != 'Encerrado':
+                raise ValidationError("Por favor, selecione o estado da Assistência para prosseguir.")
+
     callcaseassistance_priority = fields.Selection(
         string='Período de Resolução',
         selection=[
@@ -485,6 +498,14 @@ class AssistanceReferall(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado"),
-        ],default="Aberto/Pendente",
+        ],
         help="Estado do caso"
     )
+
+    @api.constrains('assistance_status')
+    def _check_assistance_status(self):
+        for record in self:
+            if record.assistance_status != 'Aberto/Pendente' and record.assistance_status != 'Dentro do sistema' and record.assistance_status != 'Assistido' and record.assistance_status != 'Encerrado':
+                raise ValidationError("Por favor, selecione o estado do caso para prosseguir.")
+
+

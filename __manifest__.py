@@ -14,6 +14,7 @@
         'views/linhafala_cases_views.xml',
         'views/linhafala_case_form_view.xml',
         'views/linhafala_moz_learning_views.xml',
+        'views/linhafala_assistance_referral.xml',
         'views/linhafala_configurations_views.xml',
         'views/linhafala_knowledgebase_views.xml',
         'views/linhafala_menus.xml',

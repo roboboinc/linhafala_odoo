@@ -477,7 +477,6 @@ class AssistanceReferall(models.Model):
     reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa Responsável")
     spokes_person_phone = fields.Char(string="Telefone do Responsável", related='case_reference.contact')
     assistance_status = fields.Selection(
         string='Estado do caso',

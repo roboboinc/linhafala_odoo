@@ -89,7 +89,7 @@
     <record id="linhafala_caso_referencearea_action" model="ir.actions.act_window">
         <field name="name">Área Institucional ou Näo Institucional</field>
         <field name="res_model">linhafala.caso.referencearea</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Área Institucional ou Näo Institucional
@@ -111,7 +111,7 @@
     <record id="linhafala_caso_forwarding_institution_action" model="ir.actions.act_window">
         <field name="name">Instituição de encaminhamento</field>
         <field name="res_model">linhafala.caso.forwarding_institution</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Tipo de instituição
@@ -155,10 +155,20 @@
         <field name="name">linhafala.chamada.assistance.referral.tree</field>
         <field name="model">linhafala.chamada.assistance.referral</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="assistance_id" />
-                <field name="area_type" />
-                <field name="reference_area" />
+            <tree string="Channel" decoration-info="assistance_status=='Dentro do sistema'"
+                decoration-primary="assistance_status=='Assistido'"
+                decoration-success="assistance_status=='Encerrado'"
+                decoration-warning="assistance_status=='Aberto/Pendente'">
+                <field name="assistance_id" optional="show" />
+                <field name="area_type" optional="show" />
+                <field name="reference_area" optional="hide" />
+                <field name="reference_entity" optional="hide" />
+                <field name="spokes_person_phone" optional="hide" />
+                <field decoration-info="assistance_status=='Dentro do sistema'"
+                    decoration-primary="assistance_status=='Assistido'"
+                    decoration-success="assistance_status=='Encerrado'"
+                    decoration-warning="assistance_status=='Aberto/Pendente'"
+                    widget="badge" name="assistance_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -256,9 +266,20 @@
         <field name="name">linhafala.caso.forwarding_institution.tree</field>
         <field name="model">linhafala.caso.forwarding_institution</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
-                <field name="case_id" />
-                <field name="reference_area" /> <!--used to have reference area-->
+            <tree string="Channel" decoration-info="case_status=='Dentro do sistema'"
+                decoration-primary="case_status=='Assistido'"
+                decoration-success="case_status=='Encerrado'"
+                decoration-warning="case_status=='Aberto/Pendente'">
+                <field name="case_id" optional="show" />
+                <field name="area_type" optional="show" />
+                <field name="reference_area" optional="hide" />
+                <field name="reference_entity" optional="hide" />
+                <field name="spokes_person_phone" optional="hide" />
+                <field decoration-info="case_status=='Dentro do sistema'"
+                    decoration-primary="case_status=='Assistido'"
+                    decoration-success="case_status=='Encerrado'"
+                    decoration-warning="case_status=='Aberto/Pendente'"
+                    widget="badge" name="case_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -298,7 +319,7 @@
     <record id="linhafala_chamada_assistance_referral_action" model="ir.actions.act_window">
         <field name="name">Referência de Assistências</field>
         <field name="res_model">linhafala.chamada.assistance.referral</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Referência de encaminhamento de Assistências

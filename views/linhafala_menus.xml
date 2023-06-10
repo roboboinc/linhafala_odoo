@@ -34,27 +34,26 @@
         parent="linhafala_menu_root"
         sequence="4" />
 
-
     <menuitem
-        id="linhafala_assistance_referral_menu_action"
-        name="Encaminhamento - Assistências"
+        id="linhafala_chamada_assistance_referral_menu_action"
+        name="Encaminhamento de Assistências"
         action="linhafala_chamada_assistance_referral_action"
         parent="linhafala_menu_root"
-        sequence="4" />
+        sequence="5" />
 
     <menuitem
-        id="linhafala_forwarding_institution_menu_action"
-        name="Encaminhamento - Casos"
-        action="linhafala_caso_forwarding_institution_action"
+        id="linhafala_cases_referral_menu_action"
+        name="Encaminhamento de Casos"
+        action="linhafala_cases_referral_action"
         parent="linhafala_menu_root"
-        sequence="5" />
+        sequence="6" />
 
     <menuitem
         id="linhafala_knowledgebase_menu_action"
         name="Base de conhecimentos"
         action="linhafala_knowledgebase_action"
         parent="linhafala_menu_root"
-        sequence="6" />
+        sequence="7" />
 
     <!-- CONFIGURATION -->
     <menuitem

@@ -156,9 +156,12 @@
         <field name="model">linhafala.chamada.assistance.referral</field>
         <field name="arch" type="xml">
             <tree string="Channel">
-                <field name="assistance_id" />
-                <field name="area_type" />
-                <field name="reference_area" />
+                <field name="assistance_id" optional="show"/>
+                <field name="area_type" optional="show"/>
+                <field name="reference_area" optional="hide"/>
+                <field name="reference_entity" optional="hide"/>
+                <field name="spokes_person_phone" optional="hide"/>
+                <field name="assistance_status" optional="show"/>
             </tree>
         </field>
     </record>
@@ -258,7 +261,8 @@
         <field name="arch" type="xml">
             <tree string="Channel">
                 <field name="case_id" />
-                <field name="reference_area" /> <!--used to have reference area-->
+                <field name="reference_area" /> <!--used
+                to have reference area-->
             </tree>
         </field>
     </record>
@@ -298,7 +302,7 @@
     <record id="linhafala_chamada_assistance_referral_action" model="ir.actions.act_window">
         <field name="name">Referência de Assistências</field>
         <field name="res_model">linhafala.chamada.assistance.referral</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Referência de encaminhamento de Assistências

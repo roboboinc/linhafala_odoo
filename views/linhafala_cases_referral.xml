@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <record id="view_assistance_referal_kanban" model="ir.ui.view">
-        <field name="name">linhafala.chamada.assistance.referral.kanban</field>
-        <field name="model">linhafala.chamada.assistance.referral</field>
+    <record id="view_linhafala_cases_referral_kanban" model="ir.ui.view">
+        <field name="name">linhafala.caso.forwarding_institution.kanban</field>
+        <field name="model">linhafala.caso.forwarding_institution</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="assistance_status">
-                <field name="assistance_id" />
+            <kanban default_group_by="case_status">
+                <field name="case_id" />
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
                                 <ul>
-                                    <li> ID: <field name="assistance_id" /></li>
+                                    <li> ID: <field name="case_id" /></li>
                                 </ul>
                             </div>
                         </div>
@@ -23,41 +23,41 @@
     </record>
 
 
-    <record id="linhafala_assistance_referral_action" model="ir.actions.act_window">
-        <field name="name">Encaminhamento de Assistências</field>
-        <field name="res_model">linhafala.chamada.assistance.referral</field>
+    <record id="linhafala_cases_referral_action" model="ir.actions.act_window">
+        <field name="name">Encaminhamento de Casos</field>
+        <field name="res_model">linhafala.caso.forwarding_institution</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Registar Encaminhamento de Assistências
+                Registar Encaminhamento de Casos
             </p>
         </field>
     </record>
 
     <!-- Form view definition -->
-    <record id="linhafala_assistance_referral_form_view" model="ir.ui.view">
-        <field name="name">linhafala.chamada.assistance.referral.form</field>
-        <field name="model">linhafala.chamada.assistance.referral</field>
+    <record id="linhafala_cases_referral_form_view" model="ir.ui.view">
+        <field name="name">linhafala.caso.forwarding_institution.form</field>
+        <field name="model">linhafala.caso.forwarding_institution</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="assistance_status"
+                    <field name="case_status"
                         widget="statusbar"
                         options="{'clickable': '1'}"
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <sheet>
-                    <h1> Formulário de Encaminhamento de Assitências LFC <h3>
+                    <h1> Formulário de Encaminhamento de Casos LFC <h3>
 
                         </h3>
                     </h1>
                     <div class="row w-100 my-2">
                         <div class="col-md-6">
                             <p>
-                                <strong>ID da Assistência: </strong>
+                                <strong>ID do Caso: </strong>
                                 <field
-                                    name="assistance_id" />
+                                    name="case_id" />
                             </p>
                             <p title="Adicione a pessoa de contacto!">
                                 <strong>Área de Referência: </strong>

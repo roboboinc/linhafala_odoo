@@ -343,8 +343,18 @@ class CaseReference(models.Model):
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia")
-    reference_id = fields.Char(string="ID daReferencia")
-
+   
+    case_status = fields.Selection(
+        string='Estado do caso',
+        selection=[
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
+            ("No Arquivo Morto", "No Arquivo Morto"),
+            ("Encerrado", "Encerrado")
+        ],default="Aberto/Pendente",
+        help="Estado do caso"
+    )
    
 
 class ForwardingInstitutions(models.Model):

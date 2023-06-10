@@ -42,18 +42,25 @@
         sequence="5" />
 
     <menuitem
+        id="linhafala_cases_referral_menu_action"
+        name="Encaminhamento de Casos"
+        action="linhafala_cases_referral_action"
+        parent="linhafala_menu_root"
+        sequence="6" />
+
+    <menuitem
         id="linhafala_knowledgebase_menu_action"
         name="Base de conhecimentos"
         action="linhafala_knowledgebase_action"
         parent="linhafala_menu_root"
-        sequence="6" />
+        sequence="7" />
 
     <!-- CONFIGURATION -->
     <menuitem
         id="linhafala_menu_config"
         name="Configuration"
         parent="linhafala_menu_root"
-        sequence="7" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
+        sequence="8" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
 
     <menuitem
         id="linhafala_province_menu_action"

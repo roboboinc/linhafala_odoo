@@ -34,18 +34,10 @@
         parent="linhafala_menu_root"
         sequence="4" />
 
-
     <menuitem
-        id="linhafala_assistance_referral_menu_action"
-        name="Encaminhamento - Assistências"
+        id="linhafala_chamada_assistance_referral_menu_action"
+        name="Encaminhamento de Assistências"
         action="linhafala_chamada_assistance_referral_action"
-        parent="linhafala_menu_root"
-        sequence="4" />
-
-    <menuitem
-        id="linhafala_forwarding_institution_menu_action"
-        name="Encaminhamento - Casos"
-        action="linhafala_caso_forwarding_institution_action"
         parent="linhafala_menu_root"
         sequence="5" />
 
@@ -61,7 +53,7 @@
         id="linhafala_menu_config"
         name="Configuration"
         parent="linhafala_menu_root"
-        sequence="8" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
+        sequence="7" /> <!-- TODO: Add groups="sales_team.group_sale_manager" -->
 
     <menuitem
         id="linhafala_province_menu_action"

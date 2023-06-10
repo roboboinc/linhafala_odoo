@@ -57,24 +57,29 @@ class PersonInvolved(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('person_type') != 'Vítima' and not self._get_confirm_vitima() and not self._context.get('vitima_added'):
+        person_type = vals.get('person_type')
+
+        if person_type != 'Vítima' and person_type != 'Contactante+Vítima' and not self._get_confirm_vitima() and not self._context.get('vitima_added'):
             raise UserError(_("Desculpe, mas é necessário adicionar uma Vítima para prosseguir."))
 
-        if vals.get('person_type') == 'Vítima':
+        if person_type == 'Vítima':
             vals.update({'person_type': 'Vítima'})
             self = self.with_context(vitima_added=True)
 
         return super().create(vals)
 
     def write(self, vals):
-        if 'person_type' in vals and vals['person_type'] != 'Vítima' and not self._get_confirm_vitima() and not self._context.get('vitima_added'):
+        person_type = vals.get('person_type')
+
+        if 'person_type' in vals and person_type != 'Vítima' and person_type != 'Contactante+Vítima' and not self._get_confirm_vitima() and not self._context.get('vitima_added'):
             raise UserError(_("Desculpe, mas é necessário adicionar uma Vítima para prosseguir."))
 
-        if 'person_type' in vals and vals['person_type'] == 'Vítima':
+        if 'person_type' in vals and person_type == 'Vítima':
             vals.update({'person_type': 'Vítima'})
             self = self.with_context(vitima_added=True)
 
         return super().write(vals)
+
 
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")

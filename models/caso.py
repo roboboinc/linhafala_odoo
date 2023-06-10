@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 import uuid
 
 class Caso(models.Model):
@@ -29,9 +30,16 @@ class Caso(models.Model):
             ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
-        ], default="Aberto/Pendente",
+        ],
         help="Estado do caso"
     )
+
+    @api.constrains('case_status')
+    def _check_case_status(self):
+        for record in self:
+            if record.case_status != 'Aberto/Pendente' and record.case_status != 'Dentro do sistema' and record.case_status != 'Assistido' and record.case_status != 'No Arquivo Morto' and record.case_status !='Encerrado':
+                raise ValidationError("Por favor, selecione o estado do caso para prosseguir.")
+
     case_priority = fields.Selection(
         string='Período de Resolução',
         selection=[

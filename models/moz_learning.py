@@ -1,5 +1,6 @@
 from xml.dom import ValidationErr
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 import uuid
 
 
@@ -200,6 +201,12 @@ class MozLearning(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado"),
-        ], default="Aberto/Pendente",
+        ],
         help="Estado do caso"
     )
+
+    @api.constrains('moz_learning_status')
+    def _check_moz_learning_status(self):
+        for record in self:
+            if record.moz_learning_status != 'Aberto/Pendente' and record.moz_learning_status != 'Dentro do sistema' and record.moz_learning_status != 'Assistido' and record.moz_learning_status != 'Encerrado':
+                raise ValidationError("Por favor, selecione o estado do caso para prosseguir.")

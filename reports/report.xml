@@ -8,13 +8,6 @@
             name="linhafala_odoo.report_case"
             file="linhafala_odoo.report_case" />
 
-        <report id="report_calls_card"
-            string="Calls Report"
-            model="linhafala.chamada"
-            report_type="qweb-pdf"
-            name="linhafala_odoo.report_calls"
-            file="linhafala_odoo.report_calls" />
-
         <report id="report_assistance_card"
             string="Assistance Report"
             model="linhafala.chamada.assistance"

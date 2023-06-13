@@ -385,9 +385,9 @@ class ForwardingInstitutions(models.Model):
         help="Área de Encaminhamento"
     )
     reference_area = fields.Many2one(
-        string="Área de Referência")
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
     reference_entity = fields.Many2one(
-        string="Entidade de Referência")
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")

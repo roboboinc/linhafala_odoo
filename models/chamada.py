@@ -234,6 +234,12 @@ class Chamada(models.Model):
             vals['call_id'] = self.env['ir.sequence'].next_by_code(
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
+    
+    @api.constrains('caller_language', 'distrito', 'provincia', 'call_start','call_end', 'on_school', 'gender', 'detailed_description')
+    def _check_all(self):
+        for record in self:
+            if not record.caller_language or not record.distrito or not record.provincia or not record.call_start or not record.call_end or not record.on_school or not record.gender or not record.detailed_description:
+                raise ValidationError("Por favor, preencha os campos de caracter obrigatorio.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -446,6 +452,13 @@ class CallCaseAssistance(models.Model):
             vals['assistance_id'] = self.env['ir.sequence'].next_by_code(
                 'linhafala.chamada.assistance_id.seq') or '/'
         return super(CallCaseAssistance, self).create(vals)
+
+    @api.constrains('distrito', 'provincia', 'category','subcategory', 'callcaseassistance_priority', 'detailed_description')
+    def _check_all(self):
+        for record in self:
+            if not record.distrito or not record.provincia or not record.category or not record.subcategory or not record.callcaseassistance_priority or not record.detailed_description:
+                raise ValidationError("Por favor, preencha os campos de caracter obrigatorio.")
+
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

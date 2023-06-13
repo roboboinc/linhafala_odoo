@@ -55,12 +55,11 @@
                     <div class="row w-100">
                         <div class="col-md-6">
                             <p>
-                                <strong>Id do Caso: </strong>
+                                <strong>Id da Assistência: </strong>
                                 <field
                                     name="assistance_id" />
                             </p>
-                            <p
-                                title="Adicione a pessoa de contacto!">
+                            <p>
                                 <strong>Área de Encaminhamento: </strong>
                                 <field name="area_type" />
                             </p>
@@ -76,16 +75,14 @@
                                 <field
                                     name="case_reference" />
                             </p>
-                            <p
-                                title="Adicione a pessoa de contacto!">
+                            <p>
                                 <strong>Telefone do Responsável: </strong>
                                 <field
                                     name="spokes_person_phone" />
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <p
-                                title="Adicione a pessoa de contacto!">
+                            <p>
                                 <strong>
                                     Referência: </strong>
                                 <field name="reference_area" />
@@ -93,12 +90,12 @@
                             <p>
                                 <strong>
                                     Província: </strong>
-                                <field name="spokes_person" />
+                                <field name="provincia" />
                             </p>
                             <p>
                                 <strong>
                                     Distrito: </strong>
-                                <field name="spokes_person" />
+                                <field name="distrito" />
                             </p>
                         </div>
                     </div>

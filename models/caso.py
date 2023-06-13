@@ -391,10 +391,13 @@ class ForwardingInstitutions(models.Model):
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa Responsável")
 
     spokes_person_phone = fields.Char(
         string="Telefone do Responsável", related='case_reference.contact')
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia")
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto") 
 
     case_status = fields.Selection(
         string='Estado do caso',

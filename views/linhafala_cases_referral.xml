@@ -90,15 +90,15 @@
                                     Referência: </strong>
                                 <field name="reference_area" />
                             </p>
-                            <p>
+                             <p>
                                 <strong>
                                     Província: </strong>
-                                <field name="spokes_person" />
+                                <field name="provincia" />
                             </p>
                             <p>
                                 <strong>
                                     Distrito: </strong>
-                                <field name="spokes_person" />
+                                <field name="distrito" />
                             </p>
                         </div>
                     </div>

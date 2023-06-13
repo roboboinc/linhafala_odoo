@@ -338,37 +338,35 @@ class CaseReference(models.Model):
     _name = "linhafala.caso.casereference"
     _description = "Pessoa de Contacto"
 
-    name = fields.Char(string="Nome de entidade")
 
-    contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
-                          size=13, min_length=9, default="+258")
+    name = fields.Char(string="Pessoa de Contacto")
 
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Referência")
+    
     area_type = fields.Selection(
-        string='Tipo de instituição',
+        string='Área de Encaminhamento',
         selection=[
             ("Institucional", "Institucional"),
             ("Não Institucional", "Não Institucional"),
         ],
-        help="Tipo de instituição"
+        help="Área de Encaminhamento"
     )
-    reference_area = fields.Many2one(
-        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
-    reference_entity = fields.Many2one(
-        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia")
 
-    case_status = fields.Selection(
-        string='Estado do caso',
-        selection=[
-            ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Dentro do sistema", "Dentro do sistema"),
-            ("Assistido", "Assistido"),
-            ("No Arquivo Morto", "No Arquivo Morto"),
-            ("Encerrado", "Encerrado")
-        ], default="Aberto/Pendente",
-        help="Estado do caso"
-    )
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+    
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto")
+    
+    contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
+                          size=13, min_length=9, default="+258")
+
+   
+    
 
 
 class ForwardingInstitutions(models.Model):
@@ -397,7 +395,7 @@ class ForwardingInstitutions(models.Model):
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto") 
+        comodel_name='linhafala.distrito', string="Districto")
 
     case_status = fields.Selection(
         string='Estado do caso',

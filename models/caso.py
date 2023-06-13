@@ -3,6 +3,7 @@ from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
 import uuid
 
+
 class Caso(models.Model):
     _name = "linhafala.caso"
     _description = "Formulário de Caso linha fala criança"
@@ -15,13 +16,13 @@ class Caso(models.Model):
 
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
-    
-    ref_id=fields.Many2one(
-        comodel_name='linhafala.caso.casereference', string="Reference") #ID da referencia da classe (linhafala.caso.casereference)
+
+    ref_id = fields.Many2one(
+        comodel_name='linhafala.caso.casereference', string="Reference")  # ID da referencia da classe (linhafala.caso.casereference)
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
-    
+
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[
@@ -37,8 +38,9 @@ class Caso(models.Model):
     @api.constrains('case_status')
     def _check_case_status(self):
         for record in self:
-            if record.case_status != 'Aberto/Pendente' and record.case_status != 'Dentro do sistema' and record.case_status != 'Assistido' and record.case_status != 'No Arquivo Morto' and record.case_status !='Encerrado':
-                raise ValidationError("Por favor, selecione o estado do caso para prosseguir.")
+            if record.case_status != 'Aberto/Pendente' and record.case_status != 'Dentro do sistema' and record.case_status != 'Assistido' and record.case_status != 'No Arquivo Morto' and record.case_status != 'Encerrado':
+                raise ValidationError(
+                    "Por favor, selecione o estado do caso para prosseguir.")
 
     case_priority = fields.Selection(
         string='Período de Resolução',
@@ -95,8 +97,8 @@ class Caso(models.Model):
 
     reporter_by = fields.Many2one(
         'res.users', string='Gestão', default=lambda self: self.env.user, readonly=True)
-    data_ocorrencia = fields.Datetime(string="Data de Ocorrência", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
-
+    data_ocorrencia = fields.Datetime(
+        string="Data de Ocorrência", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
 
     created_at = fields.Datetime(
         string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
@@ -108,10 +110,10 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    #persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
-                                                #string="Person Involved lines")
+    # persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
+    # string="Person Involved lines")
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
-                                                string="Instituição de encaminhamento")
+                                                      string="Instituição de encaminhamento")
 
     _sql_constraints = [
         ('unique_case_id', 'unique(case_id)', 'The case_id must be unique'),
@@ -200,10 +202,10 @@ class Caso(models.Model):
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
 
+
 class PersonInvolved(models.Model):
     _name = "linhafala.caso.person_involved"
     _description = "Person Involved Lines"
-
 
     fullname = fields.Char(string="Nome completo")
     id_number = fields.Selection(
@@ -220,7 +222,8 @@ class PersonInvolved(models.Model):
         help="Tipo de documento de identificação"
     )
     nr_identication = fields.Char(string="Numero de Identificação")
-    wants_to_be_annonymous = fields.Boolean("Consentimento Informado", default=True)
+    wants_to_be_annonymous = fields.Boolean(
+        "Consentimento Informado", default=True)
     person_type = fields.Selection(
         string='Categoria',
         selection=[
@@ -318,25 +321,28 @@ class ReferenceArea(models.Model):
         help="Tipo de instituição"
     )
 
+
 class ReferenceEntity(models.Model):
     _name = "linhafala.caso.referenceentity"
     _description = "Entidade de referência"
 
-    refEnt_id = fields.Char(string="Id reference entity", readonly=True) #Id da Reference entity
+    refEnt_id = fields.Char(string="Id reference entity",
+                            readonly=True)  # Id da Reference entity
 
     name = fields.Char(string="Nome de entidade")
     reference_area = fields.Many2one(
         comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+
 
 class CaseReference(models.Model):
     _name = "linhafala.caso.casereference"
     _description = "Pessoa de Contacto"
 
     name = fields.Char(string="Nome de entidade")
-    
-    contact = fields.Char(string="Contacto", widget="phone_raw", #add the number of pessoa de contacto
+
+    contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
                           size=13, min_length=9, default="+258")
-    
+
     area_type = fields.Selection(
         string='Tipo de instituição',
         selection=[
@@ -351,7 +357,7 @@ class CaseReference(models.Model):
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia")
-   
+
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[
@@ -360,25 +366,38 @@ class CaseReference(models.Model):
             ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
-        ],default="Aberto/Pendente",
+        ], default="Aberto/Pendente",
         help="Estado do caso"
     )
-   
+
 
 class ForwardingInstitutions(models.Model):
     _name = "linhafala.caso.forwarding_institution"
     _description = "Instituição de encaminhamento"
 
     case_id = fields.Many2one("linhafala.caso", string="Caso")
-    area_type = fields.Selection(string="Tipo de Área", related='case_reference.area_type')
-    reference_area = fields.Many2one(string="Área de Referência", related='case_reference.reference_area')
-    reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')
+    area_type = fields.Selection(
+        string='Área de Encaminhamento',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Área de Encaminhamento"
+    )
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person = fields.Char(string="Pessoa Responsável")
 
-    spokes_person_phone = fields.Char(string="Telefone do Responsável", related='case_reference.contact')
+    spokes_person_phone = fields.Char(
+        string="Telefone do Responsável", related='case_reference.contact')
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia")
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto") 
 
     case_status = fields.Selection(
         string='Estado do caso',
@@ -388,9 +407,6 @@ class ForwardingInstitutions(models.Model):
             ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
-        ],default="Aberto/Pendente",
+        ], default="Aberto/Pendente",
         help="Estado do caso"
     )
-
-     
-

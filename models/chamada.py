@@ -11,14 +11,14 @@ class Chamada(models.Model):
         'mail.thread',
         'mail.activity.mixin'
     ]
-    
+
     call_id = fields.Char(string="ID da chamada", readonly=True)
-    
+
     case_id = fields.One2many('linhafala.caso', 'call_id',
-                                string="Caso")
+                              string="Caso")
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
-    
+
     category = fields.Many2one(
         comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     contact_type = fields.Selection(
@@ -189,7 +189,8 @@ class Chamada(models.Model):
     def _check_callcaseassistance_status(self):
         for record in self:
             if record.callcaseassistance_status != 'Aberto/Pendente' and record.callcaseassistance_status != 'Dentro do sistema' and record.callcaseassistance_status != 'Assistido' and record.callcaseassistance_status != 'Encerrado':
-                raise ValidationError("Por favor, selecione o estado da chamada para prosseguir.")
+                raise ValidationError(
+                    "Por favor, selecione o estado da chamada para prosseguir.")
 
     reporter = fields.Many2one(
         'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
@@ -389,7 +390,8 @@ class CallCaseAssistance(models.Model):
     def _check_callcaseassistance_status(self):
         for record in self:
             if record.callcaseassistance_status != 'Aberto/Pendente' and record.callcaseassistance_status != 'Dentro do sistema' and record.callcaseassistance_status != 'Assistido' and record.callcaseassistance_status != 'Encerrado':
-                raise ValidationError("Por favor, selecione o estado da Assistência para prosseguir.")
+                raise ValidationError(
+                    "Por favor, selecione o estado da Assistência para prosseguir.")
 
     callcaseassistance_priority = fields.Selection(
         string='Período de Resolução',
@@ -475,22 +477,36 @@ class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
     _description = "Instituição de encaminhamento de assistência"
 
+    # add the possibility to add more than one victim , perpetrator and reference age
+    # person_id = fields.Many2one('linhafala.person_involved')
 
-    #add the possibility to add more than one victim , perpetrator and reference age
-    #person_id = fields.Many2one('linhafala.person_involved')
-
-    #case_id = models.ManyToManyField('linhafala.caso')
-    #refEnt_id = models.ManyToManyField('linhafala.caso.referenceentity')
+    # case_id = models.ManyToManyField('linhafala.caso')
+    # refEnt_id = models.ManyToManyField('linhafala.caso.referenceentity')
 
     assistance_id = fields.Many2one(
         "linhafala.chamada.assistance", string="Assistência")
-    area_type = fields.Selection(string="Tipo de Área", related='case_reference.area_type')
-    #Make dynamic fields
-    reference_area = fields.Many2one(string="Área de Referência", related='case_reference.reference_area')
-    reference_entity = fields.Many2one(string="Entidade de Referência", related='case_reference.reference_entity')
+    area_type = fields.Selection(
+        string='Área de Encaminhamento',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Área de Encaminhamento"
+    )
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
-    spokes_person_phone = fields.Char(string="Telefone do Responsável", related='case_reference.contact')
+
+    spokes_person_phone = fields.Char(
+        string="Telefone do Responsável", related='case_reference.contact')
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia")
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto")
     assistance_status = fields.Selection(
         string='Estado do caso',
         selection=[
@@ -506,6 +522,5 @@ class AssistanceReferall(models.Model):
     def _check_assistance_status(self):
         for record in self:
             if record.assistance_status != 'Aberto/Pendente' and record.assistance_status != 'Dentro do sistema' and record.assistance_status != 'Assistido' and record.assistance_status != 'Encerrado':
-                raise ValidationError("Por favor, selecione o estado do caso para prosseguir.")
-
-
+                raise ValidationError(
+                    "Por favor, selecione o estado do caso para prosseguir.")

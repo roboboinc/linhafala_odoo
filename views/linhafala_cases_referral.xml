@@ -52,39 +52,53 @@
 
                         </h3>
                     </h1>
-                    <div class="row w-100 my-2">
+                    <div class="row w-100">
                         <div class="col-md-6">
                             <p>
-                                <strong>ID do Caso: </strong>
+                                <strong>Id do Caso: </strong>
                                 <field
                                     name="case_id" />
                             </p>
-                            <p title="Adicione a pessoa de contacto!">
-                                <strong>Área de Referência: </strong>
-                                <field name="reference_area" />
+                            <p
+                                title="Adicione a pessoa de contacto!">
+                                <strong>Área de Encaminhamento: </strong>
+                                <field name="area_type" />
+                            </p>
+                            <p
+                                attrs="{'invisible': [('area_type','!=','Institucional')]}">
+                                <strong>
+                                    Entidade de Referência: </strong>
+                                <field name="reference_entity"
+                                />
                             </p>
                             <p>
                                 <strong>Pessoa de Contacto: </strong>
                                 <field
                                     name="case_reference" />
                             </p>
-                            <p title="Adicione a pessoa de contacto!">
+                            <p
+                                title="Adicione a pessoa de contacto!">
                                 <strong>Telefone do Responsável: </strong>
                                 <field
                                     name="spokes_person_phone" />
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <p title="Adicione a pessoa de contacto!">
+                            <p
+                                title="Adicione a pessoa de contacto!">
                                 <strong>
-                                    Tipo de Área: </strong>
-                                <field name="area_type" />
+                                    Referência: </strong>
+                                <field name="reference_area" />
                             </p>
-                            <p title="Adicione a pessoa de contacto!">
+                             <p>
                                 <strong>
-                                    Entidade de Referência: </strong>
-                                <field name="reference_entity"
-                                />
+                                    Província: </strong>
+                                <field name="provincia" />
+                            </p>
+                            <p>
+                                <strong>
+                                    Distrito: </strong>
+                                <field name="distrito" />
                             </p>
                         </div>
                     </div>

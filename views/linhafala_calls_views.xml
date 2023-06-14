@@ -90,12 +90,6 @@
         <field name="model">linhafala.chamada</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
-            <!-- <form string="Formulário de chamada linha fala criança"
-                class="o_lead_opportunity_form" js_class="crm_form">
-                 -->
-
-
-            <!-- Add fields here -->
             <form>
                 <header>
                     <div>
@@ -123,7 +117,7 @@
                     <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                     <div class="row w-100">
                         <div class="col-md-3">
-                            <p>
+                            <p title="Campo Opcional">
                                 <strong>Fonte de Informação: </strong>
                                 <field name="contact_type" />
                             </p>
@@ -139,7 +133,7 @@
                                 <strong title="Campo Opcional">Nome Completo: </strong>
                                 <field name="fullname" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p title="Campo Opcional" attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Número de Identificação: </strong>
                                 <field name="nr_identication" />
                             </p>
@@ -158,15 +152,15 @@
                                 <strong>Consentimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p title="Campo Opcional" attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
-                            <p>
+                            <p title="Campo Opcional">
                                 <strong>Relação com a Vítima: </strong>
                                 <field name="victim_relationship" />
                             </p>
-                            <p>
+                            <p title="Campo Opcional">
                                 <strong>Tipo de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
@@ -174,7 +168,7 @@
                                 <strong>Província: </strong>
                                 <field name="provincia" />
                             </p>
-                            <p>
+                            <p title="Campo Opcional">
                                 <strong>Bairro: </strong>
                                 <field name="bairro" />
                             </p>
@@ -231,7 +225,7 @@
                                         <strong>Qual a Classe ?: </strong>
                                         <field name="grade" />
                                     </p>
-                                    <p attrs="{'invisible': [('on_school','=',False)]}">
+                                    <p title="Campo Opcional" attrs="{'invisible': [('on_school','=',False)]}">
                                         <strong>Nome da Escola / Universidade: </strong>
                                         <field name="school" />
                                     </p>
@@ -241,7 +235,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>
+                                    <p title="Campo Opcional">
                                         <strong>Como Conhece a LFC: </strong>
                                         <field name="how_knows_lfc" />
                                     </p>

@@ -306,11 +306,6 @@
                                                             <field name="contact" />
                                                         </p>
                                                         <p>
-                                                            <strong>Correio Eletronico da Vítima: </strong>
-                                                            <field
-                                                                name="email" />
-                                                        </p>
-                                                        <p>
                                                             <strong>Relação da Vítima com o
                                                                 Denúnciante: </strong>
                                                             <field name="victim_relationship" />
@@ -327,7 +322,6 @@
                                             <field name="contact" optional="show" />
                                             <field name="what_other" optional="hide" />
                                             <field name="age" optional="hide" />
-                                            <field name="address" optional="hide" />
                                             <field name="email" optional="hide" />
                                         </tree>
                                     </field>
@@ -394,16 +388,6 @@
                                                             <strong>Qual outro?: </strong>
                                                             <field name="what_other" />
                                                         </p>
-
-                                                        <p>
-                                                            <strong>Data de atualização: </strong>
-                                                            <field name="updated_at" />
-                                                        </p>
-
-                                                        <p>
-                                                            <strong>Data de Resolução: </strong>
-                                                            <field name="solved_date" />
-                                                        </p>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <notebook>
@@ -422,6 +406,19 @@
                                                                     name="description_of_dompleted_agreements" />
                                                             </page>
                                                         </notebook>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_status','!=','Em Curso')]}">
+                                                            <strong>Data de atualização: </strong>
+                                                            <field name="updated_at" />
+                                                        </p>
+
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_status','!=','Resolvido')]}">
+                                                            <strong>Data de Resolução: </strong>
+                                                            <field name="solved_date" />
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </sheet>

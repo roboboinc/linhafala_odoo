@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="linhafala_deficiente_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.deficiente.tree</field>
+        <field name="model">linhafala.deficiente</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="deficiente_id" optional="show" />
+                <field name="are_you_disabled" optional="show" />
+                <field name="vision" optional="show" />
+                <field name="hearing" optional="show" />
+                <field name="mobility" optional="show" />
+                <field name="cognition" optional="show" />
+                <field name="autonomous_care" optional="show" />
+                <field name="comunication" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="linhafala_deficiente_action" model="ir.actions.act_window">
+        <field name="name">Deficiente</field>
+        <field name="res_model">linhafala.deficiente</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registe informações do Deficiente
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_deficiente_form_view" model="ir.ui.view">
+        <field name="name">linhafala.deficiente.form</field>
+        <field name="model">linhafala.deficiente</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                    <h1> Formulário do Deficiente LFC <h3>
+                            <field class="text-break"
+                                name="deficiente_id"
+                                placeholder="Número de Deficiente (auto)" />
+                        </h3>
+                    </h1>
+
+                    <div class="row w-100 my-2">
+                        <div class="col-md-4">
+                            <h3 class="text-muted"><span class="text-dark">A.</span> Dados sobre o
+                                Deficiente</h3>
+                            <p>
+                                <strong>Visão: </strong>
+                                <field name="vision" />
+                            </p>
+                            <p>
+                                <strong>Mobilidade: </strong>
+                                <field name="mobility" />
+                            </p>
+                            <p>
+                                <strong>Cognição: </strong>
+                                <field name="cognition" />
+                            </p>
+                            <p>
+                                <strong>Cuidados Autónomos: </strong>
+                                <field name="autonomous_care" />
+                            </p>
+                            <p>
+                                <strong>Comunicação: </strong>
+                                <field name="comunication" />
+                            </p>
+                        </div> 
+                    </div>            
+                </sheet>                
+            </form>               
+        </field>               
+    </record>                    
+</odoo>

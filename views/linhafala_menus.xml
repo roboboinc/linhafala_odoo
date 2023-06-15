@@ -48,12 +48,20 @@
         parent="linhafala_menu_root"
         sequence="6" />
 
+
+    <menuitem
+        id="linhafala_deficiente_menu_action"
+        name="Deficiente"
+        action="linhafala_deficiente_action"
+        parent="linhafala_menu_root"
+        sequence="7" />
+
     <menuitem
         id="linhafala_knowledgebase_menu_action"
         name="Base de conhecimentos"
         action="linhafala_knowledgebase_action"
         parent="linhafala_menu_root"
-        sequence="7" />
+        sequence="8" />
 
     <!-- CONFIGURATION -->
     <menuitem

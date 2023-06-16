@@ -17,7 +17,7 @@ class Deficiente(models.Model):
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
-    
+
     case_id = fields.Many2one(
         comodel_name='linhafala.caso', string="Caso")
 
@@ -94,4 +94,18 @@ class Deficiente(models.Model):
             ("Recusa/Recuso-me a responder", "Recusa/Recuso-me a responder"),
             ("Não sei/não sabe", "Não sei/não sabe"),
         ]
+    )
+
+    created_by = fields.Many2one(
+        'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+
+    deficiency_status = fields.Selection(
+        string='Estado do caso',
+        selection=[
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
+            ("Encerrado", "Encerrado"),
+        ],
+        help="Estado do caso"
     )

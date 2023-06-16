@@ -1,6 +1,34 @@
 <?xml version="1.0"?>
 <odoo>
 
+
+    <record id="view_deficiente_kanban" model="ir.ui.view">
+        <field name="name">linhafala.deficiente.kanban</field>
+        <field name="model">linhafala.deficiente</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="deficiency_status">
+                <field name="deficiente_id" />
+                <field name="vision" />
+                <field name="hearing" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="deficiente_id" /></li>
+                                    <li> Visão: <field name="vision" /></li>
+                                    <li> Audição: <field name="hearing" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_deficiente_view_tree" model="ir.ui.view">
         <field name="name">linhafala.deficiente.tree</field>
         <field name="model">linhafala.deficiente</field>
@@ -14,6 +42,7 @@
                 <field name="cognition" optional="show" />
                 <field name="autonomous_care" optional="show" />
                 <field name="comunication" optional="show" />
+                <field name="created_by" optional="show" />
             </tree>
         </field>
     </record>
@@ -22,7 +51,7 @@
     <record id="linhafala_deficiente_action" model="ir.actions.act_window">
         <field name="name">Deficiente</field>
         <field name="res_model">linhafala.deficiente</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registe informações do Deficiente
@@ -69,10 +98,10 @@
                                 <strong>Comunicação: </strong>
                                 <field name="comunication" />
                             </p>
-                        </div> 
-                    </div>            
-                </sheet>                
-            </form>               
-        </field>               
-    </record>                    
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
 </odoo>

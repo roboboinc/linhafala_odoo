@@ -115,6 +115,9 @@ class Caso(models.Model):
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                       string="Instituição de encaminhamento")
 
+    deficiency_line_case_ids = fields.One2many('linhafala.deficiente', 'case_id',
+                                               string="Linhas do Deficiênte")
+
     _sql_constraints = [
         ('unique_case_id', 'unique(case_id)', 'The case_id must be unique'),
     ]
@@ -338,12 +341,11 @@ class CaseReference(models.Model):
     _name = "linhafala.caso.casereference"
     _description = "Pessoa de Contacto"
 
-
     name = fields.Char(string="Pessoa de Contacto")
 
     reference_area = fields.Many2one(
         comodel_name='linhafala.caso.referencearea', string="Referência")
-    
+
     area_type = fields.Selection(
         string='Área de Encaminhamento',
         selection=[
@@ -358,15 +360,12 @@ class CaseReference(models.Model):
 
     reference_entity = fields.Many2one(
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
-    
+
     distrito = fields.Many2one(
         comodel_name='linhafala.distrito', string="Districto")
-    
+
     contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
                           size=13, min_length=9, default="+258")
-
-   
-    
 
 
 class ForwardingInstitutions(models.Model):

@@ -133,7 +133,8 @@
                                 <strong title="Campo Opcional">Nome Completo: </strong>
                                 <field name="fullname" />
                             </p>
-                            <p title="Campo Opcional" attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p title="Campo Opcional"
+                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Número de Identificação: </strong>
                                 <field name="nr_identication" />
                             </p>
@@ -152,7 +153,8 @@
                                 <strong>Consentimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
                             </p>
-                            <p title="Campo Opcional" attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p title="Campo Opcional"
+                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
@@ -186,6 +188,20 @@
                                 <page string="Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
+                                <page 
+                                    string="Deficiência" name="deficiencia">
+                                    <field name="deficiency_line_calls_ids" widget="one2many">
+                                        <tree>
+                                            <field name="deficiente_id" optional="show"/>
+                                            <field name="vision" optional="hide"/>
+                                            <field name="hearing" optional="show"/>
+                                            <field name="mobility" optional="show"/>
+                                            <field name="cognition" optional="hide"/>
+                                            <field name="autonomous_care" optional="hide"/>
+                                            <field name="comunication" optional="hide"/>
+                                        </tree>
+                                    </field>
+                                </page>
                                 <page attrs="{'invisible': [('type_of_intervention','!=','Caso')]}"
                                     string="Caso(s) Relacionados" name="cases">
                                     <field name="case_line_ids" widget="one2many">
@@ -208,7 +224,9 @@
                                         </tree>
                                     </field>
                                 </page>
-                                <page attrs="{'invisible': [('type_of_intervention','!=','Moz Learning')]}" string="Moz Leaning" name="moz_learning">
+                                <page
+                                    attrs="{'invisible': [('type_of_intervention','!=','Moz Learning')]}"
+                                    string="Moz Leaning" name="moz_learning">
                                     <field name="moz_learning_line_ids" widget="one2many">
                                         <tree>
                                             <field name="moz_learning_id" />
@@ -217,7 +235,7 @@
                                         </tree>
                                     </field>
                                 </page>
-                               
+
                             </notebook>
                             <div class="row">
                                 <div class="col-md-6">
@@ -225,7 +243,8 @@
                                         <strong>Qual a Classe ?: </strong>
                                         <field name="grade" />
                                     </p>
-                                    <p title="Campo Opcional" attrs="{'invisible': [('on_school','=',False)]}">
+                                    <p title="Campo Opcional"
+                                        attrs="{'invisible': [('on_school','=',False)]}">
                                         <strong>Nome da Escola / Universidade: </strong>
                                         <field name="school" />
                                     </p>

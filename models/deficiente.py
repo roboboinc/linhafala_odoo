@@ -17,6 +17,9 @@ class Deficiente(models.Model):
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
+    
+    case_id = fields.Many2one(
+        comodel_name='linhafala.caso', string="Caso")
 
     are_you_disabled = fields.Boolean(
         "E deficiente?", default=True)

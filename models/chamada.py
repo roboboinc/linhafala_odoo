@@ -210,7 +210,7 @@ class Chamada(models.Model):
     moz_learning_line_ids = fields.One2many('linhafala.moz_learning', 'call_id',
                                             string="Linhas do Moz Learning")
     
-    deficiency_line_ids = fields.One2many('linhafala.deficiente', 'call_id',
+    deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'call_id',
                                             string="Linhas do Deficiênte")
 
     _sql_constraints = [

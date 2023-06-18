@@ -35,7 +35,6 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="deficiente_id" optional="show" />
-                <field name="are_you_disabled" optional="show" />
                 <field name="vision" optional="show" />
                 <field name="hearing" optional="show" />
                 <field name="mobility" optional="show" />
@@ -65,38 +64,22 @@
         <field name="priority">1000</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="deficiency_status" widget="statusbar" options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                </header>
                 <sheet>
-
-                    <h1> Formulário do Deficiente LFC <h3>
+                    <h1> Formulário de Deficiência LFC <h3>
                             <field class="text-break"
                                 name="deficiente_id"
-                                placeholder="Número de Deficiente (auto)" />
+                                placeholder="Número do deficiência (auto)" />
                         </h3>
                     </h1>
-
-                    <div class="row w-100 my-2">
-                        <div class="col-md-4">
-                            <h3 class="text-muted"><span class="text-dark">A.</span> Dados sobre o
-                                Deficiente</h3>
+                    <div class="row w-100">
+                        <div class="col-md-6 mt-3">
                             <p>
-                                <strong>Visão: </strong>
-                                <field name="vision" />
-                            </p>
-                            <p>
-                                <strong>Mobilidade: </strong>
-                                <field name="mobility" />
-                            </p>
-                            <p>
-                                <strong>Cognição: </strong>
-                                <field name="cognition" />
-                            </p>
-                            <p>
-                                <strong>Cuidados Autónomos: </strong>
-                                <field name="autonomous_care" />
-                            </p>
-                            <p>
-                                <strong>Comunicação: </strong>
-                                <field name="comunication" />
+                                <strong>Que necessidade especial padece?: </strong>
+                                <field name="what_disability_does_he_suffer" />
                             </p>
                         </div>
                     </div>

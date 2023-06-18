@@ -110,8 +110,6 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    # persons_involved_line_ids = fields.One2many('linhafala.person_involved', 'case_id',
-    # string="Person Involved lines")
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                       string="Instituição de encaminhamento")
 

@@ -66,34 +66,27 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Gênero</th>
                                 <th>Categoria</th>
                                 <th>Provincia</th>
-                                <!--<th>Contacto</th>
-                                <th>Relação &lt;=&gt; Vitima</th>-->
+                                <th>Gênero</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-foreach="docs" t-as="doc">
+
+                            <t t-foreach="doc.person_id" t-as="line">
                                 <tr>
                                     <td>
-                                        <t t-esc="doc.person_id.fullname" />
+                                        <t t-out="line.fullname" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.person_id.gender" />
+                                        <t t-out="line.person_type" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.person_id.person_type" />
+                                        <t t-out="line.provincia" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.person_id.provincia" />
+                                        <t t-out="line.gender" />
                                     </td>
-                                    <!--<td>
-                                        <t t-esc="doc.person_id.contact" />
-                                    </td>
-                                   <td>
-                                        <t t-esc="doc.person_id.victim_relationship" />
-                                    </td>-->
                                 </tr>
                             </t>
                         </tbody>

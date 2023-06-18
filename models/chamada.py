@@ -19,6 +19,9 @@ class Chamada(models.Model):
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
 
+    are_you_disabled = fields.Boolean(
+        "E deficiente?", default=False)
+
     category = fields.Many2one(
         comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     contact_type = fields.Selection(
@@ -209,9 +212,9 @@ class Chamada(models.Model):
 
     moz_learning_line_ids = fields.One2many('linhafala.moz_learning', 'call_id',
                                             string="Linhas do Moz Learning")
-    
+
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'call_id',
-                                            string="Linhas do Deficiênte")
+                                                string="Linhas do Deficiênte")
 
     _sql_constraints = [
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
@@ -238,12 +241,13 @@ class Chamada(models.Model):
             vals['call_id'] = self.env['ir.sequence'].next_by_code(
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
-    
-    @api.constrains('caller_language', 'distrito', 'provincia', 'call_start','call_end', 'on_school', 'gender', 'detailed_description')
+
+    @api.constrains('caller_language', 'distrito', 'provincia', 'call_start', 'call_end', 'on_school', 'gender', 'detailed_description')
     def _check_all(self):
         for record in self:
             if not record.caller_language or not record.distrito or not record.provincia or not record.call_start or not record.call_end or not record.on_school or not record.gender or not record.detailed_description:
-                raise ValidationError("Por favor, preencha os campos de caracter obrigatorio.")
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -458,12 +462,12 @@ class CallCaseAssistance(models.Model):
                 'linhafala.chamada.assistance_id.seq') or '/'
         return super(CallCaseAssistance, self).create(vals)
 
-    @api.constrains('distrito', 'provincia', 'category','subcategory', 'callcaseassistance_priority', 'detailed_description')
+    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description')
     def _check_all(self):
         for record in self:
             if not record.distrito or not record.provincia or not record.category or not record.subcategory or not record.callcaseassistance_priority or not record.detailed_description:
-                raise ValidationError("Por favor, preencha os campos de caracter obrigatorio.")
-
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

@@ -21,8 +21,17 @@ class Deficiente(models.Model):
     case_id = fields.Many2one(
         comodel_name='linhafala.caso', string="Caso")
 
-    are_you_disabled = fields.Boolean(
-        "E deficiente?", default=True)
+    what_disability_does_he_suffer = fields.Selection(
+        string='De que necessidade especial padece?',
+        selection=[
+            ("Visão", "Visão"),
+            ("Audição", "Audição"),
+            ("Mobilidade", "Mobilidade"),
+            ("Cognição", "Cognição"),
+            ("Cuidados Autónomo", "Cuidados Autónomo"),
+            ("Comunicação", "Comunicação"),
+        ]
+    )
 
     vision = fields.Selection(
         string='Tem dificuldade em ver,[mesmo quando usa os seus oculos]? Diria que',

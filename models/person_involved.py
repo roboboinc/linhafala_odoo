@@ -140,9 +140,9 @@ class PersonInvolved(models.Model):
     gender = fields.Selection(
         string='Sexo',
         selection=[
-            ("male", "Masculino"),
-            ("female", "Feminino"),
-            ("other", "Desconhecido"),
+            ("Masculino", "Masculino"),
+            ("Feminino", "Feminino"),
+            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )
@@ -154,5 +154,3 @@ class PersonInvolved(models.Model):
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
     case_id = fields.Many2one("linhafala.caso", string="Caso")
-
-

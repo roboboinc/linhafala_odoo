@@ -17,9 +17,6 @@ class Caso(models.Model):
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
 
-    ref_id = fields.Many2one(
-        comodel_name='linhafala.caso.casereference', string="Reference")  # ID da referencia da classe (linhafala.caso.casereference)
-
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 

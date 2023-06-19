@@ -497,12 +497,6 @@ class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
     _description = "Instituição de encaminhamento de assistência"
 
-    # add the possibility to add more than one victim , perpetrator and reference age
-    # person_id = fields.Many2one('linhafala.person_involved')
-
-    # case_id = models.ManyToManyField('linhafala.caso')
-    # refEnt_id = models.ManyToManyField('linhafala.caso.referenceentity')
-
     assistance_id = fields.Many2one(
         "linhafala.chamada.assistance", string="Assistência")
     area_type = fields.Selection(

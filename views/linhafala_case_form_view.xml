@@ -37,6 +37,10 @@
                                     <field name="case_type_classification" />
                                 </p>
                                 <p>
+                                    <strong>Tempo de abuso/Sofrimento: </strong>
+                                    <field name="abuse_time" />
+                                </p>
+                                <p>
                                     <strong title="Campo Opcional">Criado Por: </strong>
                                     <field name="created_by" />
                                 </p>
@@ -113,6 +117,10 @@
                                                                 <field
                                                                     name="id_number" />
                                                             </p>
+                                                            <p>
+                                                                <strong>Com quem vive?</strong>
+                                                                <field name="living_relatives"/>
+                                                            </p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>
@@ -138,6 +146,10 @@
                                                             <p>
                                                                 <strong>Idade: </strong>
                                                                 <field name="age" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Relação com a(s) vítima(s):</strong>
+                                                                <field name="victim_relationship"/>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -171,7 +183,3 @@
         </record>
     </data>
 </odoo>
-
-
-
-                     

@@ -76,10 +76,46 @@
                         </h3>
                     </h1>
                     <div class="row w-100">
-                        <div class="col-md-6 mt-3">
+                        <div class="col-md- mt-3">
                             <p>
                                 <strong>Que necessidade especial padece?: </strong>
                                 <field name="what_disability_does_he_suffer" />
+                            </p>
+                        </div>
+                        <div class="col-md-6 mt-6">
+                            <p>
+                                <strong>Visão: </strong>
+                                <field name="vision" />
+                            </p>
+                        </div>
+                        <div class="col-md-6 mt-6">
+                            <p>
+                                <strong>Audição: </strong>
+                                <field name="hearing" />
+                            </p>
+                        </div>
+                        <div class="col-md-6 mt-6">
+                            <p>
+                                <strong>Mobilidade: </strong>
+                                <field name="mobility" />
+                            </p>
+                        </div>
+                        <div class="col-md-6 mt-6">
+                            <p>
+                                <strong>Cognição: </strong>
+                                <field name="cognition" />
+                            </p>
+                        </div>
+                        <div class="col-md-6 mt-6">
+                            <p>
+                                <strong>Comunicação: </strong>
+                                <field name="comunication" />
+                            </p>
+                        </div>
+                        <div class="col-md-6 mt-6">
+                            <p>
+                                <strong>Cuidados Autónomos: </strong>
+                                <field name="autonomous_care" />
                             </p>
                         </div>
                     </div>

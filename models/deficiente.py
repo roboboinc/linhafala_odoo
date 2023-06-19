@@ -118,3 +118,10 @@ class Deficiente(models.Model):
         ],
         help="Estado do caso"
     )
+
+    vision_type = fields.Boolean("Visão:")
+    hearing_type = fields.Boolean("Audição:")
+    mobility_type = fields.Boolean("Mobilidade:")
+    cognition_type = fields.Boolean("Cognição:")
+    comunication_type = fields.Boolean("Comunicação:")
+    autonomous_care_type = fields.Boolean("Cuidados Autónomos:")

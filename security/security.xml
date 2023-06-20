@@ -2,8 +2,8 @@
 <odoo>
 
     <record model="ir.module.category" id="module_category_lfc">
-        <field name="name">LFC Assistance App</field>
-        <field name="description">Categoria da linha fala criança</field>
+        <field name="name">LFC - Função</field>
+        <field name="description">Função no sistema da Linha Fala Criança</field>
     </record>
 
     <record id="group_linhafala_administrador" model="res.groups">
@@ -14,25 +14,42 @@
     <record id="group_linhafala_supervisor" model="res.groups">
         <field name="name">Supervisor</field>
         <field name="category_id" ref="module_category_lfc" />
-        <field name="implied_ids" eval="[(4, ref('group_linhafala_administrador'))]" />
     </record>
 
-
-    <record model="ir.module.category" id="module_category_encaminhamentos">
-        <field name="name">LFC Encaminhamentos</field>
-        <field name="description">Categoria dos encaminhamentos</field>
+    <record id="group_linhafala_supervisor_geral" model="res.groups">
+        <field name="name">Supervisor Geral</field>
+        <field name="category_id" ref="module_category_lfc" />
     </record>
 
     <record id="group_linhafala_gestor" model="res.groups">
         <field name="name">Gestor</field>
-        <field name="category_id" ref="module_category_encaminhamentos" />
+        <field name="category_id" ref="module_category_lfc" />
     </record>
 
     <record id="group_linhafala_conselheiro" model="res.groups">
         <field name="name">Conselheiro</field>
-        <field name="category_id" ref="module_category_encaminhamentos" />
-        <field name="implied_ids" eval="[(4, ref('group_linhafala_gestor'))]" />
+        <field name="category_id" ref="module_category_lfc" />
     </record>
 
+
+    <record model="ir.module.category" id="module_category_lfc_jur">
+        <field name="name">LFC - Jurisdição</field>
+        <field name="description">Jurisdição dos funcionários</field>
+    </record>
+
+    <record id="group_linhafala_maputo" model="res.groups">
+        <field name="name">Maputo</field>
+        <field name="category_id" ref="module_category_lfc_jur" />
+    </record>
+
+    <record id="group_linhafala_manica" model="res.groups">
+        <field name="name">Manica</field>
+        <field name="category_id" ref="module_category_lfc_jur" />
+    </record>
+
+    <record id="group_linhafala_remoto" model="res.groups">
+        <field name="name">Remoto</field>
+        <field name="category_id" ref="module_category_lfc_jur" />
+    </record>
 
 </odoo>

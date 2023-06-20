@@ -107,8 +107,9 @@ class Caso(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
-    
-    abuse_time = fields.Datetime(string="Tempo de abuso/Sofrimento:") #NewField
+
+    abuse_time = fields.Datetime(
+        string="Tempo de abuso/Sofrimento:")  # NewField
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                       string="Instituição de encaminhamento")
 
@@ -404,3 +405,8 @@ class ForwardingInstitutions(models.Model):
         ], default="Aberto/Pendente",
         help="Estado do caso"
     )
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}

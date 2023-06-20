@@ -532,6 +532,11 @@ class AssistanceReferall(models.Model):
         help="Estado do caso"
     )
 
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+
     @api.constrains('assistance_status')
     def _check_assistance_status(self):
         for record in self:

@@ -116,6 +116,11 @@ class Caso(models.Model):
     deficiency_line_case_ids = fields.One2many('linhafala.deficiente', 'case_id',
                                                string="Linhas do Deficiênte")
 
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+
     _sql_constraints = [
         ('unique_case_id', 'unique(case_id)', 'The case_id must be unique'),
     ]
@@ -364,6 +369,11 @@ class CaseReference(models.Model):
 
     contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
                           size=13, min_length=9, default="+258")
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
 
 
 class ForwardingInstitutions(models.Model):

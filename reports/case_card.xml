@@ -46,10 +46,10 @@
                                         <t t-esc="doc.call_id.age"/>
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.provincia" />
+                                        <t t-esc="doc.call_id.provincia.name" />
                                     </td>
                                     <td>
-                                        <t t-esc="doc.call_id.distrito" />
+                                        <t t-esc="doc.call_id.distrito.name" />
                                     </td>
                                     <td>
                                         <t t-esc="doc.call_id.bairro" />
@@ -89,7 +89,7 @@
                                         <t t-out="line.person_type" />
                                     </td>
                                     <td>
-                                        <t t-out="line.provincia" />
+                                        <t t-out="line.provincia.name" />
                                     </td>
                                     <td>
                                         <t t-out="line.gender" />
@@ -122,13 +122,13 @@
                             <t t-foreach="doc.forwarding_institution_line_ids" t-as="line">
                                 <tr>
                                     <td>
-                                        <t t-out="line.reference_area" />
+                                        <t t-out="line.reference_entity.name" />
                                     </td>
                                     <td>
-                                        <t t-esc="line.case_reference" />
+                                        <t t-esc="line.case_reference.name" />
                                     </td>
                                     <td>
-                                        <t t-esc="line.reference_area" />
+                                        <t t-esc="line.reference_area.name" />
                                     </td>
                                     <td>
                                         <t t-esc="line.case_status" />
@@ -150,7 +150,7 @@
                     <h3>Classificaçäo Provisória</h3>
                     <t t-foreach="docs" t-as="doc">
                         <t
-                            t-esc="doc.case_type_classification" />
+                            t-esc="doc.case_type.name" />
                         <br />
                     </t>
                 </div>

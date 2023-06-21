@@ -18,10 +18,10 @@
                                 <th>Benificiário</th>
                                 <th>Província</th>
                                 <th>Bairro</th>
-                                <th>Contacto</th>
-                                <th>Distrito</th>
                                 <th>Gênero</th>
+                                <th>Contacto</th>
                                 <th>Idade</th>
+                                <th>Prioridade da Assistência</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,7 +31,7 @@
                                         <t t-esc="doc.fullname" />
                                     </td>
                                    <td>
-                                        <t t-esc="doc.provincia"/>
+                                        <t t-esc="doc.provincia.name"/>
                                     </td>
                                     <td>
                                         <t t-esc="doc.bairro" />
@@ -53,46 +53,9 @@
                         </tbody>
                     </table>
                     <br />
-                    <!--<h3>Dados do Perpetrador</h3>
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Telefone</th>
-                                <th>Alternativo</th>
-                                <th>Idade</th>
-                                <th>Sexo</th>
-                                <th>Relação &lt;=&gt; Vitima</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <t t-foreach="docs" t-as="doc">
-                                <tr>
-                                   <td>
-                                        <t t-esc="doc.person_id.fullname" />
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.person_id." />
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.person_id." />
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.person_id." />
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.person_id." />
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.person_id." />
-                                    </td>
-                                </tr>
-                            </t>
-                        </tbody>
-                    </table>-->
+
                     <br />
                     <br />
-                    <!--<h2 class="text-center">Relatório da Assistência</h2>-->
                     <br />
                     <div class="row align-items-center">
                         <div class="col-7">
@@ -100,44 +63,14 @@
                                 <h3>Informação da assistência</h3>
                                 <t t-foreach="docs" t-as="doc">
                                     <li>
-                                        <!--<strong>Benificiário:</strong>
-                                        <t
-                                            t-esc="doc.call_id.fullname " />
-                                        <br />
-                                        <strong>
-                                            Contacto:</strong>
-                                        <t t-esc="doc.call_id.contact" />
-                                        <br />
-                                        <strong>
-                                            Província:</strong>
-                                        <t
-                                            t-esc="doc.provincia" />
-                                        <br />
-                                        <strong>Distrito:</strong>
-                                        <t
-                                            t-esc="doc.distrito" />
-                                        <br />
-                                        <strong>
-                                            Bairro:</strong>
-                                        <t
-                                            t-esc="doc.bairro" />
-                                        <br />
-                                        <strong>
-                                            Sexo:</strong>
-                                        <t
-                                            t-esc="doc.gender" />
-                                        <br />
-                                        <strong>Idade:</strong>
-                                        <t
-                                            t-esc="doc.age" />
-                                        <br />-->
+                                      
                                         <strong>Categoria:</strong>
                                         <t
-                                            t-esc="doc.category" />
+                                            t-esc="doc.category.name" />
                                         <br />
                                         <strong>Subcategoria:</strong>
                                         <t
-                                            t-esc="doc.subcategory" />
+                                            t-esc="doc.subcategory.name" />
                                         <br />
                                         <strong>
                                             Estado:</strong>
@@ -157,7 +90,7 @@
                                         <strong>
                                             Gestor:</strong>
                                         <t
-                                            t-esc="doc.reporter" />
+                                            t-esc="doc.reporter.name" />
                                         <br />
                                         <strong>
                                             Data de criaçäo:</strong>
@@ -172,29 +105,11 @@
                                         <strong>
                                             Criado por:</strong>
                                         <t 
-                                        t-esc="doc.created_by"/>
+                                        t-esc="doc.created_by.name"/>
                                         <br/>
                                     </li>
                                 </t>
                             </ul>
-                        </div>
-                        <div class="col-5">
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <!-- <ul>
-                                <h4>local de ocorrência do incidente</h4>
-                                <t t-foreach="docs" t-as="doc">
-                                    <li>
-                                        <t
-                                            t-esc="doc.place_occurrence" /> 
-                                        <br />
-                                    </li>
-                                </t>
-                            </ul>-->
                         </div>
                     </div>
                     <br />

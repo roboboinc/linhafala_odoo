@@ -292,9 +292,9 @@ class PersonInvolved(models.Model):
     gender = fields.Selection(
         string='Sexo',
         selection=[
-            ("male", "Masculino"),
-            ("female", "Feminino"),
-            ("other", "Desconhecido"),
+            ("Masculino", "Masculino"),
+            ("Feminino", "Feminino"),
+            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )

@@ -1,19 +1,18 @@
-id,name,area_type
-linhafala_caso_referencearea_1,Teste,Não Institucional
-linhafala_caso_referencearea_2,SRQ,Institucional
-linhafala_caso_referencearea_3,Outros,Não Institucional
-linhafala_caso_referencearea_4,Trabalho e Emprego,Institucional
-linhafala_caso_referencearea_5,Familia,Não Institucional
-linhafala_caso_referencearea_6,Estruturas do Bairro,Não Institucional
-linhafala_caso_referencearea_7,Lider Comunitario,Não Institucional
-linhafala_caso_referencearea_8,Lider Religioso,Não Institucional
-linhafala_caso_referencearea_9,Organizacao de base comunitaria,Não Institucional
-linhafala_caso_referencearea_10,Comite Comunitario de Protecao a crianca,Não Institucional
-linhafala_caso_referencearea_11,Tribunal Comunitario,Não Institucional
-linhafala_caso_referencearea_12,Outros,Institucional
-linhafala_caso_referencearea_13,Saude,Institucional
-linhafala_caso_referencearea_14,Accao Social,Institucional
-linhafala_caso_referencearea_15,ICDP - Organizacoes da Sociedade Civil,Institucional
-linhafala_caso_referencearea_16,Justica,Institucional
-linhafala_caso_referencearea_17,Policia,Institucional
-linhafala_caso_referencearea_18,Educação,Institucional
+id,name
+linhafala.caso.referencearea_1,SRQ
+linhafala.caso.referencearea_2,Outros
+linhafala.caso.referencearea_3,Trabalho e Emprego
+linhafala.caso.referencearea_4,Familia
+linhafala.caso.referencearea_5,Estruturas do Bairro
+linhafala.caso.referencearea_6,Lider Comunitario
+linhafala.caso.referencearea_7,Lider Religioso
+linhafala.caso.referencearea_8,Organizacao de base comunitaria
+linhafala.caso.referencearea_9,Comite Comunitario de Protecao a crianca
+linhafala.caso.referencearea_10,Tribunal Comunitario
+linhafala.caso.referencearea_11,Outros
+linhafala.caso.referencearea_12,Saude
+linhafala.caso.referencearea_13,Accao Social
+linhafala.caso.referencearea_14,ICDP - Organizacoes da Sociedade Civil
+linhafala.caso.referencearea_15,Justica
+linhafala.caso.referencearea_16,Policia
+linhafala.caso.referencearea_17,Educação

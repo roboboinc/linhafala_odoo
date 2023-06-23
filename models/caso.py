@@ -16,6 +16,21 @@ class Caso(models.Model):
 
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
+    
+    @api.constrains('person_id')
+    def _check_vitima_contactante(self):
+        for caso in self:
+            has_vitima = False
+            has_contactante_vitima = False
+
+            for person in caso.person_id:
+                if person.person_type == 'Vítima':
+                    has_vitima = True
+                elif person.person_type == 'Contactante+Vítima':
+                    has_contactante_vitima = True
+
+            if not has_vitima and not has_contactante_vitima:
+                raise ValidationError("Either 'Vitima' or 'Contactante+Vitima' must be added to the case.")
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")

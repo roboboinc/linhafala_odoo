@@ -72,20 +72,6 @@
                                     <page string="Detalhes" name="detailed_description_section">
                                         <field name="detailed_description" />
                                     </page>
-                                    <page
-                                        string="Deficiência" name="deficiencia">
-                                        <field name="deficiency_line_case_ids" widget="one2many">
-                                            <tree>
-                                                <field name="deficiente_id" optional="show" />
-                                                <field name="vision" optional="hide" />
-                                                <field name="hearing" optional="show" />
-                                                <field name="mobility" optional="show" />
-                                                <field name="cognition" optional="hide" />
-                                                <field name="autonomous_care" optional="hide" />
-                                                <field name="comunication" optional="hide" />
-                                            </tree>
-                                        </field>
-                                    </page>
                                     <page string="Pessoas envolvidas" name="persons">
                                         <field name="person_id" widget="one2many">
                                             <form>

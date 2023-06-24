@@ -35,13 +35,14 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="deficiente_id" optional="show" />
-                <field name="vision" optional="show" />
-                <field name="hearing" optional="show" />
-                <field name="mobility" optional="show" />
-                <field name="cognition" optional="show" />
-                <field name="autonomous_care" optional="show" />
-                <field name="comunication" optional="show" />
+                <field name="vision" optional="hide" />
+                <field name="hearing" optional="hide" />
+                <field name="mobility" optional="hide" />
+                <field name="cognition" optional="hide" />
+                <field name="autonomous_care" optional="hide" />
+                <field name="comunication" optional="hide" />
                 <field name="created_by" optional="show" />
+                <field name="deficiency_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -69,12 +70,12 @@
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <sheet>
-                    <h1> Formulário de Deficiência LFC <h3>
-                            <field class="text-break"
-                                name="deficiente_id"
-                                placeholder="Número do deficiência (auto)" />
-                        </h3>
-                    </h1>
+                    <h1> Formulário de Deficiência LFC </h1>
+                    <h3>
+                        <field class="text-break"
+                            name="call_id"
+                            placeholder="Número de chamada (auto)" />
+                    </h3>
                     <div class="row w-100">
 
                         <div class="row w-100">
@@ -111,37 +112,37 @@
                             </div>
                         </div>
                         <div class="col-md-6 mt-6">
-                            <p  attrs="{'invisible': [('vision_type','=',False)]}">
+                            <p attrs="{'invisible': [('vision_type','=',False)]}">
                                 <strong>Visão: </strong>
                                 <field name="vision" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
-                            <p  attrs="{'invisible': [('hearing_type','=',False)]}">
+                            <p attrs="{'invisible': [('hearing_type','=',False)]}">
                                 <strong>Audição: </strong>
                                 <field name="hearing" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
-                            <p  attrs="{'invisible': [('mobility_type','=',False)]}">
+                            <p attrs="{'invisible': [('mobility_type','=',False)]}">
                                 <strong>Mobilidade: </strong>
                                 <field name="mobility" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
-                            <p  attrs="{'invisible': [('cognition_type','=',False)]}">
+                            <p attrs="{'invisible': [('cognition_type','=',False)]}">
                                 <strong>Cognição: </strong>
                                 <field name="cognition" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
-                            <p  attrs="{'invisible': [('comunication_type','=',False)]}">
+                            <p attrs="{'invisible': [('comunication_type','=',False)]}">
                                 <strong>Comunicação: </strong>
                                 <field name="comunication" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
-                            <p  attrs="{'invisible': [('autonomous_care_type','=',False)]}">
+                            <p attrs="{'invisible': [('autonomous_care_type','=',False)]}">
                                 <strong>Cuidados Autónomos: </strong>
                                 <field name="autonomous_care" />
                             </p>

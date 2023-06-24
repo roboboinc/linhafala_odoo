@@ -209,11 +209,28 @@
                                 <page attrs="{'invisible': [('type_of_intervention','!=','Caso')]}"
                                     string="Caso(s) Relacionados" name="cases">
                                     <field name="case_line_ids" widget="one2many">
-                                        <tree>
-                                            <field name="case_id" />
-                                            <field name="case_status" />
-                                            <field name="case_priority" />
-
+                                        <tree string="Channel"
+                                            decoration-info="case_status=='Dentro do sistema'"
+                                            decoration-primary="case_status=='Assistido'"
+                                            decoration-success="case_status=='Encerrado'"
+                                            decoration-warning="case_status=='Aberto/Pendente'">
+                                            <field name="call_id" optional="show" />
+                                            <field name="case_type_classification" optional="hide" />
+                                            <field name="reporter_by" optional="show" />
+                                            <field name="resolution_type" optional="show" />
+                                            <field name="case_type" optional="show" />
+                                            <field name="secundary_case_type" optional="hide" />
+                                            <field name="place_occurrence" optional="show" />
+                                            <field name="case_priority" optional="hide" />
+                                            <field name="created_by" optional="hide" />
+                                            <field name="created_at" optional="hide" />
+                                            <field name="data_ocorrencia" optional="hide" />
+                                            <field
+                                                decoration-info="case_status=='Dentro do sistema'"
+                                                decoration-primary="case_status=='Assistido'"
+                                                decoration-success="case_status=='Encerrado'"
+                                                decoration-warning="case_status=='Aberto/Pendente'"
+                                                widget="badge" name="case_status" optional="show" />
                                         </tree>
                                     </field>
                                 </page>
@@ -221,10 +238,29 @@
                                     attrs="{'invisible': [('type_of_intervention','!=','Chamada de Assistência')]}"
                                     string="Assistência(s) Relacionadas" name="assistance">
                                     <field name="assistance_line_ids" widget="one2many">
-                                        <tree>
-                                            <field name="assistance_id" />
-                                            <field name="fullname" />
-                                            <field name="callcaseassistance_status" />
+                                        <tree string="Channel"
+                                            decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                                            decoration-primary="callcaseassistance_status=='Assistido'"
+                                            decoration-success="callcaseassistance_status=='Encerrado'"
+                                            decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+                                            <field name="call_id" optional="show" />
+                                            <field name="fullname" optional="show" />
+                                            <field name="provincia" optional="hide" />
+                                            <field name="distrito" optional="hide" />
+                                            <field name="bairro" optional="hide" />
+                                            <field name="gender" optional="show" />
+                                            <field name="age" optional="show" />
+                                            <field name="category" optional="hide" />
+                                            <field name="subcategory" optional="hide" />
+                                            <field name="created_at" optional="hide" />
+                                            <field name="created_by" optional="hide" />
+                                            <field
+                                                decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                                                decoration-primary="callcaseassistance_status=='Assistido'"
+                                                decoration-success="callcaseassistance_status=='Encerrado'"
+                                                decoration-warning="callcaseassistance_status=='Aberto/Pendente'"
+                                                widget="badge" name="callcaseassistance_status"
+                                                optional="show" />
                                         </tree>
                                     </field>
                                 </page>
@@ -233,9 +269,9 @@
                                     string="Moz Leaning" name="moz_learning">
                                     <field name="moz_learning_line_ids" widget="one2many">
                                         <tree>
-                                            <field name="moz_learning_id" />
-                                            <field name="fullname" />
-                                            <field name="gender" />
+                                            <field name="moz_learning_id" optional="show" />
+                                            <field name="fullname" optional="show" />
+                                            <field name="gender" optional="show" />
                                         </tree>
                                     </field>
                                 </page>

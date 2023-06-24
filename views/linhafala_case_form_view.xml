@@ -15,12 +15,12 @@
 
                     <sheet>
 
-                        <h1> Formulário de casos LFC <h3>
-                                <field class="text-break"
-                                    name="case_id"
-                                    placeholder="Número do caso (auto)" />
-                            </h3>
-                        </h1>
+                        <h1> Formulário de casos LFC </h1>
+                        <h3>
+                            <field class="text-break"
+                                name="call_id"
+                                placeholder="Número de chamada (auto)" />
+                        </h3>
                         <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
@@ -72,20 +72,6 @@
                                     <page string="Detalhes" name="detailed_description_section">
                                         <field name="detailed_description" />
                                     </page>
-                                    <page
-                                        string="Deficiência" name="deficiencia">
-                                        <field name="deficiency_line_case_ids" widget="one2many">
-                                            <tree>
-                                                <field name="deficiente_id" optional="show" />
-                                                <field name="vision" optional="hide" />
-                                                <field name="hearing" optional="show" />
-                                                <field name="mobility" optional="show" />
-                                                <field name="cognition" optional="hide" />
-                                                <field name="autonomous_care" optional="hide" />
-                                                <field name="comunication" optional="hide" />
-                                            </tree>
-                                        </field>
-                                    </page>
                                     <page string="Pessoas envolvidas" name="persons">
                                         <field name="person_id" widget="one2many">
                                             <form>
@@ -119,7 +105,7 @@
                                                             </p>
                                                             <p>
                                                                 <strong>Com quem vive?</strong>
-                                                                <field name="living_relatives"/>
+                                                                <field name="living_relatives" />
                                                             </p>
                                                         </div>
                                                         <div class="col-md-6">
@@ -149,7 +135,7 @@
                                                             </p>
                                                             <p>
                                                                 <strong>Relação com a(s) vítima(s):</strong>
-                                                                <field name="victim_relationship"/>
+                                                                <field name="victim_relationship" />
                                                             </p>
                                                         </div>
                                                     </div>

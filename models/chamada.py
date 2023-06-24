@@ -537,6 +537,11 @@ class AssistanceReferall(models.Model):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
 
+    @api.onchange('reference_area')
+    def _reference_area_onchange(self):
+        for rec in self:
+            return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
+
     @api.constrains('assistance_status')
     def _check_assistance_status(self):
         for record in self:

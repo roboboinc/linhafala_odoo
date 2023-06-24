@@ -1,0 +1,19 @@
+id,name,reference_area
+linhafala.caso.referenceentity_1,PRM,SRQ
+linhafala.caso.referenceentity_2,SERNIC,SRQ
+linhafala.caso.referenceentity_3,Outros,Familia
+linhafala.caso.referenceentity_4,Trabalho e Emprego,Familia
+linhafala.caso.referenceentity_5,Familia,Familia
+linhafala.caso.referenceentity_6,Estruturas do Bairro,Familia
+linhafala.caso.referenceentity_7,Lider Comunitario,Familia
+linhafala.caso.referenceentity_8,Lider Religioso,Familia
+linhafala.caso.referenceentity_9,Organizacao de base comunitaria,Familia
+linhafala.caso.referenceentity_10,Comite Comunitario de Protecao a crianca,Familia
+linhafala.caso.referenceentity_11,Tribunal Comunitario,Familia
+linhafala.caso.referenceentity_12,Outros,Familia
+linhafala.caso.referenceentity_13,Saude,Familia
+linhafala.caso.referenceentity_14,Accao Social,SRQ
+linhafala.caso.referenceentity_15,ICDP - Organizacoes da Sociedade Civil,SRQ
+linhafala.caso.referenceentity_16,Justica,SRQ
+linhafala.caso.referenceentity_17,Policia,SRQ
+linhafala.caso.referenceentity_18,Educação,SRQ

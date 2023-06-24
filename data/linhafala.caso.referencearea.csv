@@ -1,17 +1,18 @@
-id,name
-linhafala.caso.referencearea_1,SRQ
-linhafala.caso.referencearea_2,Trabalho e Emprego
-linhafala.caso.referencearea_3,Familia
-linhafala.caso.referencearea_4,Estruturas do Bairro
-linhafala.caso.referencearea_5,Lider Comunitario
-linhafala.caso.referencearea_6,Lider Religioso
-linhafala.caso.referencearea_7,Organizacao de base comunitaria
-linhafala.caso.referencearea_8,Comite Comunitario de Protecao a crianca
-linhafala.caso.referencearea_9,Tribunal Comunitario
-linhafala.caso.referencearea_10,Saude
-linhafala.caso.referencearea_11,Accao Social
-linhafala.caso.referencearea_12,ICDP - Organizacoes da Sociedade Civil
-linhafala.caso.referencearea_13,Justica
-linhafala.caso.referencearea_14,Policia
-linhafala.caso.referencearea_15,Educação
-linhafala.caso.referencearea_16,Outros
+id,name,area_type
+linhafala.caso.referencearea_1,SRQ,Institucional
+linhafala.caso.referencearea_2,PRM,Institucional
+linhafala.caso.referencearea_3,Saúde,Institucional
+linhafala.caso.referencearea_4,Justiça,Institucional
+linhafala.caso.referencearea_5,Educação,Institucional
+linhafala.caso.referencearea_6,Acção Social,Institucional
+linhafala.caso.referencearea_7,Trabalho e Emprego,Institucional
+linhafala.caso.referencearea_8,ICDP - Organização da Sociedade Civil,Institucional
+
+linhafala.caso.referencearea_9,Familia,Não Institucional
+linhafala.caso.referencearea_10,Líder Religioso,Não Institucional
+linhafala.caso.referencearea_11,Tribunal Comunitário,Não Institucional
+linhafala.caso.referencearea_12,Líder Comunitário,Não Institucional
+linhafala.caso.referencearea_13,Estruturas do Bairro,Não Institucional
+linhafala.caso.referencearea_14,Organização da Sociedade Civil,Não Institucional
+linhafala.caso.referencearea_15,Organização de bade Comunitário,Não Institucional
+linhafala.caso.referencearea_16,Comité Comunitário de Proteção a Criança,Não Institucional

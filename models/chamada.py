@@ -247,7 +247,7 @@ class Chamada(models.Model):
         for record in self:
             if not record.caller_language or not record.distrito or not record.provincia or not record.call_start or not record.call_end or not record.on_school or not record.gender or not record.detailed_description:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio.")
+                    "Por favor, preencha os campos de caracter obrigatorio: Lingua/Dialetos, Distrito, Provincia, Hora de inicio da chamada, Hora de fim da chamada, Frequênta a Escola?, Gênero, Detalhes")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -467,7 +467,7 @@ class CallCaseAssistance(models.Model):
         for record in self:
             if not record.distrito or not record.provincia or not record.category or not record.subcategory or not record.callcaseassistance_priority or not record.detailed_description:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio.")
+                    "Por favor, preencha os campos de caracter obrigatorio: Distrito, Provincia, Categoria, Sub-categoria, Período de Resolução, Detalhes")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

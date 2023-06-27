@@ -30,7 +30,7 @@ class Caso(models.Model):
                     has_contactante_vitima = True
 
             if not has_vitima and not has_contactante_vitima:
-                raise ValidationError("Either 'Vitima' or 'Contactante+Vitima' must be added to the case.")
+                raise ValidationError("Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")

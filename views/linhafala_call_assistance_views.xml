@@ -46,6 +46,7 @@
                 <field name="category" optional="show" />
                 <field name="subcategory" optional="show" />
                 <field name="created_at" optional="hide" />
+                <field name="manager_by" optional="show" />
                 <field name="created_by" optional="show" />
                 <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
                     decoration-primary="callcaseassistance_status=='Assistido'"
@@ -79,6 +80,10 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button id="btn-manager" name="action_manager" string="Gerir"
+                        class="btn-lg btn-primary me-3"
+                        type="object"
+                        confirm="Tem certeza de que deseja assumir a gestão desta Assistência ? " />
                     <field name="callcaseassistance_status" widget="statusbar"
                         options="{'clickable': '1'}"
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
@@ -112,6 +117,10 @@
                             <p>
                                 <strong>Periodo de Resolução: </strong>
                                 <field name="callcaseassistance_priority" />
+                            </p>
+                            <p>
+                                <strong>Gerido por: </strong>
+                                <field name="manager_by" />
                             </p>
                         </div>
                         <div class="col-md-3">

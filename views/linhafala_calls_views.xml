@@ -216,7 +216,6 @@
                                             decoration-warning="case_status=='Aberto/Pendente'">
                                             <field name="call_id" optional="show" />
                                             <field name="case_type_classification" optional="hide" />
-                                            <field name="reporter_by" optional="show" />
                                             <field name="resolution_type" optional="show" />
                                             <field name="case_type" optional="show" />
                                             <field name="secundary_case_type" optional="hide" />

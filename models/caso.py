@@ -16,7 +16,7 @@ class Caso(models.Model):
 
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
-    
+
     @api.constrains('person_id')
     def _check_vitima_contactante(self):
         for caso in self:
@@ -30,7 +30,8 @@ class Caso(models.Model):
                     has_contactante_vitima = True
 
             if not has_vitima and not has_contactante_vitima:
-                raise ValidationError("Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")
+                raise ValidationError(
+                    "Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
@@ -130,6 +131,17 @@ class Caso(models.Model):
 
     deficiency_line_case_ids = fields.One2many('linhafala.deficiente', 'case_id',
                                                string="Linhas do Deficiênte")
+
+    manager_by = fields.Many2one('res.users', string="Gerido por: ", compute='_compute_manager_by', store=True)
+
+    @api.depends('manager_by')
+    def _compute_manager_by(self):
+        for record in self:
+            record.manager_by = record.env.user
+
+    def action_manager(self):
+        self._compute_manager_by()
+
 
     @api.onchange('provincia')
     def _provincia_onchange(self):
@@ -440,5 +452,3 @@ class ForwardingInstitutions(models.Model):
     def _reference_area_onchange(self):
         for rec in self:
             return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
-
-

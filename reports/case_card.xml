@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_case">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 class="text-center">Ficha de Caso</h1>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <h3>Dados do Caso</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Contacto do Denunciante</th>
+                                <th>Nome do Denunciante</th>
+                                <th>Relação com a Vitima</th>
+                                <th>Idade</th>
+                                <th>Província</th>
+                                <th>Distrito</th>
+                                <th>Localidade</th>
+                                <th>Tempo de abuso/Sofrimento</th>
+                                <th>Lingua</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <tr>
+                                    <td>
+                                        <t t-esc="doc.call_id.created_at" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.contact" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.fullname" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.victim_relationship" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.age"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.provincia.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.distrito.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.bairro" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.abuse_time" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.call_id.caller_language" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br />
+                    <h3>Pessoas Envolvidas</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Província</th>
+                                <th>Gênero</th>
+                                <th>Idade</th>
+                                <th>Relação com a vítima</th>
+                                <th>Contacto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <t t-foreach="doc.person_id" t-as="line">
+                                <tr>
+                                    <td>
+                                        <t t-out="line.fullname" />
+                                    </td>
+                                    <td>
+                                        <t t-out="line.person_type" />
+                                    </td>
+                                    <td>
+                                        <t t-out="line.provincia.name" />
+                                    </td>
+                                    <td>
+                                        <t t-out="line.gender" />
+                                    </td>
+                                    <td>
+                                        <t t-out="line.age"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="line.victim_relationship"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="line.contact" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3>Encaminhamentos</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Entidade</th>
+                                <th>Pessoa de contacto</th>
+                                <th>Area de Referencia</th>
+                                <th>Estado do caso</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.forwarding_institution_line_ids" t-as="line">
+                                <tr>
+                                    <td>
+                                        <t t-out="line.reference_entity.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.case_reference.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.reference_area.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.case_status" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
+                    <t t-foreach="docs" t-as="doc">
+
+                        <t
+                            t-esc="doc.detailed_description" />
+                        <br />
+
+                    </t>
+                    <h3>Classificaçäo Provisória</h3>
+                    <t t-foreach="docs" t-as="doc">
+                        <t
+                            t-esc="doc.case_type.name" />
+                        <br />
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

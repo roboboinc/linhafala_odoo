@@ -1,12 +1,47 @@
 <?xml version="1.0"?>
 <odoo>
+
+    <record id="view_calls_kanban" model="ir.ui.view">
+        <field name="name">linhafala.chamada.kanban</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="callcaseassistance_status">
+                <field name="call_id" />
+                <field name="fullname" />
+                <field name="age" />
+                <field name="gender" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="call_id" /></li>
+                                    <li> Name: <field name="fullname" /></li>
+                                    <li> Age: <field name="age" /></li>
+                                    <li> Gender: <field name="gender" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="linhafala_calls_view_tree" model="ir.ui.view">
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'" decoration-primary="callcaseassistance_status=='Assistido'" decoration-success="callcaseassistance_status=='Encerrado'" decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                decoration-primary="callcaseassistance_status=='Assistido'"
+                decoration-success="callcaseassistance_status=='Encerrado'"
+                decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
                 <field name="call_id" optional="hide" />
+                <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />
+                <field name="contact" optional="show" />
                 <field name="alternate_contact" optional="hide" />
                 <field name="id_number" optional="hide" />
                 <field name="nr_identication" optional="show" />
@@ -18,16 +53,18 @@
                 <field name="call_start" optional="hide" />
                 <field name="call_end" optional="hide" />
                 <field name="how_knows_lfc" optional="hide" />
-                <field name="subcategory" optional="hide" />
+                <field name="category" optional="show" />
                 <field name="bairro" optional="hide" />
                 <field name="created_at" optional="hide" />
                 <field name="created_by" optional="show" />
                 <field name="caller_language" optional="show" />
-                <field decoration-info="callcaseassistance_status=='Dentro do sistema'" 
-                       decoration-primary="callcaseassistance_status=='Assistido'" 
-                       decoration-success="callcaseassistance_status=='Encerrado'" 
-                       decoration-warning="callcaseassistance_status=='Aberto/Pendente'" 
-                       widget="badge" name="callcaseassistance_status" optional="show" />
+                <field name="victim_relationship" optional="show" />
+                <field name="type_of_intervention" optional="show" />
+                <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                    decoration-primary="callcaseassistance_status=='Assistido'"
+                    decoration-success="callcaseassistance_status=='Encerrado'"
+                    decoration-warning="callcaseassistance_status=='Aberto/Pendente'"
+                    widget="badge" name="callcaseassistance_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -36,7 +73,7 @@
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
         <field name="res_model">linhafala.chamada</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar chamadas ou contactos recebidos
@@ -53,92 +90,229 @@
         <field name="model">linhafala.chamada</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
-            <!-- <form string="Formulário de chamada linha fala criança"
-                class="o_lead_opportunity_form" js_class="crm_form">
-                 -->
-
-
-                <!-- Add fields here -->
             <form>
                 <header>
-                    <field name="callcaseassistance_status" widget="statusbar" options="{'clickable': '1'}" statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                    <div>
+                        <button id="btn-shutdown" name="action_shutdown" string="Desligada"
+                            class="btn-danger me-3"
+                            type="object"
+                            confirm="Tem certeza de que deseja gravar a informação como desligada ?" />
+                        <button id="btn-silent" name="action_silent" string="Silênciada"
+                            class="btn-warning me-3"
+                            type="object"
+                            confirm="Tem certeza de que deseja gravar a informação como silênciada ?" />
+                    </div>
+                    <field name="callcaseassistance_status" widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field class="text-break" name="call_id"
-                                placeholder="Número de chamada (auto)" />
-                        </h1>
-                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
-                        <group>
-                            <group col="3">
-                                <field name="fullname" />
-                                <field name="contact" />
-                                <field name="contact_type" />
-                            </group>
-                            <group col="3">
-                                <field name="alternate_contact" />
-                                <field name="wants_to_be_annonymous" />
-                            </group>
-                            <group col="4">
-                                <field name="id_number" />
-                                <field name="nr_identication" />
-                                <field name="gender" />
-                                <field name="age" />
-                            </group>
-                            <group col="3">
-                                <field name="how_knows_lfc" />
-                                <field name="category" />
-                                <field name="subcategory" />
-                            </group>
-                            <group col="3">
-                                <field name="callcaseassistance_status" />
-                                <field name="resolution_type" />
-                            </group>
-                            <group col="3">
-                                <field name="on_school" />
-                                <field name="grade" />
-                                <field name="school" />
-                            </group>
-                            <group col="4">
-                                <field name="caller_language" />
-                                <field name="provincia" />
-                                <field name="distrito" />
-                                <field name="bairro" />
-                            </group>
-                            <group col="3">
-                                <field name="call_start" />
-                                <field name="call_end" />
-                                <field name="reporter" />
-                            </group>
-                            
-                        </group>
-                        <notebook>
-                            <page string="Detalhes" name="detailed_description_section">
-                                <field name="detailed_description" />
-                            </page>
-                            <page string="Caso(s) Relacionados" name="cases">
-                                <field name="case_line_ids" widget="one2many">
-                                    <tree>
-                                        <field name="case_id" />
-                                        <field name="case_status" />
-                                        <field name="case_priority" />
-                                        
-                                    </tree>
-                                </field>
-                            </page>
-                            <page string="Assistência(s) Relacionadas" name="assistance">
-                                <field name="assistance_line_ids" widget="one2many">
-                                    <tree>
-                                        <field name="assistance_id" />
-                                        <field name="fullname" />
-                                        <field name="callcaseassistance_status" />
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
 
+                    <h1> Formulário de chamada LFC <h3>
+                            <field class="text-break"
+                                name="call_id"
+                                placeholder="Número de chamada (auto)" />
+                        </h3>
+                    </h1>
+                    <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
+                    <div class="row w-100">
+                        <div class="col-md-3">
+                            <p title="Campo Opcional">
+                                <strong>Fonte de Informação: </strong>
+                                <field name="contact_type" />
+                            </p>
+                            <p>
+                                <strong>Lingua/Dialeto: </strong>
+                                <field name="caller_language" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong title="Campo Opcional">Contacto Alterativo: </strong>
+                                <field name="alternate_contact" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong title="Campo Opcional">Nome Completo: </strong>
+                                <field name="fullname" />
+                            </p>
+                            <p title="Campo Opcional"
+                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Número de Identificação: </strong>
+                                <field name="nr_identication" />
+                            </p>
+                            <p>
+                                <strong>Distrito: </strong>
+                                <field name="distrito" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Gênero: </strong>
+                                <field name="gender" />
+                            </p>
+
+                        </div>
+                        <div class="col-md-3 mt-1">
+                            <p>
+                                <strong>Consentimento Informado: </strong>
+                                <field name="wants_to_be_annonymous" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Padece de alguma deficiência ?: </strong>
+                                <field name="are_you_disabled" />
+                            </p>
+                            <p title="Campo Opcional"
+                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Contacto: </strong>
+                                <field name="contact" />
+                            </p>
+                            <p title="Campo Opcional">
+                                <strong>Relação com a Vítima: </strong>
+                                <field name="victim_relationship" />
+                            </p>
+                            <p title="Campo Opcional">
+                                <strong>Tipo de Identificação: </strong>
+                                <field name="id_number" />
+                            </p>
+                            <p>
+                                <strong>Província: </strong>
+                                <field name="provincia" />
+                            </p>
+                            <p title="Campo Opcional">
+                                <strong>Bairro: </strong>
+                                <field name="bairro" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Idade: </strong>
+                                <field name="age" />
+                            </p>
+                            <p>
+                                <strong>Frequênta a Escola?: </strong>
+                                <field name="on_school" />
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <notebook class="mb-3">
+                                <page string="Detalhes" name="detailed_description_section">
+                                    <field name="detailed_description" />
+                                </page>
+                                <page attrs="{'invisible': [('are_you_disabled','=',False)]}"
+                                    string="Deficiência" name="deficiencia">
+                                    <field name="deficiency_line_calls_ids" widget="one2many">
+                                        <tree>
+                                            <field name="deficiente_id" optional="show" />
+                                            <field name="vision" optional="hide" />
+                                            <field name="hearing" optional="show" />
+                                            <field name="mobility" optional="show" />
+                                            <field name="cognition" optional="hide" />
+                                            <field name="autonomous_care" optional="hide" />
+                                            <field name="comunication" optional="hide" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page attrs="{'invisible': [('type_of_intervention','!=','Caso')]}"
+                                    string="Caso(s) Relacionados" name="cases">
+                                    <field name="case_line_ids" widget="one2many">
+                                        <tree string="Channel"
+                                            decoration-info="case_status=='Dentro do sistema'"
+                                            decoration-primary="case_status=='Assistido'"
+                                            decoration-success="case_status=='Encerrado'"
+                                            decoration-warning="case_status=='Aberto/Pendente'">
+                                            <field name="call_id" optional="show" />
+                                            <field name="case_type_classification" optional="hide" />
+                                            <field name="reporter_by" optional="show" />
+                                            <field name="resolution_type" optional="show" />
+                                            <field name="case_type" optional="show" />
+                                            <field name="secundary_case_type" optional="hide" />
+                                            <field name="place_occurrence" optional="show" />
+                                            <field name="case_priority" optional="hide" />
+                                            <field name="created_by" optional="hide" />
+                                            <field name="created_at" optional="hide" />
+                                            <field name="data_ocorrencia" optional="hide" />
+                                            <field
+                                                decoration-info="case_status=='Dentro do sistema'"
+                                                decoration-primary="case_status=='Assistido'"
+                                                decoration-success="case_status=='Encerrado'"
+                                                decoration-warning="case_status=='Aberto/Pendente'"
+                                                widget="badge" name="case_status" optional="show" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page
+                                    attrs="{'invisible': [('type_of_intervention','!=','Chamada de Assistência')]}"
+                                    string="Assistência(s) Relacionadas" name="assistance">
+                                    <field name="assistance_line_ids" widget="one2many">
+                                        <tree string="Channel"
+                                            decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                                            decoration-primary="callcaseassistance_status=='Assistido'"
+                                            decoration-success="callcaseassistance_status=='Encerrado'"
+                                            decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+                                            <field name="call_id" optional="show" />
+                                            <field name="fullname" optional="show" />
+                                            <field name="provincia" optional="hide" />
+                                            <field name="distrito" optional="hide" />
+                                            <field name="bairro" optional="hide" />
+                                            <field name="gender" optional="show" />
+                                            <field name="age" optional="show" />
+                                            <field name="category" optional="hide" />
+                                            <field name="subcategory" optional="hide" />
+                                            <field name="created_at" optional="hide" />
+                                            <field name="created_by" optional="hide" />
+                                            <field
+                                                decoration-info="callcaseassistance_status=='Dentro do sistema'"
+                                                decoration-primary="callcaseassistance_status=='Assistido'"
+                                                decoration-success="callcaseassistance_status=='Encerrado'"
+                                                decoration-warning="callcaseassistance_status=='Aberto/Pendente'"
+                                                widget="badge" name="callcaseassistance_status"
+                                                optional="show" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page
+                                    attrs="{'invisible': [('type_of_intervention','!=','Moz Learning')]}"
+                                    string="Moz Leaning" name="moz_learning">
+                                    <field name="moz_learning_line_ids" widget="one2many">
+                                        <tree>
+                                            <field name="moz_learning_id" optional="show" />
+                                            <field name="fullname" optional="show" />
+                                            <field name="gender" optional="show" />
+                                        </tree>
+                                    </field>
+                                </page>
+
+                            </notebook>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p attrs="{'invisible': [('on_school','=',False)]}">
+                                        <strong>Qual a Classe ?: </strong>
+                                        <field name="grade" />
+                                    </p>
+                                    <p title="Campo Opcional"
+                                        attrs="{'invisible': [('on_school','=',False)]}">
+                                        <strong>Nome da Escola / Universidade: </strong>
+                                        <field name="school" />
+                                    </p>
+                                    <p>
+                                        <strong>Tipo de intervenção / Motivo: </strong>
+                                        <field name="type_of_intervention" />
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p title="Campo Opcional">
+                                        <strong>Como Conhece a LFC: </strong>
+                                        <field name="how_knows_lfc" />
+                                    </p>
+
+                                    <p>
+                                        <strong>Hora de inicio da chamada: </strong>
+                                        <field name="call_start" />
+                                    </p>
+                                    <p>
+                                        <strong>Hora de fim da chamada: </strong>
+                                        <field name="call_end" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+
                 </sheet>
 
                 <div class="oe_chatter">

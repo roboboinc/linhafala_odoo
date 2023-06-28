@@ -1,19 +1,18 @@
 id,name,area_type
-linhafala_caso_referencearea_1,Teste,Não Institucional
-linhafala_caso_referencearea_2,SRQ,Institucional
-linhafala_caso_referencearea_3,Outros,Não Institucional
-linhafala_caso_referencearea_4,Trabalho e Emprego,Institucional
-linhafala_caso_referencearea_5,Familia,Não Institucional
-linhafala_caso_referencearea_6,Estruturas do Bairro,Não Institucional
-linhafala_caso_referencearea_7,Lider Comunitario,Não Institucional
-linhafala_caso_referencearea_8,Lider Religioso,Não Institucional
-linhafala_caso_referencearea_9,Organizacao de base comunitaria,Não Institucional
-linhafala_caso_referencearea_10,Comite Comunitario de Protecao a crianca,Não Institucional
-linhafala_caso_referencearea_11,Tribunal Comunitario,Não Institucional
-linhafala_caso_referencearea_12,Outros,Institucional
-linhafala_caso_referencearea_13,Saude,Institucional
-linhafala_caso_referencearea_14,Accao Social,Institucional
-linhafala_caso_referencearea_15,ICDP - Organizacoes da Sociedade Civil,Institucional
-linhafala_caso_referencearea_16,Justica,Institucional
-linhafala_caso_referencearea_17,Policia,Institucional
-linhafala_caso_referencearea_18,Educação,Institucional
+linhafala.caso.referencearea_1,SRQ,Institucional
+linhafala.caso.referencearea_2,PRM,Institucional
+linhafala.caso.referencearea_3,Saúde,Institucional
+linhafala.caso.referencearea_4,Justiça,Institucional
+linhafala.caso.referencearea_5,Educação,Institucional
+linhafala.caso.referencearea_6,Acção Social,Institucional
+linhafala.caso.referencearea_7,Trabalho e Emprego,Institucional
+linhafala.caso.referencearea_8,ICDP - Organização da Sociedade Civil,Institucional
+
+linhafala.caso.referencearea_9,Familia,Não Institucional
+linhafala.caso.referencearea_10,Líder Religioso,Não Institucional
+linhafala.caso.referencearea_11,Tribunal Comunitário,Não Institucional
+linhafala.caso.referencearea_12,Líder Comunitário,Não Institucional
+linhafala.caso.referencearea_13,Estruturas do Bairro,Não Institucional
+linhafala.caso.referencearea_14,Organização da Sociedade Civil,Não Institucional
+linhafala.caso.referencearea_15,Organização de bade Comunitário,Não Institucional
+linhafala.caso.referencearea_16,Comité Comunitário de Proteção a Criança,Não Institucional

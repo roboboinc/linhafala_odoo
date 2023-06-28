@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_assistance">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h1 class="text-center">Ficha de Assistência</h1>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <h3>Dados do Beneficiante</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Benificiário</th>
+                                <th>Província</th>
+                                <th>Bairro</th>
+                                <th>Gênero</th>
+                                <th>Contacto</th>
+                                <th>Idade</th>
+                                <th>Prioridade da Assistência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="doc">
+                                <tr>
+                                    <td>
+                                        <t t-esc="doc.fullname" />
+                                    </td>
+                                   <td>
+                                        <t t-esc="doc.provincia.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.bairro" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.gender" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.contact" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.age" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.callcaseassistance_priority" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <br />
+
+                    <br />
+                    <br />
+                    <br />
+                    <div class="row align-items-center">
+                        <div class="col-7">
+                            <ul>
+                                <h3>Informação da assistência</h3>
+                                <t t-foreach="docs" t-as="doc">
+                                    <li>
+                                      
+                                        <strong>Categoria:</strong>
+                                        <t
+                                            t-esc="doc.category.name" />
+                                        <br />
+                                        <strong>Subcategoria:</strong>
+                                        <t
+                                            t-esc="doc.subcategory.name" />
+                                        <br />
+                                        <strong>
+                                            Estado:</strong>
+                                        <t
+                                            t-esc="doc.callcaseassistance_status" />
+                                        <br />
+                                        <strong>
+                                            Período de Resolução:</strong>
+                                        <t
+                                            t-esc="doc.callcaseassistance_priority" />
+                                        <br />
+                                        <strong>
+                                            Tratamento:</strong>
+                                        <t
+                                            t-esc="doc.resolution_type" />
+                                        <br />
+                                        <strong>
+                                            Gestor:</strong>
+                                        <t
+                                            t-esc="doc.reporter.name" />
+                                        <br />
+                                        <strong>
+                                            Data de criaçäo:</strong>
+                                        <t
+                                            t-esc="doc.created_at" />
+                                        <br />
+                                        <strong>
+                                            Data de actualizaçäo:</strong>
+                                        <t
+                                            t-esc="doc.updated_at" />
+                                        <br />
+                                        <strong>
+                                            Criado por:</strong>
+                                        <t 
+                                        t-esc="doc.created_by.name"/>
+                                        <br/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
+                    <t t-foreach="docs" t-as="doc">
+
+                        <t
+                            t-esc="doc.detailed_description" />
+                        <br />
+
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

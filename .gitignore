@@ -1,0 +1,57 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+# Odoo compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Odoo log files
+*.log
+
+# Text editor temporary files
+*.swp
+
+# macOS Finder files
+.DS_Store
+
+# Local database files
+*.db
+=======
+=======
+
+>>>>>>> 6ac607f91698ec4148d1b6d000bb65f605da73ff
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings
+.env
+venv/
+env/
+env.bak/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# IDE and editor settings
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Other generated files
+*.pyc
+.DS_Store
+*.swp
+Thumbs.db
+
+# Other sensitive or private information
+*.key
+*.pem
+*.secret
+<<<<<<< HEAD
+>>>>>>> LAT-39-review-and-update-the-calls-layout
+=======
+>>>>>>> 6ac607f91698ec4148d1b6d000bb65f605da73ff

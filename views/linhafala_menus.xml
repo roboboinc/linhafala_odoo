@@ -27,27 +27,41 @@
         action="linhafala_assistance_action"
         parent="linhafala_menu_root"
         sequence="3" />
-
     <menuitem
-        id="linhafala_assistance_referral_menu_action"
-        name="Encaminhamento - Assistências"
-        action="linhafala_chamada_assistance_referral_action"
+        id="linhafala_moz_learning_menu_action"
+        name="Moz Learning"
+        action="linhafala_moz_learning_action"
         parent="linhafala_menu_root"
         sequence="4" />
 
     <menuitem
-        id="linhafala_forwarding_institution_menu_action"
-        name="Encaminhamento - Casos"
-        action="linhafala_caso_forwarding_institution_action"
+        id="linhafala_chamada_assistance_referral_menu_action"
+        name="Encaminhamento de Assistências"
+        action="linhafala_chamada_assistance_referral_action"
         parent="linhafala_menu_root"
         sequence="5" />
+
+    <menuitem
+        id="linhafala_cases_referral_menu_action"
+        name="Encaminhamento de Casos"
+        action="linhafala_cases_referral_action"
+        parent="linhafala_menu_root"
+        sequence="6" />
+
+
+    <menuitem
+        id="linhafala_deficiente_menu_action"
+        name="Deficiente"
+        action="linhafala_deficiente_action"
+        parent="linhafala_menu_root"
+        sequence="7" />
 
     <menuitem
         id="linhafala_knowledgebase_menu_action"
         name="Base de conhecimentos"
         action="linhafala_knowledgebase_action"
         parent="linhafala_menu_root"
-        sequence="6" />
+        sequence="8" />
 
     <!-- CONFIGURATION -->
     <menuitem

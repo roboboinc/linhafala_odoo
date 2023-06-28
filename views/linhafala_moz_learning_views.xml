@@ -1,0 +1,455 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_moz_learning_kanban" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.kanban</field>
+        <field name="model">linhafala.moz_learning</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="moz_learning_status">
+                <field name="moz_learning_id" />
+                <field name="contact" />
+                <field name="gender" />
+                <field name="created_by" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="moz_learning_id" /></li>
+                                    <li> Gender: <field name="gender" /></li>
+                                    <li> Contacto: <field name="contact" /></li>
+                                    <li> Criado Por: <field name="created_by" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="linhafala_moz_learning_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.tree</field>
+        <field name="model">linhafala.moz_learning</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="moz_learning_id" optional="show" />
+                <field name="fullname" optional="show" />
+                <field name="contact" optional="show" />
+                <field name="gender" optional="show" />
+                <field name="birthd_date" optional="show" />
+                <field name="id_number" optional="hide" />
+                <field name="provincia" optional="show" />
+                <field name="distrito" optional="show" />
+                <field name="administrative_post" optional="hide" />
+                <field name="locality" optional="show" />
+                <field name="community" optional="hide" />
+                <field name="isVictim" optional="hide" />
+                <field name="wants_to_be_annonymous" optional="hide" />
+                <field name="complaint_eligibility" optional="hide" />
+                <field name="complaint_related_to" optional="hide" />
+                <field name="specify" optional="hide" />
+                <field name="type_of_vbg" optional="hide" />
+                <field name="level_of_urgency" optional="hide" />
+                <field name="date_of_occurrence" optional="hide" />
+                <field name="complaint_reception_channel" optional="hide" />
+                <field name="focal_point_name" optional="hide" />
+                <field name="focal_point_contact" optional="hide" />
+                <field name="moz_learning_details" optional="hide" />
+                <field name="date_of_receipt" optional="hide" />
+                <field name="process_situation" optional="hide" />
+                <field name="updated_at" optional="hide" />
+                <field name="specify_others" optional="hide" />
+                <field name="created_by" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="linhafala_moz_learning_action" model="ir.actions.act_window">
+        <field name="name">Moz Learning</field>
+        <field name="res_model">linhafala.moz_learning</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registe informações do Moz Learning
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_moz_learning_form_view" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.form</field>
+        <field name="model">linhafala.moz_learning</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="moz_learning_status" widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
+                </header>
+                <sheet>
+
+                    <h1> Formulário do Moz Learning LFC </h1>
+                    <h3>
+                        <field class="text-break"
+                            name="call_id"
+                            placeholder="Número de chamada (auto)" />
+                    </h3>
+                    
+                    <div class="row w-100 my-2">
+                        <div class="col-md-4">
+                            <h3 class="text-muted"><span class="text-dark">A.</span> Identificação
+                                do reclamante</h3>
+                            <p>
+                                <strong>Consetimento Informado da reclamação: </strong>
+                                <field name="wants_to_be_annonymous" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Nome do Reclamante: </strong>
+                                <field name="fullname" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Data de Nascimento: </strong>
+                                <field name="birthd_date" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Gênero: </strong>
+                                <field name="gender" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Tem telefone? : </strong>
+                                <field name="have_a_phone" />
+                            </p>
+                            <p attrs="{'invisible': [('have_a_phone','!=','Sim')]}">
+                                <strong>Contacto: </strong>
+                                <field name="contact" />
+                            </p>
+                        </div>
+                        <div class="col-md-4 mt-4 pt-1">
+                            <p attrs="{'invisible': [('have_a_phone','!=','Não')]}">
+                                <strong>Outro meio de Contacto: </strong>
+                                <field name="other_means_of_contact" />
+                            </p>
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Documento de Identificação: </strong>
+                                <field name="id_number" />
+                            </p>
+                            <p attrs="{'invisible': [('id_number','=', False)]}">
+                                <strong>Número do Documento: </strong>
+                                <field name="document_number" />
+                            </p>
+                            <p>
+                                <strong>O Denúnciante é Vítima ?: </strong>
+                                <field name="isVictim" />
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="text-muted"><span class="text-dark">B.</span> Dados sobre a
+                                localização</h3>
+                            <p>
+                                <strong>Província: </strong>
+                                <field name="provincia" />
+                            </p>
+                            <p>
+                                <strong>Distrito: </strong>
+                                <field name="distrito" />
+                            </p>
+                            <p>
+                                <strong>Posto Administrativo: </strong>
+                                <field name="administrative_post" />
+                            </p>
+                            <p>
+                                <strong>Localidade: </strong>
+                                <field name="locality" />
+                            </p>
+                            <p>
+                                <strong>Comunidade/Bairro - Escola: </strong>
+                                <field name="community" />
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <notebook class="mb-3">
+                                <page string="Detalhes sobre a reclamação" name="moz_learning">
+                                    <field name="moz_learning_complaint_details_line_ids"
+                                        widget="one2many">
+                                        <form>
+                                            <sheet>
+                                                <div class="row w-100">
+                                                    <div class="col-md-6">
+                                                        <h3 class="text-muted"><span
+                                                                class="text-dark">C.</span> Detalhes
+                                                            sobre a reclamação</h3>
+                                                        <p>
+                                                            <strong>Elegibilidade da Queixa: </strong>
+                                                            <field name="complaint_eligibility" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_eligibility','!=','Procedente')]}">
+                                                            <strong>Projecto Relacionado ao caso: </strong>
+                                                            <field name="related_project_case" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_eligibility','!=','Procedente')]}">
+                                                            <strong>Reclamação Reclacionada a: </strong>
+                                                            <field name="complaint_related_to" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_related_to','=',False)]}">
+                                                            <strong>Especifique: </strong>
+                                                            <field name="specify" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('specify','!=','VBG')]}">
+                                                            <strong>Qual o tipo: </strong>
+                                                            <field name="type_of_vbg" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_eligibility','!=','Procedente')]}">
+                                                            <strong>Nivel de urgência: </strong>
+                                                            <field name="level_of_urgency" />
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="col-md-6 mt-5">
+                                                        <p>
+                                                            <strong>Canal de recepção da reclamação: </strong>
+                                                            <field
+                                                                name="complaint_reception_channel" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_reception_channel','!=','Ponto Focal Provincial de Gênero/Salvaguardas')]}">
+                                                            <strong>Nome do Ponto focal Receptora: </strong>
+                                                            <field name="focal_point_name" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('complaint_reception_channel','!=','Ponto Focal Provincial de Gênero/Salvaguardas')]}">
+                                                            <strong>Contacto do Ponto focal
+                                                                Receptor: </strong>
+                                                            <field name="focal_point_contact" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Resumo da queixa: </strong>
+                                                            <field name="moz_learning_details" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Data de recepção: </strong>
+                                                            <field name="date_of_receipt" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Data de Ocorrência: </strong>
+                                                            <field name="date_of_occurrence" />
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </sheet>
+                                        </form>
+                                        <tree>
+                                            <field name="moz_learning_complaint__details_id"
+                                                optional="show" />
+                                            <field name="related_project_case" optional="show" />
+                                            <field name="complaint_eligibility" optional="show" />
+                                            <field name="complaint_related_to" optional="show" />
+                                            <field name="specify" optional="hide" />
+                                            <field name="type_of_vbg" optional="hide" />
+                                            <field name="level_of_urgency" optional="hide" />
+                                            <field name="date_of_occurrence" optional="hide" />
+                                            <field name="complaint_reception_channel"
+                                                optional="hide" />
+                                            <field name="focal_point_name" optional="hide" />
+                                            <field name="focal_point_contact" optional="hide" />
+                                            <field name="moz_learning_details" optional="hide" />
+                                            <field name="date_of_receipt" optional="hide" />
+                                            <field name="process_situation" optional="hide" />
+                                            <field name="specify_others" optional="hide" />
+                                            <field name="updated_at" optional="hide" />
+                                            <field name="created_by" optional="hide" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page attrs="{'invisible': [('isVictim','!=',False)]}"
+                                    string="Pessoas Envolvdas" name="persons">
+                                    <field name="persons_involved_moz_learning_line_ids"
+                                        widget="one2many">
+                                        <form>
+                                            <sheet>
+                                                <div class="row w-100">
+                                                    <div class="col-md-6">
+                                                        <h3 class="text-muted"><span
+                                                                class="text-dark">A.</span>
+                                                            Identificação do reclamante ( Vítima )</h3>
+                                                        <p>
+                                                            <strong>Nome Completo: </strong>
+                                                            <field name="fullname" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Gênero: </strong>
+                                                            <field name="gender" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Qual o outro?: </strong>
+                                                            <field name="what_other" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Idade: </strong>
+                                                            <field name="age" />
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="col-md-6 mt-5">
+                                                        <p>
+                                                            <strong>Endereço da Vítima: </strong>
+                                                            <field name="address" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Contacto da Vítima: </strong>
+                                                            <field name="contact" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Relação da Vítima com o
+                                                                Denúnciante: </strong>
+                                                            <field name="victim_relationship" />
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </sheet>
+                                        </form>
+                                        <tree>
+                                            <field name="person_id" optional="show" />
+                                            <field name="fullname" optional="show" />
+                                            <field name="gender" optional="show" />
+                                            <field name="victim_relationship" optional="show" />
+                                            <field name="contact" optional="show" />
+                                            <field name="what_other" optional="hide" />
+                                            <field name="age" optional="hide" />
+                                            <field name="email" optional="hide" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="VBG (Violência Baseada no Gênero)" name="vbg">
+                                    <field name="vbg_line_ids"
+                                        widget="one2many">
+                                        <form>
+                                            <header>
+                                                <field name="vbg_status" widget="statusbar"
+                                                    options="{'clickable': '1'}"
+                                                    statusbar_visible="Em Curso, Resolvido" />
+                                            </header>
+                                            <sheet>
+                                                <div class="row w-100">
+                                                    <div class="col-md-6">
+                                                        <h3 class="text-muted"><span
+                                                                class="text-dark">C1.</span> VBG
+                                                            (Informação do(a) denunciante)</h3>
+                                                        <p>
+                                                            <strong>O Caso está conectado ao
+                                                                projecto?: </strong>
+                                                            <field name="vbg_connected_project" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
+                                                            <strong>Foi assinado o concentimento
+                                                                informado?: </strong>
+                                                            <field name="signed_informed_consent" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('signed_informed_consent','!=',False)]}">
+                                                            <strong>Quais as razões para não ter
+                                                                assinado?: </strong>
+                                                            <field name="reasons_for_not_signing" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
+                                                            <strong>Existe risco de retaliação?: </strong>
+                                                            <field
+                                                                name="is_there_a_risk_of_retaliation" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
+                                                            <strong>Com quem vive o(a) vítima?: </strong>
+                                                            <field
+                                                                name="who_does_the_victim_live_with" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('who_does_the_victim_live_with','!=','Outro')]}">
+                                                            <strong>Qual Outro?: </strong>
+                                                            <field
+                                                                name="what_other_live" />
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6 mt-5">
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_connected_project','!=',True)]}">
+                                                            <strong>Ocupação do(a) vítima: </strong>
+                                                            <field name="victim_occupation" />
+                                                        </p>
+                                                        <p
+                                                            attrs="{'invisible': [('victim_occupation','!=','Outro')]}">
+                                                            <strong>Qual outro?: </strong>
+                                                            <field name="what_other" />
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <notebook>
+                                                            <page
+                                                                attrs="{'invisible': [('vbg_status','!=','Em Curso')]}"
+                                                                string="Descrição da situação atual"
+                                                                name="situação_atual">
+                                                                <field
+                                                                    name="description_of_the_current_situation" />
+                                                            </page>
+                                                            <page
+                                                                attrs="{'invisible': [('vbg_status','!=','Resolvido')]}"
+                                                                string="Descrição dos Acordos concluídos "
+                                                                name="descrição_de_conclusão">
+                                                                <field
+                                                                    name="description_of_dompleted_agreements" />
+                                                            </page>
+                                                        </notebook>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_status','!=','Em Curso')]}">
+                                                            <strong>Data de atualização: </strong>
+                                                            <field name="updated_at" />
+                                                        </p>
+
+                                                        <p
+                                                            attrs="{'invisible': [('vbg_status','!=','Resolvido')]}">
+                                                            <strong>Data de Resolução: </strong>
+                                                            <field name="solved_date" />
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </sheet>
+                                        </form>
+                                        <tree>
+                                            <field name="gender_based_violence_id" optional="show" />
+                                            <field name="is_there_a_risk_of_retaliation"
+                                                optional="hide" />
+                                            <field name="vbg_connected_project" optional="hide" />
+                                            <field name="signed_informed_consent" optional="hide" />
+                                            <field name="reasons_for_not_signing" optional="hide" />
+                                            <field name="what_other" optional="hide" />
+                                            <field name="victim_occupation" optional="show" />
+                                            <field name="who_does_the_victim_live_with"
+                                                optional="show" />
+                                            <field name="vbg_status" optional="show" />
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </div>
+                    </div>
+
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

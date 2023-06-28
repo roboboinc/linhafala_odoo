@@ -492,6 +492,17 @@ class CallCaseAssistance(models.Model):
         })
         return super(CallCaseAssistance, self)._register_hook()
 
+    manager_by = fields.Many2one(
+        'res.users', string="Gerido por: ", compute='_compute_manager_by', store=True)
+
+    @api.depends('manager_by')
+    def _compute_manager_by(self):
+        for record in self:
+            record.manager_by = record.env.user
+
+    def action_manager(self):
+        self._compute_manager_by()
+
 
 class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"

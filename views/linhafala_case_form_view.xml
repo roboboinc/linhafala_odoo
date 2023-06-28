@@ -70,6 +70,10 @@
                                     <strong>Data de Criação: </strong>
                                     <field name="created_at" />
                                 </p>
+                                <p>
+                                    <strong>Gerido por: </strong>
+                                    <field name="manager_by" />
+                                </p>
                             </div>
                             <div class="col-md-6">
                                 <notebook>

@@ -81,7 +81,7 @@
             <form>
                 <header>
                     <button id="btn-manager" name="action_manager" string="Gerir"
-                        class="btn-lg btn-primary me-3"
+                        class="btn-primary me-3"
                         type="object"
                         confirm="Tem certeza de que deseja assumir a gestão desta Assistência ? " />
                     <field name="callcaseassistance_status" widget="statusbar"

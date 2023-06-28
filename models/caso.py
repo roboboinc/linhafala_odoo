@@ -132,9 +132,16 @@ class Caso(models.Model):
     deficiency_line_case_ids = fields.One2many('linhafala.deficiente', 'case_id',
                                                string="Linhas do Deficiênte")
 
+    manager_by = fields.Many2one('res.users', string="Gerido por: ", compute='_compute_manager_by', store=True)
+
+    @api.depends('manager_by')
+    def _compute_manager_by(self):
+        for record in self:
+            record.manager_by = record.env.user
+
     def action_manager(self):
-        self
-        
+        self._compute_manager_by()
+
 
     @api.onchange('provincia')
     def _provincia_onchange(self):

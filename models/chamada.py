@@ -177,23 +177,6 @@ class Chamada(models.Model):
 
     subcategory = fields.Many2one(
         comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
-    callcaseassistance_status = fields.Selection(
-        string='Estado',
-        selection=[
-            ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Dentro do sistema", "Dentro do sistema"),
-            ("Assistido", "Assistido"),
-            ("Encerrado", "Encerrado")
-        ],
-        help="Estado"
-    )
-
-    @api.constrains('callcaseassistance_status')
-    def _check_callcaseassistance_status(self):
-        for record in self:
-            if record.callcaseassistance_status != 'Aberto/Pendente' and record.callcaseassistance_status != 'Dentro do sistema' and record.callcaseassistance_status != 'Assistido' and record.callcaseassistance_status != 'Encerrado':
-                raise ValidationError(
-                    "Por favor, selecione o estado da chamada para prosseguir.")
 
     reporter = fields.Many2one(
         'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)

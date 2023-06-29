@@ -42,11 +42,18 @@
         sequence="5" />
 
     <menuitem
+        id="linhafala_moz_learning_referral_menu_action"
+        name="Encaminhamento de Moz Learning"
+        action="linhafala_moz_learning_referral_action"
+        parent="linhafala_menu_root"
+        sequence="6" />
+
+    <menuitem
         id="linhafala_cases_referral_menu_action"
         name="Encaminhamento de Casos"
         action="linhafala_cases_referral_action"
         parent="linhafala_menu_root"
-        sequence="6" />
+        sequence="7" />
 
 
     <menuitem
@@ -54,14 +61,14 @@
         name="Deficiente"
         action="linhafala_deficiente_action"
         parent="linhafala_menu_root"
-        sequence="7" />
+        sequence="8" />
 
     <menuitem
         id="linhafala_knowledgebase_menu_action"
         name="Base de conhecimentos"
         action="linhafala_knowledgebase_action"
         parent="linhafala_menu_root"
-        sequence="8" />
+        sequence="9" />
 
     <!-- CONFIGURATION -->
     <menuitem

@@ -23,6 +23,9 @@ class MozLearning(models.Model):
 
     vbg_line_ids = fields.One2many('linhafala.gender_based_violence', 'gender_based_violence_id',
                                    string="Formulário de VBG (Violência Baseada no Gênero)")
+    
+    moz_learning_referral_line_ids = fields.One2many('linhafala.moz_learning.referral', 'moz_learning_referral_id',
+                                   string="Formulário de Encaminhamento")
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
@@ -205,8 +208,72 @@ class MozLearning(models.Model):
         help="Estado do caso"
     )
 
+
+class MozLearningReferral(models.Model):
+    _name = "linhafala.moz_learning.referral"
+    _description = "Instituição de encaminhamento de moz learning"
+
+    moz_learning_referral_id = fields.Many2one(
+        "linhafala.moz_learning.referral", string="Moz Learning ID")
+
+    moz_learning_id = fields.Many2one(
+        comodel_name='linhafala.moz_learning', string="Moz Learning")
+    
+    area_type = fields.Selection(
+        string='Área de Encaminhamento',
+        selection=[
+            ("Institucional", "Institucional"),
+            ("Não Institucional", "Não Institucional"),
+        ],
+        help="Área de Encaminhamento"
+    )
+    reference_area = fields.Many2one(
+        comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+    reference_entity = fields.Many2one(
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+
+    case_reference = fields.Many2one(
+        comodel_name='linhafala.caso.casereference', string="Pessoa de Contacto")
+
+    spokes_person_phone = fields.Char(
+        string="Telefone do Responsável", related='case_reference.contact')
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia")
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto")
+
+    moz_learning_status = fields.Selection(
+        string='Estado do caso',
+        selection=[
+            ("Aberto/Pendente", "Aberto/Pendente"),
+            ("Dentro do sistema", "Dentro do sistema"),
+            ("Assistido", "Assistido"),
+            ("No Arquivo Morto", "No Arquivo Morto"),
+            ("Encerrado", "Encerrado")
+        ], default="Aberto/Pendente",
+        help="Estado do caso"
+    )
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+
+    @api.onchange('reference_area')
+    def _reference_area_onchange(self):
+        for rec in self:
+            return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
+
+    @api.constrains('assistance_status')
+    def _check_assistance_status(self):
+        for record in self:
+            if record.assistance_status != 'Aberto/Pendente' and record.assistance_status != 'Dentro do sistema' and record.assistance_status != 'Assistido' and record.assistance_status != 'Encerrado':
+                raise ValidationError(
+                    "Por favor, selecione o estado do caso para prosseguir.")
+
     @api.constrains('moz_learning_status')
     def _check_moz_learning_status(self):
         for record in self:
             if record.moz_learning_status != 'Aberto/Pendente' and record.moz_learning_status != 'Dentro do sistema' and record.moz_learning_status != 'Assistido' and record.moz_learning_status != 'Encerrado':
-                raise ValidationError("Por favor, selecione o estado do caso para prosseguir.")
+                raise ValidationError(
+                    "Por favor, selecione o estado do caso para prosseguir.")

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_moz_learning_referral_kanban" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.referral.kanban</field>
+        <field name="model">linhafala.moz_learning.referral</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="moz_learning_status">
+                <field name="moz_learning_referral_id" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li> ID: <field name="moz_learning_referral_id" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="linhafala_moz_learning_referral_action" model="ir.actions.act_window">
+        <field name="name">Encaminhamento de Moz Learning</field>
+        <field name="res_model">linhafala.moz_learning.referral</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registar Encaminhamento do Moz Learning
+            </p>
+        </field>
+    </record>
+
+    <!-- Form view definition -->
+    <record id="linhafala_moz_learning_referral_form_view" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.referral.form</field>
+        <field name="model">linhafala.moz_learning.referral</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="moz_learning_status"
+                        widget="statusbar"
+                        options="{'clickable': '1'}"
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido,No Arquivo Morto, Encerrado" />
+                </header>
+                <sheet>
+                    <h1> Formulário de Encaminhamento de Moz Learning LFC <h3>
+
+                        </h3>
+                    </h1>
+                    <div class="row w-100">
+                        <div class="col-md-6">
+                            <p>
+                                <strong>Id da Moz Learning: </strong>
+                                <field
+                                    name="moz_learning_referral_id" />
+                            </p>
+                            <p>
+                                <strong>Área de Encaminhamento: </strong>
+                                <field name="area_type" />
+                            </p>
+                            <p
+                                attrs="{'invisible': [('area_type','!=','Institucional')]}">
+                                <strong>
+                                    Entidade de Referência: </strong>
+                                <field name="reference_entity"
+                                />
+                            </p>
+                            <p>
+                                <strong>Pessoa de Contacto: </strong>
+                                <field
+                                    name="case_reference" />
+                            </p>
+                            <p>
+                                <strong>Telefone do Responsável: </strong>
+                                <field
+                                    name="spokes_person_phone" />
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>
+                                <strong>
+                                    Referência: </strong>
+                                <field name="reference_area" />
+                            </p>
+                            <p>
+                                <strong>
+                                    Província: </strong>
+                                <field name="provincia" />
+                            </p>
+                            <p>
+                                <strong>
+                                    Distrito: </strong>
+                                <field name="distrito" />
+                            </p>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_moz_learning_referral_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.moz_learning.referral.tree</field>
+        <field name="model">linhafala.moz_learning.referral</field>
+        <field name="arch" type="xml">
+            <tree string="Channel" decoration-info="moz_learning_status=='Dentro do sistema'"
+                decoration-primary="moz_learning_status=='Assistido'"
+                decoration-success="moz_learning_status=='Encerrado'"
+                decoration-warning="moz_learning_status=='Aberto/Pendente'">
+                <field name="moz_learning_referral_id" optional="show" />
+                <field name="area_type" optional="show" />
+                <field name="reference_area" optional="hide" />
+                <field name="reference_entity" optional="hide" />
+                <field name="spokes_person_phone" optional="hide" />
+                <field decoration-info="moz_learning_status=='Dentro do sistema'"
+                    decoration-primary="moz_learning_status=='Assistido'"
+                    decoration-success="moz_learning_status=='Encerrado'"
+                    decoration-warning="moz_learning_status=='Aberto/Pendente'"
+                    widget="badge" name="moz_learning_status" optional="show" />
+            </tree>
+        </field>
+    </record>
+</odoo>

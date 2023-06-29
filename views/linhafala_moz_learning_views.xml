@@ -96,7 +96,7 @@
                             name="call_id"
                             placeholder="Número de chamada (auto)" />
                     </h3>
-                    
+
                     <div class="row w-100 my-2">
                         <div class="col-md-4">
                             <h3 class="text-muted"><span class="text-dark">A.</span> Identificação
@@ -435,6 +435,29 @@
                                             <field name="who_does_the_victim_live_with"
                                                 optional="show" />
                                             <field name="vbg_status" optional="show" />
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Encaminhamentos"
+                                    name="encaminhamentos de moz_learning">
+                                    <field name="moz_learning_referral_line_ids" widget="one2many">
+                                        <tree string="Channel"
+                                            decoration-info="moz_learning_status=='Dentro do sistema'"
+                                            decoration-primary="moz_learning_status=='Assistido'"
+                                            decoration-success="moz_learning_status=='Encerrado'"
+                                            decoration-warning="moz_learning_status=='Aberto/Pendente'">
+                                            <field name="moz_learning_referral_id" optional="show" />
+                                            <field name="area_type" optional="show" />
+                                            <field name="reference_area" optional="hide" />
+                                            <field name="reference_entity" optional="hide" />
+                                            <field name="spokes_person_phone" optional="hide" />
+                                            <field
+                                                decoration-info="moz_learning_status=='Dentro do sistema'"
+                                                decoration-primary="moz_learning_status=='Assistido'"
+                                                decoration-success="moz_learning_status=='Encerrado'"
+                                                decoration-warning="moz_learning_status=='Aberto/Pendente'"
+                                                widget="badge" name="moz_learning_status"
+                                                optional="show" />
                                         </tree>
                                     </field>
                                 </page>

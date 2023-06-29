@@ -1,43 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
 
-    <record id="view_calls_kanban" model="ir.ui.view">
-        <field name="name">linhafala.chamada.kanban</field>
-        <field name="model">linhafala.chamada</field>
-        <field name="arch" type="xml">
-            <kanban default_group_by="callcaseassistance_status">
-                <field name="call_id" />
-                <field name="fullname" />
-                <field name="age" />
-                <field name="gender" />
-                <field name="created_by" />
-                <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
-                            <div class="oe_kanban_details">
-                                <ul>
-                                    <li> ID: <field name="call_id" /></li>
-                                    <li> Name: <field name="fullname" /></li>
-                                    <li> Age: <field name="age" /></li>
-                                    <li> Gender: <field name="gender" /></li>
-                                    <li> Criado Por: <field name="created_by" /></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record>
-
     <record id="linhafala_calls_view_tree" model="ir.ui.view">
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'"
-                decoration-primary="callcaseassistance_status=='Assistido'"
-                decoration-success="callcaseassistance_status=='Encerrado'"
-                decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+            <tree string="Channel">
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />
@@ -60,11 +28,6 @@
                 <field name="caller_language" optional="show" />
                 <field name="victim_relationship" optional="show" />
                 <field name="type_of_intervention" optional="show" />
-                <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
-                    decoration-primary="callcaseassistance_status=='Assistido'"
-                    decoration-success="callcaseassistance_status=='Encerrado'"
-                    decoration-warning="callcaseassistance_status=='Aberto/Pendente'"
-                    widget="badge" name="callcaseassistance_status" optional="show" />
             </tree>
         </field>
     </record>
@@ -73,7 +36,7 @@
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
         <field name="res_model">linhafala.chamada</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar chamadas ou contactos recebidos
@@ -92,7 +55,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <div>
+                    <div class="my-3">
                         <button id="btn-shutdown" name="action_shutdown" string="Desligada"
                             class="btn-danger me-3"
                             type="object"
@@ -102,9 +65,6 @@
                             type="object"
                             confirm="Tem certeza de que deseja gravar a informação como silênciada ?" />
                     </div>
-                    <field name="callcaseassistance_status" widget="statusbar"
-                        options="{'clickable': '1'}"
-                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
                 </header>
                 <sheet>
 
@@ -310,10 +270,7 @@
                             </div>
                         </div>
                     </div>
-
-
                 </sheet>
-
                 <div class="oe_chatter">
                     <field name="message_follower_ids" />
                     <field name="activity_ids" />

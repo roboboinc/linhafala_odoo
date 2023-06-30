@@ -243,12 +243,25 @@ class Chamada(models.Model):
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'distrito', 'provincia', 'call_start', 'call_end', 'on_school', 'gender', 'detailed_description')
+    @api.constrains('caller_language', 'distrito', 'provincia','call_end', 'on_school', 'gender', 'detailed_description', 'category_status')
     def _check_all(self):
         for record in self:
-            if not record.caller_language or not record.distrito or not record.provincia or not record.call_start or not record.call_end or not record.on_school or not record.gender or not record.detailed_description:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio: Lingua/Dialetos, Distrito, Provincia, Hora de inicio da chamada, Hora de fim da chamada, Frequênta a Escola?, Gênero, Detalhes")
+            if self.category_status == "Com Interveção":
+                if not record.caller_language:
+                    raise ValidationError("Dialeto/Lingua é um campo obrigatório.")
+                if not record.distrito:
+                    raise ValidationError("Distrito é um campo obrigatório.")
+                if not record.provincia:
+                    raise ValidationError("Província é um campo obrigatório.")
+                if not record.call_end:
+                    raise ValidationError("Fim da chamada é um campo obrigatório.")
+                if not record.on_school:
+                    raise ValidationError("Frequenta a escola? é um campo obrigatório.")
+                if not record.gender:
+                    raise ValidationError("Gênero é um campo obrigatório.")
+                if not record.detailed_description:
+                    raise ValidationError("Detalhes é um campo obrigatório.")
+
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

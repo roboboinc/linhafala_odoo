@@ -22,8 +22,6 @@ class Chamada(models.Model):
     are_you_disabled = fields.Boolean(
         "E deficiente?", default=False)
 
-    category = fields.Many2one(
-        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
     contact_type = fields.Selection(
         string='Fonte de Informação',
         selection=[
@@ -109,6 +107,26 @@ class Chamada(models.Model):
             ("Mãe", "Mãe"),
         ],
         help="Relação com a(s) vítima(s):"
+    )
+
+    def action_shutdown(self):
+        self.category_status = "Sem Interveção"
+        self.env['linhafala.chamada'].browse(self.id).write({'category_status': 'Sem Interveção'})
+        print ('category_status: ' + self.category_status)
+
+    def action_silent(self):
+        self.category_status = "Sem Interveção"
+        self.env['linhafala.chamada'].browse(self.id).write({'category_status': 'Sem Interveção'})
+        print ('category_status: ' + self.category_status)
+
+    category_status = fields.Selection(
+        string='Categoria',
+        selection=[
+            ("Com Interveção", "Com Interveção"),
+            ("Sem Interveção", "Sem Interveção"),
+        ],
+        default="Com Interveção",
+        help="Categoria"
     )
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
@@ -243,12 +261,6 @@ class Chamada(models.Model):
 
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
-
-    def action_shutdown(self):
-        self.category = 1
-
-    def action_silent(self):
-        self.category = 1
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):

@@ -124,7 +124,7 @@ class Caso(models.Model):
     is_locked = fields.Boolean(string='Is Locked', default=False)
     lock_date = fields.Datetime()
 
-    abuse_time = fields.Datetime(
+    abuse_time = fields.Char(
         string="Tempo de abuso/Sofrimento:")  # NewField
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                       string="Instituição de encaminhamento")

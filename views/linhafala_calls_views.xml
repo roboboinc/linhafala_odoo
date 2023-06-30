@@ -21,7 +21,7 @@
                 <field name="call_start" optional="hide" />
                 <field name="call_end" optional="hide" />
                 <field name="how_knows_lfc" optional="hide" />
-                <field name="category" optional="show" />
+                <field name="category_status" optional="show" />
                 <field name="bairro" optional="hide" />
                 <field name="created_at" optional="hide" />
                 <field name="created_by" optional="show" />

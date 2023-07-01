@@ -5,7 +5,7 @@
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+             <tree string="Channel" decoration-danger="category_status=='Sem Interveção'">
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />

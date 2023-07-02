@@ -170,7 +170,7 @@ class Chamada(models.Model):
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
-    school = fields.Char(string="Escola")
+    school = fields.Char(string="Escola", default=False)
     call_start = fields.Datetime(string='Hora de início da chamada',
                                  default=fields.Datetime.now, readonly=True)
     call_end = fields.Datetime(
@@ -242,7 +242,7 @@ class Chamada(models.Model):
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'distrito', 'provincia','call_end', 'on_school', 'gender', 'detailed_description', 'category_status')
+    @api.constrains('caller_language', 'distrito', 'provincia','call_end', 'gender', 'detailed_description', 'category_status')
     def _check_all(self):
         for record in self:
             if self.category_status == "Com Interveção":
@@ -254,8 +254,6 @@ class Chamada(models.Model):
                     raise ValidationError("Província é um campo obrigatório.")
                 if not record.call_end:
                     raise ValidationError("Fim da chamada é um campo obrigatório.")
-                if not record.on_school:
-                    raise ValidationError("Frequenta a escola? é um campo obrigatório.")
                 if not record.gender:
                     raise ValidationError("Gênero é um campo obrigatório.")
                 if not record.detailed_description:

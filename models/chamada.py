@@ -112,12 +112,10 @@ class Chamada(models.Model):
     def action_shutdown(self):
         self.category_status = "Sem Interveção"
         self.env['linhafala.chamada'].browse(self.id).write({'category_status': 'Sem Interveção'})
-        print ('category_status: ' + self.category_status)
 
     def action_silent(self):
         self.category_status = "Sem Interveção"
         self.env['linhafala.chamada'].browse(self.id).write({'category_status': 'Sem Interveção'})
-        print ('category_status: ' + self.category_status)
 
     category_status = fields.Selection(
         string='Categoria',
@@ -136,6 +134,7 @@ class Chamada(models.Model):
         string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
     wants_to_be_annonymous = fields.Boolean(
         "Consetimento Informado", default=True)
+
     id_number = fields.Selection(
         string='Tipo de Identificação',
         selection=[

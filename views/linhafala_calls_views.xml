@@ -117,7 +117,7 @@
                                 <field name="fullname" />
                             </p>
                             <p title="Campo Opcional"
-                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                attrs="{'invisible': [('id_number','=',False)]}">
                                 <strong>Número de Identificação: </strong>
                                 <field name="nr_identication" />
                             </p>

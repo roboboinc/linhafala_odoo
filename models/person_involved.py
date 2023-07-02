@@ -119,3 +119,8 @@ class PersonInvolved(models.Model):
                              + [('Ensino Superior', 'Ensino Superior')],
                              string='Classe')
     case_id = fields.Many2one("linhafala.caso", string="Caso")
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}

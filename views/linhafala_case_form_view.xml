@@ -111,6 +111,11 @@
                                                                 <field
                                                                     name="id_number" />
                                                             </p>
+                                                            <p title="Campo Opcional"
+                                                                attrs="{'invisible': [('id_number','=',False)]}">
+                                                                <strong>Número de Identificação: </strong>
+                                                                <field name="nr_identication" />
+                                                            </p>
                                                             <p>
                                                                 <strong>Com quem vive?</strong>
                                                                 <field name="living_relatives" />

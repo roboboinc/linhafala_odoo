@@ -54,6 +54,13 @@ class Caso(models.Model):
             if record.case_status != 'Aberto/Pendente' and record.case_status != 'Dentro do sistema' and record.case_status != 'Assistido' and record.case_status != 'No Arquivo Morto' and record.case_status != 'Encerrado':
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
+            
+    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description')
+    def _check_all(self):
+        for record in self:
+            if not record.distrito or not record.provincia or not record.category or not record.subcategory or not record.callcaseassistance_priority or not record.detailed_description:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Distrito, Provincia, Categoria, Sub-categoria, Período de Resolução, Detalhes")
 
     case_priority = fields.Selection(
         string='Período de Resolução',

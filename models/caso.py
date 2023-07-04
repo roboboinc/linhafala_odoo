@@ -55,12 +55,30 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('case_type', 'secundary_case_type', 'callcaseassistance_priority', 'detailed_description')
+    @api.constrains('case_type', 'secundary_case_type', 'case_type_classification', 'detailed_description','place_occurrence','case_handling','case_priority')
     def _check_all(self):
         for record in self:
-            if not record.case_type or not record.secundary_case_type or not record.case_priority or not record.detailed_description:
+            if not record.case_type:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio:Categoria, Sub-categoria, Período de Resolução e Detalhes")
+                    "Por favor, preencha os campos de caracter obrigatorio Categoria")
+            if not record.secundary_case_type:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+            if not record.case_priority: 
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
+            if not record.detailed_description:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
+            if not record.case_type_classification:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
+            if not record.place_occurrence:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Local de Ocorrência ")
+            if not record.case_handling:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Tratamento do Caso")
 
     case_priority = fields.Selection(
         string='Período de Resolução',

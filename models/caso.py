@@ -55,12 +55,30 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description')
+    @api.constrains('case_type', 'secundary_case_type', 'case_type_classification', 'detailed_description','place_occurrence','case_handling','case_priority')
     def _check_all(self):
         for record in self:
-            if not record.distrito or not record.provincia or not record.category or not record.subcategory or not record.callcaseassistance_priority or not record.detailed_description:
+            if not record.case_type:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio: Distrito, Provincia, Categoria, Sub-categoria, Período de Resolução, Detalhes")
+                    "Por favor, preencha os campos de caracter obrigatorio Categoria")
+            if not record.secundary_case_type:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+            if not record.case_priority: 
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
+            if not record.detailed_description:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
+            if not record.case_type_classification:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
+            if not record.place_occurrence:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Local de Ocorrência ")
+            if not record.case_handling:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Tratamento do Caso")
 
     case_priority = fields.Selection(
         string='Período de Resolução',
@@ -366,12 +384,21 @@ class ReferenceEntity(models.Model):
     _name = "linhafala.caso.referenceentity"
     _description = "Entidade de referência"
 
-    refEnt_id = fields.Char(string="Id reference entity",
-                            readonly=True)  # Id da Reference entity
-
     name = fields.Char(string="Nome de entidade")
+
     reference_area = fields.Many2one(
         comodel_name='linhafala.caso.referencearea', string="Área de Referência")
+
+    provincia = fields.Many2one(
+        comodel_name='linhafala.provincia', string="Provincia")
+    distrito = fields.Many2one(
+        comodel_name='linhafala.distrito', string="Districto")
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+
 
 
 class CaseReference(models.Model):

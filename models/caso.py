@@ -113,16 +113,16 @@ class Caso(models.Model):
         help="Tratamento do caso"
     )
     place_occurrence = fields.Selection(
-        string='Local de Ocor',
+        string='Local de Ocorrência',
         selection=[
             ("Escola", "Escola"),
-            ("Casa de parente / vizinho", "Casa de parente / vizinho"),
             ("Casa propria", "Casa propria"),
-            ("Instituição", "Instituição"),
+            ("Casa do vizinho", "Casa do vizinho"),
+            ("Cresce/infantário", "Cresce/infantário"),
+            ("Casa do parente mais próximo", "Casa do parente mais próximo"),
             ("Outros", "Outros")
         ],
-        default="Escola",
-        help="Local de Ocorrencia"
+        help="Local de Ocorrência"
     )
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
                                        'style': 'height: 500px;'})

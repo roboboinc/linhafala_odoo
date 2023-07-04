@@ -137,7 +137,7 @@
                                 <field name="wants_to_be_annonymous" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
-                                <strong>Padece de alguma deficiência ?: </strong>
+                                <strong>Tem algum tipo de dificiência ?: </strong>
                                 <field name="are_you_disabled" />
                             </p>
                             <p title="Campo Opcional"

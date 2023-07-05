@@ -444,6 +444,8 @@ class CallCaseAssistance(models.Model):
         string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
     updated_at = fields.Datetime(string='Data de actualizaçäo',
                                  default=lambda self: fields.Datetime.now(), readonly=True)
+    data_ocorrencia = fields.Datetime(
+        string="Data de Ocorrência", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
     created_by = fields.Many2one(
         'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     is_deleted = fields.Boolean(string='Apagado', default=False, readonly=True)

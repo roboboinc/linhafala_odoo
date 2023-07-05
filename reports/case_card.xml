@@ -147,12 +147,19 @@
                         <br />
 
                     </t>
-                    <h3>Classificaçäo Provisória</h3>
+                    <h4>Classificaçäo Provisória</h4>
                     <t t-foreach="docs" t-as="doc">
                         <t
                             t-esc="doc.case_type.name" />
                         <br />
                     </t>
+                    <h4>Data de Ocorrência</h4>
+                    <t t-foreach="docs" t-as="doc">
+                        <t
+                            t-esc="doc.data_ocorrencia" />
+                        <br />
+                    </t>
+                    
                 </div>
             </t>
         </t>

@@ -372,6 +372,7 @@ class CallCaseAssistance(models.Model):
     assistance_id = fields.Char(string="Assistência No.", readonly=True)
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
+    
     fullname = fields.Char(string="Benificiário")
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
@@ -476,9 +477,24 @@ class CallCaseAssistance(models.Model):
     @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description')
     def _check_all(self):
         for record in self:
-            if not record.distrito or not record.provincia or not record.category or not record.subcategory or not record.callcaseassistance_priority or not record.detailed_description:
+            if not record.distrito:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio: Distrito, Provincia, Categoria, Sub-categoria, Período de Resolução, Detalhes")
+                    "Por favor, preencha os campos de caracter obrigatorio: Distrito")
+            if not record.provincia:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Provincia")
+            if not record.category: 
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Categoria")
+            if not record.subcategory:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Sub-categoria")
+            if not record.callcaseassistance_priority:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Período de Resolução")
+            if not record.detailed_description:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Detalhes")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

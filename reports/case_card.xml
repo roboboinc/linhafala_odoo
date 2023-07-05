@@ -159,7 +159,14 @@
                             t-esc="doc.data_ocorrencia" />
                         <br />
                     </t>
-                    
+                    <br />
+                    <h4>Gestor</h4>
+                    <t t-foreach="docs" t-as="doc">
+                        <t
+                            t-esc="doc.manager_by.name"/>
+                        <br />
+                    </t>
+                    <br />  
                 </div>
             </t>
         </t>

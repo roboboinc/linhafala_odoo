@@ -94,7 +94,7 @@
                                         <strong>
                                             Gestor:</strong>
                                         <t
-                                            t-esc="doc.reporter.name" />
+                                            t-esc="doc.manager_by.name"/>
                                         <br />
                                         <strong>
                                             Data de criaçäo:</strong>
@@ -121,6 +121,8 @@
                             </ul>
                         </div>
                     </div>
+                    <br/>
+                    <br/>
                     <h3>Encaminhamentos</h3>
                     <table class="table table-condensed">
                         <thead>

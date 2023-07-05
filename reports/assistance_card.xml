@@ -18,6 +18,7 @@
                                 <th>Benificiário</th>
                                 <th>Consentimento Informado</th>
                                 <th>Província</th>
+                                <th>Distrito</th>
                                 <th>Bairro</th>
                                 <th>Sexo</th>
                                 <th>Contacto</th>
@@ -34,8 +35,11 @@
                                     <td>
                                         <t t-esc="doc.call_id.wants_to_be_annonymous" />
                                     </td>
-                                   <td>
+                                    <td>
                                         <t t-esc="doc.provincia.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="doc.distrito.name"/>
                                     </td>
                                     <td>
                                         <t t-esc="doc.bairro" />
@@ -76,11 +80,7 @@
                                         <t
                                             t-esc="doc.subcategory.name" />
                                         <br />
-                                        <strong>
-                                            Estado:</strong>
-                                        <t
-                                            t-esc="doc.callcaseassistance_status" />
-                                        <br />
+                                        
                                         <strong>
                                             Período de Resolução:</strong>
                                         <t
@@ -102,10 +102,15 @@
                                             t-esc="doc.created_at" />
                                         <br />
                                         <strong>
-                                            "Data de Ocorrência:</strong>
+                                            Data de Ocorrência:</strong>
                                         <t 
                                             t-esc="doc.data_ocorrencia"/>
                                         <br/>
+                                        <strong>
+                                            Estado:</strong>
+                                        <t
+                                            t-esc="doc.callcaseassistance_status" />
+                                        <br />
                                         <strong>
                                             Criado por:</strong>
                                         <t 
@@ -116,6 +121,35 @@
                             </ul>
                         </div>
                     </div>
+                    <h3>Encaminhamentos</h3>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Entidade</th>
+                                <th>Pessoa de Contacto</th>
+                                <th>Area de Referencia</th>
+                                <th>Estado da Assistencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.assistanceReferall_id" t-as="line">
+                                <tr>
+                                    <td>
+                                        <t t-esc="line.reference_entity.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.case_reference.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.reference_area.name" />
+                                    </td>
+                                    <td>
+                                        <t t-esc="line.assistance_status" />
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
                     <br />
                     <br />
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
@@ -131,3 +165,5 @@
         </t>
     </template>
 </odoo>
+
+

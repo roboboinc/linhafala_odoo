@@ -148,7 +148,10 @@
                                 <strong>Sub Categoria: </strong>
                                 <field name="subcategory" />
                             </p>
-
+                            <p>
+                                <strong>Data de Ocorrência: </strong>
+                                <field name="data_ocorrencia" />
+                            </p>
 
                         </div>
                         <div class="col-md-6">

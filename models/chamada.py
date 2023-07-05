@@ -370,6 +370,8 @@ class CallCaseAssistance(models.Model):
     ]
 
     assistance_id = fields.Char(string="Assistência No.", readonly=True)
+    assistanceReferall_id = fields.One2many('linhafala.chamada.assistance.referral', 'assistance_id',
+                              string="Referall")
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
     
@@ -536,6 +538,8 @@ class CallCaseAssistance(models.Model):
 class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
     _description = "Instituição de encaminhamento de assistência"
+
+    assistanceReferall_id = fields.Char(string="Assistência No.", readonly=True)
 
     assistance_id = fields.Many2one(
         "linhafala.chamada.assistance", string="Assistência")

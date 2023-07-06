@@ -126,11 +126,15 @@ class Chamada(models.Model):
     category_status = fields.Selection(
         string='Categoria',
         selection=[
-            ("Com Interveção", "Com Interveção"),
-            ("Sem Interveção", "Sem Interveção"),
+            ("Com Interveção","Com Interveção"),
+            ("Sem Interveção Silencio", "Silencio"),
+            ("Sem Interveção Desligado", "Desligado"),
         ],
         default="Com Interveção",
-        help="Categoria"
+        help="Categoria",
+        attrs={
+        'invisible': [('category_status', '=', 'Com Interveção')]
+    }
     )
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")

@@ -35,7 +35,7 @@
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-danger="category_status=='Sem Interveção'">
+            <tree string="Channel" decoration-danger="category_status=='Sem Interveção Desligado'">
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />
@@ -87,7 +87,7 @@
                 <header>
                     <field name="category_status" widget="statusbar"
                         options="{'clickable': '1'}"
-                        statusbar_visible="Com Interveção,Sem Interveção" />
+                        statusbar_visible="Sem Interveção Silencio,Sem Interveção Desligado" />
                 </header>
                 <sheet>
 

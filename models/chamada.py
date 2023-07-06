@@ -128,9 +128,11 @@ class Chamada(models.Model):
         selection=[
             ("Sem Interveção Silencio", "Silencio"),
             ("Sem Interveção Desligado", "Desligado"),
+            ("Com Interveção", "Com Interveção"),
         ],
         default="Com Interveção",
-        help="Categoria"
+        help="Categoria",
+        invisible="1"
     )
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
@@ -173,9 +175,8 @@ class Chamada(models.Model):
     age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?")
-    grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
-                             + [('Ensino Superior', 'Ensino Superior')],
-                             string='Classe')
+    grade =  fields.Selection([('Pre Escolar', 'Pre Escolar')] + [(str(i), str(i)) for i in range(1, 13)] + [('Ensino Superior', 'Ensino Superior')],
+                           string='Qual a Classe ?:')
     school = fields.Char(string="Escola", default=False)
     call_start = fields.Datetime(string='Hora de início da chamada',
                                  default=fields.Datetime.now, readonly=True)
@@ -189,6 +190,7 @@ class Chamada(models.Model):
             ("Redes Sociais", "Redes Sociais"),
             ("Rádio", "Rádio"),
             ("Internet", "Internet"),
+            ("Palestras", "Palestras"),
             ("Televisão", "Televisão"),
             ("Brochuras", "Brochuras"),
             ("Panfletos", "Panfletos"),
@@ -248,12 +250,14 @@ class Chamada(models.Model):
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'distrito', 'provincia','call_end', 'gender', 'detailed_description', 'category_status')
+    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia','call_end', 'gender', 'detailed_description', 'category_status')
     def _check_all(self):
         for record in self:
             if self.category_status == "Com Interveção":
                 if not record.caller_language:
                     raise ValidationError("Dialeto/Lingua é um campo obrigatório.")
+                if not record.how_knows_lfc:
+                    raise ValidationError("Como conhece a LFC é um campo obrigatório.")
                 if not record.distrito:
                     raise ValidationError("Distrito é um campo obrigatório.")
                 if not record.provincia:

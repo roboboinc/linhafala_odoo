@@ -122,12 +122,12 @@
                                 <field name="nr_identication" />
                             </p>
                             <p>
-                                <strong>Distrito: </strong>
-                                <field name="distrito" />
+                                <strong>Provincia: </strong>
+                                <field name="provincia" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
-                                <strong>Gênero: </strong>
-                                <field name="gender" />
+                                <strong>Bairro: </strong>
+                                <field name="bairro" />
                             </p>
 
                         </div>
@@ -153,13 +153,13 @@
                                 <strong>Tipo de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
-                            <p>
-                                <strong>Província: </strong>
-                                <field name="provincia" />
+                             <p>
+                                <strong>Distrito: </strong>
+                                <field name="distrito" />
                             </p>
-                            <p title="Campo Opcional">
-                                <strong>Bairro: </strong>
-                                <field name="bairro" />
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                <strong>Gênero: </strong>
+                                <field name="gender" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
                                 <strong>Idade: </strong>

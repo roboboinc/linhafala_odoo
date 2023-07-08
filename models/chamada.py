@@ -132,7 +132,6 @@ class Chamada(models.Model):
         ],
         default="Com Interveção",
         help="Categoria",
-        invisible="1"
     )
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")

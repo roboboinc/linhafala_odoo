@@ -43,7 +43,11 @@
                 <field name="case_type" optional="show" />
                 <field name="secundary_case_type" optional="hide" />
                 <field name="place_occurrence" optional="show" />
-                <field name="case_priority" optional="hide" />
+                <field decoration-danger="case_priority=='Muito Urgente'"
+                    decoration-primary="case_priority=='Urgente'"
+                    decoration-warning="case_priority=='Moderado'"
+                    widget="badge"
+                    name="case_priority" optional="hide" />
                 <field name="manager_by" optional="show" />
                 <field name="created_by" optional="hide" />
                 <field name="created_at" optional="hide" />

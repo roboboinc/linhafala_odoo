@@ -129,16 +129,15 @@
                                 <strong>Bairro: </strong>
                                 <field name="bairro" />
                             </p>
-
+                            <p title="Campo Opcional">
+                                <strong>Como Conhece a LFC: </strong>
+                                <field name="how_knows_lfc" />
+                            </p>
                         </div>
                         <div class="col-md-3 mt-1">
                             <p>
                                 <strong>Consentimento Informado: </strong>
                                 <field name="wants_to_be_annonymous" />
-                            </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
-                                <strong>Tem algum tipo de dificiência ?: </strong>
-                                <field name="are_you_disabled" />
                             </p>
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
@@ -153,7 +152,7 @@
                                 <strong>Tipo de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
-                             <p>
+                            <p>
                                 <strong>Distrito: </strong>
                                 <field name="distrito" />
                             </p>
@@ -276,11 +275,10 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p title="Campo Opcional">
-                                        <strong>Como Conhece a LFC: </strong>
-                                        <field name="how_knows_lfc" />
+                                    <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                        <strong>Tem algum tipo de dificiência ?: </strong>
+                                        <field name="are_you_disabled" />
                                     </p>
-
                                     <p>
                                         <strong>Hora de inicio da chamada: </strong>
                                         <field name="call_start" />

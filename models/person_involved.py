@@ -77,28 +77,27 @@ class PersonInvolved(models.Model):
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
         selection=[
-            ("Mentora", "Mentora"),
-            ("Não aplicavél", "Não aplicavél"),
-            ("Denunciante", "Denunciante"),
-            ("Vitima", "Vitima"),
-            ("Nenhuma", "Nenhuma"),
-            ("Outros", "Outros"),
-            ("Colega", "Colega"),
-            ("Primo(a)", "Primo(a)"),
-            ("Esposo", "Esposo"),
-            ("Namorado", "Namorado"),
-            ("Amigo", "Amigo"),
-            ("Educador(a)", "Educador(a)"),
-            ("Professor(a)", "Professor(a)"),
-            ("Empregador", "Empregador"),
-            ("Irmã(o)", "Irmã(o)"),
-            ("Avo", "Avo"),
-            ("Vizinho (a)", "Vizinho (a)"),
-            ("Madrasta", "Madrasta"),
-            ("Padrasto", "Padrasto"),
-            ("Tio(a)", "Tio(a)"),
             ("Pai", "Pai"),
             ("Mãe", "Mãe"),
+            ("Avo", "Avo"),
+            ("Amigo", "Amigo"),
+            ("Outros", "Outros"),
+            ("Colega", "Colega"),
+            ("Esposo", "Esposo"),
+            ("Tio(a)", "Tio(a)"),
+            ("Nenhuma", "Nenhuma"),
+            ("Mentora", "Mentora"),
+            ("Irmã(o)", "Irmã(o)"),
+            ("Primo(a)", "Primo(a)"),
+            ("Namorado", "Namorado"),
+            ("Madrasta", "Madrasta"),
+            ("Padrasto", "Padrasto"),
+            ("Empregador", "Empregador"),
+            ("Vizinho (a)", "Vizinho (a)"),
+            ("Denunciante", "Denunciante"),
+            ("Educador(a)", "Educador(a)"),
+            ("Professor(a)", "Professor(a)"),
+            ("Não aplicavél", "Não aplicavél"),
         ],
         help="Relação com a(s) vítima(s):"
     )
@@ -112,7 +111,7 @@ class PersonInvolved(models.Model):
         help="Sexo"
     )
     what_other = fields.Char(string="Qual Outro")
-    age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(6, 25)] + [('25+', '25+')],
+    age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(1, 25)] + [('25+', '25+')],
                            string='Idade')
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]

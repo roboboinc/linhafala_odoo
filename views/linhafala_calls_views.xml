@@ -108,11 +108,11 @@
                                 <strong>Lingua/Dialeto: </strong>
                                 <field name="caller_language" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong title="Campo Opcional">Contacto Alterativo: </strong>
                                 <field name="alternate_contact" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong title="Campo Opcional">Nome Completo: </strong>
                                 <field name="fullname" />
                             </p>
@@ -125,7 +125,7 @@
                                 <strong>Provincia: </strong>
                                 <field name="provincia" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Bairro: </strong>
                                 <field name="bairro" />
                             </p>
@@ -140,7 +140,7 @@
                                 <field name="wants_to_be_annonymous" />
                             </p>
                             <p title="Campo Opcional"
-                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
@@ -156,11 +156,11 @@
                                 <strong>Distrito: </strong>
                                 <field name="distrito" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Gênero: </strong>
                                 <field name="gender" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Idade: </strong>
                                 <field name="age" />
                             </p>
@@ -260,12 +260,12 @@
                             </notebook>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <p attrs="{'invisible': [('on_school','=',False)]}">
+                                    <p attrs="{'invisible': [('on_school','!=','Sim')]}">
                                         <strong>Qual a Classe ?: </strong>
                                         <field name="grade" />
                                     </p>
                                     <p title="Campo Opcional"
-                                        attrs="{'invisible': [('on_school','=',False)]}">
+                                        attrs="{'invisible': [('on_school','!=','Sim')]}">
                                         <strong>Nome da Escola / Universidade: </strong>
                                         <field name="school" />
                                     </p>
@@ -275,7 +275,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                    <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                         <strong>Tem algum tipo de dificiência ?: </strong>
                                         <field name="are_you_disabled" />
                                     </p>

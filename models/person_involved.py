@@ -33,8 +33,14 @@ class PersonInvolved(models.Model):
         help="Tipo de documento de identificação"
     )
     nr_identication = fields.Char(string="Numero de Identificação")
-    wants_to_be_annonymous = fields.Boolean(
-        "Consentimento Informado", default=True)
+    wants_to_be_annonymous= fields.Selection(
+        string='Consentimento Informado',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="Consentimento Informado",
+    )
     person_type = fields.Selection(
         string='Categoria',
         selection=[

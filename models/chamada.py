@@ -139,8 +139,14 @@ class Chamada(models.Model):
                           size=13, min_length=9, default="+258")
     alternate_contact = fields.Char(
         string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
-    wants_to_be_annonymous = fields.Boolean(
-        "Consetimento Informado", default=True)
+    wants_to_be_annonymous = fields.Selection(
+        string='Consentimento Informado',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="Consentimento Informado",
+    )
 
     id_number = fields.Selection(
         string='Tipo de Identificação',
@@ -173,7 +179,14 @@ class Chamada(models.Model):
     )
     age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
-    on_school = fields.Boolean("Estuda?")
+    on_school = fields.Selection(
+        string='Estuda?',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="Estuda?"
+    )
     grade =  fields.Selection([('Pre Escolar', 'Pre Escolar')] + [(str(i), str(i)) for i in range(1, 13)] + [('Ensino Superior', 'Ensino Superior')],
                            string='Qual a Classe ?:')
     school = fields.Char(string="Escola", default=False)

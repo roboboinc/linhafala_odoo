@@ -91,12 +91,12 @@
                                                                 <field name="wants_to_be_annonymous" />
                                                             </p>
                                                             <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                                                 <strong>Nome Completo: </strong>
                                                                 <field name="fullname" />
                                                             </p>
                                                             <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
+                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                                                 <strong>Contacto: </strong>
                                                                 <field name="contact" />
                                                             </p>
@@ -105,7 +105,8 @@
                                                                 <field
                                                                     name="person_type" />
                                                             </p>
-                                                            <p>
+                                                            <p
+                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                                                 <strong>Tipo
                                                                     de Identificação: </strong>
                                                                 <field

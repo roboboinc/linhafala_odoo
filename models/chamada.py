@@ -117,11 +117,13 @@ class Chamada(models.Model):
 
     def action_shutdown(self):
         self.category_status = "Sem Interveção"
-        self.env['linhafala.chamada'].browse(self.id).write({'category_status': 'Sem Interveção'})
+        self.env['linhafala.chamada'].browse(self.id).write(
+            {'category_status': 'Sem Interveção'})
 
     def action_silent(self):
         self.category_status = "Sem Interveção"
-        self.env['linhafala.chamada'].browse(self.id).write({'category_status': 'Sem Interveção'})
+        self.env['linhafala.chamada'].browse(self.id).write(
+            {'category_status': 'Sem Interveção'})
 
     category_status = fields.Selection(
         string='Categoria',
@@ -187,8 +189,8 @@ class Chamada(models.Model):
         ],
         help="Estuda?"
     )
-    grade =  fields.Selection([('Pre Escolar', 'Pre Escolar')] + [(str(i), str(i)) for i in range(1, 13)] + [('Ensino Superior', 'Ensino Superior')],
-                           string='Qual a Classe ?:')
+    grade = fields.Selection([('Pre Escolar', 'Pre Escolar')] + [(str(i), str(i)) for i in range(1, 13)] + [('Ensino Superior', 'Ensino Superior')],
+                             string='Qual a Classe ?:')
     school = fields.Char(string="Escola", default=False)
     call_start = fields.Datetime(string='Hora de início da chamada',
                                  default=fields.Datetime.now, readonly=True)
@@ -253,7 +255,21 @@ class Chamada(models.Model):
     @api.model
     def create(self, vals):
         vals['uuid'] = str(uuid.uuid4())
+        self.action_notification()
         return super(Chamada, self).create(vals)
+
+    def action_notification(self):
+        return {
+
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                    'title': _('Informação gravada com sucesso!!'),
+                    'type': 'success',
+                    'sticky': False,
+            },
+
+        }
 
     @api.model
     def create(self, vals):
@@ -262,25 +278,27 @@ class Chamada(models.Model):
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia','call_end', 'gender', 'detailed_description', 'category_status')
+    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'gender', 'detailed_description', 'category_status')
     def _check_all(self):
         for record in self:
             if self.category_status == "Com Interveção":
                 if not record.caller_language:
-                    raise ValidationError("Dialeto/Lingua é um campo obrigatório.")
+                    raise ValidationError(
+                        "Dialeto/Lingua é um campo obrigatório.")
                 if not record.how_knows_lfc:
-                    raise ValidationError("Como conhece a LFC é um campo obrigatório.")
+                    raise ValidationError(
+                        "Como conhece a LFC é um campo obrigatório.")
                 if not record.distrito:
                     raise ValidationError("Distrito é um campo obrigatório.")
                 if not record.provincia:
                     raise ValidationError("Província é um campo obrigatório.")
                 if not record.call_end:
-                    raise ValidationError("Fim da chamada é um campo obrigatório.")
+                    raise ValidationError(
+                        "Fim da chamada é um campo obrigatório.")
                 if not record.gender:
                     raise ValidationError("Gênero é um campo obrigatório.")
                 if not record.detailed_description:
                     raise ValidationError("Detalhes é um campo obrigatório.")
-
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -387,10 +405,10 @@ class CallCaseAssistance(models.Model):
 
     assistance_id = fields.Char(string="Assistência No.", readonly=True)
     assistanceReferall_id = fields.One2many('linhafala.chamada.assistance.referral', 'assistance_id',
-                              string="Referall")
+                                            string="Referall")
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
-    
+
     fullname = fields.Char(string="Benificiário")
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
@@ -503,7 +521,7 @@ class CallCaseAssistance(models.Model):
             if not record.provincia:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Provincia")
-            if not record.category: 
+            if not record.category:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Categoria")
             if not record.subcategory:
@@ -566,7 +584,8 @@ class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
     _description = "Instituição de encaminhamento de assistência"
 
-    assistanceReferall_id = fields.Char(string="Assistência No.", readonly=True)
+    assistanceReferall_id = fields.Char(
+        string="Assistência No.", readonly=True)
 
     assistance_id = fields.Many2one(
         "linhafala.chamada.assistance", string="Assistência")
@@ -579,7 +598,7 @@ class AssistanceReferall(models.Model):
         help="Área de Encaminhamento"
     )
     reference_area = fields.Many2one(
-        comodel_name='linhafala.caso.referencearea', 
+        comodel_name='linhafala.caso.referencearea',
         string="Área de Referência",
         domain="[('area_type', '=', area_type)]"
     )
@@ -587,11 +606,11 @@ class AssistanceReferall(models.Model):
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
 
     case_reference = fields.Many2one(
-        comodel_name='linhafala.caso.casereference', 
+        comodel_name='linhafala.caso.casereference',
         string="Pessoa de Contacto",
         domain="[('reference_entity', '=', reference_entity)]"
     )
-    
+
     spokes_person_phone = fields.Char(
         string="Telefone do Responsável", related='case_reference.contact')
     provincia = fields.Many2one(

@@ -521,10 +521,10 @@ class CallCaseAssistance(models.Model):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
         
-    #@api.onchange('category')
-    #def _category_onchange(self):
-        #for rec in self:
-            #return {'value': {'subcategory': False}, 'domain': {'subcategory': [('category', '=', rec.category.id)]}}
+    @api.onchange('category')
+    def _category_onchange(self):
+        for rec in self:
+            return {'value': {'subcategory': False}, 'domain': {'subcategory': [('parent_category', '=', rec.category.id)]}}
 
 
     def action_confirm(self):

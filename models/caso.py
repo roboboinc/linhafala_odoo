@@ -55,7 +55,7 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('case_type', 'secundary_case_type', 'case_type_classification', 'detailed_description','place_occurrence','case_handling','case_priority')
+    @api.constrains('case_type','secundary_case_type','case_type_classification','place_occurrence','case_handling','case_priority','detailed_description')
     def _check_all(self):
         for record in self:
             if not record.case_type:
@@ -64,12 +64,6 @@ class Caso(models.Model):
             if not record.secundary_case_type:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
-            if not record.case_priority: 
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
-            if not record.detailed_description:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
             if not record.case_type_classification:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
@@ -79,6 +73,12 @@ class Caso(models.Model):
             if not record.case_handling:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Tratamento do Caso")
+            if not record.case_priority: 
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
+            if not record.detailed_description:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
 
     case_priority = fields.Selection(
         string='Período de Resolução',

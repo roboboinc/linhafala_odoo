@@ -32,6 +32,7 @@ class Caso(models.Model):
             if not has_vitima and not has_contactante_vitima:
                 raise ValidationError(
                     "Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")
+        
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
@@ -64,6 +65,12 @@ class Caso(models.Model):
             if not record.secundary_case_type:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+            if not record.case_priority:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
+            if not record.detailed_description:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
             if not record.case_type_classification:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
@@ -157,7 +164,8 @@ class Caso(models.Model):
     deficiency_line_case_ids = fields.One2many('linhafala.deficiente', 'case_id',
                                                string="Linhas do Deficiênte")
 
-    manager_by = fields.Many2one('res.users', string="Gerido por: ", compute='_compute_manager_by', store=True)
+    manager_by = fields.Many2one(
+        'res.users', string="Gerido por: ", compute='_compute_manager_by', store=True)
 
     @api.depends('manager_by')
     def _compute_manager_by(self):
@@ -166,7 +174,15 @@ class Caso(models.Model):
 
     def action_manager(self):
         self._compute_manager_by()
-
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': ('Caso Assumido com Sucesso!!'),
+                    'type': 'success',
+                    'sticky': False,
+            },
+        }
 
     @api.onchange('provincia')
     def _provincia_onchange(self):
@@ -400,7 +416,6 @@ class ReferenceEntity(models.Model):
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
 
 
-
 class CaseReference(models.Model):
     _name = "linhafala.caso.casereference"
     _description = "Pessoa de Contacto"
@@ -450,9 +465,9 @@ class ForwardingInstitutions(models.Model):
         ],
         help="Área de Encaminhamento"
     )
-    
+
     reference_area = fields.Many2one(
-        comodel_name='linhafala.caso.referencearea', 
+        comodel_name='linhafala.caso.referencearea',
         string="Área de Referência",
         domain="[('area_type', '=', area_type)]"
     )
@@ -461,10 +476,10 @@ class ForwardingInstitutions(models.Model):
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
 
     case_reference = fields.Many2one(
-        comodel_name='linhafala.caso.casereference', 
+        comodel_name='linhafala.caso.casereference',
         string="Pessoa de Contacto",
         domain="[('reference_entity', '=', reference_entity)]"
-        )
+    )
 
     spokes_person_phone = fields.Char(
         string="Telefone do Responsável", related='case_reference.contact')

@@ -197,7 +197,7 @@ class Chamada(models.Model):
     call_end = fields.Datetime(
         string='Hora de fim da chamada', readonly=False)
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'}, required=False)
+                                       'style': 'height: 500px;'})
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[

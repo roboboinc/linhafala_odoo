@@ -312,6 +312,27 @@ class Chamada(models.Model):
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
 
+        
+    @api.model
+    def save(self,vals):
+        return super(Chamada, self).write(vals)
+        
+
+    
+    @api.model
+    def discard(self):
+        return self.reload()  # Reset the record to its original values
+    
+    @api.model
+    def edit(self):
+        # Update the record with the new data
+        return self.write(self)
+
+
+    
+
+        
+
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
     #     for record in self:

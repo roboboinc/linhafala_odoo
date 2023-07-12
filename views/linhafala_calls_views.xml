@@ -293,7 +293,6 @@
                                 <div class="col-md-6">
 
                                     <button string="Save" type="object" name="save" class="btn-primary"/>
-                                    <button string="Discard" type="object" name="discard" class="btn-secondary"/>
                                     <button string="Edit" type="object" name="edit" class="btn-secondary"/>
 
                                 </div>

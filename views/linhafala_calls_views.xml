@@ -82,8 +82,9 @@
         <field name="name">linhafala.chamada.form</field>
         <field name="model">linhafala.chamada</field>
         <field name="priority">1000</field>
+        <field name="type">form</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Graph" create="false" edit="false">
                 <header>
                     <field name="category_status" widget="statusbar"
                         options="{'clickable': '1'}"
@@ -288,10 +289,21 @@
                                         <field name="call_end" />
                                     </p>
                                 </div>
+
+                                <div class="col-md-6">
+
+                                    <button string="Save" type="object" name="save" class="btn-primary"/>
+                                    <button string="Discard" type="object" name="discard" class="btn-secondary"/>
+                                    <button string="Edit" type="object" name="edit" class="btn-secondary"/>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </sheet>
+                <footer>
+                    
+                </footer>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" />
                     <field name="activity_ids" />

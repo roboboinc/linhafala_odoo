@@ -320,8 +320,7 @@ class Chamada(models.Model):
 
     @api.model
     def edit(self):
-        # Update the record with the new data
-        return self.write(self)
+        return
 
 
     

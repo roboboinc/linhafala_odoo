@@ -318,11 +318,6 @@ class Chamada(models.Model):
         return super(Chamada, self).write(vals)
         
 
-    
-    @api.model
-    def discard(self):
-        return self.reload()  # Reset the record to its original values
-    
     @api.model
     def edit(self):
         # Update the record with the new data

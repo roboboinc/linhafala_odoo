@@ -242,11 +242,6 @@ class Chamada(models.Model):
         ('unique_call_id', 'unique(call_id)', 'The call_id must be unique'),
     ]
 
-    def write(self, vals):
-        if vals:
-            vals['updated_at'] = fields.Datetime.now()
-        return super(Chamada, self).write(vals)
-
     def unlink(self):
         for record in self:
             record.write({'is_deleted': True})
@@ -312,21 +307,9 @@ class Chamada(models.Model):
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
 
-        
     @api.model
-    def save(self,vals):
+    def save(self, vals):
         return super(Chamada, self).write(vals)
-        
-
-    @api.model
-    def edit(self):
-        # Update the record with the new data
-        return self.write(self)
-
-
-    
-
-        
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
@@ -549,17 +532,16 @@ class CallCaseAssistance(models.Model):
             if not record.detailed_description:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Detalhes")
-            
+
     @api.onchange('provincia')
     def _provincia_onchange(self):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
-        
+
     @api.onchange('category')
     def _category_onchange(self):
         for rec in self:
             return {'value': {'subcategory': False}, 'domain': {'subcategory': [('parent_category', '=', rec.category.id)]}}
-
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

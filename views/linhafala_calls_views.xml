@@ -84,7 +84,7 @@
         <field name="priority">1000</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Graph" create="false" >
+            <form string="Graph" create="false">
                 <header>
                     <field name="category_status" widget="statusbar"
                         options="{'clickable': '1'}"
@@ -294,13 +294,13 @@
                                 <div class="col-md-6">
                                     <button string="Save" type="object" name="save"
                                         class="btn-lg btn-primary"
-                                        attrs="{'invisible': [('id', '!=', False)]}" />
+                                        />
 
                                     <div class="mt-5">
                                         <button string="Edit" type="object" name="edit"
                                             class="btn-lg btn-primary"
                                             confirm="Tem certeza de que deseja editar esse Caso ? "
-                                            attrs="{'invisible': [('id', '=', False)]}" />
+                                            />
                                     </div>
                                 </div>
                             </div>
@@ -319,3 +319,16 @@
         </field>
     </record>
 </odoo>
+<!-- 
+<div class="col-md-6">
+    <button string="Save" type="object" name="save"
+        class="btn-lg btn-primary"
+        attrs="{'invisible': [('id', '!=', False)]}" />
+
+    <div class="mt-5">
+        <button string="Edit" type="object" name="edit"
+            class="btn-lg btn-primary"
+            confirm="Tem certeza de que deseja editar esse Caso ? "
+            attrs="{'invisible': [('id', '=', False)]}" />
+    </div>
+</div> -->

@@ -582,6 +582,14 @@ class CallCaseAssistance(models.Model):
     def action_manager(self):
         self._compute_manager_by()
 
+    @api.model
+    def save(self, vals):
+        return super(Chamada, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(Chamada, self).write(vals)
+
 
 class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"

@@ -310,6 +310,11 @@ class Chamada(models.Model):
     @api.model
     def save(self, vals):
         return super(Chamada, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(Chamada, self).write(vals)
+        
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):

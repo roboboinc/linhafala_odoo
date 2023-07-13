@@ -170,7 +170,19 @@
                                 </notebook>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="text-center">
 
+                                <button string="Save" type="object" name="save"
+                                    class="btn-primary" />
+
+                                <button string="Edit" type="object" name="edit"
+                                    attrs="{'invisible': [('id', '=', False)]}"
+                                    class="btn-secondary"
+                                    confirm="Tem certeza de que deseja editar esse Caso ? " />
+
+                            </div>
+                        </div>
 
                     </sheet>
                     <div class="oe_chatter">

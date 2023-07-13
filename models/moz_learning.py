@@ -209,6 +209,15 @@ class MozLearning(models.Model):
     )
 
 
+    @api.model
+    def save(self, vals):
+        return super(MozLearning, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(MozLearning, self).write(vals)
+
+
 class MozLearningReferral(models.Model):
     _name = "linhafala.moz_learning.referral"
     _description = "Instituição de encaminhamento de moz learning"

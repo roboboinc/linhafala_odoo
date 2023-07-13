@@ -90,7 +90,7 @@
                                     Referência: </strong>
                                 <field name="reference_area" />
                             </p>
-                             <p>
+                            <p>
                                 <strong>
                                     Província: </strong>
                                 <field name="provincia" />

@@ -23,3 +23,12 @@ class KnowledgeBase(models.Model):
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         return super(KnowledgeBase, self).write(vals)
+    
+
+    @api.model
+    def save(self, vals):
+        return super(KnowledgeBase, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(KnowledgeBase, self).write(vals)

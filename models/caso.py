@@ -49,6 +49,15 @@ class Caso(models.Model):
         help="Estado do caso"
     )
 
+    @api.model
+    def save(self, vals):
+        return super(Caso, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(Caso, self).write(vals)
+
+
     @api.constrains('case_status')
     def _check_case_status(self):
         for record in self:
@@ -499,6 +508,7 @@ class ForwardingInstitutions(models.Model):
         ], default="Aberto/Pendente",
         help="Estado do caso"
     )
+
 
     @api.onchange('provincia')
     def _provincia_onchange(self):

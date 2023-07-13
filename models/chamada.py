@@ -584,11 +584,11 @@ class CallCaseAssistance(models.Model):
 
     @api.model
     def save(self, vals):
-        return super(Chamada, self).write(vals)
+        return super(CallCaseAssistance, self).write(vals)
     
     @api.model
     def edit(self, vals):
-        return super(Chamada, self).write(vals)
+        return super(CallCaseAssistance, self).write(vals)
 
 
 class AssistanceReferall(models.Model):

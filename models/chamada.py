@@ -19,8 +19,14 @@ class Chamada(models.Model):
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
 
-    are_you_disabled = fields.Boolean(
-        "E deficiente?", default=False)
+    are_you_disabled = fields.Selection(
+        string="E deficiente?",
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="E deficiente?",
+    )
 
     contact_type = fields.Selection(
         string='Fonte de Informação',

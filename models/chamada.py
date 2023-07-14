@@ -19,8 +19,14 @@ class Chamada(models.Model):
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Person_involved")
 
-    are_you_disabled = fields.Boolean(
-        "E deficiente?", default=False)
+    are_you_disabled = fields.Selection(
+        string="E deficiente?",
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="E deficiente?",
+    )
 
     contact_type = fields.Selection(
         string='Fonte de Informação',
@@ -273,7 +279,7 @@ class Chamada(models.Model):
                 'linhafala.chamada.call_id.seq') or '/'
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'gender', 'detailed_description', 'category_status')
+    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'gender', 'detailed_description','are_you_disabled' 'category_status')
     def _check_all(self):
         for record in self:
             if self.category_status == "Com Interveção":
@@ -294,6 +300,8 @@ class Chamada(models.Model):
                     raise ValidationError("Gênero é um campo obrigatório.")
                 if not record.detailed_description:
                     raise ValidationError("Detalhes é um campo obrigatório.")
+                if not record.are_you_disabled:
+                    raise ValidationError("Tem algum tipo de dificiência ? é um campo obrigatório.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

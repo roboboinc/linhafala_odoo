@@ -175,7 +175,7 @@
                                 <page string="Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
-                                <page attrs="{'invisible': [('are_you_disabled','=',False)]}"
+                                <page attrs="{'invisible': [('are_you_disabled','=','Não')]}"
                                     string="Deficiência" name="deficiencia">
                                     <field name="deficiency_line_calls_ids" widget="one2many">
                                         <tree>

@@ -55,7 +55,6 @@
                     decoration-success="case_status=='Encerrado'"
                     decoration-warning="case_status=='Aberto/Pendente'"
                     widget="badge" name="case_status" optional="show" />
-                <field name="manager_by" optional="show" />
                 <field name="created_by" optional="show" />
                 <field name="created_at" optional="hide" />
                 <field name="data_ocorrencia" optional="hide" />

@@ -40,7 +40,8 @@
                 <field name="case_id" optional="show"/>
                 <field name="call_id" optional="hide" />
                 <field name="resolution_type" optional="hide" />
-                <field name="case_type" optional="show" />
+                <field name="manager_by" optional="show" />
+                <field name="case_type" optional="hide" />
                 <field name="secundary_case_type" optional="show" />
                 <field name="case_type_classification" optional="show" />
                 <field name="place_occurrence" optional="hide" />
@@ -54,7 +55,7 @@
                     decoration-success="case_status=='Encerrado'"
                     decoration-warning="case_status=='Aberto/Pendente'"
                     widget="badge" name="case_status" optional="show" />
-                <field name="manager_by" optional="hide" />
+                <field name="manager_by" optional="show" />
                 <field name="created_by" optional="show" />
                 <field name="created_at" optional="hide" />
                 <field name="data_ocorrencia" optional="hide" />

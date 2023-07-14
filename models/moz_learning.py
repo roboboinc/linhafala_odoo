@@ -222,8 +222,8 @@ class MozLearningReferral(models.Model):
     _name = "linhafala.moz_learning.referral"
     _description = "Instituição de encaminhamento de moz learning"
 
-    moz_learning_referral_id = fields.Many2one(
-        "linhafala.moz_learning.referral", string="Moz Learning ID")
+    moz_learning_referral_id = fields.Integer(
+        string="Instituição de encaminhamento de moz learning ID", readonly=True, unique=True)
 
     moz_learning_id = fields.Many2one(
         comodel_name='linhafala.moz_learning', string="Moz Learning")

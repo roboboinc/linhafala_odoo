@@ -37,7 +37,7 @@
                 decoration-primary="case_status=='Assistido'"
                 decoration-success="case_status=='Encerrado'"
                 decoration-warning="case_status=='Aberto/Pendente'">
-                <field name="case_id" optional="show"/>
+                <field name="case_id" optional="show" />
                 <field name="call_id" optional="hide" />
                 <field name="resolution_type" optional="hide" />
                 <field name="manager_by" optional="show" />
@@ -50,12 +50,12 @@
                     decoration-warning="case_priority=='Moderado'"
                     widget="badge"
                     name="case_priority" optional="show" />
+                <field name="created_by" optional="show" />
                 <field decoration-info="case_status=='Dentro do sistema'"
                     decoration-primary="case_status=='Assistido'"
                     decoration-success="case_status=='Encerrado'"
                     decoration-warning="case_status=='Aberto/Pendente'"
                     widget="badge" name="case_status" optional="show" />
-                <field name="created_by" optional="show" />
                 <field name="created_at" optional="hide" />
                 <field name="data_ocorrencia" optional="hide" />
             </tree>

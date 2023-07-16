@@ -24,7 +24,7 @@ class Chamada(models.Model):
         selection=[
             ("Sim", "Sim"),
             ("Não", "Não"),
-        ],
+        ],default="Não",
         help="E deficiente?",
     )
 

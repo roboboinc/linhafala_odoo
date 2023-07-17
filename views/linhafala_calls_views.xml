@@ -293,10 +293,9 @@
 
                                 <div class="col-md-6">
 
-                                    <button string="Save" type="object" name="save"
-                                        class="btn-primary" 
-                                        attrs="{'invisible': [('id', '=', True)]}"
-                                        confirm="Chamada Gravada Com Sucesso"/>
+                                    <button string="Save" type="object" name="action_notification"
+                                        class="oe_highlight" 
+                                        />
                                     <button string="Edit" type="object" name="edit"
                                         attrs="{'invisible': [('id', '=', False)]}"
                                         class="btn-secondary"

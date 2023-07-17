@@ -260,16 +260,15 @@ class Chamada(models.Model):
         return super(Chamada, self).create(vals)
 
     def action_notification(self):
+        self.save({})
         return {
-
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                    'title': ('Informação gravada com sucesso!!'),
-                    'type': 'success',
-                    'sticky': False,
+                'title': 'Informação gravada com sucesso!!',
+                'type': 'success',
+                'sticky': False,
             },
-
         }
 
     @api.model

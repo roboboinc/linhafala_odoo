@@ -294,7 +294,10 @@
                                 <div class="col-md-6">
 
                                     <button string="Save" type="object" name="save"
-                                        class="btn-primary" />
+                                        class="btn-primary" 
+                                        attrs="{'invisible': [('id', '=', True)]}"
+                                        confirm="Chamada Gravada Com Sucesso"
+                                        />
 
                                     <button string="Edit" type="object" name="edit"
                                         attrs="{'invisible': [('id', '=', False)]}"

@@ -296,9 +296,7 @@
                                     <button string="Save" type="object" name="save"
                                         class="btn-primary" 
                                         attrs="{'invisible': [('id', '=', True)]}"
-                                        confirm="Chamada Gravada Com Sucesso"
-                                        />
-
+                                        confirm="Chamada Gravada Com Sucesso"/>
                                     <button string="Edit" type="object" name="edit"
                                         attrs="{'invisible': [('id', '=', False)]}"
                                         class="btn-secondary"

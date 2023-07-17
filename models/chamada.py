@@ -265,7 +265,7 @@ class Chamada(models.Model):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                    'title': _('Informação gravada com sucesso!!'),
+                    'title': ('Informação gravada com sucesso!!'),
                     'type': 'success',
                     'sticky': False,
             },

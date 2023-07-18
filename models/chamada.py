@@ -616,7 +616,16 @@ class AssistanceReferall(models.Model):
         domain="[('area_type', '=', area_type)]"
     )
     reference_entity = fields.Many2one(
-        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+        comodel_name='linhafala.caso.referenceentity', 
+        string="Entidade de Referência",
+        domain="[('reference_area', '=', reference_area)]"
+    )
+
+    @api.onchange('distrito')
+    def _distrito_onchange(self):
+        for rec in self:
+            return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('distrito', '=', rec.distrito.id)]}}
+
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference',

@@ -82,8 +82,9 @@
         <field name="name">linhafala.chamada.form</field>
         <field name="model">linhafala.chamada</field>
         <field name="priority">1000</field>
+        <field name="type">form</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Graph" create="false" edit="false">
                 <header>
                     <field name="category_status" widget="statusbar"
                         options="{'clickable': '1'}"
@@ -174,7 +175,7 @@
                                 <page string="Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
-                                <page attrs="{'invisible': [('are_you_disabled','=',False)]}"
+                                <page attrs="{'invisible': [('are_you_disabled','!=','Sim')]}"
                                     string="Deficiência" name="deficiencia">
                                     <field name="deficiency_line_calls_ids" widget="one2many">
                                         <tree>
@@ -275,7 +276,8 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
+                                    <p
+                                        attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                         <strong>Tem algum tipo de dificiência ?: </strong>
                                         <field name="are_you_disabled" />
                                     </p>
@@ -288,10 +290,25 @@
                                         <field name="call_end" />
                                     </p>
                                 </div>
+
+                                <div class="col-md-6">
+
+                                    <button string="Save" type="object" name="action_notification"
+                                        class="oe_highlight" 
+                                        />
+                                    <button string="Edit" type="object" name="edit"
+                                        attrs="{'invisible': [('id', '=', False)]}"
+                                        class="btn-secondary"
+                                        confirm="Tem certeza de que deseja editar esse Caso ? " />
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </sheet>
+                <footer>
+
+                </footer>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" />
                     <field name="activity_ids" />
@@ -301,3 +318,16 @@
         </field>
     </record>
 </odoo>
+<!-- 
+<div class="col-md-6">
+    <button string="Save" type="object" name="save"
+        class="btn-lg btn-primary"
+        attrs="{'invisible': [('id', '!=', False)]}" />
+
+    <div class="mt-5">
+        <button string="Edit" type="object" name="edit"
+            class="btn-lg btn-primary"
+            confirm="Tem certeza de que deseja editar esse Caso ? "
+            attrs="{'invisible': [('id', '=', False)]}" />
+    </div>
+</div> -->

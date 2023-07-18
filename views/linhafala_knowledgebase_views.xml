@@ -1,12 +1,11 @@
-<?xml version="1.0"?>
 <odoo>
     <record id="linhafala_knowledgebase_view_tree" model="ir.ui.view">
         <field name="name">linhafala.knowledgebase.tree</field>
         <field name="model">linhafala.knowledgebase</field>
         <field name="arch" type="xml">
             <tree string="Channel">
-                <field name="photo" widget="image" options='{"size": [64, 64],}'/>
                 <field name="title" />
+                <field name="text" />
             </tree>
         </field>
     </record>
@@ -28,27 +27,34 @@
         <field name="model">linhafala.knowledgebase</field>
         <field name="priority">1000</field>
         <field name="arch" type="xml">
-            <form string="Formulário de Base de conhecimentos"
-                class="o_lead_opportunity_form" js_class="crm_form">
-                <!-- Add fields here -->
+            <form string="Formulário de Base de conhecimentos" class="o_lead_opportunity_form"
+                js_class="crm_form">
                 <sheet>
-                        <group>
-                            <group col="3">
-                                <field name="title" />
-                                <field name="file" widget="binary"/>
-                                <field name="photo" widget="image"/>
-                            </group>
-                            <group col="3">
-                                <field name="created_at" readonly="1"/>
-                                <field name="created_by" readonly="1"/>
-                            </group>
+                    <group>
+                        <group col="3">
+                            <field name="title" />
+                            <field name="text" />
+                            <field name="pdf_file" />
                         </group>
-                        <notebook>
-                            <page string="Detalhes" name="text_section">
-                                <field name="text" />
-                            </page>
-                        </notebook>
+                    </group>
+                    <notebook>
+                        <page string="PDF" name="pdf_section">
+                            <field name="pdf_file" widget="pdf_viewer" />
+                        </page>
+                    </notebook>
+                    <div class="col-md-12 mt-3">
+                        <div class="text-center">
 
+                            <button string="Save" type="object" name="save"
+                                class="btn-primary" />
+
+                            <button string="Edit" type="object" name="edit"
+                                attrs="{'invisible': [('id', '=', False)]}"
+                                class="btn-secondary"
+                                confirm="Tem certeza de que deseja editar esse Caso ? " />
+
+                        </div>
+                    </div>
                 </sheet>
 
                 <div class="oe_chatter">
@@ -59,5 +65,4 @@
             </form>
         </field>
     </record>
-
 </odoo>

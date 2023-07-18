@@ -12,8 +12,8 @@ class KnowledgeBase(models.Model):
 
     title = fields.Char(string="Título", required=True)
     text = fields.Html(string='Descrição', attrs={
-                                       'style': 'height: 500px;'})
-    file = fields.Binary(string='File Upload') # TODO: , store=True, attachment=True) # add parameters and configure for external store to be used
+                        'style': 'height: 500px;'})
+    pdf_file = fields.Binary(string='PDF File')
     photo = fields.Image(string='Image')
     created_at = fields.Datetime(string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
     updated_at = fields.Datetime(string='Data de actualizaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
@@ -22,4 +22,13 @@ class KnowledgeBase(models.Model):
     def write(self, vals):
         if vals:
             vals['updated_at'] = fields.Datetime.now()
+        return super(KnowledgeBase, self).write(vals)
+    
+
+    @api.model
+    def save(self, vals):
+        return super(KnowledgeBase, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
         return super(KnowledgeBase, self).write(vals)

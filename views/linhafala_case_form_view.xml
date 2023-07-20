@@ -170,7 +170,7 @@
                                 </notebook>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12"  attrs="{'invisible': True}">
                             <div class="text-center">
 
                                 <button string="Save" type="object" name="save"

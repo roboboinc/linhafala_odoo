@@ -149,7 +149,7 @@
                                 <strong>Relação com a Vítima: </strong>
                                 <field name="victim_relationship" />
                             </p>
-                            <p title="Campo Opcional">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}" title="Campo Opcional">
                                 <strong>Tipo de Identificação: </strong>
                                 <field name="id_number" />
                             </p>

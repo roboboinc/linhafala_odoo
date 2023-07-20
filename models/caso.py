@@ -453,7 +453,7 @@ class CaseReference(models.Model):
         comodel_name='linhafala.distrito', string="Districto")
 
     contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
-                          size=13, min_length=9, default="+258")
+                          min_length=9, default="+258")
 
     @api.onchange('provincia')
     def _provincia_onchange(self):

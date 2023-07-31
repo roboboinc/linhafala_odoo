@@ -46,8 +46,8 @@
                 <field name="case_type_classification" optional="show" />
                 <field name="place_occurrence" optional="hide" />
                 <field decoration-danger="case_priority=='Muito Urgente'"
-                    decoration-primary="case_priority=='Urgente'"
-                    decoration-warning="case_priority=='Moderado'"
+                    decoration-warning="case_priority=='Urgente'"
+                    decoration-primary="case_priority=='Moderado'"
                     widget="badge"
                     name="case_priority" optional="show" />
                 <field name="created_by" optional="show" />

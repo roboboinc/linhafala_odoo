@@ -204,7 +204,7 @@ class MozLearning(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado"),
-        ],
+        ],default="Aberto/Pendente",
         help="Estado do caso"
     )
 
@@ -265,7 +265,7 @@ class MozLearningReferral(models.Model):
             ("Assistido", "Assistido"),
             ("No Arquivo Morto", "No Arquivo Morto"),
             ("Encerrado", "Encerrado")
-        ], default="Aberto/Pendente",
+        ],default="Aberto/Pendente",
         help="Estado do caso"
     )
 

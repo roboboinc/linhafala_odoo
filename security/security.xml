@@ -51,16 +51,3 @@
         <field name="name">Remoto</field>
         <field name="category_id" ref="module_category_lfc_jur" />
     </record>
-    <record id="group_linhafala_supervisor_remoto" model="res.groups">
-        <field name="name">Supervisor Remoto</field>
-        <field name="category_id" ref="module_category_lfc_jur" />
-    </record>
-    <record id="group_linhafala_supervisor_maputo" model="res.groups">
-        <field name="name">Supervisor Maputo</field>
-        <field name="category_id" ref="module_category_lfc_jur" />
-    </record>
-    <record id="group_linhafala_supervisor_manica" model="res.groups">
-        <field name="name">Supervisor Manica</field>
-        <field name="category_id" ref="module_category_lfc_jur" />
-    </record>
-</odoo>

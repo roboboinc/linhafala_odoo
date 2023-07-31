@@ -449,7 +449,7 @@ class CallCaseAssistance(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
-        ],
+        ],default="Aberto/Pendente",
         help="Estado"
     )
 
@@ -646,7 +646,7 @@ class AssistanceReferall(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado"),
-        ],
+        ],default="Aberto/Pendente",
         help="Estado do caso"
     )
 

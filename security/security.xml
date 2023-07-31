@@ -51,3 +51,4 @@
         <field name="name">Remoto</field>
         <field name="category_id" ref="module_category_lfc_jur" />
     </record>
+</odoo>

@@ -33,7 +33,9 @@
                 <sheet>
                     <div class="row">
                         <div class="col-12">
-                            <field name="photo" widget="image" />
+                            <div class="text-center w-100">
+                                <field class="w-100" name="photo" widget="image" />
+                            </div>
                             <field name="title" />
                             <field name="text" />
                         </div>

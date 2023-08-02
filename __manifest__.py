@@ -21,6 +21,7 @@
         'views/linhafala_knowledgebase_views.xml',
         'views/linhafala_deficiente_views.xml',
         'views/linhafala_menus.xml',
+        'views/linhafala_dashboard.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',
@@ -42,7 +43,7 @@
     'assets': {
     },
     'depends': [
-        'mail'
+        'mail', 'board'
     ],
     'images': ['static/src/img/icon_module.png'],
     'price': 0,

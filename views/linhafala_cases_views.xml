@@ -42,6 +42,7 @@
                 <field name="case_id"/>
             </graph>
         </field>
+
     </record>
 
     <record id="linhafala_case_view_tree" model="ir.ui.view">

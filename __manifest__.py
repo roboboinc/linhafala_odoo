@@ -22,6 +22,7 @@
         'views/linhafala_deficiente_views.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_menus.xml',
+        'views/linhafala_dashboard.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',

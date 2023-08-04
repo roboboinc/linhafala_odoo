@@ -167,4 +167,5 @@
         action="linha_person_involved_action"
         parent="linhafala_menu_config"
         sequence="12" />
+
 </odoo>

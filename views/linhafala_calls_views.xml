@@ -40,7 +40,7 @@
             <graph type="pie">
                 <field name="type_of_intervention"/>
             </graph>
-        </field>
+        </field>       
     </record>
 
 

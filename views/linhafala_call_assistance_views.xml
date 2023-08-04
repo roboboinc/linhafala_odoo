@@ -28,6 +28,17 @@
         </field>
     </record>
 
+    <record id="assistence_graph" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.graph</field>
+        <field name="model">linhafala.chamada.assistance</field>
+        <field name="arch" type="xml">
+            <graph string="Assistência  Gafico" type="pie">
+                <field name="assistance_id"/>
+            </graph>
+        </field>
+
+    </record>
+
     <record id="linhafala_assistance_view_tree" model="ir.ui.view">
         <field name="name">linhafala.assistance.tree</field>
         <field name="model">linhafala.chamada.assistance</field>

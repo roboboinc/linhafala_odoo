@@ -31,17 +31,16 @@
     </record>
 
     <record id="chamadas_graph" model="ir.ui.view">
-        <field name="name">linhafala.chamadas.graph</field>
+        <field name="name">linhafala.chamada.graph</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <graph string="Tipo de Chamada" type="pie">
+            <graph type="bar">
                 <field name="category_status"/>
             </graph>
-            <graph string="Categoria Chamadas" type="bar">
+            <graph type="pie">
                 <field name="type_of_intervention"/>
             </graph>
-        </field>
-
+        </field>       
     </record>
 
 

@@ -161,12 +161,11 @@
         parent="linhafala_menu_config"
         sequence="11" />
 
-     <menuitem
-        name="LinhaFala Dashboard"
+    <menuitem
+        id="linha_person_involved_menu_action"
+        name="Pessoa Envolvida"
+        action="linha_person_involved_action"
         parent="linhafala_menu_config"
-        action="linhafala_dashboard"
-        sequence="12"
-        id="menu_dashboard"
-    />
+        sequence="12" />
 
 </odoo>

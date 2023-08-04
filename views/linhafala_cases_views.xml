@@ -33,16 +33,14 @@
         <field name="name">linhafala.caso.graph</field>
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
-            <graph string="Casos Gafico" type="pie">
-                <field name="case_id"/>
-            </graph>
-            <graph string="Casos Encaminhados" type="bar">
-                <field name="forwarding_institution_line_ids"/>
-            </graph>
-            <graph string="Casos Assistidos" type="pie">
+            <graph type="pie">
                 <field name="case_status"/>
             </graph>
-           
+        </field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="case_id"/>
+            </graph>
         </field>
 
     </record>

@@ -466,6 +466,7 @@ class ForwardingInstitutions(models.Model):
     _description = "Instituição de encaminhamento"
 
     case_id = fields.Many2one("linhafala.caso", string="Caso")
+    forwarding_institution_id = fields.Char(string="Instituição de encaminhamento", readonly=True)
     area_type = fields.Selection(
         string='Área de Encaminhamento',
         selection=[

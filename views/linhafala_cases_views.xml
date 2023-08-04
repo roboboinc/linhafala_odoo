@@ -29,6 +29,21 @@
         </field>
     </record>
 
+    <record id="casos_graph" model="ir.ui.view">
+        <field name="name">linhafala.caso.graph</field>
+        <field name="model">linhafala.caso</field>
+        <field name="arch" type="xml">
+            <graph type="pie">
+                <field name="case_status"/>
+            </graph>
+        </field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="case_id"/>
+            </graph>
+        </field>
+    </record>
+
     <record id="linhafala_case_view_tree" model="ir.ui.view">
         <field name="name">linhafala.caso.tree</field>
         <field name="model">linhafala.caso</field>
@@ -66,7 +81,7 @@
     <record id="linhafala_caso_action" model="ir.actions.act_window">
         <field name="name">Casos</field>
         <field name="res_model">linhafala.caso</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar Casos

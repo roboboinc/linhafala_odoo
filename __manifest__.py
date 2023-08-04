@@ -20,6 +20,7 @@
         'views/linhafala_configurations_views.xml',
         'views/linhafala_knowledgebase_views.xml',
         'views/linhafala_deficiente_views.xml',
+        'views/linhafala_person_involved.xml',
         'views/linhafala_menus.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -42,7 +43,7 @@
     'assets': {
     },
     'depends': [
-        'mail'
+        'mail','board',
     ],
     'images': ['static/src/img/icon_module.png'],
     'price': 0,

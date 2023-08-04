@@ -12,6 +12,7 @@
                         <div t-attf-class="oe_kanban_global_click">
                             <div class="oe_kanban_details">
                                 <ul>
+                                    <li>ID Instituição de Encaminhamento: <field name="forwarding_institution_id"/></li>
                                     <li> ID: <field name="case_id" /></li>
                                 </ul>
                             </div>
@@ -22,11 +23,21 @@
         </field>
     </record>
 
+    <record id="cases_referral_graph" model="ir.ui.view">
+        <field name="name">linhafala.caso.forwarding_institution.graph</field>
+        <field name="model">linhafala.caso.forwarding_institution</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="forwarding_institution_id"/>
+            </graph>
+        </field>
+    </record>
+
 
     <record id="linhafala_cases_referral_action" model="ir.actions.act_window">
         <field name="name">Encaminhamento de Casos</field>
         <field name="res_model">linhafala.caso.forwarding_institution</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar Encaminhamento de Casos

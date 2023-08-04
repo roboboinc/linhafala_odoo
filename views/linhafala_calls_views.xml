@@ -30,6 +30,19 @@
         </field>
     </record>
 
+    <record id="chamadas_graph" model="ir.ui.view">
+        <field name="name">linhafala.chamada.graph</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="category_status"/>
+            </graph>
+            <graph type="pie">
+                <field name="type_of_intervention"/>
+            </graph>
+        </field>
+    </record>
+
 
     <record id="linhafala_calls_view_tree" model="ir.ui.view">
         <field name="name">linhafala.chamada.tree</field>
@@ -66,7 +79,7 @@
     <record id="linhafala_chamada_action" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
         <field name="res_model">linhafala.chamada</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Registar chamadas ou contactos recebidos

@@ -161,5 +161,10 @@
         parent="linhafala_menu_config"
         sequence="11" />
 
-
+    <menuitem
+        id="linha_person_involved_menu_action"
+        name="Pessoa Envolvida"
+        action="linha_person_involved_action"
+        parent="linhafala_menu_config"
+        sequence="12" />
 </odoo>

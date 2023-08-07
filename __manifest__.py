@@ -23,6 +23,7 @@
         'views/linhafala_person_involved.xml',
         'views/linhafala_menus.xml',
         'views/linhafala_dashboard.xml',
+        'views/linhafala_dashboard_home.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',

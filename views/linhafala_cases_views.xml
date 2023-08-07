@@ -33,16 +33,54 @@
         <field name="name">linhafala.caso.graph</field>
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="case_id" string="Numero de casos"/>
+            </graph>
             <graph type="pie">
-                <field name="case_status"/>
+                <field name="case_status" string="Estado do Caso"/>
             </graph>
         </field>
+    </record>
+
+    <record id="day_graph" model="ir.ui.view">
+        <field name="name">linhafala.caso.graph</field>
+        <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="case_id"/>
+                <field name="created_at" interval="day" string="Numero de casos por dia"/>
+            </graph>
+            <graph type="bar">
+                <field name="created_at" interval="week" string="Numero de casos por semana"/>
+            </graph>
+            <graph type="bar">
+                <field name="created_at" interval="month" string="Numero de casos por mes"/>
+            </graph>
+            <graph type="bar">
+                <field name="created_at" interval="year" string="Numero de casos por ano"/>
             </graph>
         </field>
+    </record>
 
+    
+    <record id="monthly_graph_caso" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.graph</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="xml">
+            <graph type="pie">
+                <field name="created_at" interval="month"/>
+            </graph>
+        </field>
+    </record>
+
+    
+    <record id="top_graph_caso" model="ir.ui.view">
+        <field name="name">linhafala.caso.graph</field>
+        <field name="model">linhafala.caso</field>
+        <field name="arch" type="xml">
+            <graph type="line" stacked="True">
+                <field name="case_type_classification"/>
+            </graph>
+        </field>
     </record>
 
     <record id="linhafala_case_view_tree" model="ir.ui.view">

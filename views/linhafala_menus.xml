@@ -4,6 +4,7 @@
     <menuitem
         id="linhafala_menu_root"
         name="Linha Fala Criança"
+        action="linhafala_dashboard_home"
         sequence="6" />
 
     <!-- Calls (MAIN USER MENU Action) -->
@@ -167,5 +168,12 @@
         action="linha_person_involved_action"
         parent="linhafala_menu_config"
         sequence="12" />
+
+    <menuitem
+        id="linhafala_dashboard_home_menu"
+        name="Home"
+        action="linhafala_dashboard_home"
+        parent="linhafala_menu_config"
+        sequence="13" />
 
 </odoo>

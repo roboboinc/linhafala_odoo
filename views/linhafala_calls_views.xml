@@ -35,14 +35,53 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="category_status"/>
+                <field name="category_status" string="Categoria Chamadas"/>
             </graph>
-            <graph type="pie">
-                <field name="type_of_intervention"/>
+            <graph type="bar">
+                <field name="type_of_intervention" string="Tipo de Intervencao"/>
             </graph>
         </field>       
     </record>
 
+    <record id="week_graph" model="ir.ui.view">
+        <field name="name">linhafala.chamada.graph</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="call_start" interval="day" string="Numero de Chamadas por Dia"/>
+            </graph>
+            <graph type="bar">
+                <field name="call_start" interval="week" string="Numero de Chamadas por Semana"/>
+            </graph>
+            <graph type="bar">
+                <field name="call_start" interval="month" string="Numero de Chamadas por Mes"/>
+            </graph>
+            <graph type="bar">
+                <field name="call_start" interval="year" string="Numero de Chamadas por Ano"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="monthly_graph_calls" model="ir.ui.view">
+        <field name="name">linhafala.chamada.graph</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <graph type="pie"> 
+                <field name="call_start" interval="month" string="Relatorio Mensal de Chamadas"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="top_graph_chamadas" model="ir.ui.view">
+        <field name="name">linhafala.chamada.graph</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="type_of_intervention"/>
+                <field name="category_status"/>
+            </graph>
+        </field>
+    </record>
 
     <record id="linhafala_calls_view_tree" model="ir.ui.view">
         <field name="name">linhafala.chamada.tree</field>

@@ -15,6 +15,9 @@ class PersonInvolved(models.Model):
 
     fullname = fields.Char(string="Nome completo")
 
+    created_at = fields.Datetime(
+        string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+    
     address = fields.Char(string="Endereço da Vítima", email=True)
 
     email = fields.Char(string="Endereço Eletronico")

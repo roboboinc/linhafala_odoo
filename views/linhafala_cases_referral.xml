@@ -28,7 +28,7 @@
         <field name="model">linhafala.caso.forwarding_institution</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="forwarding_institution_id"/>
+                <field name="forwarding_institution_id" string="Casos Encaminhados"/>
             </graph>
         </field>
     </record>

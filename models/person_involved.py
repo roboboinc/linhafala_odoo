@@ -53,6 +53,9 @@ class PersonInvolved(models.Model):
         help="Categoria"
     )
 
+    created_at = fields.Datetime(
+        string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
+
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
 

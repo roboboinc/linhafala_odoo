@@ -1,0 +1,75 @@
+<odoo>
+    <!--<record id="view_person_involved_kanban" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.kanban</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="person_id"/>
+                <field name="fullname"/>
+                <field name="address"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>ID: <field name="person_id"/></li>
+                                    <li>Tipo Identificação: <field name="id_number"/></li>
+                                    <li>Numero de Identificação: <field name="nr_identication"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>-->
+
+    <record id="person_graph" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.graph</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="provincia" string="Casos por provincia"/>
+                <field name="gender" string="Vitimas Sexo"/>
+                <field name="age" string="Vitimas Idade"/>
+                <field name="person_type" string="Vitimas"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="day_graph_vitima" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.graph</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="created_at" interval="day" string="Numero de vitimas por dia"/>
+                <field name="created_at" interval="week" string="Numero de vitimas por semana"/>
+                <field name="created_at" interval="month" string="Numero de vitimas por mes"/>
+                <field name="created_at" interval="year" string="Numero de vitimas por ano"/>
+            </graph> 
+        </field>
+    </record>
+
+
+    <!--<record id="linha_person_involved_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.tree</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="html">
+            <tree>
+                <field name="person_id" optional="hide"/>
+                <field name="fullname" optional="hide"/>
+                <field name="address" optional="hide"/>
+            </tree>
+        </field> 
+    </record>-->
+
+    <record id="linha_person_involved_action" model="ir.actions.act_window">
+        <field name="name">Pessoa Envolvida</field>
+        <field name="res_model">linhafala.person_involved</field>
+        <field name="view_mode">graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            </p>
+        </field> 
+    </record>
+</odoo>

@@ -30,14 +30,8 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="provincia" string="Casos por provincia"/>
-            </graph>
-            <graph type="pie">
                 <field name="gender" string="Vitimas Sexo"/>
-            </graph>
-            <graph type="bar">
                 <field name="age" string="Vitimas Idade"/>
-            </graph>
-            <graph type="pie">
                 <field name="person_type" string="Vitimas"/>
             </graph>
         </field>
@@ -49,14 +43,8 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="created_at" interval="day" string="Numero de vitimas por dia"/>
-            </graph>   
-            <graph type="bar">
                 <field name="created_at" interval="week" string="Numero de vitimas por semana"/>
-            </graph>     
-            <graph type="bar">
                 <field name="created_at" interval="month" string="Numero de vitimas por mes"/>
-            </graph> 
-            <graph type="bar">
                 <field name="created_at" interval="year" string="Numero de vitimas por ano"/>
             </graph> 
         </field>

@@ -36,8 +36,6 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="category_status" string="Categoria Chamadas"/>
-            </graph>
-            <graph type="bar">
                 <field name="type_of_intervention" string="Tipo Intervencao"/>
             </graph>
         </field>
@@ -49,14 +47,8 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="call_start" interval="day" string="Numero de chamadas por dia"/>
-            </graph>
-            <graph type="bar">
                 <field name="call_start" interval="week" string="Numero de chamadas por semana"/>
-            </graph>
-            <graph type="bar">
                 <field name="call_start" interval="month" string="Numero de chamadas por mes"/>
-            </graph>
-            <graph type="bar">
                 <field name="call_start" interval="year" string="Numero de chamadas por ano"/>
             </graph>
         </field>

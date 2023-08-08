@@ -169,6 +169,10 @@
         parent="linhafala_menu_config"
         sequence="12"
     />
-
-
+     <menuitem
+        id="linhafala_dashboard_menu_action"
+        name="Dashboard"
+        action="linhafala_dashboard_home"
+        parent="linhafala_menu_config"
+        sequence="13" />
 </odoo>

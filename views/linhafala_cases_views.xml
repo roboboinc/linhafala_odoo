@@ -35,8 +35,6 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="case_id" string="Numero de casos"/>
-            </graph>
-            <graph type="bar">
                 <field name="case_status" string="Estado do caso"/>
             </graph>
         </field>
@@ -48,14 +46,8 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="created_at" interval="day" string="Numero de casos por dia"/>
-            </graph>
-            <graph type="bar">
                 <field name="created_at" interval="week" string="Numero de casos por semana"/>
-            </graph>
-            <graph type="bar">
                 <field name="created_at" interval="month" string="Numero de casos por mes"/>
-            </graph>
-            <graph type="bar">
                 <field name="created_at" interval="year" string="Numero de casos por ano"/>
             </graph>
         </field>
@@ -75,7 +67,7 @@
         <field name="name">linhafala.caso.graph</field>
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
-            <graph type="line" stacked="True">
+            <graph type="line">
                 <field name="case_type_classification"/>
             </graph>
         </field>

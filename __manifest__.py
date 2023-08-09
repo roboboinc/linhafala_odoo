@@ -9,6 +9,7 @@
     'author': "team@robobo.org",
     "website": "www.robobo.org",
     'data': [
+        'views/linhafala_dashboard_home.xml',
         'views/linhafala_calls_views.xml',
         'views/linhafala_call_assistance_views.xml',
         'views/linhafala_cases_views.xml',
@@ -22,7 +23,6 @@
         'views/linhafala_deficiente_views.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_menus.xml',
-        'views/linhafala_dashboard_home.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/linhafala.provincia.csv',

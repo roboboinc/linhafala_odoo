@@ -68,7 +68,7 @@
         <field name="name">linhafala.chamada.graph</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <graph type="pie">
+            <graph type="bar">
                 <field name="type_of_intervention"/>
                 <field name="category_status"/>
             </graph>

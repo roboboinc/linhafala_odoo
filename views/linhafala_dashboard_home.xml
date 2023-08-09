@@ -79,7 +79,7 @@
                             string="Top Casos"
                             name="%(linhafala_odoo.act_graph_top_casos)d"/>
                         <action
-                            string="Relatorio Mensal Chamadas"
+                            string="Top Chamadas"
                             name="%(linhafala_odoo.act_graph_top_chamadas)d"/>
                     </column>
                 </board>

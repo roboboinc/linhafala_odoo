@@ -60,14 +60,22 @@
                         <action
                             string="Relatorio Mensal Chamadas"
                             name="%(linhafala_odoo.act_graph_month_chamadas)d"/>
-                    
+                        
+                        <action
+                            string="Top Casos"
+                            name="%(linhafala_odoo.act_graph_top_casos)d"/>
+                        
                         <action
                             string="Relatorio Mensal Casos"
                             name="%(linhafala_odoo.act_graph_month_casos)d"/>
-                    <column>
+            
+                        <column>
                         <action
                             string="Chamadas(Dia, Semana, Mes, Ano)"
                             name="%(linhafala_odoo.act_graph_chamadas)d"/>
+                        <action
+                            string="Top Chamadas"
+                            name="%(linhafala_odoo.act_graph_top_chamadas)d"/>
                         <action
                             string="Casos(Dia, Semana, Mes, Ano)"
                             name="%(linhafala_odoo.act_graph_casos)d"/>
@@ -75,12 +83,6 @@
                             string="Vitimas(Dia, Semana, Mes, Ano)"
                             name="%(linhafala_odoo.act_graph_vitima)d"/>
                         </column>
-                        <action
-                            string="Top Casos"
-                            name="%(linhafala_odoo.act_graph_top_casos)d"/>
-                        <action
-                            string="Top Chamadas"
-                            name="%(linhafala_odoo.act_graph_top_chamadas)d"/>
                     </column>
                 </board>
             </form> 

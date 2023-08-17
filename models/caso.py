@@ -193,6 +193,25 @@ class Caso(models.Model):
             },
         }
 
+
+    def action_redirect(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        form_view_id = self.env.ref('linhafala_odoo.linhafala_cases_form_view')
+        form_url = f"{base_url}/web?#id={self.id}&view_type=form&model=linhafala.caso&menu_id={form_view_id.id}"
+    
+        #mail_template = self.env.ref('linhafala_odoo.email_template_id')
+        #email_subject = "Link to Linhafala Caso Form"
+        #email_body = f"Here is the link to the form: {form_url}"
+        #mail_template.send_mail(self.id, email_values={'subject': email_subject, 'body_html': email_body})
+
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': form_url,
+            'target': 'new',
+        }
+
+
     @api.onchange('provincia')
     def _provincia_onchange(self):
         for rec in self:

@@ -83,6 +83,7 @@
                     <button id="btn-manager" name="action_manager" string="Gerir"
                         class="btn-primary me-3"
                         type="object"
+                        groups="base.group_no_one,linhafala_odoo.group_linhafala_gestor"
                         confirm="Tem certeza de que deseja assumir a gestão desta Assistência ? " />
                     <field name="callcaseassistance_status" widget="statusbar"
                         options="{'clickable': '1'}"

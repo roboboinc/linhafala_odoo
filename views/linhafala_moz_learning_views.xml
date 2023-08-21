@@ -32,7 +32,7 @@
         <field name="name">linhafala.moz_learning.tree</field>
         <field name="model">linhafala.moz_learning</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree default_order="create_date desc">
                 <field name="moz_learning_id" optional="show" />
                 <field name="fullname" optional="show" />
                 <field name="contact" optional="show" />
@@ -244,7 +244,7 @@
                                                 </div>
                                             </sheet>
                                         </form>
-                                        <tree>
+                                        <tree >
                                             <field name="moz_learning_complaint__details_id"
                                                 optional="show" />
                                             <field name="related_project_case" optional="show" />

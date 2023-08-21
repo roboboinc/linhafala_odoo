@@ -32,7 +32,7 @@
         <field name="name">linhafala.assistance.tree</field>
         <field name="model">linhafala.chamada.assistance</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="callcaseassistance_status=='Dentro do sistema'"
+            <tree string="Channel" default_order="create_date desc" decoration-info="callcaseassistance_status=='Dentro do sistema'"
                 decoration-primary="callcaseassistance_status=='Assistido'"
                 decoration-success="callcaseassistance_status=='Encerrado'"
                 decoration-warning="callcaseassistance_status=='Aberto/Pendente'">

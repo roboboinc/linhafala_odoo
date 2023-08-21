@@ -108,7 +108,7 @@
         <field name="name">linhafala.moz_learning.referral.tree</field>
         <field name="model">linhafala.moz_learning.referral</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="moz_learning_status=='Dentro do sistema'"
+            <tree string="Channel" default_order="create_date desc" decoration-info="moz_learning_status=='Dentro do sistema'"
                 decoration-primary="moz_learning_status=='Assistido'"
                 decoration-success="moz_learning_status=='Encerrado'"
                 decoration-warning="moz_learning_status=='Aberto/Pendente'">

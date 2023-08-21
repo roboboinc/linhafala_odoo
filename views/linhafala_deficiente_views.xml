@@ -33,7 +33,7 @@
         <field name="name">linhafala.deficiente.tree</field>
         <field name="model">linhafala.deficiente</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree default_order="create_date desc">
                 <field name="deficiente_id" optional="show" />
                 <field name="vision" optional="hide" />
                 <field name="hearing" optional="hide" />

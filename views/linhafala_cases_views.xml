@@ -77,7 +77,7 @@
         <field name="name">linhafala.caso.tree</field>
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
-            <tree string="Channel" decoration-info="case_status=='Dentro do sistema'"
+            <tree string="Channel" default_order="create_date desc" decoration-info="case_status=='Dentro do sistema'"
                 decoration-primary="case_status=='Assistido'"
                 decoration-success="case_status=='Encerrado'"
                 decoration-warning="case_status=='Aberto/Pendente'">

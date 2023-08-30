@@ -47,6 +47,11 @@
                 <field name="subcategory" optional="show" />
                 <field name="created_at" optional="hide" />
                 <field name="manager_by" optional="show" />
+                <field decoration-danger="callcaseassistance_priority=='Muito Urgente'"
+                    decoration-warning="callcaseassistance_priority=='Urgente'"
+                    decoration-primary="callcaseassistance_priority=='Moderado'"
+                    widget="badge"
+                    name="callcaseassistance_priority" optional="show" />
                 <field name="created_by" optional="show" />
                 <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
                     decoration-primary="callcaseassistance_status=='Assistido'"

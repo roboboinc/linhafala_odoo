@@ -87,7 +87,9 @@
                         confirm="Tem certeza de que deseja assumir a gestão desta Assistência ? " />
                     <field name="callcaseassistance_status" widget="statusbar"
                         options="{'clickable': '1'}"
-                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" 
+                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
+                    />
                 </header>
                 <sheet>
                     <h1 class="my-3"> Formulário de Assistência LFC</h1>

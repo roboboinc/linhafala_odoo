@@ -20,7 +20,9 @@
                             groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
                             />
                         <field name="case_status" widget="statusbar" options="{'clickable': '1'}"
-                            statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
+                            statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" 
+                            groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
+                            />
                     </header>
 
                     <sheet>

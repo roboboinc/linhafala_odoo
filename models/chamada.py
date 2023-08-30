@@ -132,7 +132,7 @@ class Chamada(models.Model):
             {'category_status': 'Sem Interveção'})
 
     category_status = fields.Selection(
-        string='Categoria',
+        string='Estado da chamada',
         selection=[
             ("Sem Interveção Silencio", "Silencio"),
             ("Sem Interveção Desligado", "Desligado"),
@@ -141,6 +141,16 @@ class Chamada(models.Model):
         default="Com Interveção",
         help="Categoria",
     )
+
+    category_calls = fields.Selection(
+        string='Categoria',
+        selection=[
+            ("Contactante", "Contactante"),
+            ("Contactante+Vítima", "Contactante+Vítima"),
+        ],
+        help="Categoria",
+    )
+
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
     contact = fields.Char(string="Contacto", widget="phone_raw",

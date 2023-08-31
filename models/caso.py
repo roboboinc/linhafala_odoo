@@ -15,7 +15,7 @@ class Caso(models.Model):
     case_id = fields.Char(string="Id do caso", readonly=True)
 
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
-                                string="Person_involved")
+                                string="Pessoa Envolvida")
 
     @api.constrains('person_id')
     def _check_vitima_contactante(self):
@@ -140,8 +140,11 @@ class Caso(models.Model):
         ],
         help="Local de Ocorrência"
     )
-    detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'})
+    detailed_description = fields.One2many(
+        'linhafala.caso.description',
+        'case_id',
+        string='Detalhes'
+    )
     case_type = fields.Many2one(
         comodel_name='linhafala.caso.categoria', string="Categoria")
     secundary_case_type = fields.Many2one(
@@ -198,18 +201,16 @@ class Caso(models.Model):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         form_view_id = self.env.ref('linhafala_odoo.linhafala_cases_form_view')
         form_url = f"{base_url}/web?#id={self.id}&view_type=form&model=linhafala.caso&menu_id={form_view_id.id}"
-    
-        #mail_template = self.env.ref('linhafala_odoo.email_template_id')
-        #email_subject = "Link to Linhafala Caso Form"
-        #email_body = f"Here is the link to the form: {form_url}"
-        #mail_template.send_mail(self.id, email_values={'subject': email_subject, 'body_html': email_body})
-
+        form_url += '&no_redirect=1'
+        #whatsapp_number = input('Enter the WhatsApp contact number: ')
+        #form_url += f'&whatsapp={whatsapp_number}'
 
         return {
             'type': 'ir.actions.act_url',
             'url': form_url,
             'target': 'new',
         }
+
 
 
     @api.onchange('provincia')
@@ -539,3 +540,10 @@ class ForwardingInstitutions(models.Model):
     def _reference_area_onchange(self):
         for rec in self:
             return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
+        
+class Description(models.Model):
+    _name = 'linhafala.caso.description'
+    _description = 'Descrição Detalhada'
+
+    content = fields.Html(string='Conteudo Dos Detalhes', attrs={'style': 'height: 500px;'})
+    case_id = fields.Many2one('linhafala.caso', string='ID do caso')

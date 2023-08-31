@@ -86,7 +86,18 @@
                             <div class="col-md-6">
                                 <notebook>
                                     <page string="Detalhes" name="detailed_description_section">
-                                        <field name="detailed_description" />
+                                        <field name="detailed_description" widget="one2many">
+                                            <form>
+                                                <sheet>
+                                                    <group>
+                                                        <field name="content" widget="html" attrs="{'style': 'height: 500px;'}"/>
+                                                    </group>
+                                                </sheet>
+                                            </form>
+                                            <tree>
+                                                <field name="content" />
+                                            </tree>
+                                        </field>
                                     </page>
                                     <page string="Pessoas envolvidas" name="persons">
                                         <field name="person_id" widget="one2many">

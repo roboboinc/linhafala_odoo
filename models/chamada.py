@@ -116,7 +116,6 @@ class Chamada(models.Model):
             ("Membro da PRM", "Membro da PRM"),
             ("Lider relegioso", "Lider relegioso"),
             ("líder cumunitario", "líder cumunitario"),
-            ("Outros e Nenhuma relação", "Outros e Nenhuma relação"),
         ],
         help="Relação com a(s) vítima(s):"
     )

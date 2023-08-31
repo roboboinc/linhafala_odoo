@@ -36,6 +36,7 @@
                 decoration-primary="callcaseassistance_status=='Assistido'"
                 decoration-success="callcaseassistance_status=='Encerrado'"
                 decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+                <field name="assistance_id" optional="hide" />
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="show" />
                 <field name="provincia" optional="show" />
@@ -98,8 +99,8 @@
                     <h1 class="my-3"> Formulário de Assistência LFC</h1>
                     <h3>
                         <field class="text-break"
-                            name="call_id"
-                            placeholder="Número de chamada (auto)" />
+                            name="assistance_id"
+                            placeholder="Número de assistência (auto)" />
                     </h3>
                     <div class="row w-100">
                         <div class="col-md-3">

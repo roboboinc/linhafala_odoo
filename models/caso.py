@@ -239,8 +239,8 @@ class Caso(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('case_id', '/') == '/':
-            vals['case_id'] = self.env['ir.sequence'].next_by_code(
-                'linhafala.chamada.case_id.seq') or '/'
+            next_case_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.case_id.seq') or '/'
+            vals['case_id'] = next_case_id.split('-')[-1]  # Extract the numeric part after the last hyphen
         return super(Caso, self).create(vals)
 
     # Lock the case for single user edit
@@ -287,7 +287,6 @@ class Caso(models.Model):
         seq = self.env['ir.sequence'].create({
             'name': 'Linha Fala Cases ID Sequence',
             'code': 'linhafala.chamada.case_id.seq',
-            'prefix': 'LFC-CASO-',
             'padding': 4,
         })
         return super(Caso, self)._register_hook()

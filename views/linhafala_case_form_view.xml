@@ -147,14 +147,21 @@
                                                                     Bairro: </strong>
                                                                 <field name="bairro" />
                                                             </p>
-                                                            <p>
+                                                            <p >
                                                                 <strong>Gênero: </strong>
                                                                 <field name="gender" />
                                                             </p>
-                                                            <p>
+                                                            <p 
+                                                                attrs="{'invisible': [('person_type','==','Perpetrador')]}">
                                                                 <strong>Idade: </strong>
                                                                 <field name="age" />
                                                             </p>
+                                                            <p 
+                                                                attrs="{'invisible': [('person_type','!=','Perpetrador')]}">
+                                                                <strong>Idade do Perpetrador: </strong>
+                                                                <field name="perpetrator_age" />
+                                                            </p>
+                                                            
                                                             <p>
                                                                 <strong>Relação com a(s) vítima(s):</strong>
                                                                 <field name="victim_relationship" />

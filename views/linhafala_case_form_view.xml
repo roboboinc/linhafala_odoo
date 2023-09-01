@@ -92,6 +92,13 @@
                                                     <group>
                                                         <field name="content" widget="html" attrs="{'style': 'height: 500px;'}"/>
                                                     </group>
+                                                    <group>
+                                                        <p>
+                                                            <strong title="Campo Opcional">Criado Por: </strong>
+                                                            <field name="created_by"/>
+                                                        </p>
+                                                    </group>
+                                                    
                                                 </sheet>
                                             </form>
                                             <tree>

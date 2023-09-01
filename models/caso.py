@@ -545,5 +545,7 @@ class Description(models.Model):
     _name = 'linhafala.caso.description'
     _description = 'Descrição Detalhada'
 
+    created_by = fields.Many2one(
+        'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     content = fields.Html(string='Conteudo Dos Detalhes', attrs={'style': 'height: 500px;'})
     case_id = fields.Many2one('linhafala.caso', string='ID do caso')

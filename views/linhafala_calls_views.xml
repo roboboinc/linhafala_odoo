@@ -152,7 +152,7 @@
                                 <field name="contact_type" />
                             </p>
                             <p>
-                                <strong>Lingua/Dialeto *: </strong>
+                                <strong>* Lingua/Dialeto: </strong>
                                 <field name="caller_language" />
                             </p>
                             <p>
@@ -173,7 +173,7 @@
                                 <field name="nr_identication" />
                             </p>
                             <p>
-                                <strong>Provincia *: </strong>
+                                <strong>* Provincia: </strong>
                                 <field name="provincia" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
@@ -181,7 +181,7 @@
                                 <field name="bairro" />
                             </p>
                             <p title="Campo Opcional">
-                                <strong>Como Conhece a LFC *: </strong>
+                                <strong>* Como Conhece a LFC: </strong>
                                 <field name="how_knows_lfc" />
                             </p>
                         </div>
@@ -205,7 +205,7 @@
                                 <field name="id_number" />
                             </p>
                             <p>
-                                <strong>Distrito *: </strong>
+                                <strong>* Distrito: </strong>
                                 <field name="distrito" />
                             </p>
                             <p>
@@ -328,7 +328,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <p>
-                                        <strong>Tem algum tipo de dificiência? *: </strong>
+                                        <strong>* Tem algum impedimento/dificuldade?: </strong>
                                         <field name="are_you_disabled" />
                                     </p>
                                     <p>

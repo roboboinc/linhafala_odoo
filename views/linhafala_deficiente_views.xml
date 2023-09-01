@@ -49,7 +49,7 @@
 
 
     <record id="linhafala_deficiente_action" model="ir.actions.act_window">
-        <field name="name">Deficiente</field>
+        <field name="name">Deficiência</field>
         <field name="res_model">linhafala.deficiente</field>
         <field name="view_mode">tree,kanban,form</field>
         <field name="help" type="html">

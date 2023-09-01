@@ -103,6 +103,7 @@
                 <field name="caller_language" optional="show" />
                 <field name="victim_relationship" optional="show" />
                 <field name="type_of_intervention" optional="show" />
+                <field name="category_calls" optional="hide" />
             </tree>
         </field>
     </record>
@@ -154,6 +155,10 @@
                                 <strong>Lingua/Dialeto *: </strong>
                                 <field name="caller_language" />
                             </p>
+                            <p>
+                                <strong>Categoria: </strong>
+                                <field name="category_calls" />
+                            </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong title="Campo Opcional">Contacto Alterativo: </strong>
                                 <field name="alternate_contact" />
@@ -190,7 +195,8 @@
                                 <strong>Contacto: </strong>
                                 <field name="contact" />
                             </p>
-                            <p title="Campo Opcional">
+                            <p title="Campo Opcional"
+                                attrs="{'invisible': [('category_calls','!=','Contactante')]}">
                                 <strong>Relação com a Vítima: </strong>
                                 <field name="victim_relationship" />
                             </p>

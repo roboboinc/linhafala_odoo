@@ -20,7 +20,9 @@
                             groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
                             />
                         <field name="case_status" widget="statusbar" options="{'clickable': '1'}"
-                            statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" />
+                            statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, No Arquivo Morto, Encerrado" 
+                            groups="base.group_no_one,linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador,linhafala_odoo.group_linhafala_gestor_externo"
+                        />
                     </header>
 
                     <sheet>
@@ -84,7 +86,18 @@
                             <div class="col-md-6">
                                 <notebook>
                                     <page string="Detalhes" name="detailed_description_section">
-                                        <field name="detailed_description" />
+                                        <field name="detailed_description" widget="one2many">
+                                            <form>
+                                                <sheet>
+                                                    <group>
+                                                        <field name="content" widget="html" attrs="{'style': 'height: 500px;'}"/>
+                                                    </group>
+                                                </sheet>
+                                            </form>
+                                            <tree>
+                                                <field name="content" />
+                                            </tree>
+                                        </field>
                                     </page>
                                     <page string="Pessoas envolvidas" name="persons">
                                         <field name="person_id" widget="one2many">
@@ -145,14 +158,29 @@
                                                                     Bairro: </strong>
                                                                 <field name="bairro" />
                                                             </p>
+
                                                             <p>
                                                                 <strong>Gênero *: </strong>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p>
                                                                 <strong>Idade *: </strong>
+                                                            <p >
+                                                                <strong>Gênero: </strong>
+                                                                <field name="gender" />
+                                                            </p>
+                                                            <p 
+                                                                attrs="{'invisible': [('person_type','==','Perpetrador')]}">
+                                                                <strong>Idade: </strong>
+
                                                                 <field name="age" />
                                                             </p>
+                                                            <p 
+                                                                attrs="{'invisible': [('person_type','!=','Perpetrador')]}">
+                                                                <strong>Idade do Perpetrador: </strong>
+                                                                <field name="perpetrator_age" />
+                                                            </p>
+                                                            
                                                             <p>
                                                                 <strong>Relação com a(s) vítima(s):</strong>
                                                                 <field name="victim_relationship" />

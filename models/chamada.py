@@ -131,7 +131,7 @@ class Chamada(models.Model):
             {'category_status': 'Sem Interveção'})
 
     category_status = fields.Selection(
-        string='Categoria',
+        string='Estado da chamada',
         selection=[
             ("Sem Interveção Silencio", "Silencio"),
             ("Sem Interveção Desligado", "Desligado"),
@@ -140,6 +140,16 @@ class Chamada(models.Model):
         default="Com Interveção",
         help="Categoria",
     )
+
+    category_calls = fields.Selection(
+        string='Categoria',
+        selection=[
+            ("Contactante", "Contactante"),
+            ("Contactante+Vítima", "Contactante+Vítima"),
+        ],
+        help="Categoria",
+    )
+
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
     contact = fields.Char(string="Contacto", widget="phone_raw",
@@ -273,8 +283,8 @@ class Chamada(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('call_id', '/') == '/':
-            vals['call_id'] = self.env['ir.sequence'].next_by_code(
-                'linhafala.chamada.call_id.seq') or '/'
+            next_call_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.call_id.seq') or '/'
+            vals['call_id'] = next_call_id.split('-')[-1]
         return super(Chamada, self).create(vals)
 
     @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description','are_you_disabled','category_status')
@@ -353,7 +363,6 @@ class Chamada(models.Model):
         seq = self.env['ir.sequence'].create({
             'name': 'Linha Fala Chamadas Call ID Sequence',
             'code': 'linhafala.chamada.call_id.seq',
-            'prefix': 'LFC-',
             'padding': 4,
         })
         return super(Chamada, self)._register_hook()
@@ -513,8 +522,8 @@ class CallCaseAssistance(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('assistance_id', '/') == '/':
-            vals['assistance_id'] = self.env['ir.sequence'].next_by_code(
-                'linhafala.chamada.assistance_id.seq') or '/'
+            next_assistance_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
+            vals['assistance_id'] = next_assistance_id.split('-')[-1]
         return super(CallCaseAssistance, self).create(vals)
 
     @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description')
@@ -567,7 +576,6 @@ class CallCaseAssistance(models.Model):
         seq = self.env['ir.sequence'].create({
             'name': 'Linha Fala Chamadas Assistance ID Sequence',
             'code': 'linhafala.chamada.assistance_id.seq',
-            'prefix': 'LFC-Assist-',
             'padding': 4,
         })
         return super(CallCaseAssistance, self)._register_hook()

@@ -60,7 +60,7 @@
 
     <menuitem
         id="linhafala_deficiente_menu_action"
-        name="Deficiente"
+        name="Deficiência"
         action="linhafala_deficiente_action"
         parent="linhafala_menu_root"
         sequence="8" />

@@ -103,7 +103,7 @@
                                 <field name="fullname" />
                             </p>
                             <p>
-                                <strong>Província: </strong>
+                                <strong>Província *: </strong>
                                 <field name="provincia" />
                             </p>
                             <p title="Campo Opcional">
@@ -112,11 +112,11 @@
                             </p>
                             <p>
                                 <strong>
-                                    Categoria: </strong>
+                                    Categoria *: </strong>
                                 <field name="category" />
                             </p>
                             <p>
-                                <strong>Periodo de Resolução: </strong>
+                                <strong>Periodo de Resolução *: </strong>
                                 <field name="callcaseassistance_priority" />
                             </p>
                             <p>
@@ -130,7 +130,7 @@
                                 <field name="contact" />
                             </p>
                             <p>
-                                <strong>Distrito: </strong>
+                                <strong>Distrito *: </strong>
                                 <field
                                     name="distrito" />
                             </p>
@@ -146,7 +146,7 @@
                                 />
                             </p>
                             <p>
-                                <strong>Sub Categoria: </strong>
+                                <strong>Sub Categoria *: </strong>
                                 <field name="subcategory" />
                             </p>
                             <p>

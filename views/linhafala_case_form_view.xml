@@ -150,8 +150,7 @@
                                                             <p>
                                                                 <strong>
                                                                     Distrito: </strong>
-                                                                <field name="distrito"
-                                                                />
+                                                                <field name="distrito"/>
                                                             </p>
                                                             <p>
                                                                 <strong>
@@ -161,12 +160,6 @@
 
                                                             <p>
                                                                 <strong>Gênero *: </strong>
-                                                                <field name="gender" />
-                                                            </p>
-                                                            <p>
-                                                                <strong>Idade *: </strong>
-                                                            <p >
-                                                                <strong>Gênero: </strong>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p 

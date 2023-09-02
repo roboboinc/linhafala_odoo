@@ -172,6 +172,7 @@
                                                             </p>
                                                             <p>
                                                                 <strong>Idade *: </strong>
+                                                            </p>
                                                             <p >
                                                                 <strong>Gênero: </strong>
                                                                 <field name="gender" />

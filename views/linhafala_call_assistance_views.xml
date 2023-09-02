@@ -36,6 +36,7 @@
                 decoration-primary="callcaseassistance_status=='Assistido'"
                 decoration-success="callcaseassistance_status=='Encerrado'"
                 decoration-warning="callcaseassistance_status=='Aberto/Pendente'">
+                <field name="assistance_id" optional="hide" />
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="show" />
                 <field name="provincia" optional="show" />
@@ -47,6 +48,11 @@
                 <field name="subcategory" optional="show" />
                 <field name="created_at" optional="hide" />
                 <field name="manager_by" optional="show" />
+                <field decoration-danger="callcaseassistance_priority=='Muito Urgente'"
+                    decoration-warning="callcaseassistance_priority=='Urgente'"
+                    decoration-primary="callcaseassistance_priority=='Moderado'"
+                    widget="badge"
+                    name="callcaseassistance_priority" optional="show" />
                 <field name="created_by" optional="show" />
                 <field decoration-info="callcaseassistance_status=='Dentro do sistema'"
                     decoration-primary="callcaseassistance_status=='Assistido'"
@@ -87,14 +93,16 @@
                         confirm="Tem certeza de que deseja assumir a gestão desta Assistência ? " />
                     <field name="callcaseassistance_status" widget="statusbar"
                         options="{'clickable': '1'}"
-                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" />
+                        statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" 
+                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
+                    />
                 </header>
                 <sheet>
                     <h1 class="my-3"> Formulário de Assistência LFC</h1>
                     <h3>
                         <field class="text-break"
-                            name="call_id"
-                            placeholder="Número de chamada (auto)" />
+                            name="assistance_id"
+                            placeholder="Número de assistência (auto)" />
                     </h3>
                     <div class="row w-100">
                         <div class="col-md-3">
@@ -103,7 +111,7 @@
                                 <field name="fullname" />
                             </p>
                             <p>
-                                <strong>Província: </strong>
+                                <strong>Província *: </strong>
                                 <field name="provincia" />
                             </p>
                             <p title="Campo Opcional">
@@ -112,11 +120,11 @@
                             </p>
                             <p>
                                 <strong>
-                                    Categoria: </strong>
+                                    Categoria *: </strong>
                                 <field name="category" />
                             </p>
                             <p>
-                                <strong>Periodo de Resolução: </strong>
+                                <strong>Periodo de Resolução *: </strong>
                                 <field name="callcaseassistance_priority" />
                             </p>
                             <p>
@@ -130,7 +138,7 @@
                                 <field name="contact" />
                             </p>
                             <p>
-                                <strong>Distrito: </strong>
+                                <strong>Distrito *: </strong>
                                 <field
                                     name="distrito" />
                             </p>
@@ -146,7 +154,7 @@
                                 />
                             </p>
                             <p>
-                                <strong>Sub Categoria: </strong>
+                                <strong>Sub Categoria *: </strong>
                                 <field name="subcategory" />
                             </p>
                             <p>

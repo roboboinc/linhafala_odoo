@@ -20,7 +20,7 @@ class PersonInvolved(models.Model):
     email = fields.Char(string="Endereço Eletronico")
 
     id_number = fields.Selection(
-        string='Tipo de Identificação',
+        string='Tipo de Identificação', 
         selection=[
             ("BI", "BI"),
             ("NUIT", "NUIT"),
@@ -44,14 +44,16 @@ class PersonInvolved(models.Model):
     person_type = fields.Selection(
         string='Categoria',
         selection=[
-            ("Contactante", "Contactante"),
             ("Contactante+Vítima", "Contactante+Vítima"),
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
         ],
         required=True,
-        help="Categoria"
+        help="Categoria",
     )
+
+    perpetrator_age = fields.Selection([(str(i), str(i)) for i in range(16, 65)] + [('65+', '65+')],
+                           string='Idade do perpetrador')
 
     created_at = fields.Datetime(
         string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
@@ -122,7 +124,7 @@ class PersonInvolved(models.Model):
     )
     what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(1, 25)] + [('25+', '25+')],
-                           string='Idade')
+                           string='Idade')                        
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],

@@ -140,13 +140,12 @@
                     <br />
                     <br />
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
-                    <t t-foreach="docs" t-as="doc">
-
-                        <t
-                            t-esc="doc.detailed_description" />
-                        <br />
-
+                    <t t-foreach="doc.detailed_description" t-as="line">
+                        <p><t t-out="line.content" /></p>
+                        <p><strong>Criapo Por:</strong><t t-out="line.created_by.name" /></p>
+                        <hr/>
                     </t>
+                    <br/>
                     <h4>Classificaçäo Provisória</h4>
                     <t t-foreach="docs" t-as="doc">
                         <t

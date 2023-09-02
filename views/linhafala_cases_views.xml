@@ -20,6 +20,7 @@
                                     <li> Periodo de Resolução: <field name="case_priority" /></li>
                                     <li> Local de Ocorrência: <field name="place_occurrence" /></li>
                                     <li> Criado Por: <field name="created_by" /></li>
+                                    <li> Detalhes: <field name="detailed_description"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -83,6 +84,7 @@
                 decoration-warning="case_status=='Aberto/Pendente'">
                 <field name="case_id" optional="show" />
                 <field name="call_id" optional="hide" />
+                <field name="detailed_description" optional="hide"/>
                 <field name="resolution_type" optional="hide" />
                 <field name="manager_by" optional="show" />
                 <field name="case_type" optional="hide" />

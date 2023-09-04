@@ -37,15 +37,15 @@
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
                                 <p>
-                                    <strong>Categoria do Caso *: </strong>
+                                    <strong>* Categoria do Caso: </strong>
                                     <field name="case_type" />
                                 </p>
                                 <p>
-                                    <strong>Sub Categoria do Caso *: </strong>
+                                    <strong>* Sub Categoria do Caso: </strong>
                                     <field name="secundary_case_type" />
                                 </p>
                                 <p>
-                                    <strong title="Campo Opcional">Classificação Provisoria *: </strong>
+                                    <strong title="Campo Opcional">* Classificação Provisoria: </strong>
                                     <field name="case_type_classification" />
                                 </p>
                                 <p>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-3 mt-2">
                                 <p>
-                                    <strong title="Campo Opcional">Local de Ocorrência do incidente *: </strong>
+                                    <strong title="Campo Opcional">* Local de Ocorrência do incidente: </strong>
                                     <field name="place_occurrence" />
                                 </p>
                                 <p>
@@ -127,7 +127,7 @@
                                                                 <field name="contact" />
                                                             </p>
                                                             <p>
-                                                                <strong>Categoria dos envolvidos *: </strong>
+                                                                <strong>* Categoria dos envolvidos: </strong>
                                                                 <field
                                                                     name="person_type" />
                                                             </p>
@@ -167,20 +167,12 @@
                                                             </p>
 
                                                             <p>
-                                                                <strong>Gênero *: </strong>
-                                                                <field name="gender" />
-                                                            </p>
-                                                            <p>
-                                                                <strong>Idade *: </strong>
-                                                            </p>
-                                                            <p >
-                                                                <strong>Gênero: </strong>
+                                                                <strong>* Gênero: </strong>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p 
                                                                 attrs="{'invisible': [('person_type','==','Perpetrador')]}">
-                                                                <strong>Idade: </strong>
-
+                                                                <strong>* Idade: </strong>
                                                                 <field name="age" />
                                                             </p>
                                                             <p 

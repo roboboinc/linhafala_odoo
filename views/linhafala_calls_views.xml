@@ -336,7 +336,7 @@
                                         <field name="call_start" />
                                     </p>
                                     <p>
-                                        <strong>Hora de fim da chamada *: </strong>
+                                        <strong>* Hora de fim da chamada: </strong>
                                         <field name="call_end" />
                                     </p>
                                 </div>

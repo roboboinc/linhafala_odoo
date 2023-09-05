@@ -112,17 +112,12 @@
                                                 <sheet>
                                                     <div class="row w-100">
                                                         <div class="col-md-6">
+                                                           
                                                             <p>
-                                                                <strong>Consentimento Informado: </strong>
-                                                                <field name="wants_to_be_annonymous" />
-                                                            </p>
-                                                            <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                                                 <strong>Nome Completo: </strong>
                                                                 <field name="fullname" />
                                                             </p>
-                                                            <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
+                                                            <p>
                                                                 <strong>Contacto: </strong>
                                                                 <field name="contact" />
                                                             </p>
@@ -131,8 +126,7 @@
                                                                 <field
                                                                     name="person_type" />
                                                             </p>
-                                                            <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
+                                                            <p>
                                                                 <strong>Tipo
                                                                     de Identificação: </strong>
                                                                 <field
@@ -147,13 +141,14 @@
                                                                 <strong>Com quem vive?</strong>
                                                                 <field name="living_relatives" />
                                                             </p>
-                                                        </div>
-                                                        <div class="col-md-6">
                                                             <p>
                                                                 <strong>
                                                                     Província: </strong>
                                                                 <field name="provincia" />
                                                             </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            
                                                             <p>
                                                                 <strong>
                                                                     Distrito: </strong>

@@ -244,6 +244,19 @@ class Chamada(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     case_line_ids = fields.One2many('linhafala.caso', 'call_id',
                                     string="Linhas de Casos")
+    
+    def _onchange_type_of_intervention(self):
+        if self.type_of_intervention == 'Caso':
+            self.case_line_ids = [(0, 0, {})]  # Create an empty record
+        else:
+            self.case_line_ids = [(5, 0, 0)]  # Remove all records
+
+    @api.constrains('type_of_intervention')
+    def _check_type_of_intervention(self):
+        for record in self:
+            if record.type_of_intervention == 'Caso' and not record.case_line_ids:
+                raise ValidationError("Caso(s) Relacionados.")
+
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
 

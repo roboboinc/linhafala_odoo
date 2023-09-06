@@ -37,15 +37,15 @@
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
                                 <p>
-                                    <strong>Categoria do Caso *: </strong>
+                                    <strong>* Categoria do Caso: </strong>
                                     <field name="case_type" />
                                 </p>
                                 <p>
-                                    <strong>Sub Categoria do Caso *: </strong>
+                                    <strong>* Sub Categoria do Caso: </strong>
                                     <field name="secundary_case_type" />
                                 </p>
                                 <p>
-                                    <strong title="Campo Opcional">Classificação Provisoria *: </strong>
+                                    <strong title="Campo Opcional">* Classificação Provisoria: </strong>
                                     <field name="case_type_classification" />
                                 </p>
                                 <p>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-3 mt-2">
                                 <p>
-                                    <strong title="Campo Opcional">Local de Ocorrência do incidente *: </strong>
+                                    <strong title="Campo Opcional">* Local de Ocorrência do incidente: </strong>
                                     <field name="place_occurrence" />
                                 </p>
                                 <p>
@@ -112,27 +112,21 @@
                                                 <sheet>
                                                     <div class="row w-100">
                                                         <div class="col-md-6">
+                                                           
                                                             <p>
-                                                                <strong>Consentimento Informado: </strong>
-                                                                <field name="wants_to_be_annonymous" />
-                                                            </p>
-                                                            <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                                                 <strong>Nome Completo: </strong>
                                                                 <field name="fullname" />
                                                             </p>
-                                                            <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
+                                                            <p>
                                                                 <strong>Contacto: </strong>
                                                                 <field name="contact" />
                                                             </p>
                                                             <p>
-                                                                <strong>Categoria dos envolvidos *: </strong>
+                                                                <strong>* Categoria dos envolvidos: </strong>
                                                                 <field
                                                                     name="person_type" />
                                                             </p>
-                                                            <p
-                                                                attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
+                                                            <p>
                                                                 <strong>Tipo
                                                                     de Identificação: </strong>
                                                                 <field
@@ -147,13 +141,14 @@
                                                                 <strong>Com quem vive?</strong>
                                                                 <field name="living_relatives" />
                                                             </p>
-                                                        </div>
-                                                        <div class="col-md-6">
                                                             <p>
                                                                 <strong>
                                                                     Província: </strong>
                                                                 <field name="provincia" />
                                                             </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            
                                                             <p>
                                                                 <strong>
                                                                     Distrito: </strong>
@@ -167,20 +162,12 @@
                                                             </p>
 
                                                             <p>
-                                                                <strong>Gênero *: </strong>
-                                                                <field name="gender" />
-                                                            </p>
-                                                            <p>
-                                                                <strong>Idade *: </strong>
-                                                            </p>
-                                                            <p >
-                                                                <strong>Gênero: </strong>
+                                                                <strong>* Gênero: </strong>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p 
                                                                 attrs="{'invisible': [('person_type','==','Perpetrador')]}">
-                                                                <strong>Idade: </strong>
-
+                                                                <strong>* Idade: </strong>
                                                                 <field name="age" />
                                                             </p>
                                                             <p 

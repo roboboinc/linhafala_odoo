@@ -130,7 +130,7 @@
         <field name="priority">1000</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <form string="Graph" create="false">
+            <form string="Graph">
                 <header>
                     <field name="category_status" widget="statusbar"
                         options="{'clickable': '1'}"
@@ -152,11 +152,11 @@
                                 <field name="contact_type" />
                             </p>
                             <p>
-                                <strong>* Lingua/Dialeto: </strong>
+                                <strong style="color: red;">* Lingua/Dialeto: </strong>
                                 <field name="caller_language" />
                             </p>
                             <p>
-                                <strong>Categoria: </strong>
+                                <strong style="color: red;">* Categoria: </strong>
                                 <field name="category_calls" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
@@ -173,17 +173,15 @@
                                 <field name="nr_identication" />
                             </p>
                             <p>
-                                <strong>* Provincia: </strong>
+                                <strong style="color: red;">* Provincia: </strong>
                                 <field name="provincia" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
-                                <strong>Bairro: </strong>
-                                <field name="bairro" />
+
+                            <p>
+                                <strong style="color: red;">* Distrito: </strong>
+                                <field name="distrito" />
                             </p>
-                            <p title="Campo Opcional">
-                                <strong>* Como Conhece a LFC: </strong>
-                                <field name="how_knows_lfc" />
-                            </p>
+                            
                         </div>
                         <div class="col-md-3 mt-1">
                             <p>
@@ -204,26 +202,32 @@
                                 <strong>Tipo de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
-                            <p>
-                                <strong>* Distrito: </strong>
-                                <field name="distrito" />
+
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
+                                <strong>Bairro: </strong>
+                                <field name="bairro" />
                             </p>
+                            
                             <p>
-                                <strong>Gênero: </strong>
+                                <strong style="color: red;">* Género: </strong>
                                 <field name="gender" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
-                                <strong>Idade: </strong>
+                            <p>
+                                <strong style="color: red;">* Idade: </strong>
                                 <field name="age" />
                             </p>
                             <p>
-                                <strong>Frequênta a Escola?: </strong>
+                                <strong style="color: red;">* Frequenta a Escola?: </strong>
                                 <field name="on_school" />
+                            </p>
+                            <p>
+                                <strong style="color: red;">* Como Conhece a LFC: </strong>
+                                <field name="how_knows_lfc" />
                             </p>
                         </div>
                         <div class="col-md-6">
                             <notebook class="mb-3">
-                                <page string="Detalhes" name="detailed_description_section">
+                                <page string="* Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
                                 <page attrs="{'invisible': [('are_you_disabled','!=','Sim')]}"
@@ -322,13 +326,13 @@
                                         <field name="school" />
                                     </p>
                                     <p>
-                                        <strong>Tipo de intervenção / Motivo: </strong>
+                                        <strong style="color: red;">* Tipo de intervenção / Motivo: </strong>
                                         <field name="type_of_intervention" />
                                     </p>
                                 </div>
                                 <div class="col-md-6">
                                     <p>
-                                        <strong>* Tem algum impedimento/dificuldade?: </strong>
+                                        <strong style="color: red;">* Tem algum tipo de impedimento/dificuldade?: </strong>
                                         <field name="are_you_disabled" />
                                     </p>
                                     <p>
@@ -336,7 +340,7 @@
                                         <field name="call_start" />
                                     </p>
                                     <p>
-                                        <strong>* Hora de fim da chamada: </strong>
+                                        <strong style="color: red;">* Hora de fim da chamada: </strong>
                                         <field name="call_end" />
                                     </p>
                                 </div>

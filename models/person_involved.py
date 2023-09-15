@@ -41,9 +41,21 @@ class PersonInvolved(models.Model):
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
         ],
-        required=True,
         help="Categoria",
     )
+
+    show_confirmation_message = fields.Boolean(
+        string="PRETENDE GRAVAR ESTE CASO SEM PERPETRADOR? Se Escolher SIM tem outra pergunta que diz TEM CERTEZA QUE PRETENDE GUARDAR ESTE CASO SEM PERPETRADOR? ",
+        compute='_compute_show_confirmation_message'
+    )
+
+    @api.depends('person_type')
+    def _compute_show_confirmation_message(self):
+        for record in self:
+            if record.person_type != 'Perpetrador':
+                record.show_confirmation_message = True
+            else:
+                record.show_confirmation_message = False
 
     perpetrator_age = fields.Selection([(str(i), str(i)) for i in range(16, 65)] + [('65+', '65+')],
                            string='Idade do perpetrador')

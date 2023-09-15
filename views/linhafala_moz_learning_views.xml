@@ -116,7 +116,7 @@
                                 <field name="birthd_date" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
-                                <strong>Gênero: </strong>
+                                <strong>Género: </strong>
                                 <field name="gender" />
                             </p>
                             <p attrs="{'invisible': [('wants_to_be_annonymous','=',False)]}">
@@ -285,7 +285,7 @@
                                                             <field name="fullname" />
                                                         </p>
                                                         <p>
-                                                            <strong>Gênero: </strong>
+                                                            <strong>Género: </strong>
                                                             <field name="gender" />
                                                         </p>
                                                         <p>

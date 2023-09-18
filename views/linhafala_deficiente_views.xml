@@ -65,12 +65,12 @@
         <field name="priority">1000</field>
         <field name="arch" type="xml">
             <form>
-                <header>
+                <!--<header>
                     <field name="deficiency_status" widget="statusbar" options="{'clickable': '1'}"
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado"
                         groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
                     />
-                </header>
+                </header>-->
                 <sheet>
                     <h1> Formulário de Deficiência LFC </h1>
                     <h3>
@@ -79,73 +79,88 @@
                             placeholder="Número de chamada (auto)" />
                     </h3>
                     <div class="row w-100">
-
-                        <div class="row w-100">
-                            <div class="col-md-4 my-5">
-                                <h3>Necessidades Especiais: </h3>
+                        <div class="container">
+                            <div class="row w-100">
+                                <div class="col-md-4 my-5">
+                                    <h3>Necessidades Especiais</h3>
+                                </div>
                             </div>
-                            <div class="col-md-8 my-5">
-                                <div class="d-flex">
-                                    <p>
-                                        <strong>Visão: </strong>
-                                        <field name="vision_type" />
-                                    </p>
-                                    <p>
-                                        <strong>Audição: </strong>
-                                        <field name="hearing_type" />
-                                    </p>
-                                    <p>
-                                        <strong>Mobilidade: </strong>
-                                        <field name="mobility_type" />
-                                    </p>
-                                    <p>
-                                        <strong>Cognição: </strong>
-                                        <field name="cognition_type" />
-                                    </p>
-                                    <p>
-                                        <strong>Comunicação: </strong>
-                                        <field name="comunication_type" />
-                                    </p>
-                                    <p>
-                                        <strong>Cuidados Autónomos: </strong>
-                                        <field name="autonomous_care_type" />
-                                    </p>
+                            <div class="row">
+                                <div class="col-md-8 mt-0 my-5">
+                                    <div class="d-flex">
+                                        <p> 
+                                            <strong>Visão: </strong>
+                                            <field name="vision_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Audição: </strong>
+                                            <field name="hearing_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Mobilidade: </strong>
+                                            <field name="mobility_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Cognição: </strong>
+                                            <field name="cognition_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Comunicação: </strong>
+                                            <field name="comunication_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Cuidados Autónomos: </strong>
+                                            <field name="autonomous_care_type" />
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 mt-6">
                             <p attrs="{'invisible': [('vision_type','=',False)]}">
-                                <strong>Visão: </strong>
+                                <strong>Pergunta:</strong> [O(a) inquirido(a)/ele/ela] tem dificuldade em ver, [mesmo quando usa os seus óculos]? Diria que:
+                                <br/>
+                                <!--<strong>Visão: </strong>-->
                                 <field name="vision" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
                             <p attrs="{'invisible': [('hearing_type','=',False)]}">
-                                <strong>Audição: </strong>
+                                <strong>Pergunta:</strong> [O(a) inquirido(a)/ele/ela] tem dificuldade em ouvir, [mesmo quando usa aparelho(s) auditivo(s)]? Diria que:
+                                <br/>
+                                <!--<strong>Audição: </strong>-->
                                 <field name="hearing" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
                             <p attrs="{'invisible': [('mobility_type','=',False)]}">
-                                <strong>Mobilidade: </strong>
+                                <strong>Pergunta:</strong> [O(a) inquirido(a)/ele/ela] tem dificuldade em caminhar ou subir escadas? Diria que:
+                                <br/>
+                                <!--<strong>Mobilidade: </strong>-->
                                 <field name="mobility" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
                             <p attrs="{'invisible': [('cognition_type','=',False)]}">
-                                <strong>Cognição: </strong>
+                                <strong>Pergunta:</strong> [O(a) inquirido(a)/ele/ela] tem dificuldade em lembrar-se ou concentrar-se? Diria que:
+                                <br/>
+                                <!--<strong>Cognição: </strong>-->
                                 <field name="cognition" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
                             <p attrs="{'invisible': [('comunication_type','=',False)]}">
-                                <strong>Comunicação: </strong>
+                                <strong>Pergunta:</strong> Utilizando a sua linguagem habitual, [o(a) inquirido(a)/ele/ela] tem dificuldade em comunicar, por exemplo, compreender ou ser compreendido? Diria que:
+                                <br/>
+                                <!--<strong>Comunicação: </strong>-->
                                 <field name="comunication" />
                             </p>
                         </div>
                         <div class="col-md-6 mt-6">
                             <p attrs="{'invisible': [('autonomous_care_type','=',False)]}">
-                                <strong>Cuidados Autónomos: </strong>
+                                <strong>Pergunta:</strong> [O(a) inquirido(a)/ele/ela] tem dificuldades em cuidar de si próprio(a), como lavar o corpo inteiro ou vestir-se? Diria que:
+                                <br/>
+                                <!--<strong>Cuidados Autónomos: </strong>-->
                                 <field name="autonomous_care" />
                             </p>
                         </div>

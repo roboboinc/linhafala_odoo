@@ -34,7 +34,7 @@ class Deficiente(models.Model):
     )
 
     vision = fields.Selection(
-        string='Tem dificuldade em ver,[mesmo quando usa os seus oculos]? Diria que',
+        string='[O(a) inquirido(a)/ele/ela] tem dificuldade em ver, [mesmo quando usa os seus óculos]? Diria que',
         selection=[
             ("Não tem/tenho dificuldade", "Não tem/tenho dificuldade"),
             ("Tem/tenho alguma dificuldade", "Tem/tenho alguma dificuldade"),
@@ -46,7 +46,7 @@ class Deficiente(models.Model):
     )
 
     hearing = fields.Selection(
-        string='Tem dificuldade em ouvir,[mesmo quando usa aparelho(s) auditivo(s)]? Diria que',
+        string='[O(a) inquirido(a)/ele/ela] tem dificuldade em ouvir, [mesmo quando usa aparelho(s) auditivo(s)]? Diria que',
         selection=[
             ("Não tem/tenho dificuldade", "Não tem/tenho dificuldade"),
             ("Tem/tenho alguma dificuldade", "Tem/tenho alguma dificuldade"),
@@ -58,7 +58,7 @@ class Deficiente(models.Model):
     )
 
     mobility = fields.Selection(
-        string='Tem dificuldade em caminhar ou subir escadas? Diria que',
+        string='[O(a) inquirido(a)/ele/ela] tem dificuldade em caminhar ou subir escadas? Diria que',
         selection=[
             ("Não tem/tenho dificuldade", "Não tem/tenho dificuldade"),
             ("Tem/tenho alguma dificuldade", "Tem/tenho alguma dificuldade"),
@@ -70,7 +70,7 @@ class Deficiente(models.Model):
     )
 
     cognition = fields.Selection(
-        string='Tem dificuldade em lembrar-se ou concentrar-se? Diria que',
+        string='[O(a) inquirido(a)/ele/ela] tem dificuldade em lembrar-se ou concentrar-se? Diria que',
         selection=[
             ("Não tem/tenho dificuldade", "Não tem/tenho dificuldade"),
             ("Tem/tenho alguma dificuldade", "Tem/tenho alguma dificuldade"),
@@ -82,7 +82,7 @@ class Deficiente(models.Model):
     )
 
     autonomous_care = fields.Selection(
-        string='Tem dificuldades em cuidar de si proprio(a), como lavar o corpo inteiro ou vestir-se? Diria que',
+        string='[O(a) inquirido(a)/ele/ela] tem dificuldades em cuidar de si próprio(a), como lavar o corpo inteiro ou vestir-se? Diria que',
         selection=[
             ("Não tem/tenho dificuldade", "Não tem/tenho dificuldade"),
             ("Tem/tenho alguma dificuldade", "Tem/tenho alguma dificuldade"),

@@ -41,7 +41,6 @@ class PersonInvolved(models.Model):
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
         ],
-        required=True,
         help="Categoria",
     )
 

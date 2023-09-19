@@ -1,66 +1,66 @@
 id,name,categoria_id
-linhafala.caso.case_type_classification_1,Assedio sexual,Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_2,atentado ao pudor,Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_3,Lenocinio,Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_4,corrupcao de menores ,Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_5,gravidez precoce ( actos sexuais com criacas ),Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_6,violacao sexual ( outros actos sexuais com criacas ),Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_7,violacao sexual (trato sexuais com menor de 12 anos ),Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_8,utilizacao de menor em pornografia ,Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_9,Assedio sexual na escola,Crimes contra liberdade sexual
-linhafala.caso.case_type_classification_10,Exposicao de menor a pornografia ,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_1,Assédio sexual,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_2,tentado ao pudor,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_3,Lenocínio,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_4,corrupção de menores ,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_5,gravidez precoce ( actos sexuais com crianças ),Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_6,violação sexual ( outros actos sexuais com crianças ),Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_7,violação sexual (trato sexuais com menor de 12 anos ),Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_8,utilização de menor em pornografia ,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_9,Assédio sexual na escola,Crimes contra liberdade sexual
+linhafala.caso.case_type_classification_10,Exposição de menor a pornografia ,Crimes contra liberdade sexual
 linhafala.caso.case_type_classification_11,abandono de incapaz,outros tipos de crimes
 linhafala.caso.case_type_classification_12,infanticidio,outros tipos de crimes
-linhafala.caso.case_type_classification_13,menor em conflito com a lei(consumo de grogas e alcool) ,outros tipos de crimes
-linhafala.caso.case_type_classification_14,menor em conflito com a lei(furto e robo),outros tipos de crimes
+linhafala.caso.case_type_classification_13,menor em conflito com a lei(consumo de drogas e alcool) ,outros tipos de crimes
+linhafala.caso.case_type_classification_14,menor em conflito com a lei(furto e roubo),outros tipos de crimes
 linhafala.caso.case_type_classification_15,Desleixo com menor,outros tipos de crimes
-linhafala.caso.case_type_classification_16,menor em conflito com a lei(subtracao violenta/Fraudulenta de menor de 12 anos),outros tipos de crimes
-linhafala.caso.case_type_classification_17,sinalizacao de trafico,outros tipos de crimes
+linhafala.caso.case_type_classification_16,menor em conflito com a lei(subtração violenta/Fraudulenta de menor de 12 anos),outros tipos de crimes
+linhafala.caso.case_type_classification_17,sinalização de trafico,outros tipos de crimes
 linhafala.caso.case_type_classification_18,violencia fisica simples,outros tipos de crimes
 linhafala.caso.case_type_classification_19,violencia fisica grave,outros tipos de crimes
-linhafala.caso.case_type_classification_20,Uniao prematura,outros tipos de crimes
+linhafala.caso.case_type_classification_20,União prematura,outros tipos de crimes
 linhafala.caso.case_type_classification_21,Trabalho infantil,outros tipos de crimes
 linhafala.caso.case_type_classification_22,Violencia psicologica ,outros tipos de crimes
-linhafala.caso.case_type_classification_23,Maus tratos (sobrecarca de menor incapaz),outros tipos de crimes
+linhafala.caso.case_type_classification_23,Maus tratos (sobrecarga de menor incapaz),outros tipos de crimes
 linhafala.caso.case_type_classification_24,Negligencia,outros tipos de crimes
 linhafala.caso.case_type_classification_25,Tentativa de suicidio,outros tipos de crimes
-linhafala.caso.case_type_classification_26,suicidiu ,outros tipos de crimes
-linhafala.caso.case_type_classification_27,crianca expulsa de casa,outros tipos de crimes
+linhafala.caso.case_type_classification_26,suicidio ,outros tipos de crimes
+linhafala.caso.case_type_classification_27,criança expulsa de casa,outros tipos de crimes
 linhafala.caso.case_type_classification_28,violencia moral,outros tipos de crimes
 linhafala.caso.case_type_classification_29,violencia patrimonial,outros tipos de crimes
 linhafala.caso.case_type_classification_30,Falta de registo de nascimento,Casos civis
 linhafala.caso.case_type_classification_31,falta de assistencia alimentar aos filhos,Casos civis
 linhafala.caso.case_type_classification_32,inpugnacao de paternidade,Casos civis
 linhafala.caso.case_type_classification_33,recusa de perfilhacao,Casos civis
-linhafala.caso.case_type_classification_34,crinca perdida,Casos civis
+linhafala.caso.case_type_classification_34,criança perdida,Casos civis
 linhafala.caso.case_type_classification_35,designacao de alimentos devidos a mae solteira,Casos civis
 linhafala.caso.case_type_classification_36,disputa por heranca (conflitos sucessorios),Casos civis
 linhafala.caso.case_type_classification_37,regulacao de exercicio do poder paternal,Casos civis
-linhafala.caso.case_type_classification_38,Assedio sexual na escola,Acesso a Educacao
-linhafala.caso.case_type_classification_39,Crianca que nao estuda,Acesso a Educacao
-linhafala.caso.case_type_classification_40,Falta de vaga na escola,Acesso a Educacao
-linhafala.caso.case_type_classification_41,Falta de material escolar,Acesso a Educacao
-linhafala.caso.case_type_classification_42,buling na escola,Acesso a Educacao
-linhafala.caso.case_type_classification_43,Abandono escolar ,Acesso a Educacao
-linhafala.caso.case_type_classification_44,Falta de dinheiro para propinas,Acesso a Educacao
-linhafala.caso.case_type_classification_45,Venda de livro de destribuicao gratuita,Acesso a Educacao
-linhafala.caso.case_type_classification_46,conflito entre aluno e professor,Acesso a Educacao
-linhafala.caso.case_type_classification_47,Crianca achada,Casos Sociais
+linhafala.caso.case_type_classification_38,Assedio sexual na escola,Acesso a Educação
+linhafala.caso.case_type_classification_39,Criança que nao estuda,Acesso a Educação
+linhafala.caso.case_type_classification_40,Falta de vaga na escola,Acesso a Educação
+linhafala.caso.case_type_classification_41,Falta de material escolar,Acesso a Educação
+linhafala.caso.case_type_classification_42,buling na escola,Acesso a Educação
+linhafala.caso.case_type_classification_43,Abandono escolar ,Acesso a Educação
+linhafala.caso.case_type_classification_44,Falta de dinheiro para propinas,Acesso a Educação
+linhafala.caso.case_type_classification_45,Venda de livro de destribuicao gratuita,Acesso a Educação
+linhafala.caso.case_type_classification_46,conflito entre aluno e professor,Acesso a Educação
+linhafala.caso.case_type_classification_47,Criança achada,Casos Sociais
 linhafala.caso.case_type_classification_48,saude sexual e reprodutiva,Casos Sociais
-linhafala.caso.case_type_classification_49,crianca sem abrigo na rua(crianca desprotegida),Casos Sociais
+linhafala.caso.case_type_classification_49,criança sem abrigo na rua(crianca desprotegida),Casos Sociais
 linhafala.caso.case_type_classification_50,ministracao de substancias nocivas a saude,Casos Sociais
 linhafala.caso.case_type_classification_51,crianca infectada pelo virus do HIV,Casos Sociais
 linhafala.caso.case_type_classification_52,crianca desaparecida,Casos Sociais
-linhafala.caso.case_type_classification_53,crianca orfa e vulneravel,Casos Sociais
-linhafala.caso.case_type_classification_54,crianca com dificiencia visual,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_55,crianca com dificiencia auditiva,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_56, crianca com dificiencia fisica,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_57,crianca com dificiencia intelectual,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_58,crianca com dificiencia  psicosocial,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_59, crianca com dificiencia comunicacao,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_60,crianca com multidificiencia ,Necessidades Educativas Especiais
-linhafala.caso.case_type_classification_61,crianca com autismo,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_53,criança orfa e vulneravel,Casos Sociais
+linhafala.caso.case_type_classification_54,criança com dificiencia visual,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_55,criança com dificiencia auditiva,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_56, criança com dificiencia fisica,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_57,criança com dificiencia intelectual,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_58,criança com dificiencia  psicosocial,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_59, criança com dificiencia comunicacao,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_60,criança com multidificiencia ,Necessidades Educativas Especiais
+linhafala.caso.case_type_classification_61,criança com autismo,Necessidades Educativas Especiais
 linhafala.caso.case_type_classification_62,albinismo,Necessidades Educativas Especiais
 linhafala.caso.case_type_classification_63,Exploracao sexual,Casos de contexto humanitario
 linhafala.caso.case_type_classification_64,abuso sexual,Casos de contexto humanitario
-linhafala.caso.case_type_classification_65,crianca deslocada/refugiada(conflito armado/ outros),Casos de contexto humanitario
+linhafala.caso.case_type_classification_65,criança deslocada/refugiada(conflito armado/ outros),Casos de contexto humanitario

@@ -246,16 +246,21 @@ class Chamada(models.Model):
                                     string="Linhas de Casos")
     
     def _onchange_type_of_intervention(self):
-        if self.type_of_intervention == 'Caso':
+        if self.type_of_intervention == 'Caso' or 'Chamada de Assistência':
             self.case_line_ids = [(0, 0, {})]  # Create an empty record
+            self.assistance_line_ids = [(0, 0, {})]
         else:
             self.case_line_ids = [(5, 0, 0)]  # Remove all records
+            self.assistance_line_ids = [(5, 0, 0)]
 
     @api.constrains('type_of_intervention')
     def _check_type_of_intervention(self):
         for record in self:
             if record.type_of_intervention == 'Caso' and not record.case_line_ids:
-                raise ValidationError("Caso(s) Relacionados.")
+                raise ValidationError("Para guardar um caso é necessário que tenha pelo menos uma vítima, por favor preencha todos os campos do formulário de Caso(s) Relacionados.")
+            if record.type_of_intervention == 'Chamada de Assistência' and not record.assistance_line_ids:
+                raise ValidationError("Para gravar uma chamada de Assistência é necessário preencher o formulário de Assistências Relacionados.")
+
 
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
@@ -300,7 +305,7 @@ class Chamada(models.Model):
             vals['call_id'] = next_call_id.split('-')[-1]
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description','are_you_disabled','category_status')
+    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description','are_you_disabled','category_status','type_of_intervention','category_calls','on_school','gender','age')
     def _check_all(self):
         for record in self:
             if self.category_status == "Com Interveção":
@@ -318,6 +323,16 @@ class Chamada(models.Model):
                     raise ValidationError("Detalhes é um campo obrigatório.")
                 if not record.are_you_disabled:
                     raise ValidationError("Tem algum tipo de dificiência ? é um campo obrigatório.")
+                if not record.type_of_intervention:
+                    raise ValidationError("Tipo de Intervenção / Motivo é um campo obrigatório.")
+                if not record.category_calls:
+                    raise ValidationError("Categoria é um campo obrigatório.")
+                if not record.on_school:
+                    raise ValidationError("Frequenta a Escola? é um campo obrigatório.")
+                if not record.gender:
+                    raise ValidationError("Género é um campo obrigatório.")
+                if not record.age:
+                    raise ValidationError("Género é um campo obrigatório.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -539,7 +554,7 @@ class CallCaseAssistance(models.Model):
             vals['assistance_id'] = next_assistance_id.split('-')[-1]
         return super(CallCaseAssistance, self).create(vals)
 
-    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description')
+    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description','age','gender')
     def _check_all(self):
         for record in self:
             if not record.distrito:
@@ -560,6 +575,12 @@ class CallCaseAssistance(models.Model):
             if not record.detailed_description:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Detalhes")
+            if not record.age:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Idade")
+            if not record.gender:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio: Género")
 
     @api.onchange('provincia')
     def _provincia_onchange(self):

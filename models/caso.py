@@ -31,8 +31,7 @@ class Caso(models.Model):
 
             if not has_vitima and not has_contactante_vitima:
                 raise ValidationError(
-                    "Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")
-        
+                    "Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")        
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
@@ -201,7 +200,7 @@ class Caso(models.Model):
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
         form_view_id = self.env.ref('linhafala_odoo.linhafala_cases_form_view')
         form_url = f"{base_url}/web?#id={self.id}&view_type=form&model=linhafala.caso&menu_id={form_view_id.id}"
-        form_url += '&no_redirect=1'
+        #form_url += '&no_redirect=1'
         #whatsapp_number = input('Enter the WhatsApp contact number: ')
         #form_url += f'&whatsapp={whatsapp_number}'
 

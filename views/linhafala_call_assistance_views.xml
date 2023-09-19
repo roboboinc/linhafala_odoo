@@ -111,7 +111,7 @@
                                 <field name="fullname" />
                             </p>
                             <p>
-                                <strong>* Província: </strong>
+                                <strong style="color: red;">* Província: </strong>
                                 <field name="provincia" />
                             </p>
                             <p title="Campo Opcional">
@@ -119,11 +119,11 @@
                                 <field name="bairro" />
                             </p>
                             <p>
-                                <strong>* Categoria: </strong>
+                                <strong style="color: red;">* Categoria: </strong>
                                 <field name="category" />
                             </p>
                             <p>
-                                <strong>* Periodo de Resolução: </strong>
+                                <strong style="color: red;">* Periodo de Resolução: </strong>
                                 <field name="callcaseassistance_priority" />
                             </p>
                             <p>
@@ -137,24 +137,26 @@
                                 <field name="contact" />
                             </p>
                             <p>
-                                <strong>* Distrito: </strong>
+                                <strong style="color: red;">* Distrito: </strong>
                                 <field
                                     name="distrito" />
                             </p>
                             <p title="Campo Opcional">
-                                <strong>
-                                    Gênero: </strong>
+                                <strong style="color: red;">
+                                    * Género: </strong>
                                 <field name="gender" />
                             </p>
-                            <p title="Campo Opcional">
-                                <strong>
-                                    Idade: </strong>
+                            
+                            <p>
+                                <strong style="color: red;">* Sub Categoria: </strong>
+                                <field name="subcategory" />
+                            </p>
+
+                            <p>
+                                <strong style="color: red;">
+                                    * Idade: </strong>
                                 <field name="age"
                                 />
-                            </p>
-                            <p>
-                                <strong>* Sub Categoria: </strong>
-                                <field name="subcategory" />
                             </p>
                             <p>
                                 <strong>Data de Ocorrência: </strong>
@@ -164,7 +166,7 @@
                         </div>
                         <div class="col-md-6">
                             <notebook>
-                                <page string="Detalhes" name="detailed_description_section">
+                                <page string="* Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
                                 <page string="Referências de Assistências"

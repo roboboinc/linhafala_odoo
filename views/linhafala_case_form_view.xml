@@ -37,15 +37,15 @@
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
                                 <p>
-                                    <strong>* Categoria do Caso: </strong>
+                                    <strong style="color: red;">* Categoria do Caso: </strong>
                                     <field name="case_type" />
                                 </p>
                                 <p>
-                                    <strong>* Sub Categoria do Caso: </strong>
+                                    <strong style="color: red;">* Sub Categoria do Caso: </strong>
                                     <field name="secundary_case_type" />
                                 </p>
                                 <p>
-                                    <strong title="Campo Opcional">* Classificação Provisoria: </strong>
+                                    <strong style="color: red;">* Classificação Provisoria: </strong>
                                     <field name="case_type_classification" />
                                 </p>
                                 <p>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-3 mt-2">
                                 <p>
-                                    <strong title="Campo Opcional">* Local de Ocorrência do incidente: </strong>
+                                    <strong style="color: red;">* Local de Ocorrência do incidente: </strong>
                                     <field name="place_occurrence" />
                                 </p>
                                 <p>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-md-6">
                                 <notebook>
-                                    <page string="Detalhes" name="detailed_description_section">
+                                    <page string="* Detalhes" name="detailed_description_section">
                                         <field name="detailed_description" widget="one2many">
                                             <form>
                                                 <sheet>
@@ -122,7 +122,7 @@
                                                                 <field name="contact" />
                                                             </p>
                                                             <p>
-                                                                <strong>* Categoria dos envolvidos: </strong>
+                                                                <strong style="color: red;">* Categoria dos envolvidos: </strong>
                                                                 <field
                                                                     name="person_type" />
                                                             </p>
@@ -138,23 +138,23 @@
                                                                 <field name="nr_identication" />
                                                             </p>
                                                             <p>
-                                                                <strong>Com quem vive?</strong>
-                                                                <field name="living_relatives" />
-                                                            </p>
-                                                            <p>
-                                                                <strong>
-                                                                    Província: </strong>
+                                                                <strong style="color: red;">
+                                                                    * Província: </strong>
                                                                 <field name="provincia" />
                                                             </p>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            
                                                             <p>
-                                                                <strong>
-                                                                    Distrito: </strong>
+                                                                <strong style="color: red;">
+                                                                    * Distrito: </strong>
                                                                 <field name="distrito"
                                                                 />
                                                             </p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>
+                                                                <strong>Com quem vive?</strong>
+                                                                <field name="living_relatives" />
+                                                            </p>
+                                                            
                                                             <p>
                                                                 <strong>
                                                                     Bairro: </strong>
@@ -162,12 +162,12 @@
                                                             </p>
 
                                                             <p>
-                                                                <strong>* Gênero: </strong>
+                                                                <strong style="color: red;">* Género: </strong>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p 
                                                                 attrs="{'invisible': [('person_type','==','Perpetrador')]}">
-                                                                <strong>* Idade: </strong>
+                                                                <strong style="color: red;">* Idade: </strong>
                                                                 <field name="age" />
                                                             </p>
                                                             <p 
@@ -177,7 +177,7 @@
                                                             </p>
                                                             
                                                             <p>
-                                                                <strong>Relação com a(s) vítima(s):</strong>
+                                                                <strong style="color: red;">* Relação com a(s) vítima(s):</strong>
                                                                 <field name="victim_relationship" />
                                                             </p>
                                                         </div>

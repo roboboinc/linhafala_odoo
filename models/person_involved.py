@@ -1,6 +1,7 @@
 from xml.dom import ValidationErr
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 import uuid
 
 
@@ -46,6 +47,13 @@ class PersonInvolved(models.Model):
 
     perpetrator_age = fields.Selection([(str(i), str(i)) for i in range(16, 65)] + [('65+', '65+')],
                            string='Idade do perpetrador')
+    
+    @api.onchange('person_type')
+    def _onchange_person_type(self):
+        if self.person_type == 'Perpetrador':
+            self.age = False  # Hide the "Idade" field
+        else:
+            self.age = False  # Show the "Idade" field
 
     created_at = fields.Datetime(
         string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
@@ -127,3 +135,19 @@ class PersonInvolved(models.Model):
     def _provincia_onchange(self):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+    
+    @api.constrains('provincia','distrito','gender','victim_relationship')
+    def _check_all(self):
+        for record in self:
+            if not record.provincia:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Provincia")
+            if not record.distrito:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Distrito")
+            if not record.gender:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Genero")
+            if not record.victim_relationship:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio  Relação com a(s) vítima(s)")

@@ -120,26 +120,40 @@ class Chamada(models.Model):
         help="Relação com a(s) vítima(s):"
     )
 
+    category_status = fields.Many2one(
+        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
+
+    #def action_shutdown(self):
+        #self.category_status = "Sem Interveção"
+        #self.env['linhafala.chamada'].browse(self.id).write(
+            #{'category_status': 'Sem Interveção'})
+
+    #def action_silent(self):
+        #self.category_status = "Sem Interveção"
+        #self.env['linhafala.chamada'].browse(self.id).write(
+            #{'category_status': 'Sem Interveção'})
+
+    #category_status = fields.Selection(
+       #string='Estado da chamada',
+        #selection=[
+            #("Sem Interveção Silencio", "Silencio"),
+            #("Sem Interveção Desligado", "Desligado"),
+            #("Com Interveção", "Com Interveção"),
+        #],
+        #default="Com Interveção",
+        #help="Categoria",
+    #)
+
+    _skip_validation = fields.Boolean(string="Skip Validation")
+
+
     def action_shutdown(self):
-        self.category_status = "Sem Interveção"
-        self.env['linhafala.chamada'].browse(self.id).write(
-            {'category_status': 'Sem Interveção'})
+        self._skip_validation = True
+        self.category_status = 1
 
     def action_silent(self):
-        self.category_status = "Sem Interveção"
-        self.env['linhafala.chamada'].browse(self.id).write(
-            {'category_status': 'Sem Interveção'})
-
-    category_status = fields.Selection(
-        string='Estado da chamada',
-        selection=[
-            ("Sem Interveção Silencio", "Silencio"),
-            ("Sem Interveção Desligado", "Desligado"),
-            ("Com Interveção", "Com Interveção"),
-        ],
-        default="Com Interveção",
-        help="Categoria",
-    )
+        self._skip_validation = True
+        self.category_status = 1
 
     category_calls = fields.Selection(
         string='Categoria',
@@ -308,31 +322,32 @@ class Chamada(models.Model):
     @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description','are_you_disabled','category_status','type_of_intervention','category_calls','on_school','gender','age')
     def _check_all(self):
         for record in self:
-            if self.category_status == "Com Interveção":
-                if not record.caller_language:
-                    raise ValidationError("Dialeto/Lingua é um campo obrigatório.")
-                if not record.how_knows_lfc:
-                    raise ValidationError("Como conhece a LFC é um campo obrigatório.")
-                if not record.distrito:
-                    raise ValidationError("Distrito é um campo obrigatório.")
-                if not record.provincia:
-                    raise ValidationError("Província é um campo obrigatório.")
-                if not record.call_end:
-                    raise ValidationError("Fim da chamada é um campo obrigatório.")
-                if not record.detailed_description:
-                    raise ValidationError("Detalhes é um campo obrigatório.")
-                if not record.are_you_disabled:
-                    raise ValidationError("Tem algum tipo de dificiência ? é um campo obrigatório.")
-                if not record.type_of_intervention:
-                    raise ValidationError("Tipo de Intervenção / Motivo é um campo obrigatório.")
-                if not record.category_calls:
-                    raise ValidationError("Categoria é um campo obrigatório.")
-                if not record.on_school:
-                    raise ValidationError("Frequenta a Escola? é um campo obrigatório.")
-                if not record.gender:
-                    raise ValidationError("Género é um campo obrigatório.")
-                if not record.age:
-                    raise ValidationError("Género é um campo obrigatório.")
+            if self.category_status.id == 2:
+                if not record._skip_validation:  # Check the flag
+                    if not record.caller_language:
+                        raise ValidationError("Dialeto/Lingua é um campo obrigatório.")
+                    if not record.how_knows_lfc:
+                        raise ValidationError("Como conhece a LFC é um campo obrigatório.")
+                    if not record.distrito:
+                        raise ValidationError("Distrito é um campo obrigatório.")
+                    if not record.provincia:
+                        raise ValidationError("Província é um campo obrigatório.")
+                    if not record.call_end:
+                        raise ValidationError("Fim da chamada é um campo obrigatório.")
+                    if not record.detailed_description:
+                        raise ValidationError("Detalhes é um campo obrigatório.")
+                    if not record.are_you_disabled:
+                        raise ValidationError("Tem algum tipo de dificiência ? é um campo obrigatório.")
+                    if not record.type_of_intervention:
+                        raise ValidationError("Tipo de Intervenção / Motivo é um campo obrigatório.")
+                    if not record.category_calls:
+                        raise ValidationError("Categoria é um campo obrigatório.")
+                    if not record.on_school:
+                        raise ValidationError("Frequenta a Escola? é um campo obrigatório.")
+                    if not record.gender:
+                        raise ValidationError("Género é um campo obrigatório.")
+                    if not record.age:
+                        raise ValidationError("Género é um campo obrigatório.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

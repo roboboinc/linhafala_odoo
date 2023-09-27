@@ -132,7 +132,7 @@
         <field name="arch" type="xml">
             <form string="Graph">
                 <header>
-                        <p>
+                        <p class="mt-4">
                             <field name="_skip_validation" />
                         </p>
                     <div>

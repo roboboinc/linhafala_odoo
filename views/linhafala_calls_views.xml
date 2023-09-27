@@ -132,8 +132,11 @@
         <field name="arch" type="xml">
             <form string="Graph">
                 <header>
-                    <div>
+                    <p class="mt-4" attrs="{'invisible': [('caller_language', '!=', False)]}">
+                        <field name="_skip_validation" />
+                    </p>
                     
+                    <div  attrs="{'invisible': [('caller_language', '!=', False)]}">
                         <button id="btn-shutdown" name="action_shutdown" string="Desligada"
                             class="btn-danger me-3"
                             type="object"
@@ -155,9 +158,6 @@
                     <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                     <div class="row w-100">
                         <div class="col-md-3">
-                            <p>
-                                <field name="_skip_validation" />
-                            </p>
 
                             <p title="Campo Opcional">
                                 <strong>Fonte de Informação: </strong>

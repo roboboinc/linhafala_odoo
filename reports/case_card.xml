@@ -74,6 +74,7 @@
                                 <th>Província</th>
                                 <th>Sexo</th>
                                 <th>Idade</th>
+                                <th>Idade do perpetrador</th>
                                 <th>Relação com a Vítima</th>
                                 <th>Contacto</th>
                             </tr>
@@ -96,6 +97,9 @@
                                     </td>
                                     <td>
                                         <t t-out="line.age"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="line.perpetrator_age"/>
                                     </td>
                                     <td>
                                         <t t-out="line.victim_relationship"/>

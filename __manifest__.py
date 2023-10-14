@@ -41,10 +41,8 @@
         'reports/report.xml',
 
     ],
-    'assets': {
-    },
     'depends': [
-        'mail','board',
+        'mail', 'board',
     ],
     'images': ['static/src/img/icon_module.png'],
     'price': 0,

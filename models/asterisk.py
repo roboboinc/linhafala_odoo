@@ -36,3 +36,4 @@ class Asterisk(models.Model):
             'linkedid': get('Linkedid'),
             'uniqueid': get('Uniqueid')
         }
+        return data

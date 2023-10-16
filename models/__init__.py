@@ -15,3 +15,4 @@ from . import gender_based_violence
 from . import deficiente
 from . import agent
 from . import asterisk
+from . import popup

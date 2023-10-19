@@ -29,6 +29,7 @@ class Asterisk(models.Model):
             'callerIDNum': get('CallerIDNum'),
             'channel': get('Channel'),
             'channelState': get('ChannelState'),
+            'channelStateDesc': get('ChannelStateDesc'),
             'connectedLineName': get('ConnectedLineName'),
             'connectedLineNum': get('ConnectedLineNum'),
             'event': get('Event'),
@@ -36,4 +37,15 @@ class Asterisk(models.Model):
             'linkedid': get('Linkedid'),
             'uniqueid': get('Uniqueid')
         }
-        return data
+
+        if data['event'] == 'VarSet':
+            if data['channelStateDesc'] == 'Ring' and data['exten'] == 's':
+                self.env['linhafala.chamada'].action_notification_js()
+        
+                
+        
+    def action_desligar(self):
+        self._skip_validation = True
+
+    def action_atender(self):
+        self._skip_validation = True

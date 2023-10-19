@@ -1,17 +1,17 @@
 <odoo>
     <data>
         <record id="my_model_popup_form" model="ir.ui.view">
-            <field name="name">linhafala.popup_notify.popup.form</field>
-            <field name="model">linhafala.popup_notify</field>
+            <field name="name">linhafala.asterisk.popup.form</field>
+            <field name="model">linhafala.asterisk</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
                         <div class="float-end">
-                            <strong>00.00.00</strong>
+                            <strong><field name="time" /></strong>
                         </div>
                         <div class="popup-content">
-                            <p><strong>Número do emissor: 1000</strong></p>
-                            <p><strong>Número do receptor: 1003</strong></p>
+                            <p><strong>Número do emissor: <field name="callerIDNum" /></strong></p>
+                            <p><strong>Número do receptor: <field name="connectedLineNum" /></strong></p>
                         </div>
                     </sheet>
                     <footer>
@@ -30,7 +30,7 @@
 
         <record id="my_model_action" model="ir.actions.act_window">
             <field name="name">Receiving Call...</field>
-            <field name="res_model">linhafala.popup_notify</field>
+            <field name="res_model">linhafala.asterisk</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="my_model_popup_form" />
             <field name="target">new</field>

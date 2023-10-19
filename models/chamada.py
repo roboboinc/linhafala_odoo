@@ -150,7 +150,7 @@ class Chamada(models.Model):
     def action_notification_js(self):
         return {
             'type': 'ir.actions.act_window',
-            'res_model': 'linhafala.popup_notify',  # Replace with your model name
+            'res_model': 'linhafala.asterisk',  # Replace with your model name
             'name': 'Receiving Call...',
             'view_mode': 'form',
             'view_id': self.env.ref('linhafala_odoo.my_model_popup_form').id,

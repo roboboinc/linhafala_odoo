@@ -42,6 +42,11 @@
         'reports/report.xml',
 
     ],
+     'assets': {
+        'web.assets_backend': [
+            'linhafala_odoo/static/src/js/index.js',
+        ],
+    },
     'depends': [
         'mail', 'board',
     ],

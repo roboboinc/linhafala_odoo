@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 import uuid
 
 
+
 class Chamada(models.Model):
     _name = "linhafala.chamada"
     _description = "Formulário de chamadas linha fala criança"
@@ -121,32 +122,32 @@ class Chamada(models.Model):
     )
 
     category_status = fields.Many2one(
-        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
+        comodel_name='linhafala.categoria', string="Categoria",
+        default=lambda self: self.env['linhafala.categoria'].browse(2))
 
-    #def action_shutdown(self):
-        #self.category_status = "Sem Interveção"
-        #self.env['linhafala.chamada'].browse(self.id).write(
-            #{'category_status': 'Sem Interveção'})
+    # def action_shutdown(self):
+    # self.category_status = "Sem Interveção"
+    # self.env['linhafala.chamada'].browse(self.id).write(
+    # {'category_status': 'Sem Interveção'})
 
-    #def action_silent(self):
-        #self.category_status = "Sem Interveção"
-        #self.env['linhafala.chamada'].browse(self.id).write(
-            #{'category_status': 'Sem Interveção'})
+    # def action_silent(self):
+    # self.category_status = "Sem Interveção"
+    # self.env['linhafala.chamada'].browse(self.id).write(
+    # {'category_status': 'Sem Interveção'})
 
-    #category_status = fields.Selection(
-       #string='Estado da chamada',
-        #selection=[
-            #("Sem Interveção Silencio", "Silencio"),
-            #("Sem Interveção Desligado", "Desligado"),
-            #("Com Interveção", "Com Interveção"),
-        #],
-        #default="Com Interveção",
-        #help="Categoria",
-    #)
+    # category_status = fields.Selection(
+    # string='Estado da chamada',
+    # selection=[
+    # ("Sem Interveção Silencio", "Silencio"),
+    # ("Sem Interveção Desligado", "Desligado"),
+    # ("Com Interveção", "Com Interveção"),
+    # ],
+    # default="Com Interveção",
+    # help="Categoria",
+    # )
 
     _skip_validation = fields.Boolean(string="Skip Validation")
 
-    
     def action_notification_js(self):
         return {
             'type': 'ir.actions.act_window',
@@ -159,8 +160,6 @@ class Chamada(models.Model):
                 'default_your_field': 'default_value',  # Add default values if needed
             }
         }
-
-
 
     def action_shutdown(self):
         self._skip_validation = True
@@ -191,7 +190,7 @@ class Chamada(models.Model):
             ("Sim", "Sim"),
             ("Não", "Não"),
         ],
-        default = "Sim",
+        default="Sim",
         help="Consentimento Informado",
     )
 
@@ -234,7 +233,8 @@ class Chamada(models.Model):
         ],
         help="Estuda?"
     )
-    grade = fields.Selection([('Pre Escolar', 'Pre Escolar')] + [(str(i), str(i)) for i in range(1, 13)] + [('Ensino Superior', 'Ensino Superior')],
+    grade = fields.Selection([('Pre Escolar', 'Pre Escolar')] + [(str(i), str(i)) for i in range(1, 13)] + [
+        ('Ensino Superior', 'Ensino Superior')],
                              string='Qual a Classe ?:')
     school = fields.Char(string="Escola", default=False)
     call_start = fields.Datetime(string='Hora de início da chamada',
@@ -242,7 +242,7 @@ class Chamada(models.Model):
     call_end = fields.Datetime(
         string='Hora de fim da chamada', readonly=False)
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'})
+        'style': 'height: 500px;'})
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
@@ -274,7 +274,7 @@ class Chamada(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     case_line_ids = fields.One2many('linhafala.caso', 'call_id',
                                     string="Linhas de Casos")
-    
+
     def _onchange_type_of_intervention(self):
         if self.type_of_intervention == 'Caso' or 'Chamada de Assistência':
             self.case_line_ids = [(0, 0, {})]  # Create an empty record
@@ -287,10 +287,11 @@ class Chamada(models.Model):
     def _check_type_of_intervention(self):
         for record in self:
             if record.type_of_intervention == 'Caso' and not record.case_line_ids:
-                raise ValidationError("Para guardar um caso é necessário que tenha pelo menos uma vítima, por favor preencha todos os campos do formulário de Caso(s) Relacionados.")
+                raise ValidationError(
+                    "Para guardar um caso é necessário que tenha pelo menos uma vítima, por favor preencha todos os campos do formulário de Caso(s) Relacionados.")
             if record.type_of_intervention == 'Chamada de Assistência' and not record.assistance_line_ids:
-                raise ValidationError("Para gravar uma chamada de Assistência é necessário preencher o formulário de Assistências Relacionados.")
-
+                raise ValidationError(
+                    "Para gravar uma chamada de Assistência é necessário preencher o formulário de Assistências Relacionados.")
 
     assistance_line_ids = fields.One2many('linhafala.chamada.assistance', 'call_id',
                                           string="Linhas de Assistências")
@@ -335,7 +336,9 @@ class Chamada(models.Model):
             vals['call_id'] = next_call_id.split('-')[-1]
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description','are_you_disabled','category_status','type_of_intervention','category_calls','on_school','gender','age')
+    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description',
+                    'are_you_disabled', 'category_status', 'type_of_intervention', 'category_calls', 'on_school',
+                    'gender', 'age')
     def _check_all(self):
         for record in self:
             if self.category_status.id == 2:
@@ -380,11 +383,10 @@ class Chamada(models.Model):
     @api.model
     def save(self, vals):
         return super(Chamada, self).write(vals)
-    
+
     @api.model
     def edit(self, vals):
         return super(Chamada, self).write(vals)
-        
 
     # TODO: Change the domain option to match non deprecated docs
     # def _compute_allowed_distrito_values(self):
@@ -414,7 +416,8 @@ class Chamada(models.Model):
     def _category_onchange(self):
         # Restrict the Subcategories to the current category.
         for rec in self:
-            return {'value': {'subcategory': False}, 'domain': {'subcategory': [('categoria_id', '=', rec.category.id)]}}
+            return {'value': {'subcategory': False},
+                    'domain': {'subcategory': [('categoria_id', '=', rec.category.id)]}}
 
     @api.model
     def _register_hook(self):
@@ -425,6 +428,7 @@ class Chamada(models.Model):
             'padding': 4,
         })
         return super(Chamada, self)._register_hook()
+
 
 # Override the Delete button action
 # TODO: Validate whether the function works
@@ -439,6 +443,7 @@ class ActWindow(models.Model):
         for record in model.browse(ids):
             record.write({'is_deleted': True})
         return {'type': 'ir.actions.act_window_close'}
+
 
 # @api.model
 # def get_action_views(self):
@@ -504,7 +509,7 @@ class CallCaseAssistance(models.Model):
     age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
                            string='Idade')
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
-                                       'style': 'height: 500px;'}, required=False)
+        'style': 'height: 500px;'}, required=False)
     category = fields.Many2one(
         comodel_name='linhafala.chamada.assistance.categoria', string="Categoria")
     subcategory = fields.Many2one(
@@ -516,7 +521,7 @@ class CallCaseAssistance(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado")
-        ],default="Aberto/Pendente",
+        ], default="Aberto/Pendente",
         help="Estado"
     )
 
@@ -585,7 +590,8 @@ class CallCaseAssistance(models.Model):
             vals['assistance_id'] = next_assistance_id.split('-')[-1]
         return super(CallCaseAssistance, self).create(vals)
 
-    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description','age','gender')
+    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority',
+                    'detailed_description', 'age', 'gender')
     def _check_all(self):
         for record in self:
             if not record.distrito:
@@ -621,7 +627,8 @@ class CallCaseAssistance(models.Model):
     @api.onchange('category')
     def _category_onchange(self):
         for rec in self:
-            return {'value': {'subcategory': False}, 'domain': {'subcategory': [('parent_category', '=', rec.category.id)]}}
+            return {'value': {'subcategory': False},
+                    'domain': {'subcategory': [('parent_category', '=', rec.category.id)]}}
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -659,7 +666,7 @@ class CallCaseAssistance(models.Model):
     @api.model
     def save(self, vals):
         return super(CallCaseAssistance, self).write(vals)
-    
+
     @api.model
     def edit(self, vals):
         return super(CallCaseAssistance, self).write(vals)
@@ -688,7 +695,7 @@ class AssistanceReferall(models.Model):
         domain="[('area_type', '=', area_type)]"
     )
     reference_entity = fields.Many2one(
-        comodel_name='linhafala.caso.referenceentity', 
+        comodel_name='linhafala.caso.referenceentity',
         string="Entidade de Referência",
         domain="[('reference_area', '=', reference_area)]"
     )
@@ -696,8 +703,8 @@ class AssistanceReferall(models.Model):
     @api.onchange('distrito')
     def _distrito_onchange(self):
         for rec in self:
-            return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('distrito', '=', rec.distrito.id)]}}
-
+            return {'value': {'reference_entity': False},
+                    'domain': {'reference_entity': [('distrito', '=', rec.distrito.id)]}}
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference',
@@ -718,7 +725,7 @@ class AssistanceReferall(models.Model):
             ("Dentro do sistema", "Dentro do sistema"),
             ("Assistido", "Assistido"),
             ("Encerrado", "Encerrado"),
-        ],default="Aberto/Pendente",
+        ], default="Aberto/Pendente",
         help="Estado do caso"
     )
 
@@ -730,7 +737,8 @@ class AssistanceReferall(models.Model):
     @api.onchange('reference_area')
     def _reference_area_onchange(self):
         for rec in self:
-            return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
+            return {'value': {'reference_entity': False},
+                    'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
 
     @api.constrains('assistance_status')
     def _check_assistance_status(self):

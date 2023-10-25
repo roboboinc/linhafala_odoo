@@ -9,7 +9,7 @@ odoo.define('linhafala_odoo.call_popup', function (require) {
         const events = message;
 
         if ((events.Event === 'Varset' || events.ChannelStateDesc === 'Ring') && !isDisplayed) {
-            display();
+            display( events.$time, events.CallerIDNum, events.ConnectedLineNum);
             isDisplayed = true;
 
             if (events.Event === 'Hangup'){
@@ -18,17 +18,14 @@ odoo.define('linhafala_odoo.call_popup', function (require) {
         }
     });
 
-    const display = () => {
+    const display = (time, callerIDNum, connectedLineNum) => {
         var Dialog = require('web.Dialog');
         const title = "Recebendo chamada...";
-        const time = "12:30 PM";
-        const phoneNumber = "+1 123-456-7890";
-        const numberId = "12345";
 
         try {
             dialogInstance = Dialog.confirm(
             this,
-                 `Time: ${time}\nPhone Number: ${phoneNumber}\nNumber ID: ${numberId}`,
+                 `Time: ${time}\nCaller: ${callerIDNum}\nConnected: ${connectedLineNum}`,
             {
                 title: title,
 
@@ -36,7 +33,7 @@ odoo.define('linhafala_odoo.call_popup', function (require) {
                     console.log("Click Close");
                 },
                 confirm_callback: function () {
-                    console.log("Click Confirm");
+                    window.location.href = '/web#cids=1&menu_id=110&action=155&model=linhafala.chamada&view_type=form';
                 },
                 cancel_callback: function () {
                     console.log("Click Cancel");

@@ -42,12 +42,6 @@
         'reports/report.xml',
 
     ],
-     'assets': {
-        'web.assets_backend': [
-            'linhafala_odoo/static/src/js/socketio-socket.io/client-dist/socket.io.js',
-            'linhafala_odoo/static/src/js/index.js',
-        ],
-    },
     'depends': [
         'mail', 'board',
     ],

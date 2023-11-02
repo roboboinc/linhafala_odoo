@@ -146,21 +146,6 @@ class Chamada(models.Model):
 
     _skip_validation = fields.Boolean(string="Skip Validation")
 
-    
-    def action_notification_js(self):
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'linhafala.asterisk',  # Replace with your model name
-            'name': 'Receiving Call...',
-            'view_mode': 'form',
-            'view_id': self.env.ref('linhafala_odoo.my_model_popup_form').id,
-            'target': 'new',
-            'context': {
-                'default_your_field': 'default_value',  # Add default values if needed
-            }
-        }
-
-
 
     def action_shutdown(self):
         self._skip_validation = True

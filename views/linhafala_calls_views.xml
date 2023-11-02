@@ -366,9 +366,6 @@
                                         attrs="{'invisible': [('id', '=', False)]}"
                                         class="btn-secondary"
                                         confirm="Tem certeza de que deseja editar esse Caso ? " />
-                                    
-                                    <button id="btn-shutdown" name="action_notification_js" string="Notify" type="object"/>
-
                                 </div>
                             </div>
                         </div>

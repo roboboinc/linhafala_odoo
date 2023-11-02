@@ -12,7 +12,7 @@
                         <button id="btn-manager" name="action_manager" string="Gerir"
                             class="btn-primary me-3"
                             type="object"
-                            groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
+                            groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_gestor_externo"
                             confirm="Tem certeza de que deseja assumir a gestão deste Caso ? " />
                         <button id="btn-url" name="action_redirect" string="Url"
                             class="btn-primary me-3"

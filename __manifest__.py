@@ -12,7 +12,6 @@
         'views/linhafala_calls_views.xml',
         'views/linhafala_call_assistance_views.xml',
         'views/linhafala_cases_views.xml',
-        'views/notificationpopup.xml',
         'views/linhafala_case_form_view.xml',
         'views/linhafala_moz_learning_views.xml',
         'views/linhafala_assistance_referral.xml',

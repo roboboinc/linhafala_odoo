@@ -415,15 +415,7 @@ class Chamada(models.Model):
 # TODO: Validate whether the function works
 
 
-class ActWindow(models.Model):
-    _inherit = 'ir.actions.act_window'
 
-    @api.model
-    def unlink(self, ids):
-        model = self.env[self.res_model]
-        for record in model.browse(ids):
-            record.write({'is_deleted': True})
-        return {'type': 'ir.actions.act_window_close'}
 
 # @api.model
 # def get_action_views(self):

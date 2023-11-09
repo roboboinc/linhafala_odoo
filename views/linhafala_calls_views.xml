@@ -203,7 +203,7 @@
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Contacto: </strong>
-                                <field name="contact" />
+                                <field name="contact"/>
                             </p>
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('category_calls','!=','Contactante')]}">

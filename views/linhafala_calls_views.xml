@@ -146,6 +146,10 @@
                             type="object"
                             confirm="Tem certeza de que deseja gravar a informação como silênciada ?" />
                     </div>
+                    <div class="float-end">
+                        <strong>Deseja receber notificações?</strong>
+                        <field name="_skip_popus" class="float-end"/>
+                    </div>
                 </header>
                 <sheet>
 
@@ -203,7 +207,7 @@
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Contacto: </strong>
-                                <field name="contact" />
+                                <field name="contact"/>
                             </p>
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('category_calls','!=','Contactante')]}">

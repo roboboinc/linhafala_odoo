@@ -146,6 +146,10 @@
                             type="object"
                             confirm="Tem certeza de que deseja gravar a informação como silênciada ?" />
                     </div>
+                    <div class="float-end">
+                        <strong>Deseja receber notificações?</strong>
+                        <field name="_skip_popus" class="float-end"/>
+                    </div>
                 </header>
                 <sheet>
 

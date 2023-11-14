@@ -146,6 +146,15 @@ class Chamada(models.Model):
 
     _skip_validation = fields.Boolean(string="Skip Validation")
 
+    _skip_popus = fields.Selection(
+        string='Deseja receber notificações?',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        default = "Sim"
+    )
+
 
     def action_shutdown(self):
         self._skip_validation = True

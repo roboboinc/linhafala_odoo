@@ -12,7 +12,7 @@
                         <button id="btn-manager" name="action_manager" string="Gerir"
                             class="btn-primary me-3"
                             type="object"
-                            groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_gestor_externo"
+                            groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_gestor_externo,linhafala_odoo.group_linhafala_administrador"
                             confirm="Tem certeza de que deseja assumir a gestão deste Caso ? " />
                         <button id="btn-url" name="action_redirect" string="Url"
                             class="btn-primary me-3"
@@ -161,7 +161,8 @@
                                                                 <field name="bairro" />
                                                             </p>
 
-                                                            <p>
+                                                            <p
+                                                                attrs="{'invisible': [('person_type','==','Perpetrador')]}">
                                                                 <strong style="color: red;">* Género: </strong>
                                                                 <field name="gender" />
                                                             </p>
@@ -174,6 +175,11 @@
                                                                 attrs="{'invisible': [('person_type','!=','Perpetrador')]}">
                                                                 <strong>Idade do Perpetrador: </strong>
                                                                 <field name="perpetrator_age" />
+                                                            </p>
+                                                            <p 
+                                                                attrs="{'invisible': [('person_type','!=','Perpetrador')]}">
+                                                                <strong>Sexo do Perpetrador: </strong>
+                                                                <field name="perpetrator_gender" />
                                                             </p>
                                                             
                                                             <p>

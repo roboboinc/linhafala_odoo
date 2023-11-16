@@ -48,7 +48,6 @@
             <graph type="bar">
                 <field name="created_at" interval="day" string="Numero de casos por dia"/>
                 <field name="created_at" interval="week" string="Numero de casos por semana"/>
-                <field name="created_at" interval="month" string="Numero de casos por mes"/>
                 <field name="created_at" interval="year" string="Numero de casos por ano"/>
             </graph>
         </field>
@@ -58,7 +57,7 @@
         <field name="name">linhafala.caso.graph</field>
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
-            <graph type="pie">
+            <graph type="bar">
                 <field name="created_at" interval="month"/>
             </graph>
         </field>

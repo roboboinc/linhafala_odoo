@@ -528,6 +528,8 @@ class ForwardingInstitutions(models.Model):
         help="Estado do caso"
     )
 
+    created_at = fields.Datetime(
+        string='', default=lambda self: fields.Datetime.now(), readonly=True)
 
     @api.onchange('provincia')
     def _provincia_onchange(self):

@@ -29,11 +29,17 @@
         <field name="model">linhafala.person_involved</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="provincia" string="Casos por provincia"/>
-                <field name="gender" string="Vitimas Sexo"/>
-                <field name="age" string="Vitimas Idade"/>
-                <field name="person_type" string="Vitimas"/>
+                <field name="provincia" string="Casos por provincia"/>  
             </graph>
+            <!--<graph type="bar">
+                <field name="gender" string="Vitimas Sexo"/>
+            </graph>
+            <graph type="bar">
+                <field name="age" string="Vitimas Idade"/>
+            </graph>
+            <graph type="bar">
+                <field name="person_type" string="Vitimas"/>
+            </graph>-->
         </field>
     </record>
 

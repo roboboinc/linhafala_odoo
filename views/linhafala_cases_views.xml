@@ -35,7 +35,6 @@
         <field name="model">linhafala.caso</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="case_id" string="Numero de casos"/>
                 <field name="case_status" string="Estado do caso"/>
             </graph>
         </field>

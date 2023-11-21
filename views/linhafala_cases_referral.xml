@@ -28,7 +28,7 @@
         <field name="model">linhafala.caso.forwarding_institution</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="forwarding_institution_id" string="Casos Encaminhados"/>
+                <field name="created_at" interval="month" string="Numero de vitimas por mes"/>
             </graph>
         </field>
     </record>
@@ -56,7 +56,7 @@
                         widget="statusbar"
                         options="{'clickable': '1'}"
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" 
-                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador,linhafala_odoo.group_linhafala_gestor_externo"
+                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_maputo,linhafala_odoo.group_linhafala_manica,linhafala_odoo.group_linhafala_remoto,linhafala_odoo.group_linhafala_administrador,linhafala_odoo.group_linhafala_gestor_externo"
                     />
                 </header>
                 <sheet>

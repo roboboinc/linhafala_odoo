@@ -89,12 +89,12 @@
                     <button id="btn-manager" name="action_manager" string="Gerir"
                         class="btn-primary me-3"
                         type="object"
-                        groups="base.group_no_one,linhafala_odoo.group_linhafala_gestor"
+                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_maputo,linhafala_odoo.group_linhafala_manica,linhafala_odoo.group_linhafala_remoto,linhafala_odoo.group_linhafala_administrador"
                         confirm="Tem certeza de que deseja assumir a gestão desta Assistência ? " />
                     <field name="callcaseassistance_status" widget="statusbar"
                         options="{'clickable': '1'}"
                         statusbar_visible="Aberto/Pendente,Dentro do sistema, Assistido, Encerrado" 
-                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_administrador"
+                        groups="linhafala_odoo.group_linhafala_gestor,linhafala_odoo.group_linhafala_maputo,linhafala_odoo.group_linhafala_manica,linhafala_odoo.group_linhafala_remoto,linhafala_odoo.group_linhafala_administrador"
                     />
                 </header>
                 <sheet>

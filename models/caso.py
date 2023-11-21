@@ -501,7 +501,9 @@ class ForwardingInstitutions(models.Model):
     )
 
     reference_entity = fields.Many2one(
-        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
+        comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência",
+        domain="[('provincia', '=', provincia), ('distrito', '=', distrito)]"
+    )
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference',
@@ -528,16 +530,15 @@ class ForwardingInstitutions(models.Model):
         help="Estado do caso"
     )
 
+    created_at = fields.Datetime(
+        string='', default=lambda self: fields.Datetime.now(), readonly=True)
 
     @api.onchange('provincia')
     def _provincia_onchange(self):
         for rec in self:
             return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
 
-    @api.onchange('reference_area')
-    def _reference_area_onchange(self):
-        for rec in self:
-            return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
+   
         
 class Description(models.Model):
     _name = 'linhafala.caso.description'

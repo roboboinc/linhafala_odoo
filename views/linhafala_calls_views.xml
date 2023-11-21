@@ -35,8 +35,7 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="category_status" string="Categoria Chamadas"/>
-                <field name="type_of_intervention" string="Tipo Intervencao"/>
+                <field name="type_of_intervention"/>
             </graph>
         </field>
     </record>
@@ -48,7 +47,6 @@
             <graph type="bar">
                 <field name="call_start" interval="day" string="Numero de chamadas por dia"/>
                 <field name="call_start" interval="week" string="Numero de chamadas por semana"/>
-                <field name="call_start" interval="month" string="Numero de chamadas por mes"/>
                 <field name="call_start" interval="year" string="Numero de chamadas por ano"/>
             </graph>
         </field>
@@ -58,7 +56,7 @@
         <field name="name">linhafala.chamada.graph</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <graph type="pie">
+            <graph type="bar">
                 <field name="call_start" interval="month" string="Relatorio Mensal Chamadas"/>
             </graph>
         </field>
@@ -70,7 +68,6 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="type_of_intervention"/>
-                <field name="category_status"/>
             </graph>
         </field>
     </record>
@@ -146,6 +143,10 @@
                             type="object"
                             confirm="Tem certeza de que deseja gravar a informação como silênciada ?" />
                     </div>
+                    <div class="float-end">
+                        <strong>Deseja receber notificações?</strong>
+                        <field name="_skip_popus" class="float-end"/>
+                    </div>
                 </header>
                 <sheet>
 
@@ -203,7 +204,7 @@
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Contacto: </strong>
-                                <field name="contact" />
+                                <field name="contact"/>
                             </p>
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('category_calls','!=','Contactante')]}">

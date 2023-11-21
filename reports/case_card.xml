@@ -16,7 +16,6 @@
                         <thead>
                             <tr>
                                 <th>Data</th>
-                                <th>Contacto do Denunciante</th>
                                 <th>Nome do Denunciante</th>
                                 <th>Relação com a Vitima</th>
                                 <th>Idade</th>
@@ -32,9 +31,6 @@
                                 <tr>
                                     <td>
                                         <t t-esc="doc.call_id.created_at" />
-                                    </td>
-                                    <td>
-                                        <t t-esc="doc.call_id.contact" />
                                     </td>
                                     <td>
                                         <t t-esc="doc.call_id.fullname" />
@@ -74,6 +70,7 @@
                                 <th>Província</th>
                                 <th>Sexo</th>
                                 <th>Idade</th>
+                                <th>Sexo do perpetrador</th>
                                 <th>Idade do perpetrador</th>
                                 <th>Relação com a Vítima</th>
                                 <th>Contacto</th>
@@ -97,6 +94,9 @@
                                     </td>
                                     <td>
                                         <t t-out="line.age"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="line.perpetrator_gender"/>
                                     </td>
                                     <td>
                                         <t t-out="line.perpetrator_age"/>

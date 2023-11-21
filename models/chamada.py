@@ -146,6 +146,14 @@ class Chamada(models.Model):
 
     _skip_validation = fields.Boolean(string="Skip Validation")
 
+    _skip_popus = fields.Selection(
+        string='Deseja receber notificações?',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        default = "Sim"
+    )
 
     def action_shutdown(self):
         self._skip_validation = True
@@ -166,8 +174,7 @@ class Chamada(models.Model):
 
     # TODO: Create new contact for each callee on contacts app?
     fullname = fields.Char(string="Nome Completo")
-    contact = fields.Char(string="Contacto", widget="phone_raw",
-                          size=13, min_length=9, default="+258")
+    contact = fields.Char(string="Contacto")
     alternate_contact = fields.Char(
         string="Contacto Alternativo", widget="phone_raw", size=13, min_length=9, default="+258")
     wants_to_be_annonymous = fields.Selection(
@@ -223,9 +230,9 @@ class Chamada(models.Model):
                              string='Qual a Classe ?:')
     school = fields.Char(string="Escola", default=False)
     call_start = fields.Datetime(string='Hora de início da chamada',
-                                 default=fields.Datetime.now, readonly=True)
-    call_end = fields.Datetime(
-        string='Hora de fim da chamada', readonly=False)
+                                 default=fields.Datetime.now)
+    call_end = fields.Char(
+        string='Hora de fim da chamada')
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
                                        'style': 'height: 500px;'})
     how_knows_lfc = fields.Selection(
@@ -320,7 +327,7 @@ class Chamada(models.Model):
             vals['call_id'] = next_call_id.split('-')[-1]
         return super(Chamada, self).create(vals)
 
-    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'call_end', 'detailed_description','are_you_disabled','category_status','type_of_intervention','category_calls','on_school','gender','age')
+    @api.constrains('caller_language', 'how_knows_lfc', 'distrito', 'provincia', 'detailed_description','are_you_disabled','category_status','type_of_intervention','category_calls','on_school','gender','age')
     def _check_all(self):
         for record in self:
             if self.category_status.id == 2:
@@ -333,8 +340,8 @@ class Chamada(models.Model):
                         raise ValidationError("Distrito é um campo obrigatório.")
                     if not record.provincia:
                         raise ValidationError("Província é um campo obrigatório.")
-                    if not record.call_end:
-                        raise ValidationError("Fim da chamada é um campo obrigatório.")
+                    # if not record.call_end:
+                    #     raise ValidationError("Fim da chamada é um campo obrigatório.")
                     if not record.detailed_description:
                         raise ValidationError("Detalhes é um campo obrigatório.")
                     if not record.are_you_disabled:
@@ -415,7 +422,15 @@ class Chamada(models.Model):
 # TODO: Validate whether the function works
 
 
+class ActWindow(models.Model):
+    _inherit = 'ir.actions.act_window'
 
+    @api.model
+    def unlink(self, ids):
+        model = self.env[self.res_model]
+        for record in model.browse(ids):
+            record.write({'is_deleted': True})
+        return {'type': 'ir.actions.act_window_close'}
 
 # @api.model
 # def get_action_views(self):

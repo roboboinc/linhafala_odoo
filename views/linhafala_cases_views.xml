@@ -36,6 +36,8 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="case_status" string="Estado do caso"/>
+                <field name="case_type_classification"/>
+
             </graph>
         </field>
     </record>

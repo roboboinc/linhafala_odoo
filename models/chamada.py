@@ -155,6 +155,10 @@ class Chamada(models.Model):
         default = "Sim"
     )
 
+    def buttonRecord(self):
+        for record in self:
+            print(f"Clicked on button for call record: {record.contact}")
+
     def action_shutdown(self):
         self._skip_validation = True
         self.category_status = 1

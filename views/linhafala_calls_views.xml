@@ -101,7 +101,6 @@
                 <field name="victim_relationship" optional="show" />
                 <field name="type_of_intervention" optional="show" />
                 <field name="category_calls" optional="hide" />
-                <button name="buttonRecord" type="object" class="fa fa-play" confirm="Deseja escutar a gravação desta chamada?"/>
             </tree>
         </field>
     </record>

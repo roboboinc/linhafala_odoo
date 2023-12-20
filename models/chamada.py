@@ -235,8 +235,9 @@ class Chamada(models.Model):
     school = fields.Char(string="Escola", default=False)
     call_start = fields.Datetime(string='Hora de início da chamada',
                                  default=fields.Datetime.now)
-    call_end = fields.Char(
+    call_end = fields.Datetime(
         string='Hora de fim da chamada')
+    
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
                                        'style': 'height: 500px;'})
     how_knows_lfc = fields.Selection(

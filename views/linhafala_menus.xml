@@ -71,6 +71,13 @@
         action="linhafala_knowledgebase_action"
         parent="linhafala_menu_root"
         sequence="9" />
+    
+    <menuitem
+        id="linhafala_dashboard_manager_menu_action"
+        name="Painel do Gestor"
+        action="linhafala_dashboard_manager"
+        parent="linhafala_menu_root"
+        sequence="10" />
 
     <!-- CONFIGURATION -->
     <menuitem

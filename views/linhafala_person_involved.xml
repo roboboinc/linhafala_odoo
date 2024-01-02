@@ -43,6 +43,35 @@
         </field>
     </record>
 
+    <record id="person_grap_2" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.graph</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="gender" string="Vitimas Sexo"/>
+            </graph>
+            <!--<graph type="bar">
+                <field name="age" string="Vitimas Idade"/>
+            </graph>
+            <graph type="bar">
+                <field name="person_type" string="Vitimas"/>
+            </graph>-->
+        </field>
+    </record>
+
+    <record id="person_grap_3" model="ir.ui.view">
+        <field name="name">linhafala.person_involved.graph</field>
+        <field name="model">linhafala.person_involved</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
+                <field name="age" string="Vitimas Idade"/>
+            </graph>
+            <!--<graph type="bar">
+                <field name="person_type" string="Vitimas"/>
+            </graph>-->
+        </field>
+    </record>
+
     <record id="day_graph_vitima" model="ir.ui.view">
         <field name="name">linhafala.caso.graph</field>
         <field name="model">linhafala.caso</field>

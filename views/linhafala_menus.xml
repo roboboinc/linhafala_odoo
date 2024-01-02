@@ -73,7 +73,7 @@
         sequence="9" />
     
     <menuitem
-        id="linhafala_dashboard_manager_menu_action"
+        id="linhafala_manager_menu_action"
         name="Painel do Gestor"
         action="linhafala_dashboard_manager"
         parent="linhafala_menu_root"
@@ -177,10 +177,16 @@
         parent="linhafala_menu_config"
         sequence="12"
     />
-     <menuitem
+    <menuitem
         id="linhafala_dashboard_menu_action"
         name="Dashboard"
         action="linhafala_dashboard_home"
         parent="linhafala_menu_config"
         sequence="13" />
+    <menuitem
+        id="linhafala_dashboard_manager_menu_action"
+        name="Painel do Gestor"
+        action="linhafala_dashboard_manager"
+        parent="linhafala_menu_config"
+        sequence="14" />
 </odoo>

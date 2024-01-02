@@ -1,0 +1,88 @@
+<odoo>
+    
+    <record id="act_graph_person" model="ir.actions.act_window">
+        <field name="name">Pessoa Envolvida</field>
+        <field name="res_model">linhafala.person_involved</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="linhafala_odoo.person_graph"/>
+    </record>
+
+    <record id="act_graph_person_2" model="ir.actions.act_window">
+        <field name="name">Pessoa Envolvida 2</field>
+        <field name="res_model">linhafala.person_involved</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="linhafala_odoo.person_grap_2"/>
+    </record>
+
+    <record id="act_graph_person_3" model="ir.actions.act_window">
+        <field name="name">Pessoa Envolvida 3</field>
+        <field name="res_model">linhafala.person_involved</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="linhafala_odoo.person_grap_3"/>
+    </record>
+
+    <record id="act_graph_top_casos" model="ir.actions.act_window">
+        <field name="name">Casos</field>
+        <field name="res_model">linhafala.caso</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="linhafala_odoo.top_graph_caso"/>
+    </record>
+
+    <record id="act_graph_forward_casos" model="ir.actions.act_window">
+        <field name="name">Casos</field>
+        <field name="res_model">linhafala.caso</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="linhafala_odoo.casos_graph"/>
+    </record>
+
+    <record id="act_graph_cases_referall_graph" model="ir.actions.act_window">
+        <field name="name">Casos</field>
+        <field name="res_model">linhafala.caso.forwarding_institution</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="linhafala_odoo.cases_referall_graph"/>
+    </record>
+
+    <record id="dashboard_form_view_manager" model="ir.ui.view">
+        <field name="name">Dashboard Form</field>
+        <field name="model">board.board</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard">
+                <board style="1-1-1">
+                    <column>
+                        <action
+                            string="Vitimas por sexo"
+                            name="%(linhafala_odoo.act_graph_person_2)d"/>
+                        <action
+                            string="Vitimas por idade"
+                            name="%(linhafala_odoo.act_graph_person_3)d"/>    
+                    </column>
+                    <column>
+                        <action
+                            string="Top Total Casos"
+                            name="%(linhafala_odoo.act_graph_top_casos)d"/>
+                        <action
+                            string="Casos por provincia"
+                            name="%(linhafala_odoo.act_graph_person)d"/>
+                    </column>
+                    <column>
+                        <action
+                            string="Casos Encerrados"
+                            name="%(linhafala_odoo.act_graph_forward_casos)d"/>
+                        <action
+                            string="Casos Encaminhados"
+                            name="%(linhafala_odoo.act_graph_cases_referall_graph)d"/>
+                    </column>
+                </board>
+            </form> 
+        </field>
+    </record>
+
+    <record id="linhafala_dashboard_manager" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">board.board</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+        <field name="view_id" ref="dashboard_form_view_manager"/>
+    </record>
+</odoo>

@@ -87,7 +87,7 @@
                             string="Relatorio Mensal Casos"
                             name="%(linhafala_odoo.act_graph_month_casos)d"/> 
                         <action
-                            string="Top 5 Casos"
+                            string="Top Casos"
                             name="%(linhafala_odoo.act_graph_top_casos)d"/>
                         <action
                             string="Vitimas(Dia, Semana, Ano)"

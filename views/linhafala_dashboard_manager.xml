@@ -79,7 +79,7 @@
     </record>
 
     <record id="linhafala_dashboard_manager" model="ir.actions.act_window">
-        <field name="name">Dashboard</field>
+        <field name="name">Dashboard Manager</field>
         <field name="res_model">board.board</field>
         <field name="view_mode">form</field>
         <field name="usage">menu</field>

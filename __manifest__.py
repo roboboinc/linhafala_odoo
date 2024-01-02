@@ -22,6 +22,7 @@
         'views/linhafala_deficiente_views.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_dashboard_home.xml',
+        'views/linhafala_dashboard_manager.xml',
         'views/linhafala_menus.xml',
         'security/security.xml',
         'security/ir.model.access.csv',

@@ -35,7 +35,7 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="type_of_intervention"/>
+                <field name="type_of_intervention" />
             </graph>
         </field>
     </record>
@@ -45,9 +45,9 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="call_start" interval="day" string="Numero de chamadas por dia"/>
-                <field name="call_start" interval="week" string="Numero de chamadas por semana"/>
-                <field name="call_start" interval="year" string="Numero de chamadas por ano"/>
+                <field name="call_start" interval="day" string="Numero de chamadas por dia" />
+                <field name="call_start" interval="week" string="Numero de chamadas por semana" />
+                <field name="call_start" interval="year" string="Numero de chamadas por ano" />
             </graph>
         </field>
     </record>
@@ -57,7 +57,7 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="call_start" interval="month" string="Relatorio Mensal Chamadas"/>
+                <field name="call_start" interval="month" string="Relatorio Mensal Chamadas" />
             </graph>
         </field>
     </record>
@@ -67,7 +67,7 @@
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
             <graph type="bar">
-                <field name="type_of_intervention"/>
+                <field name="type_of_intervention" />
             </graph>
         </field>
     </record>
@@ -77,7 +77,8 @@
         <field name="name">linhafala.chamada.tree</field>
         <field name="model">linhafala.chamada</field>
         <field name="arch" type="xml">
-            <tree string="Channel" default_order="create_date desc" decoration-danger="category_status=='Sem Interveção Desligado'">
+            <tree string="Channel" default_order="create_date desc"
+                decoration-danger="category_status=='Sem Interveção Desligado'">
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />
@@ -133,7 +134,7 @@
                         <field name="_skip_validation" />
                     </p>
 
-                    <div  attrs="{'invisible': [('caller_language', '!=', False)]}">
+                    <div attrs="{'invisible': [('caller_language', '!=', False)]}">
                         <button id="btn-shutdown" name="action_shutdown" string="Desligada"
                             class="btn-danger me-3"
                             type="object"
@@ -190,7 +191,7 @@
                                 <strong style="color: red;">* Distrito: </strong>
                                 <field name="distrito" />
                             </p>
-                            
+
                         </div>
                         <div class="col-md-3 mt-1">
                             <p>
@@ -200,14 +201,15 @@
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
                                 <strong>Contacto: </strong>
-                                <field name="contact"/>
+                                <field name="contact" />
                             </p>
                             <p title="Campo Opcional"
                                 attrs="{'invisible': [('category_calls','!=','Contactante')]}">
                                 <strong>Relação com a Vítima: </strong>
                                 <field name="victim_relationship" />
                             </p>
-                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}" title="Campo Opcional">
+                            <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}"
+                                title="Campo Opcional">
                                 <strong>Tipo de Identificação: </strong>
                                 <field name="id_number" />
                             </p>
@@ -216,7 +218,7 @@
                                 <strong>Bairro: </strong>
                                 <field name="bairro" />
                             </p>
-                            
+
                             <p>
                                 <strong style="color: red;">* Género: </strong>
                                 <field name="gender" />
@@ -341,7 +343,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <p>
-                                        <strong style="color: red;">* Tem algum tipo de impedimento/dificuldade?: </strong>
+                                        <strong style="color: red;">* Tem algum tipo de
+                                            impedimento/dificuldade?: </strong>
                                         <field name="are_you_disabled" />
                                     </p>
                                     <p>
@@ -355,14 +358,16 @@
                                 </div>
 
                                 <div class="col-md-6">
-
-                                    <button string="Save" type="object" name="action_notification"
-                                        class="oe_highlight" 
+                                    <p attrs="{'invisible': [('_skip_validation', '!=', False)]}">
+                                        <button string="Save" type="object"
+                                            name="action_notification"
+                                            class="oe_highlight"
                                         />
-                                    <button string="Edit" type="object" name="edit"
-                                        attrs="{'invisible': [('id', '=', False)]}"
-                                        class="btn-secondary"
-                                        confirm="Tem certeza de que deseja editar esse Caso ? " />
+                                        <button string="Edit" type="object" name="edit"
+                                            attrs="{'invisible': [('id', '=', False)]}"
+                                            class="btn-secondary"
+                                            confirm="Tem certeza de que deseja editar esse Caso ? " />
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -3,14 +3,21 @@
     <record id="act_graph_chamadas" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
         <field name="res_model">linhafala.chamada</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.week_graph"/>
+    </record>
+
+    <record id="act_graph_chamadas_year" model="ir.actions.act_window">
+        <field name="name">Chamadas</field>
+        <field name="res_model">linhafala.chamada</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="linhafala_odoo.year_graph"/>
     </record>
 
     <record id="act_graph_month_chamadas" model="ir.actions.act_window">
         <field name="name">Chamadas</field>
         <field name="res_model">linhafala.chamada</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.monthly_graph_calls"/>
     </record>
 
@@ -24,14 +31,21 @@
     <record id="act_graph_casos" model="ir.actions.act_window">
         <field name="name">Casos</field>
         <field name="res_model">linhafala.caso</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.day_graph"/>
+    </record>
+
+    <record id="act_graph_casos_year" model="ir.actions.act_window">
+        <field name="name">Casos</field>
+        <field name="res_model">linhafala.caso</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="linhafala_odoo.year_graph_cases"/>
     </record>
 
     <record id="act_graph_month_casos" model="ir.actions.act_window">
         <field name="name">Casos</field>
         <field name="res_model">linhafala.caso</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.monthly_graph_caso"/>
     </record>
 
@@ -45,8 +59,15 @@
     <record id="act_graph_vitima" model="ir.actions.act_window">
         <field name="name">Vitimas</field>
         <field name="res_model">linhafala.person_involved</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.day_graph_vitima"/>
+    </record>
+
+    <record id="act_graph_vitima_year" model="ir.actions.act_window">
+        <field name="name">Vitimas</field>
+        <field name="res_model">linhafala.person_involved</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="linhafala_odoo.year_graph_vitima"/>
     </record>
 
     <record id="act_graph_month_vitima" model="ir.actions.act_window">
@@ -59,7 +80,7 @@
     <record id="act_graph_monthly_vitima" model="ir.actions.act_window">
         <field name="name">Vitimas</field>
         <field name="res_model">linhafala.person_involved</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.monthly_graph_vitima"/>
     </record>
 
@@ -75,11 +96,15 @@
                             string="Relatorio Mensal Chamadas"
                             name="%(linhafala_odoo.act_graph_month_chamadas)d"/>
                         <action
+                            string="Chamadas(Dia)"
+                            name="%(linhafala_odoo.act_graph_chamadas)d"/>
+                        <action
+                            string="Chamadas(Anual)"
+                            name="%(linhafala_odoo.act_graph_chamadas_year)d"/>
+                        <action
                             string="Tipo de Chamadas"
                             name="%(linhafala_odoo.act_graph_top_chamadas)d"/>
-                        <action
-                            string="Chamadas(Dia, Semana, Ano)"
-                            name="%(linhafala_odoo.act_graph_chamadas)d"/>
+                        
                         
                     </column>
                     <column>
@@ -87,11 +112,14 @@
                             string="Relatorio Mensal Casos"
                             name="%(linhafala_odoo.act_graph_month_casos)d"/> 
                         <action
+                            string="Casos(Dia)"
+                            name="%(linhafala_odoo.act_graph_casos)d"/>
+                        <action
+                            string="Casos(Anual)"
+                            name="%(linhafala_odoo.act_graph_casos_year)d"/>
+                        <action
                             string="Top Casos"
                             name="%(linhafala_odoo.act_graph_top_casos)d"/>
-                        <action
-                            string="Vitimas(Dia, Semana, Ano)"
-                            name="%(linhafala_odoo.act_graph_vitima)d"/>
                         
                     </column>
                     <column>
@@ -99,11 +127,15 @@
                             string="Relatorio Mensal Vitimas"
                             name="%(linhafala_odoo.act_graph_monthly_vitima)d"/>
                         <action
+                            string="Vitimas(Dia)"
+                            name="%(linhafala_odoo.act_graph_vitima)d"/>
+                        <action
+                            string="Vitimas(Anual)"
+                            name="%(linhafala_odoo.act_graph_vitima_year)d"/>
+                        <action
                             string="Vitimas Por Sexo"
                             name="%(linhafala_odoo.act_graph_month_vitima)d"/>
-                        <action
-                            string="Casos(Dia, Semana, Ano)"
-                            name="%(linhafala_odoo.act_graph_casos)d"/>
+                        
                     </column>
                 </board>
             </form> 

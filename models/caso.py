@@ -394,7 +394,6 @@ class PersonInvolved(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )

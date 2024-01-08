@@ -50,12 +50,6 @@
             <graph type="bar">
                 <field name="gender" string="Vitimas Sexo"/>
             </graph>
-            <!--<graph type="bar">
-                <field name="age" string="Vitimas Idade"/>
-            </graph>
-            <graph type="bar">
-                <field name="person_type" string="Vitimas"/>
-            </graph>-->
         </field>
     </record>
 
@@ -66,9 +60,6 @@
             <graph type="bar">
                 <field name="age" string="Vitimas Idade"/>
             </graph>
-            <!--<graph type="bar">
-                <field name="person_type" string="Vitimas"/>
-            </graph>-->
         </field>
     </record>
 
@@ -78,7 +69,15 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="created_at" interval="day" string="Numero de vitimas por dia"/>
-                <field name="created_at" interval="week" string="Numero de vitimas por semana"/>
+            </graph> 
+        </field>
+    </record>
+
+    <record id="year_graph_vitima" model="ir.ui.view">
+        <field name="name">linhafala.caso.graph</field>
+        <field name="model">linhafala.caso</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
                 <field name="created_at" interval="year" string="Numero de vitimas por ano"/>
             </graph> 
         </field>
@@ -90,7 +89,6 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="gender" string="Vitimas Sexo"/>
-                <field name="created_at" interval="month" string="Numero de vitimas por mes"/>
             </graph> 
         </field>
     </record>

@@ -53,7 +53,7 @@ class PersonInvolved(models.Model):
         string='Sexo do Perpetrator',
         selection=[
             ("Masculino", "Masculino"),
-            ("Desconhecido", "Desconhecido"),
+            ("Feminino", "Feminino"),
         ],
         help="Sexo"
     )
@@ -128,7 +128,6 @@ class PersonInvolved(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )

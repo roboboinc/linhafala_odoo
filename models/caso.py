@@ -31,7 +31,20 @@ class Caso(models.Model):
 
             if not has_vitima and not has_contactante_vitima:
                 raise ValidationError(
-                    "Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")        
+                    "Porfavor adicione uma 'Vitima' ou 'Contactante+Vitima' para prosseguir.")     
+
+    @api.constrains('person_id')
+    def _check_contactante(self):
+        for caso in self:
+            has_contactante = False
+
+            for person in caso.person_id:
+                if person.person_type == 'Contactante':
+                    has_contactante = True
+                
+            if not has_contactante:
+                raise ValidationError(
+                    "Porfavor adicione um 'Contactante' para prosseguir.")    
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
@@ -394,7 +407,6 @@ class PersonInvolved(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )

@@ -46,7 +46,14 @@
         <field name="arch" type="xml">
             <graph type="bar">
                 <field name="call_start" interval="day" string="Numero de chamadas por dia" />
-                <field name="call_start" interval="week" string="Numero de chamadas por semana" />
+            </graph>
+        </field>
+    </record>
+    <record id="year_graph" model="ir.ui.view">
+        <field name="name">linhafala.chamada.graph</field>
+        <field name="model">linhafala.chamada</field>
+        <field name="arch" type="xml">
+            <graph type="bar">
                 <field name="call_start" interval="year" string="Numero de chamadas por ano" />
             </graph>
         </field>

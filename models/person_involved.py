@@ -38,6 +38,7 @@ class PersonInvolved(models.Model):
     person_type = fields.Selection(
         string='Categoria',
         selection=[
+            ("Contactante", "Contactante"),
             ("Contactante+Vítima", "Contactante+Vítima"),
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),

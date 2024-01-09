@@ -38,6 +38,7 @@ class PersonInvolved(models.Model):
     person_type = fields.Selection(
         string='Categoria',
         selection=[
+            ("Contactante", "Contactante"),
             ("Contactante+Vítima", "Contactante+Vítima"),
             ("Vítima", "Vítima"),
             ("Perpetrador", "Perpetrador"),
@@ -53,7 +54,7 @@ class PersonInvolved(models.Model):
         string='Sexo do Perpetrator',
         selection=[
             ("Masculino", "Masculino"),
-            ("Desconhecido", "Desconhecido"),
+            ("Feminino", "Feminino"),
         ],
         help="Sexo"
     )
@@ -128,7 +129,6 @@ class PersonInvolved(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )

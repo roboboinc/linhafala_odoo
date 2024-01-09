@@ -38,7 +38,7 @@
     <record id="act_graph_cases_referall_graph" model="ir.actions.act_window">
         <field name="name">Casos</field>
         <field name="res_model">linhafala.caso.forwarding_institution</field>
-        <field name="view_mode">graph</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" ref="linhafala_odoo.cases_referall_graph"/>
     </record>
 
@@ -67,11 +67,11 @@
                     </column>
                     <column>
                         <action
-                            string="Casos Encerrados"
-                            name="%(linhafala_odoo.act_graph_forward_casos)d"/>
-                        <action
                             string="Casos Encaminhados"
                             name="%(linhafala_odoo.act_graph_cases_referall_graph)d"/>
+                        <action
+                            string="Estado do Caso"
+                            name="%(linhafala_odoo.act_graph_forward_casos)d"/>
                     </column>
                 </board>
             </form> 

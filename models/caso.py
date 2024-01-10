@@ -37,14 +37,18 @@ class Caso(models.Model):
     def _check_contactante(self):
         for caso in self:
             has_contactante = False
+            has_contactante_vitima = False
+
 
             for person in caso.person_id:
                 if person.person_type == 'Contactante':
                     has_contactante = True
+                elif person.person_type == 'Contactante+Vítima':
+                    has_contactante_vitima = True
                 
-            if not has_contactante:
+            if not has_contactante and not has_contactante_vitima:
                 raise ValidationError(
-                    "Porfavor adicione um 'Contactante' para prosseguir.")    
+                    "Porfavor adicione um 'Contactante' ou 'Contactante+Vitima' para prosseguir.")    
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")

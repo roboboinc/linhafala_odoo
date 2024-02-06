@@ -34,15 +34,13 @@
         <field name="model">linhafala.deficiente</field>
         <field name="arch" type="xml">
             <tree default_order="create_date desc">
-                <field name="deficiente_id" optional="show" />
-                <field name="vision" optional="hide" />
-                <field name="hearing" optional="hide" />
+                <field name="vision" optional="show" />
+                <field name="hearing" optional="show" />
                 <field name="mobility" optional="hide" />
                 <field name="cognition" optional="hide" />
                 <field name="autonomous_care" optional="hide" />
                 <field name="comunication" optional="hide" />
                 <field name="created_by" optional="show" />
-                <field name="deficiency_status" optional="show" />
             </tree>
         </field>
     </record>

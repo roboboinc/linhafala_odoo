@@ -141,6 +141,18 @@ class PersonInvolved(models.Model):
                              string='Classe')
     case_id = fields.Many2one("linhafala.caso", string="Caso")
 
+    are_you_disabled = fields.Selection(
+        string="E deficiente?",
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ],
+        help="E deficiente?",
+    )
+
+    deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
+                                                string="Linhas do Deficiênte")
+
     @api.onchange('provincia')
     def _provincia_onchange(self):
         for rec in self:

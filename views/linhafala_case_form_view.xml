@@ -186,6 +186,16 @@
                                                                 <strong style="color: red;">* Relação com a(s) vítima(s):</strong>
                                                                 <field name="victim_relationship" />
                                                             </p>
+                                                            <p>
+                                                                <strong style="color: red;">* Tem algum tipo de
+                                                                    impedimento/dificuldade?: </strong>
+                                                                <field name="are_you_disabled" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="row w-100">
+                                                            <p attrs="{'invisible': [('are_you_disabled','!=','Sim')]}">
+                                                                <field name="deficiency_line_calls_ids" />
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </sheet>

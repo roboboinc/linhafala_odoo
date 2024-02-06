@@ -20,6 +20,10 @@ class Deficiente(models.Model):
 
     case_id = fields.Many2one(
         comodel_name='linhafala.caso', string="Caso")
+    
+    person_id = fields.Many2one(
+        comodel_name='linhafala.person_involved', string="Person involved")
+
 
     what_disability_does_he_suffer = fields.Selection(
         string='De que necessidade especial padece?',
@@ -107,17 +111,6 @@ class Deficiente(models.Model):
 
     created_by = fields.Many2one(
         'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
-
-    deficiency_status = fields.Selection(
-        string='Estado do caso',
-        selection=[
-            ("Aberto/Pendente", "Aberto/Pendente"),
-            ("Dentro do sistema", "Dentro do sistema"),
-            ("Assistido", "Assistido"),
-            ("Encerrado", "Encerrado"),
-        ],default="Aberto/Pendente",
-        help="Estado do caso"
-    )
 
     vision_type = fields.Boolean("Visão:")
     hearing_type = fields.Boolean("Audição:")

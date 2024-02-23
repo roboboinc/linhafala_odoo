@@ -7,7 +7,11 @@
         action="linhafala_dashboard_home"
         web_icon="linhafala_odoo,static/description/logo.png"
         sequence="6" />
-
+    <menuitem
+        id="linhafala_dashboard_menu_action"
+        name="Inicio"
+        parent="linhafala_menu_root"
+        sequence="0" />
     <!-- Calls (MAIN USER MENU Action) -->
     <menuitem
         id="linhafala_chamada_menu_action"
@@ -75,7 +79,6 @@
     <menuitem
         id="linhafala_manager_menu_action"
         name="Painel do Gestor"
-        action="linhafala_dashboard_manager"
         parent="linhafala_menu_root"
         sequence="10" />
 
@@ -177,16 +180,4 @@
         parent="linhafala_menu_config"
         sequence="12"
     />
-    <menuitem
-        id="linhafala_dashboard_menu_action"
-        name="Dashboard"
-        action="linhafala_dashboard_home"
-        parent="linhafala_menu_config"
-        sequence="13" />
-    <menuitem
-        id="linhafala_dashboard_manager_menu_action"
-        name="Painel do Gestor"
-        action="linhafala_dashboard_manager"
-        parent="linhafala_menu_config"
-        sequence="14" />
 </odoo>

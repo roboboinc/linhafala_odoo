@@ -323,7 +323,7 @@ class Caso(models.Model):
 
 class PersonInvolved(models.Model):
     _name = "linhafala.caso.person_involved"
-    _description = "Person Involved Lines"
+    _description = "Person Involved"
 
     fullname = fields.Char(string="Nome completo")
     id_number = fields.Selection(

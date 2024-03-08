@@ -248,8 +248,8 @@
                                 <page string="* Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
-                                <page attrs="{'invisible': [('are_you_disabled','!=','Sim')]}"
-                                    string="Deficiência" name="deficiencia">
+                                <page attrs="{'invisible': [('are_you_disabled','==','Não')]}"
+                                    string="* Deficiência" name="deficiencia">
                                     <field name="deficiency_line_calls_ids" widget="one2many">
                                         <tree>
                                             <field name="deficiente_id" optional="show" />
@@ -349,11 +349,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p>
-                                        <strong style="color: red;">* Tem algum tipo de
-                                            impedimento/dificuldade?: </strong>
-                                        <field name="are_you_disabled" />
-                                    </p>
+                                    
                                     <p>
                                         <strong>Hora de inicio da chamada: </strong>
                                         <field name="call_start" />
@@ -361,6 +357,11 @@
                                     <p>
                                         <strong style="color: red;">* Hora de fim da chamada: </strong>
                                         <field name="call_end" />
+                                    </p>
+                                    <p>
+                                        <strong style="color: red;">* Tem algum tipo de
+                                            impedimento/dificuldade?: </strong>
+                                        <field name="are_you_disabled" />
                                     </p>
                                 </div>
 

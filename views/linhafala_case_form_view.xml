@@ -193,7 +193,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="row w-100">
-                                                            <p attrs="{'invisible': [('are_you_disabled','!=','Sim')]}">
+                                                            <p attrs="{'invisible': [('are_you_disabled','==','Não')]}">
                                                                 <field name="deficiency_line_calls_ids" />
                                                             </p>
                                                         </div>

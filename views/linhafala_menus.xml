@@ -4,7 +4,6 @@
     <menuitem
         id="linhafala_menu_root"
         name="Linha Fala Criança"
-        action="linhafala_dashboard_home"
         web_icon="linhafala_odoo,static/description/logo.png"
         sequence="6" />
     <menuitem

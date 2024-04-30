@@ -290,6 +290,12 @@
         <field name="arch" type="xml">
             <tree string="Channel">
                 <field name="name" />
+                <field name="reference_area" />
+                <field name="area_type" />
+                <field name="provincia" />
+                <field name="distrito" />
+                <field name="reference_entity" />
+                <field name="contact" />
             </tree>
         </field>
     </record>

@@ -1,9 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="report_case">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
+                    <!-- Custom styles -->
+                    <style>
+                        .detailed-description p {
+                            font-size: 25px !important; /* Desired font size */
+                        }
+                    </style>
+                    <!-- Custom styles -->
                     <div class="row">
                         <div class="col-xs-12">
                             <h1 class="text-center">Ficha de Caso</h1>
@@ -144,11 +150,13 @@
                     <br />
                     <br />
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
-                    <t t-foreach="doc.detailed_description" t-as="line">
-                        <p><t t-out="line.content" /></p>
-                        <p><strong>Criapo Por:</strong><t t-out="line.created_by.name" /></p>
-                        <hr/>
-                    </t>
+                    <div class="detailed-description">
+                        <t t-foreach="doc.detailed_description" t-as="line">
+                            <p><t t-out="line.content" /></p>
+                            <p><strong>Criapo Por:</strong><t t-out="line.created_by.name" /></p>
+                            <hr/>
+                        </t>
+                    </div>
                     <br/>
                     <h4>Classificaçäo Provisória</h4>
                     <t t-foreach="docs" t-as="doc">

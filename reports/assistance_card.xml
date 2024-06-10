@@ -4,6 +4,13 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div class="page">
+                    <!-- Custom styles -->
+                    <style>
+                        .motivo-description p {
+                            font-size: 25px !important; /* Desired font size */
+                        }
+                    </style>
+                    <!-- Custom styles -->
                     <div class="row">
                         <div class="col-xs-12">
                             <h1 class="text-center">Ficha de Assistência</h1>
@@ -155,13 +162,12 @@
                     <br />
                     <br />
                     <h2 class="text-center">Motivo de contactar a Linha/Ocorrência</h2>
-                    <t t-foreach="docs" t-as="doc">
-
-                        <t
-                            t-esc="doc.detailed_description" />
-                        <br />
-
-                    </t>
+                    <div class="motivo-description">
+                        <t t-foreach="docs" t-as="doc">
+                            <p><t t-esc="doc.detailed_description" /></p>
+                            <br />
+                        </t>
+                    </div>
                 </div>
             </t>
         </t>

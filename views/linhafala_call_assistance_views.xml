@@ -170,27 +170,55 @@
                                     <field name="detailed_description" />
                                 </page>
                                 <page string="Contactante" name="contactante">
-                                    <p>
-                                        <strong>Contactante: </strong>
-                                        <field name="nome_contactante" />
-                                    </p>
-                                    <p>
-                                        <strong>Idade do Contactante: </strong>
-                                        <field name="age_contactante" />
-                                    </p>
-                                    <p>
-                                        <strong>Sexo do Contactante: </strong>
-                                        <field name="sexo_contactante" />
-                                    </p>
-                                    <p>
-                                        <strong>Relação com o Benificiário: </strong>
-                                        <field name="victim_relationship" />
-                                    </p>
+                                    <field name="assistance_contactante_referral_line_ids" widget="one2many">
+                                        <form>
+                                            <sheet>
+                                                <h1> Formulário de Encaminhamento de Assistências LFC <h3>
+                                                    </h3>
+                                                </h1>
+                                                <div class="row w-100">
+                                                    <p>
+                                                        <strong>Id da Assistência: </strong>
+                                                        <field name="assistance_id" />
+                                                    </p>
+                                                    <div class="col-md-6">
+                                                        
+                                                        <p>
+                                                            <strong>Benificiário: </strong>
+                                                            <field name="tipo_de_beneficiario" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Sexo: </strong>
+                                                            <field name="sexo_contactante" />
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p>
+                                                            <strong>Idade: </strong>
+                                                            <field name="age_contactante" />
+                                                        </p>
+                                                        <p>
+                                                            <strong>Relação com o Benificiário: </strong>
+                                                            <field name="victim_relationship"/>
+                                                        </p>
+                                                    </div>
+                                                </div>                              
+                                            </sheet>
+                                        </form>
+                                        <tree>
+                                            <field name="assistance_id" />
+                                            <field name="tipo_de_beneficiario" />
+                                            <field name="age_contactante" />
+                                            <field name="sexo_contactante" />
+                                            <field name="victim_relationship"/>
+                                        </tree>
+                                    </field>
                                 </page>
                                 <page string="Referências de Assistências"
                                     name="assistance_references">
                                     <field name="assistance_referral_line_ids" widget="one2many">
-
+                                        
                                     </field>
                                 </page>
                             </notebook>

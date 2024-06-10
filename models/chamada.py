@@ -479,50 +479,7 @@ class CallCaseAssistance(models.Model):
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 
-    fullname = fields.Char(string="Benificiário")
-
-    nome_contactante = fields.Char(string="Contactante")
-
-    age_contactante = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
-                           string='Idade Contactante')
-    
-    sexo_contactante = fields.Selection(
-        string='Sexo',
-        selection=[
-            ("Masculino", "Masculino"),
-            ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
-        ],
-        help="Sexo Contactante"
-    )
-
-    victim_relationship = fields.Selection(
-        string='Relação com o Benificiário:',
-        selection=[
-            ("Pai", "Pai"),
-            ("Mãe", "Mãe"),
-            ("Avo", "Avo"),
-            ("Amigo", "Amigo"),
-            ("Outros", "Outros"),
-            ("Colega", "Colega"),
-            ("Esposo", "Esposo"),
-            ("Tio(a)", "Tio(a)"),
-            ("Nenhuma", "Nenhuma"),
-            ("Mentora", "Mentora"),
-            ("Irmã(o)", "Irmã(o)"),
-            ("Primo(a)", "Primo(a)"),
-            ("Namorado", "Namorado"),
-            ("Madrasta", "Madrasta"),
-            ("Padrasto", "Padrasto"),
-            ("Empregador", "Empregador"),
-            ("Vizinho (a)", "Vizinho (a)"),
-            ("Denunciante", "Denunciante"),
-            ("Educador(a)", "Educador(a)"),
-            ("Professor(a)", "Professor(a)"),
-            ("Não aplicavél", "Não aplicavél"),
-        ],
-        help="Relação com o Benificiário:"
-    )
+    fullname = fields.Char(string="Contactante")
 
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
@@ -603,6 +560,9 @@ class CallCaseAssistance(models.Model):
     uuid = fields.Char(string='UUID', readonly=True)
     assistance_referral_line_ids = fields.One2many('linhafala.chamada.assistance.referral', 'assistance_id',
                                                    string="Linhas de Referências de Assistências")
+    
+    assistance_contactante_referral_line_ids = fields.One2many('linhafala.chamada.assistance.contactante', 'assistance_id',
+                                                   string="Contactante")
 
     _sql_constraints = [
         ('unique_assistance_id', 'unique(assistance_id)',
@@ -704,6 +664,63 @@ class CallCaseAssistance(models.Model):
     @api.model
     def edit(self, vals):
         return super(CallCaseAssistance, self).write(vals)
+    
+class CallCaseAssistanceContactante(models.Model):
+    _name="linhafala.chamada.assistance.contactante"
+    _description = "Contcatante assistência"
+
+    assistance_id = fields.Many2one('linhafala.chamada.assistance', string="Assistance")
+
+    tipo_de_beneficiario = fields.Selection(
+        string="Benificiário",
+        selection=[
+            ("Benificiário directo","Benificiário directo"),
+            ("Benificiário indirecto","Benificiário indirecto"),
+        ],
+        help="Benificiário"
+    )
+
+    age_contactante = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
+                           string='Idade Contactante')
+    
+    sexo_contactante = fields.Selection(
+        string='Sexo',
+        selection=[
+            ("Masculino", "Masculino"),
+            ("Feminino", "Feminino"),
+            ("Desconhecido", "Desconhecido"),
+        ],
+        help="Sexo Contactante"
+    )
+
+    victim_relationship = fields.Selection(
+        string='Relação com o Benificiário:',
+        selection=[
+            ("Pai", "Pai"),
+            ("Mãe", "Mãe"),
+            ("Avo", "Avo"),
+            ("Amigo", "Amigo"),
+            ("Outros", "Outros"),
+            ("Colega", "Colega"),
+            ("Esposo", "Esposo"),
+            ("Tio(a)", "Tio(a)"),
+            ("Nenhuma", "Nenhuma"),
+            ("Mentora", "Mentora"),
+            ("Irmã(o)", "Irmã(o)"),
+            ("Primo(a)", "Primo(a)"),
+            ("Namorado", "Namorado"),
+            ("Madrasta", "Madrasta"),
+            ("Padrasto", "Padrasto"),
+            ("Empregador", "Empregador"),
+            ("Vizinho (a)", "Vizinho (a)"),
+            ("Denunciante", "Denunciante"),
+            ("Educador(a)", "Educador(a)"),
+            ("Professor(a)", "Professor(a)"),
+            ("Não aplicavél", "Não aplicavél"),
+        ],
+        help="Relação com o Benificiário:"
+    )
+
 
 
 class AssistanceReferall(models.Model):

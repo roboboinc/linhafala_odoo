@@ -169,6 +169,24 @@
                                 <page string="* Detalhes" name="detailed_description_section">
                                     <field name="detailed_description" />
                                 </page>
+                                <page string="Contactante" name="contactante">
+                                    <p>
+                                        <strong>Contactante: </strong>
+                                        <field name="nome_contactante" />
+                                    </p>
+                                    <p>
+                                        <strong>Idade do Contactante: </strong>
+                                        <field name="age_contactante" />
+                                    </p>
+                                    <p>
+                                        <strong>Sexo do Contactante: </strong>
+                                        <field name="sexo_contactante" />
+                                    </p>
+                                    <p>
+                                        <strong>Relação com o Benificiário: </strong>
+                                        <field name="victim_relationship" />
+                                    </p>
+                                </page>
                                 <page string="Referências de Assistências"
                                     name="assistance_references">
                                     <field name="assistance_referral_line_ids" widget="one2many">

@@ -107,7 +107,7 @@
                     <div class="row w-100">
                         <div class="col-md-3">
                             <p title="Campo Opcional">
-                                <strong>Benificiário: </strong>
+                                <strong>Contactante: </strong>
                                 <field name="fullname" />
                             </p>
                             <p>

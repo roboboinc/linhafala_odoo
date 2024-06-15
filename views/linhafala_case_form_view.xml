@@ -148,6 +148,10 @@
                                                                 <field name="distrito"
                                                                 />
                                                             </p>
+                                                            <p>
+                                                                <strong style="color: red;">* Relação com a(s) vítima(s):</strong>
+                                                                <field name="victim_relationship" />
+                                                            </p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>
@@ -157,7 +161,7 @@
                                                             
                                                             <p>
                                                                 <strong>
-                                                                    Bairro: </strong>
+                                                                    Comunidade/Bairro: </strong>
                                                                 <field name="bairro" />
                                                             </p>
 
@@ -181,11 +185,15 @@
                                                                 <strong>Sexo do Perpetrador: </strong>
                                                                 <field name="perpetrator_gender" />
                                                             </p>
-                                                            
                                                             <p>
-                                                                <strong style="color: red;">* Relação com a(s) vítima(s):</strong>
-                                                                <field name="victim_relationship" />
+                                                                <strong style="color: red;">Posto:</strong>
+                                                                <field name="posto" />
                                                             </p>
+                                                            <p>
+                                                                <strong style="color: red;">Localidade: </strong>
+                                                                <field name="localidade" />
+                                                            </p>
+                                                            
                                                             <p>
                                                                 <strong style="color: red;">* Tem algum tipo de
                                                                     impedimento/dificuldade?: </strong>

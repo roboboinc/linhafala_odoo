@@ -114,8 +114,12 @@
                                 <strong style="color: red;">* Província: </strong>
                                 <field name="provincia" />
                             </p>
+                            <p>
+                                <strong style="color: red;">* Posto: </strong>
+                                <field name="posto" />
+                            </p>
                             <p title="Campo Opcional">
-                                <strong>Bairro: </strong>
+                                <strong>Comunidade/Bairro: </strong>
                                 <field name="bairro" />
                             </p>
                             <p>
@@ -140,6 +144,11 @@
                                 <strong style="color: red;">* Distrito: </strong>
                                 <field
                                     name="distrito" />
+                            </p>
+                            <p>
+                                <strong style="color: red;">* Localidade: </strong>
+                                <field
+                                    name="localidade" />
                             </p>
                             <p title="Campo Opcional">
                                 <strong style="color: red;">

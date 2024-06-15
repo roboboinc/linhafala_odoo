@@ -206,10 +206,39 @@ class Chamada(models.Model):
     )
     nr_identication = fields.Char(string="Número de Identificação")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Província")
+        comodel_name='linhafala.provincia', string="Provincia", help="Provincia", required=True)
+
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")  # ,
-    #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
+        comodel_name='linhafala.distrito', 
+        string="Distrito", 
+        help="Distrito",
+        required=True,
+        domain="[('provincia', '=', provincia)]")
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+        
+    posto = fields.Many2one(
+        comodel_name="linhafala.posto", string="Posto",
+        domain="[('distrito', '=', distrito)]"
+        )
+
+    localidade = fields.Many2one(
+        comodel_name='linhafala.localidade', string="Localidade",
+        domain="[('posto', '=', posto)]"
+        )
+    
+    @api.onchange('distrito')
+    def _distrito_onchange(self):
+        for rec in self:
+            return {'value': {'posto': False}, 'domain': {'posto': [('distrito', '=', rec.distrito.id)]}}
+
+    @api.onchange('posto')
+    def _posto_onchange(self):
+        for rec in self:
+            return {'value': {'localidade': False}, 'domain': {'localidade': [('posto', '=', rec.posto.id)]}}
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
         string='Sexo',
@@ -401,11 +430,6 @@ class Chamada(models.Model):
             'target': 'current',
         }
 
-    @api.onchange('provincia')
-    def _provincia_onchange(self):
-        for rec in self:
-            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
-
     # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow
     @api.onchange('category')
     def _category_onchange(self):
@@ -484,10 +508,39 @@ class CallCaseAssistance(models.Model):
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia")
+        comodel_name='linhafala.provincia', string="Provincia", help="Provincia", required=True)
+
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")  # ,
-    #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
+        comodel_name='linhafala.distrito', 
+        string="Distrito", 
+        help="Distrito",
+        required=True,
+        domain="[('provincia', '=', provincia)]")
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+        
+    posto = fields.Many2one(
+        comodel_name="linhafala.posto", string="Posto",
+        domain="[('distrito', '=', distrito)]"
+        )
+
+    localidade = fields.Many2one(
+        comodel_name='linhafala.localidade', string="Localidade",
+        domain="[('posto', '=', posto)]"
+        )
+    
+    @api.onchange('distrito')
+    def _distrito_onchange(self):
+        for rec in self:
+            return {'value': {'posto': False}, 'domain': {'posto': [('distrito', '=', rec.distrito.id)]}}
+
+    @api.onchange('posto')
+    def _posto_onchange(self):
+        for rec in self:
+            return {'value': {'localidade': False}, 'domain': {'localidade': [('posto', '=', rec.posto.id)]}}
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
         string='Sexo',
@@ -613,11 +666,6 @@ class CallCaseAssistance(models.Model):
             if not record.gender:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Género")
-
-    @api.onchange('provincia')
-    def _provincia_onchange(self):
-        for rec in self:
-            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
 
     @api.onchange('category')
     def _category_onchange(self):

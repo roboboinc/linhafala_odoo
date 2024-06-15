@@ -2,30 +2,30 @@ id,name,provincia
 linhafala_distrito_1,Cidade de Pemba,Cabo Delgado
 linhafala_distrito_2,Boane,Maputo Provincia
 linhafala_distrito_3,Magude,Maputo Provincia
-linhafala_distrito_4,Manhica,Maputo Provincia
+linhafala_distrito_4,Manhiça,Maputo Provincia
 linhafala_distrito_5,Marracuene,Maputo Provincia
 linhafala_distrito_6,Matutuine,Maputo Provincia
 linhafala_distrito_7,Moamba,Maputo Provincia
 linhafala_distrito_8,Namaacha,Maputo Provincia
-linhafala_distrito_9,Cidade da Matola,Maputo Provincia
+linhafala_distrito_9,Cidade Da Matola,Maputo Provincia
 linhafala_distrito_10,Angonia,Tete
-linhafala_distrito_11,Cahora-Bassa,Tete
+linhafala_distrito_11,Cahora Bassa,Tete
 linhafala_distrito_12,Moatize,Tete
 linhafala_distrito_13,Mutarara,Tete
 linhafala_distrito_14,Changara,Tete
 linhafala_distrito_15,Chifunde,Tete
-linhafala_distrito_16,Chiúta,Tete
+linhafala_distrito_16,Chiuta,Tete
 linhafala_distrito_17,Macanga,Tete
 linhafala_distrito_18,Magoe,Tete
-linhafala_distrito_19,Marávia,Tete
+linhafala_distrito_19,Maravia,Tete
 linhafala_distrito_20,Tsangano,Tete
-linhafala_distrito_21,Zumbo,Tete
-linhafala_distrito_22,Dôa,Tete
+linhafala_distrito_21,Zumbu,Tete
+linhafala_distrito_22,Doa,Tete
 linhafala_distrito_23,Marara,Tete
-linhafala_distrito_24,Cidade de Tete,Tete
+linhafala_distrito_24,Cidade De Tete,Tete
 linhafala_distrito_25,Angoche,Nampula
 linhafala_distrito_26,Nampa-Errati,Nampula
-linhafala_distrito_27,Ilha de Mocambi,Nampula
+linhafala_distrito_27,Ilha De Moçambique,Nampula
 linhafala_distrito_28,Lalaua,Nampula
 linhafala_distrito_29,Malema,Nampula
 linhafala_distrito_30,Meconta,Nampula
@@ -38,13 +38,13 @@ linhafala_distrito_36,Monapo,Nampula
 linhafala_distrito_37,Mossuril,Nampula
 linhafala_distrito_38,Muecate,Nampula
 linhafala_distrito_39,Murrupula,Nampula
-linhafala_distrito_40,Nacala Porto,Nampula
-linhafala_distrito_41,Nacala Velha,Nampula
+linhafala_distrito_40,Nacala,Nampula
+linhafala_distrito_41,Nacala-A-Velha,Nampula
 linhafala_distrito_42,Nacaroa,Nampula
 linhafala_distrito_43,Rapale,Nampula
 linhafala_distrito_44,Ribaue,Nampula
 linhafala_distrito_45,Larde,Nampula
-linhafala_distrito_46,Liupo,Nampula
+linhafala_distrito_46,Liúpo,Nampula
 linhafala_distrito_47,Nampula-Distrito,Nampula
 linhafala_distrito_48,Balama,Cabo Delgado
 linhafala_distrito_49,Chiure,Cabo Delgado
@@ -73,21 +73,21 @@ linhafala_distrito_71,Maringue,Sofala
 linhafala_distrito_72,Marromeu,Sofala
 linhafala_distrito_73,Muanza,Sofala
 linhafala_distrito_74,Nhamatanda,Sofala
-linhafala_distrito_75,Cidade da Beira,Sofala
+linhafala_distrito_75,Cidade Da Beira,Sofala
 linhafala_distrito_76,Barue,Manica
 linhafala_distrito_77,Gondola,Manica
 linhafala_distrito_78,Guro,Manica
 linhafala_distrito_79,Machaze,Manica
 linhafala_distrito_80,Macossa,Manica
 linhafala_distrito_81,Manica,Manica
-linhafala_distrito_82,Mussorize,Manica
+linhafala_distrito_82,Mossurize,Manica
 linhafala_distrito_83,Sussundenga,Manica
 linhafala_distrito_84,Tambara,Manica
 linhafala_distrito_85,Macate,Manica
 linhafala_distrito_86,Vanduzi,Manica
-linhafala_distrito_87,Chimoio,Manica
-linhafala_distrito_88,Quelimane,Zambezia
-linhafala_distrito_89,Maganja da Costa,Zambezia
+linhafala_distrito_87,Cidade De Chimoio,Manica
+linhafala_distrito_88,Cidade De Quelimane,Zambezia
+linhafala_distrito_89,Maganja Da Costa,Zambezia
 linhafala_distrito_90,Alto Molocue,Zambezia
 linhafala_distrito_91,Chinde,Zambezia
 linhafala_distrito_92,Gurue,Zambezia
@@ -96,7 +96,7 @@ linhafala_distrito_94,Morrumbala,Zambezia
 linhafala_distrito_95,Namacurra,Zambezia
 linhafala_distrito_96,Pebane,Zambezia
 linhafala_distrito_97,Luabo,Zambezia
-linhafala_distrito_98,Gilé,Zambezia
+linhafala_distrito_98,Gile,Zambezia
 linhafala_distrito_99,Ile,Zambezia
 linhafala_distrito_100,Inhassunge,Zambezia
 linhafala_distrito_101,Lugela,Zambezia
@@ -121,13 +121,13 @@ linhafala_distrito_119,Massingir,Gaza
 linhafala_distrito_120,Limpopo,Gaza
 linhafala_distrito_121,Chongoene,Gaza
 linhafala_distrito_122,Mapai,Gaza
-linhafala_distrito_123,Xai-Xai,Gaza
-linhafala_distrito_124,Cidade de Nampula,Nampula
+linhafala_distrito_123,Cidade De Xai-Xai,Gaza
+linhafala_distrito_124,Cidade De Nampula,Nampula
 linhafala_distrito_125,Ancuabe,Cabo Delgado
-linhafala_distrito_126,Lichinga,Niassa
+linhafala_distrito_126,Cidade De Lichinga,Niassa
 linhafala_distrito_127,Cuamba,Niassa
 linhafala_distrito_128,Lago,Niassa
-linhafala_distrito_129,Chimbunila,Niassa
+linhafala_distrito_129,Chimbonila,Niassa
 linhafala_distrito_130,Mandimba,Niassa
 linhafala_distrito_131,Marrupa,Niassa
 linhafala_distrito_132,Maua,Niassa
@@ -135,12 +135,12 @@ linhafala_distrito_133,Mavago,Niassa
 linhafala_distrito_134,Mecanhelas,Niassa
 linhafala_distrito_135,Mecula,Niassa
 linhafala_distrito_136,Metarica,Niassa
-linhafala_distrito_137,Muemba,Niassa
-linhafala_distrito_138,N'gauma,Niassa
+linhafala_distrito_137,Muembe,Niassa
+linhafala_distrito_138,Ngauma,Niassa
 linhafala_distrito_139,Nipepe,Niassa
 linhafala_distrito_140,Sanga,Niassa
 linhafala_distrito_141,Majune,Niassa
-linhafala_distrito_142,Inhambane,Inhambane
+linhafala_distrito_142,Cidade De Inhambane,Inhambane
 linhafala_distrito_143,Funhalouro,Inhambane
 linhafala_distrito_144,Govuro,Inhambane
 linhafala_distrito_145,Homoine,Inhambane
@@ -155,8 +155,11 @@ linhafala_distrito_153,Panda,Inhambane
 linhafala_distrito_154,Vilankulo,Inhambane
 linhafala_distrito_155,Zavala,Inhambane
 linhafala_distrito_156,Kampfumo,Maputo Cidade
-linhafala_distrito_157,Kamaxaqueni,Maputo Cidade
-linhafala_distrito_158,Kalhamanculo,Maputo Cidade
+linhafala_distrito_157,KaMaxakeni,Maputo Cidade
+linhafala_distrito_158,Nlhamankulu,Maputo Cidade
 linhafala_distrito_159,Kamavota,Maputo Cidade
-linhafala_distrito_160,Kamubukwana,Maputo Cidade
+linhafala_distrito_160,KaMubukwana,Maputo Cidade
 linhafala_distrito_161,Katembe,Maputo Cidade
+linhafala_distrito_162,Kanyaka,Maputo Cidade
+linhafala_distrito_163,Mossurize,Manica
+linhafala_distrito_164,Erati,Nampula

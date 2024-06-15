@@ -21,6 +21,36 @@
         </field>
     </record>
 
+    <record id="linhafala_posto_form_view" model="ir.ui.view">
+        <field name="name">linhafala.posto.form</field>
+        <field name="model">linhafala.posto</field>
+        <field name="arch" type="xml">
+            <form string="Location">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="distrito" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhaverde_localidade_form_view" model="ir.ui.view">
+        <field name="name">linhafala.localidade.form</field>
+        <field name="model">linhafala.localidade</field>
+        <field name="arch" type="xml">
+            <form string="Location">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="posto" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="linhafala_categoria_view_tree" model="ir.ui.view">
         <field name="name">linhafala.categoria.tree</field>
         <field name="model">linhafala.categoria</field>
@@ -61,6 +91,28 @@
             <p class="o_view_nocontent_smiling_face">
                 Gerir Distritos
             </p>
+        </field>
+    </record>
+
+    <record id="linhafala_posto_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.posto.tree</field>
+        <field name="model">linhafala.posto</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="distrito" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_localidade_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.localidade.tree</field>
+        <field name="model">linhafala.localidade</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="posto" />
+            </tree>
         </field>
     </record>
 
@@ -329,6 +381,28 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Referência de encaminhamento de Assistências
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_postos_action" model="ir.actions.act_window">
+        <field name="name">Postos</field>
+        <field name="res_model">linhafala.posto</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Postos
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_localidade_action" model="ir.actions.act_window">
+        <field name="name">Localidade</field>
+        <field name="res_model">linhafala.localidade</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Localidade
             </p>
         </field>
     </record>

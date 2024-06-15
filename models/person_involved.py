@@ -74,10 +74,40 @@ class PersonInvolved(models.Model):
 
     alternate_contact = fields.Char(string="Contacto Alternativo")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia")
+        comodel_name='linhafala.provincia', string="Provincia", help="Provincia", required=True)
+
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")  # ,
-    #    domain=lambda self: [('provincia', '=', self._compute_allowed_distrito_values())])
+        comodel_name='linhafala.distrito', 
+        string="Distrito", 
+        help="Distrito",
+        required=True,
+        domain="[('provincia', '=', provincia)]")
+
+    @api.onchange('provincia')
+    def _provincia_onchange(self):
+        for rec in self:
+            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
+        
+    posto = fields.Many2one(
+        comodel_name="linhafala.posto", string="Posto",
+        domain="[('distrito', '=', distrito)]"
+        )
+
+    localidade = fields.Many2one(
+        comodel_name='linhafala.localidade', string="Localidade",
+        domain="[('posto', '=', posto)]"
+        )
+    
+    @api.onchange('distrito')
+    def _distrito_onchange(self):
+        for rec in self:
+            return {'value': {'posto': False}, 'domain': {'posto': [('distrito', '=', rec.distrito.id)]}}
+
+    @api.onchange('posto')
+    def _posto_onchange(self):
+        for rec in self:
+            return {'value': {'localidade': False}, 'domain': {'localidade': [('posto', '=', rec.posto.id)]}}
+        
     bairro = fields.Char(string="Bairro")
     living_relatives = fields.Selection(
         string='Com quem vive?',
@@ -153,10 +183,6 @@ class PersonInvolved(models.Model):
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
                                                 string="Linhas do Deficiênte")
 
-    @api.onchange('provincia')
-    def _provincia_onchange(self):
-        for rec in self:
-            return {'value': {'distrito': False}, 'domain': {'distrito': [('provincia', '=', rec.provincia.id)]}}
     
     @api.constrains('provincia','distrito','victim_relationship')
     def _check_all(self):

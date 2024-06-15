@@ -103,80 +103,94 @@
         sequence="1" />
 
     <menuitem
+        id="linhafala_province_menu_action"
+        name="Postos"
+        action="linhafala_postos_action"
+        parent="linhafala_menu_config"
+        sequence="2" />
+
+    <menuitem
+        id="linhafala_distrito_menu_action"
+        name="Localidades"
+        action="linhafala_localidade_action"
+        parent="linhafala_menu_config"
+        sequence="3" />
+
+    <menuitem
         id="linhafala_categoria_menu_action"
         name="Categoria de Chamada"
         action="linhafala_categoria_action"
         parent="linhafala_menu_config"
-        sequence="2" />
+        sequence="4" />
 
     <menuitem
         id="linhafala_subcategoria_menu_action"
         name="Sub-Categoria de Chamada"
         action="linhafala_subcategoria_action"
         parent="linhafala_menu_config"
-        sequence="3" />
+        sequence="5" />
 
     <menuitem
         id="linhafala_caso_categoria_menu_action"
         name="Categoria de Caso"
         action="linhafala_caso_categoria_action"
         parent="linhafala_menu_config"
-        sequence="4" />
+        sequence="6" />
 
     <menuitem
         id="linhafala_caso_subcategoria_menu_action"
         name="Sub-Categoria de Caso"
         action="linhafala_caso_subcategoria_action"
         parent="linhafala_menu_config"
-        sequence="5" />
+        sequence="7" />
 
     <menuitem
         id="linhafala_case_type_classification_menu_action"
         name="Classificaçäo Provisória de Caso"
         action="linhafala_case_type_classification_action"
         parent="linhafala_menu_config"
-        sequence="6" />
+        sequence="8" />
 
     <menuitem
         id="linhafala_caso_referencearea_menu_action"
         name="Área Institucional ou Näo Institucional"
         action="linhafala_caso_referencearea_action"
         parent="linhafala_menu_config"
-        sequence="7" />
+        sequence="9" />
 
     <menuitem
         id="linhafala_caso_referenceentity_menu_action"
         name="Entidade de referência"
         action="linhafala_caso_referenceentity_action"
         parent="linhafala_menu_config"
-        sequence="8" />
+        sequence="10" />
 
     <menuitem
         id="linhafala_caso_casereference_menu_action"
         name="Pessoa de Contacto"
         action="linhafala_caso_casereference_action"
         parent="linhafala_menu_config"
-        sequence="9" />
+        sequence="11" />
 
     <menuitem
         id="linhafala_chamada_assistance_categoria_menu_action"
         name="Categoria de Assistências"
         action="linhafala_chamada_assistance_categoria_action"
         parent="linhafala_menu_config"
-        sequence="10" />
+        sequence="12" />
 
     <menuitem
         id="linhafala_chamada_assistance_subcategoria_menu_action"
         name="Subcategoria de Assistências"
         action="linhafala_chamada_assistance_subcategoria_action"
         parent="linhafala_menu_config"
-        sequence="11" />
+        sequence="13" />
     
     <menuitem
         id="linhafala_person_involved_menu_action"
         name="Pessoa Envolvida"
         action="linha_person_involved_action"
         parent="linhafala_menu_config"
-        sequence="12"
+        sequence="14"
     />
 </odoo>

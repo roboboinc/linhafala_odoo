@@ -198,6 +198,15 @@
                                 <strong style="color: red;">* Distrito: </strong>
                                 <field name="distrito" />
                             </p>
+                             <p>
+                                <strong style="color: red;">* Posto: </strong>
+                                <field name="posto" />
+                            </p>
+
+                            <p>
+                                <strong style="color: red;">* Localidade: </strong>
+                                <field name="localidade" />
+                            </p>
 
                         </div>
                         <div class="col-md-3 mt-1">
@@ -222,7 +231,7 @@
                             </p>
 
                             <p attrs="{'invisible': [('wants_to_be_annonymous','!=','Sim')]}">
-                                <strong>Bairro: </strong>
+                                <strong>Comunidade/Bairro: </strong>
                                 <field name="bairro" />
                             </p>
 

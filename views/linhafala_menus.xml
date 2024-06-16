@@ -191,6 +191,13 @@
         name="Pessoa Envolvida"
         action="linha_person_involved_action"
         parent="linhafala_menu_config"
-        sequence="14"
+        sequence="14"/>
+
+    <menuitem
+        id="linhafala_escolas_menu_action"
+        name="Escolas"
+        action="linhafala_escola_action"
+        parent="linhafala_menu_config"
+        sequence="15"
     />
 </odoo>

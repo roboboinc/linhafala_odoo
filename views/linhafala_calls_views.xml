@@ -349,8 +349,13 @@
                                     </p>
                                     <p title="Campo Opcional"
                                         attrs="{'invisible': [('on_school','!=','Sim')]}">
-                                        <strong>Nome da Escola / Universidade: </strong>
+                                        <strong>Nome da Universidade: </strong>
                                         <field name="school" />
+                                    </p>
+                                    <p title="Campo Opcional" 
+                                        attrs="{'invisible': [('on_school','!=','Sim')]}">
+                                        <strong>Nome da Escola: </strong>
+                                        <field name="escola" />
                                     </p>
                                     <p>
                                         <strong style="color: red;">* Tipo de intervenção / Motivo: </strong>

@@ -51,6 +51,21 @@
         </field>
     </record>
 
+    <record id="linhafala_escola_form_view" model="ir.ui.view">
+        <field name="name">linhafala.escola.form</field>
+        <field name="model">linhafala.escola</field>
+        <field name="arch" type="xml">
+            <form string="Escolas">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="localidade" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="linhafala_categoria_view_tree" model="ir.ui.view">
         <field name="name">linhafala.categoria.tree</field>
         <field name="model">linhafala.categoria</field>
@@ -112,6 +127,17 @@
             <tree string="Channel">
                 <field name="name" />
                 <field name="posto" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_escola_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.escola.tree</field>
+        <field name="model">linhafala.escola</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="name" />
+                <field name="localidade" />
             </tree>
         </field>
     </record>
@@ -403,6 +429,17 @@
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Gerir Localidade
+            </p>
+        </field>
+    </record>
+
+    <record id="linhafala_escola_action" model="ir.actions.act_window">
+        <field name="name">Escolas</field>
+        <field name="res_model">linhafala.escola</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Escolas
             </p>
         </field>
     </record>

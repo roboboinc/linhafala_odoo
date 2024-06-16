@@ -7,6 +7,7 @@ import uuid
 class Deficiente(models.Model):
     _name = "linhafala.deficiente"
     _description = "Formulário Deficiente"
+    _rec_name ='call_id'
     _inherit = [
         'mail.thread',
         'mail.activity.mixin'

@@ -7,6 +7,7 @@ import uuid
 class Caso(models.Model):
     _name = "linhafala.caso"
     _description = "Formulário de Caso linha fala criança"
+    _rec_name ='case_id'
     _inherit = [
         'mail.thread',
         'mail.activity.mixin'
@@ -520,6 +521,7 @@ class CaseReference(models.Model):
 
 class ForwardingInstitutions(models.Model):
     _name = "linhafala.caso.forwarding_institution"
+    _rec_name ='case_id'
     _description = "Instituição de encaminhamento"
 
     case_id = fields.Many2one("linhafala.caso", string="Caso")

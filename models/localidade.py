@@ -26,3 +26,18 @@ class Localidade(models.Model):
             if not record.name:
                 raise ValidationError(
                     "Porfavor preencha o campo obrigatorio Nome da Localidade")
+            
+class Escolas(models.Model):
+    _name = "linhafala.escola"
+    _description = "Escola"
+
+    name = fields.Char(string="Nome da Escola")
+    localidade = fields.Many2one("linhafala.localidade", string="Localidade")
+
+    
+    @api.constrains('name')
+    def _check_all(self):
+        for record in self:
+            if not record.name:
+                raise ValidationError(
+                    "Porfavor preencha o campo obrigatorio Nome da Localidade")

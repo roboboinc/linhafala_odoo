@@ -7,6 +7,7 @@ import uuid
 class Chamada(models.Model):
     _name = "linhafala.chamada"
     _description = "Formulário de chamadas linha fala criança"
+    _rec_name ='call_id'
     _inherit = [
         'mail.thread',
         'mail.activity.mixin'
@@ -230,6 +231,11 @@ class Chamada(models.Model):
         domain="[('posto', '=', posto)]"
         )
     
+    escola = fields.Many2one(
+       comodel_name='linhafala.escola', string="Escola",
+        domain="[('localidade', '=', localidade)]"
+     )
+    
     @api.onchange('distrito')
     def _distrito_onchange(self):
         for rec in self:
@@ -239,6 +245,12 @@ class Chamada(models.Model):
     def _posto_onchange(self):
         for rec in self:
             return {'value': {'localidade': False}, 'domain': {'localidade': [('posto', '=', rec.posto.id)]}}
+        
+    @api.onchange('localidade')
+    def _localidade_onchange(self):
+       for rec in self:
+        return {'value': {'escola': False}, 'domain': {'escola': [('localidade', '=', rec.localidade.id)]}}    
+        
     bairro = fields.Char(string="Bairro")
     gender = fields.Selection(
         string='Sexo',
@@ -492,6 +504,7 @@ class CasoSubcategoria(models.Model):
 class CallCaseAssistance(models.Model):
     _name = "linhafala.chamada.assistance"
     _description = "Formulário de Assistências linha fala criança"
+    _rec_name ='call_id'
     _inherit = [
         'mail.thread',
         'mail.activity.mixin'
@@ -715,6 +728,7 @@ class CallCaseAssistance(models.Model):
     
 class CallCaseAssistanceContactante(models.Model):
     _name="linhafala.chamada.assistance.contactante"
+    _rec_name ='assistance_id'
     _description = "Contcatante assistência"
 
     assistance_id = fields.Many2one('linhafala.chamada.assistance', string="Assistance")
@@ -773,6 +787,7 @@ class CallCaseAssistanceContactante(models.Model):
 
 class AssistanceReferall(models.Model):
     _name = "linhafala.chamada.assistance.referral"
+    _rec_name ='assistance_id'
     _description = "Instituição de encaminhamento de assistência"
 
     assistanceReferall_id = fields.Char(

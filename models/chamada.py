@@ -741,7 +741,7 @@ class CallCaseAssistanceContactante(models.Model):
         help="Benificiário"
     )
 
-    age_contactante = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
+    age_contactante = fields.Selection([('-6 anos', '-6 anos')] + [(str(i), str(i)) for i in range(6, 36)] + [('35+', '35+')],
                            string='Idade Contactante')
     
     sexo_contactante = fields.Selection(

@@ -207,13 +207,12 @@ class Chamada(models.Model):
     )
     nr_identication = fields.Char(string="Número de Identificação")
     provincia = fields.Many2one(
-        comodel_name='linhafala.provincia', string="Provincia", help="Provincia", required=True)
+        comodel_name='linhafala.provincia', string="Provincia", help="Provincia")
 
     distrito = fields.Many2one(
         comodel_name='linhafala.distrito', 
         string="Distrito", 
         help="Distrito",
-        required=True,
         domain="[('provincia', '=', provincia)]")
 
     @api.onchange('provincia')

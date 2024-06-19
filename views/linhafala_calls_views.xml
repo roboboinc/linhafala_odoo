@@ -199,7 +199,7 @@
                                 <field name="distrito" />
                             </p>
                              <p>
-                                <strong style="color: red;">* Posto: </strong>
+                                <strong style="color: red;">* Posto Administrativo: </strong>
                                 <field name="posto" />
                             </p>
 

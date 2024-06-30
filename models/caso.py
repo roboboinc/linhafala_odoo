@@ -508,7 +508,9 @@ class CaseReference(models.Model):
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência")
 
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")
+        comodel_name='linhafala.distrito',
+        domain="[('provincia', '=', provincia)]", 
+        string="Districto")
 
     contact = fields.Char(string="Contacto", widget="phone_raw",  # add the number of pessoa de contacto
                           min_length=9, default="+258")
@@ -543,21 +545,36 @@ class ForwardingInstitutions(models.Model):
 
     reference_entity = fields.Many2one(
         comodel_name='linhafala.caso.referenceentity', string="Entidade de Referência",
-        domain="[('provincia', '=', provincia), ('distrito', '=', distrito)]"
+        domain="[('reference_area', '=', reference_area),('provincia', '=', provincia), ('distrito', '=', distrito)]"
     )
 
     case_reference = fields.Many2one(
         comodel_name='linhafala.caso.casereference',
         string="Pessoa de Contacto",
-        domain="[('reference_entity', '=', reference_entity)]"
+        domain="[('reference_entity', '=', reference_entity),('provincia', '=', provincia), ('distrito', '=', distrito)]"
     )
+
+    @api.onchange('reference_entity', 'provincia', 'distrito')
+    def _onchange_reference_filters(self):
+        if self.reference_entity:
+            domain = [
+                ('reference_entity', '=', self.reference_entity.id)
+            ]
+            if self.provincia:
+                domain.append(('provincia', '=', self.provincia.id))
+            if self.distrito:
+                domain.append(('distrito', '=', self.distrito.id))
+            return {'domain': {'case_reference': domain}}
+
 
     spokes_person_phone = fields.Char(
         string="Telefone do Responsável", related='case_reference.contact')
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia")
     distrito = fields.Many2one(
-        comodel_name='linhafala.distrito', string="Districto")
+        comodel_name='linhafala.distrito',         
+        domain="[('provincia', '=', provincia)]",
+        string="Distrito")
 
     case_status = fields.Selection(
         string='Estado do caso',

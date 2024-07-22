@@ -44,6 +44,7 @@ class PersonInvolved(models.Model):
             ("Perpetrador", "Perpetrador"),
         ],
         help="Categoria",
+        required=True
     )
 
     perpetrator_age = fields.Selection([(str(i), str(i)) for i in range(16, 65)] + [('65+', '65+')],
@@ -90,12 +91,14 @@ class PersonInvolved(models.Model):
         
     posto = fields.Many2one(
         comodel_name="linhafala.posto", string="Posto",
-        domain="[('distrito', '=', distrito)]"
+        domain="[('distrito', '=', distrito)]",
+        required=True
         )
 
     localidade = fields.Many2one(
         comodel_name='linhafala.localidade', string="Localidade",
-        domain="[('posto', '=', posto)]"
+        domain="[('posto', '=', posto)]",
+        required=True,
         )
     
     @api.onchange('distrito')
@@ -152,7 +155,8 @@ class PersonInvolved(models.Model):
             ("Professor(a)", "Professor(a)"),
             ("Não aplicavél", "Não aplicavél"),
         ],
-        help="Relação com a(s) vítima(s):"
+        help="Relação com a(s) vítima(s):",
+        required=True
     )
     gender = fields.Selection(
         string='Sexo',
@@ -160,11 +164,12 @@ class PersonInvolved(models.Model):
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
         ],
-        help="Sexo"
+        help="Sexo",
+        required=True
     )
     what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(1, 25)] + [('25+', '25+')],
-                           string='Idade')                        
+                           string='Idade',required=True)                        
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],
@@ -178,6 +183,7 @@ class PersonInvolved(models.Model):
             ("Não", "Não"),
         ],
         help="E deficiente?",
+        required=True
     )
 
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',

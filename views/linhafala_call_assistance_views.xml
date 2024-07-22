@@ -111,11 +111,11 @@
                                 <field name="fullname" />
                             </p>
                             <p>
-                                <strong style="color: red;">* Província: </strong>
+                                <label for="provincia">* Província: </label>
                                 <field name="provincia" />
                             </p>
                             <p>
-                                <strong style="color: red;">* Posto: </strong>
+                                <label for="posto">Posto: </label>
                                 <field name="posto" />
                             </p>
                             <p title="Campo Opcional">
@@ -123,11 +123,11 @@
                                 <field name="bairro" />
                             </p>
                             <p>
-                                <strong style="color: red;">* Categoria: </strong>
+                                <label for="category">* Categoria: </label>
                                 <field name="category" />
                             </p>
                             <p>
-                                <strong style="color: red;">* Periodo de Resolução: </strong>
+                                <label for="callcaseassistance_priority">* Periodo de Resolução: </label>
                                 <field name="callcaseassistance_priority" />
                             </p>
                             <p>
@@ -141,29 +141,29 @@
                                 <field name="contact" />
                             </p>
                             <p>
-                                <strong style="color: red;">* Distrito: </strong>
+                                <label for="distrito">* Distrito: </label>
                                 <field
                                     name="distrito" />
                             </p>
                             <p>
-                                <strong style="color: red;">* Localidade: </strong>
+                                <label for="localidade">* Localidade: </label>
                                 <field
                                     name="localidade" />
                             </p>
                             <p title="Campo Opcional">
-                                <strong style="color: red;">
-                                    * Género: </strong>
+                                <label for="gender">
+                                    * Género: </label>
                                 <field name="gender" />
                             </p>
                             
                             <p>
-                                <strong style="color: red;">* Sub Categoria: </strong>
+                                <label for="subcategory">* Sub Categoria: </label>
                                 <field name="subcategory" />
                             </p>
 
                             <p>
-                                <strong style="color: red;">
-                                    * Idade: </strong>
+                                <label for="age">
+                                    * Idade: </label>
                                 <field name="age"
                                 />
                             </p>

@@ -536,12 +536,14 @@ class CallCaseAssistance(models.Model):
         
     posto = fields.Many2one(
         comodel_name="linhafala.posto", string="Posto",
-        domain="[('distrito', '=', distrito)]"
+        domain="[('distrito', '=', distrito)]",
+        required=True
         )
 
     localidade = fields.Many2one(
         comodel_name='linhafala.localidade', string="Localidade",
-        domain="[('posto', '=', posto)]"
+        domain="[('posto', '=', posto)]",
+        required=True
         )
     
     @api.onchange('distrito')
@@ -561,15 +563,16 @@ class CallCaseAssistance(models.Model):
             ("Feminino", "Feminino"),
             ("Desconhecido", "Desconhecido"),
         ],
-        help="Sexo"
+        help="Sexo",
+        required=True
     )
 
     age = fields.Selection([(str(i), str(i)) for i in range(6, 70)] + [('70+', '70+')],
-                           string='Idade')
+                           string='Idade',required=True)
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
                                        'style': 'height: 500px;'}, required=False)
     category = fields.Many2one(
-        comodel_name='linhafala.chamada.assistance.categoria', string="Categoria")
+        comodel_name='linhafala.chamada.assistance.categoria', string="Categoria",required=True)
     subcategory = fields.Many2one(
         comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria")
     callcaseassistance_status = fields.Selection(
@@ -599,7 +602,9 @@ class CallCaseAssistance(models.Model):
             ("Não Aplicável", "Não Aplicável"),
         ],
         default="Moderado",
-        help="Período de Resolução"
+        help="Período de Resolução",
+        required=True
+        
     )
     resolution_type = fields.Selection(
         string='Tratamento',

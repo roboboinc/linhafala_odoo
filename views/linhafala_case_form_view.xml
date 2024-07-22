@@ -37,15 +37,15 @@
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
                                 <p>
-                                    <strong style="color: red;">* Categoria do Caso: </strong>
+                                    <label for="case_type">* Categoria do Caso: </label>
                                     <field name="case_type" />
                                 </p>
                                 <p>
-                                    <strong style="color: red;">* Sub Categoria do Caso: </strong>
+                                    <label for="secundary_case_type">* Sub Categoria do Caso: </label>
                                     <field name="secundary_case_type" />
                                 </p>
                                 <p>
-                                    <strong style="color: red;">* Classificação Provisoria: </strong>
+                                    <label for="case_type_classification">* Classificação Provisoria: </label>
                                     <field name="case_type_classification" />
                                 </p>
                                 <p>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-md-3 mt-2">
                                 <p>
-                                    <strong style="color: red;">* Local de Ocorrência do incidente: </strong>
+                                    <label for="place_occurrence">* Local de Ocorrência do incidente: </label>
                                     <field name="place_occurrence" />
                                 </p>
                                 <p>
@@ -122,7 +122,7 @@
                                                                 <field name="contact" />
                                                             </p>
                                                             <p>
-                                                                <strong style="color: red;">* Categoria dos envolvidos: </strong>
+                                                                <label for="person_type">* Categoria dos envolvidos: </label>
                                                                 <field
                                                                     name="person_type" />
                                                             </p>
@@ -138,18 +138,18 @@
                                                                 <field name="nr_identication" />
                                                             </p>
                                                             <p>
-                                                                <strong style="color: red;">
-                                                                    * Província: </strong>
+                                                                <label for="provincia">
+                                                                    * Província: </label>
                                                                 <field name="provincia" />
                                                             </p>
                                                             <p>
-                                                                <strong style="color: red;">
-                                                                    * Distrito: </strong>
+                                                                <label for="distrito">
+                                                                    * Distrito: </label>
                                                                 <field name="distrito"
                                                                 />
                                                             </p>
                                                             <p>
-                                                                <strong style="color: red;">* Relação com a(s) vítima(s):</strong>
+                                                                <label for="victim_relationship">* Relação com a(s) vítima(s):</label>
                                                                 <field name="victim_relationship" />
                                                             </p>
                                                         </div>
@@ -167,12 +167,12 @@
 
                                                             <p
                                                                 attrs="{'invisible': [('person_type','==','Perpetrador')]}">
-                                                                <strong style="color: red;">* Género: </strong>
+                                                                <label for="gender">* Género: </label>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p 
                                                                 attrs="{'invisible': [('person_type','==','Perpetrador')]}">
-                                                                <strong style="color: red;">* Idade: </strong>
+                                                                <label for="age">* Idade: </label>
                                                                 <field name="age" />
                                                             </p>
                                                             <p 
@@ -186,17 +186,17 @@
                                                                 <field name="perpetrator_gender" />
                                                             </p>
                                                             <p>
-                                                                <strong style="color: red;">Posto:</strong>
+                                                                <label for="posto">Posto:</label>
                                                                 <field name="posto" />
                                                             </p>
                                                             <p>
-                                                                <strong style="color: red;">Localidade: </strong>
+                                                                <label for="localidade">Localidade: </label>
                                                                 <field name="localidade" />
                                                             </p>
                                                             
                                                             <p>
-                                                                <strong style="color: red;">* Tem algum tipo de
-                                                                    impedimento/dificuldade?: </strong>
+                                                                <label for="are_you_disabled">* Tem algum tipo de
+                                                                    impedimento/dificuldade?: </label>
                                                                 <field name="are_you_disabled" />
                                                             </p>
                                                         </div>

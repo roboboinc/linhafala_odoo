@@ -155,7 +155,8 @@ class Caso(models.Model):
             ("Casa do parente mais próximo", "Casa do parente mais próximo"),
             ("Outros", "Outros")
         ],
-        help="Local de Ocorrência"
+        help="Local de Ocorrência",
+        required=True
     )
     detailed_description = fields.One2many(
         'linhafala.caso.description',
@@ -163,11 +164,11 @@ class Caso(models.Model):
         string='Detalhes'
     )
     case_type = fields.Many2one(
-        comodel_name='linhafala.caso.categoria', string="Categoria")
+        comodel_name='linhafala.caso.categoria', string="Categoria",required=True)
     secundary_case_type = fields.Many2one(
-        comodel_name='linhafala.caso.subcategoria', string="Subcategoria")
+        comodel_name='linhafala.caso.subcategoria', string="Subcategoria",required=True)
     case_type_classification = fields.Many2one(
-        comodel_name='linhafala.caso.case_type_classification', string="Classificaçäo Provisória")
+        comodel_name='linhafala.caso.case_type_classification', string="Classificaçäo Provisória",required=True)
 
     reporter_by = fields.Many2one(
         'res.users', string='Gestão', default=lambda self: self.env.user, readonly=True)

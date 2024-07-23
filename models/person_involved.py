@@ -165,11 +165,13 @@ class PersonInvolved(models.Model):
             ("Feminino", "Feminino"),
         ],
         help="Sexo",
-        required=True
+        # required=True
     )
     what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(1, 25)] + [('25+', '25+')],
-                           string='Idade',required=True)                        
+                           string='Idade',
+                        #    required=True
+                           )                        
     on_school = fields.Boolean("Estuda?")
     grade = fields.Selection([(str(i), str(i)) for i in range(0, 12)]
                              + [('Ensino Superior', 'Ensino Superior')],

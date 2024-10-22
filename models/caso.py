@@ -15,6 +15,9 @@ class Caso(models.Model):
 
     case_id = fields.Char(string="Id do caso", readonly=True)
 
+    inqueritos_id = fields.One2many(
+        'linhafala.caso.inqueritos', 'case_id', string="Iqueritos")
+
     person_id = fields.One2many('linhafala.person_involved', 'case_id',
                                 string="Pessoa Envolvida")
 
@@ -607,3 +610,159 @@ class Description(models.Model):
         'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
     content = fields.Html(string='Conteudo Dos Detalhes', attrs={'style': 'height: 500px;'})
     case_id = fields.Many2one('linhafala.caso', string='ID do caso')
+
+class Inqueritos(models.Model):
+    _name='linhafala.caso.inqueritos'
+    _description='Inqueritos'
+
+    case_id = fields.Many2one(
+        comodel_name='linhafala.caso', string="Caso")
+
+    sexo = fields.Selection(
+        string='Sexo:',
+        selection=[
+            ("Masculino", "Masculino"),
+            ("Feminino", "Feminino"),
+        ]
+    )
+
+    idade = fields.Char(
+        string='Idade',
+    )
+
+    sector_de_trabalho = fields.Selection(
+        string='Sector de trabalho:',
+        selection=[
+            ("Funcionario Publico", "Funcionario Publico"),
+            ("Privado", "Privado"),
+            ("Conta Propria", "Conta Propria"),
+        ]
+    )
+
+    nivel_academico = fields.Selection(
+        string='Nível académico:',
+        selection=[
+            ("Nenhum", "Nenhum"),
+            ("Elementar", "Elementar"),
+            ("Medio", "Medio"),
+            ("Superior", "Superior"),
+            ("Outro/s", "Outro/s"),
+        ]
+    )
+
+    primeira_vez = fields.Selection(
+        string='Será a primeira vez a entrar em contacto com a LFC:',
+        selection=[
+            ("Sim", "Sim"),
+            ("Não", "Não"),
+        ]
+    )
+
+    lingua_atendimento = fields.Selection(
+        string='Em que língua gostaria de ser atendido(a)',
+        selection=
+        [
+            ("Português ", "Português "),
+            ("Inglês ", "Inglês"),
+            ("Kimwani", "Kimwani - (Kimwani)"),
+            ("Shimakonde", "Shimakonde - (makonde)"),
+            ("Ciyaawo", "Ciyaawo - (Yaawo)"),
+            ("Emakhuwa", "Emakhuwa - (macua)"),
+            ("Ekoti", "Ekoti - (koti)"),
+            ("Elomowe", "Elomowe - (lomowe)"),
+            ("Echuwabo", "Echuwabo -(Chuwabo)"),
+            ("Cinyaja", "Cinyaja - (nyanja)"),
+            ("Cinyungwe", "Cinyungwe - ( Nyugue)"),
+            ("Cisena", "Cisena - (sena)"),
+            ("Cibalke", "Cibalke - (Balke)"),
+            ("Cimanyika", "Cimanyika - Chimanyika)"),
+            ("Cindau", "Cindau - (Ndau)"),
+            ("Ciwute", "Ciwute - (chiute)"),
+            ("Guitonga", "Guitonga"),
+            ("Citshwa", "Citshwa - (xitwa)"),
+            ("Cicope", "Cicope -(shope)"),
+            ("Xichangana", "Xichangana - (changana)"),
+            ("Xirhonga", "Xirhonga -(ronga)"),
+            ("Kiswahili", "Kiswahili - (swahili)"),
+            ("Isizulo", "Isizulo - (zulo)"),
+            ("Siswati", "Siswati - (swati)"),
+            ("Chewa", "Chewa - (Chichewa)")
+        ]
+    )
+
+    escala_likert = fields.Selection(
+        string='O questionário que se segue baseia-se na Escala de Likert  de  ( 1 - 5)',
+        selection=[
+            ("Muito Satisfeito", "Muito Satisfeito"),
+            ("Satisfeito", "Satisfeito"),
+            ("Indiferente", "Indiferente"),
+            ("Insatisfeito", "Insatisfeito"),
+            ("Muito Insatisfeito", "Muito Insatisfeito"),
+        ]
+    )
+
+    o_que_sentiu = fields.Selection(
+        string='De 1 a 5 , diga como é que se sentiu em relação ao atendimento dado no dia em que contactou a Linha Fala Criança ?',
+        selection=[
+            ("Muito Satisfeito", "Muito Satisfeito"),
+            ("Satisfeito", "Satisfeito"),
+            ("Indiferente", "Indiferente"),
+            ("Insatisfeito", "Insatisfeito"),
+            ("Muito Insatisfeito", "Muito Insatisfeito"),
+        ]
+    )
+
+    o_que_sentiu_entidade_referencia = fields.Selection(
+        string='De 1 a 5, diga como e que se sentiu no atendimento dado pela (entidade de referencia) ?',
+        selection=[
+            ("Muito Satisfeito", "Muito Satisfeito"),
+            ("Satisfeito", "Satisfeito"),
+            ("Indiferente", "Indiferente"),
+            ("Insatisfeito", "Insatisfeito"),
+            ("Muito Insatisfeito", "Muito Insatisfeito"),
+        ]
+    )
+
+    o_que_sentiu_entidade_referencia_segmento = fields.Selection(
+        string='De 1 a 5, diga como é que se sentiu em relação ao segmento dado na entidade de referência?',
+        selection=[
+            ("Muito Satisfeito", "Muito Satisfeito"),
+            ("Satisfeito", "Satisfeito"),
+            ("Indiferente", "Indiferente"),
+            ("Insatisfeito", "Insatisfeito"),
+            ("Muito Insatisfeito", "Muito Insatisfeito"),
+        ]
+    )
+
+    desfecho = fields.Selection(
+        string='De 1 a 5, diga como é que se sentiu em relação a resolução / desfecho do caso?',
+        selection=[
+            ("Muito Satisfeito", "Muito Satisfeito"),
+            ("Satisfeito", "Satisfeito"),
+            ("Indiferente", "Indiferente"),
+            ("Insatisfeito", "Insatisfeito"),
+            ("Muito Insatisfeito", "Muito Insatisfeito"),
+        ]
+    )
+
+    nivel_tempo = fields.Selection(
+        string='Tendo em conta o período de resolução do caso que denunciou, diga de 1 a 5 qual é a sua satisfação em relação ao tempo que levou para a resolução do caso?',
+        selection=[
+            ("Muito Satisfeito", "Muito Satisfeito"),
+            ("Satisfeito", "Satisfeito"),
+            ("Indiferente", "Indiferente"),
+            ("Insatisfeito", "Insatisfeito"),
+            ("Muito Insatisfeito", "Muito Insatisfeito"),
+        ]
+    )
+
+    recomendations = fields.Html(
+        string='Tem algum comentário, recomendação, acréscimo, por favor deixe ficar',
+     )
+
+    created_by = fields.Many2one(
+        'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
+
+    demograficos = fields.Boolean("Dados demográficos:")
+    medicao_nivel = fields.Boolean("Questões de medição de satisfação:")
+    comments = fields.Boolean("Comentários e Recomendaçòes:")

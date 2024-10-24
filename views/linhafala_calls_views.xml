@@ -128,6 +128,19 @@
         </field>
     </record>
 
+    <!-- Toggle view -->
+    <record id="view_user_form_inherit_ami_toggle" model="ir.ui.view">
+        <field name="name">res.users.form.ami.toggle</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="after">
+                <field name="enable_ami"/>
+            </xpath>
+        </field>
+    </record>
+
+
     <!-- Form view definition -->
     <record id="linhafala_chamada_form_view" model="ir.ui.view">
         <field name="name">linhafala.chamada.form</field>

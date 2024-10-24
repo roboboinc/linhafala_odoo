@@ -220,6 +220,135 @@
                                         <field name="forwarding_institution_line_ids"
                                             widget="one2many"></field>
                                     </page>
+                                    <page string="Inqueritos" name="inqueritos">
+                                        <field name="inqueritos_id" widget="one2many">
+                                            <form>
+                                                <sheet>
+                                                    <h1> Avaliação de Nivel satisfação dos serviços da LFC </h1>
+                                                    <h3>
+                                                        <field class="text-break"
+                                                            name="case_id"
+                                                            placeholder="Número do caso (auto)" />
+                                                    </h3>
+                                                    <div class="row w-100">
+                                                        <div class="container">
+                                                            <div class="row">
+                                                                <div class="col-md-8 mt-0 my-5">
+                                                                    <div class="d-flex">
+                                                                        <p> 
+                                                                            <strong>Dados demográficos: </strong>
+                                                                            <field name="demograficos" />
+                                                                        </p>
+                                                                        <p>
+                                                                            <strong>Questões de medição de satisfação: </strong>
+                                                                            <field name="medicao_nivel" />
+                                                                        </p>
+                                                                        <p>
+                                                                            <strong>Comentários e Recomendaçòes: </strong>
+                                                                            <field name="comments" />
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Seção Dados Demográficos -->
+                                                        <div class="col-md-12 mt-6">
+                                                            <h4 attrs="{'invisible': [('demograficos','=',False)]}">Dados Demográficos</h4>
+                                                            <p attrs="{'invisible': [('demograficos','=',False)]}">
+                                                                <label for="sexo">Sexo:</label> 
+                                                                <field name="sexo" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('demograficos','=',False)]}">
+                                                                <label for="idade">Idade:</label>
+                                                                <field name="idade" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('demograficos','=',False)]}">
+                                                                <label for="sector_de_trabalho">Sector de trabalho:</label>
+                                                                <field name="sector_de_trabalho" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('demograficos','=',False)]}">
+                                                                <label for="nivel_academico">Nível académico:</label> 
+                                                                <field name="nivel_academico" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('demograficos','=',False)]}">
+                                                                <label for="primeira_vez">Será a primeira vez a entrar em contacto com a LFC:</label>
+                                                                <field name="primeira_vez" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('demograficos','=',False)]}">
+                                                                <label for="lingua_atendimento">Em que língua gostaria de ser atendido(a):</label>
+                                                                <field name="lingua_atendimento" />
+                                                            </p>
+                                                        </div>
+
+                                                        <!-- Seção Medição de Satisfação -->
+                                                        <div class="col-md-12 mt-6">
+                                                            <h4 attrs="{'invisible': [('medicao_nivel','=',False)]}">Medição de Satisfação</h4>
+                                                            <p attrs="{'invisible': [('medicao_nivel','=',False)]}">
+                                                                <label for="escala_likert">O questionário que se segue baseia-se na Escala de Likert  de  ( 1 - 5):</label> 
+                                                                <field name="escala_likert" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('medicao_nivel','=',False)]}">
+                                                                <label for="o_que_sentiu">De 1 a 5 , diga como é que se sentiu em relação ao atendimento dado no dia em que contactou a Linha Fala Criança ?:</label>
+                                                                <field name="o_que_sentiu" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('medicao_nivel','=',False)]}">
+                                                                <label for="o_que_sentiu_entidade_referencia">De 1 a 5, diga como e que se sentiu no atendimento dado pela (entidade de referencia) ?:</label>
+                                                                <field name="o_que_sentiu_entidade_referencia" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('medicao_nivel','=',False)]}">
+                                                                <label for="o_que_sentiu_entidade_referencia_segmento">De 1 a 5, diga como é que se sentiu em relação ao segmento dado na entidade de referência?:</label> 
+                                                                <field name="o_que_sentiu_entidade_referencia_segmento" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('medicao_nivel','=',False)]}">
+                                                                <label for="desfecho">De 1 a 5, diga como é que se sentiu em relação a resolução / desfecho do caso?:</label>
+                                                                <field name="desfecho" />
+                                                            </p>
+                                                        </div>
+
+                                                        <!-- Seção Comentários e Recomendações -->
+                                                        <div class="col-md-12 mt-6">
+                                                            <h4 attrs="{'invisible': [('comments','=',False)]}">Comentários e Recomendações</h4>
+                                                            <p attrs="{'invisible': [('comments','=',False)]}">
+                                                                <label for="nivel_tempo">Tendo em conta o período de resolução do caso que denunciou, diga de 1 a 5 qual é a sua satisfação em relação ao tempo que levou para a resolução do caso?:</label> 
+                                                                <field name="nivel_tempo" />
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-12 mt-6">
+                                                            <p attrs="{'invisible': [('comments','=',False)]}">
+                                                                <label for="recomendations">Tem algum comentário, recomendação, acréscimo, por favor deixe ficar:</label>
+                                                                <field name="recomendations" />
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </sheet>
+                                            </form>
+                                            <tree>
+                                                <field name="case_id" />
+                                                <field name="sexo" />
+                                                <field name="idade" />
+                                                <field name="sector_de_trabalho" />
+                                            </tree>
+                                        </field>
+                                    </page>
                                 </notebook>
                             </div>
                         </div>

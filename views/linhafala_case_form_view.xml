@@ -41,6 +41,10 @@
                                     <field name="case_type" />
                                 </p>
                                 <p>
+                                    <label for="online_offline">Selecione se o crime foi: </label>
+                                    <field name="online_offline" />
+                                </p>
+                                <p>
                                     <label for="secundary_case_type">* Sub Categoria do Caso: </label>
                                     <field name="secundary_case_type" />
                                 </p>

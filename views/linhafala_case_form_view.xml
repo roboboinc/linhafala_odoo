@@ -40,9 +40,15 @@
                                     <label for="case_type">* Categoria do Caso: </label>
                                     <field name="case_type" />
                                 </p>
-                                <p>
+                                <p attrs="{'invisible': [('show_online_offline', '=', False)], 'required': [('show_online_offline', '=', True)]}">
+                                    <field name="is_criminal_case" invisible="1"/>
+                                    <field name="show_online_offline" invisible="1"/>
+                                    <label for="online_offline">Selecione se o crime foi: </label>
+                                    <field name="online_offline"/>
+                                </p>
+                                <p attrs="{'invisible': [('show_secundary_case_type', '=', False)]}">
                                     <label for="secundary_case_type">* Sub Categoria do Caso: </label>
-                                    <field name="secundary_case_type" />
+                                    <field name="secundary_case_type"/>
                                 </p>
                                 <p>
                                     <label for="case_type_classification">* Classificação Provisoria: </label>

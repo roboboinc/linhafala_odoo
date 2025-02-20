@@ -167,9 +167,61 @@ class Caso(models.Model):
         string='Detalhes'
     )
     case_type = fields.Many2one(
-        comodel_name='linhafala.caso.categoria', string="Categoria",required=True)
+        comodel_name='linhafala.caso.categoria', 
+        string="Categoria", 
+        required=True
+    )
+    
+    is_criminal_case = fields.Boolean(
+        compute="_compute_is_criminal_case", 
+        store=True
+    )
+
+    @api.depends('case_type')
+    def _compute_is_criminal_case(self):
+        """Determine if the case is criminal"""
+        for record in self:
+            record.is_criminal_case = record.case_type.name == "caso de natureza criminal"
+
     secundary_case_type = fields.Many2one(
-        comodel_name='linhafala.caso.subcategoria', string="Subcategoria",required=True)
+        comodel_name='linhafala.caso.subcategoria', 
+        string="Subcategoria", 
+        required=True
+    )
+
+    online_offline = fields.Selection(
+        string='Selecione se o crime foi:',
+        selection=[
+            ("Online", "Online"),
+            ("Offline", "Offline"),
+        ],
+        help="Selecione se o crime foi:"
+    )
+
+    show_online_offline = fields.Boolean(
+        compute="_compute_show_online_offline", store=False
+    )
+
+    show_secundary_case_type = fields.Boolean(
+        compute="_compute_show_secundary_case_type", store=False
+    )
+
+    @api.depends('is_criminal_case')
+    def _compute_show_online_offline(self):
+        """Show online_offline only if the case is criminal"""
+        for record in self:
+            record.show_online_offline = record.is_criminal_case
+
+    @api.depends('is_criminal_case', 'online_offline')
+    def _compute_show_secundary_case_type(self):
+        """Show secundary_case_type for all cases, but delay it for criminal cases until online_offline is selected"""
+        for record in self:
+            if record.is_criminal_case:
+                record.show_secundary_case_type = bool(record.online_offline)
+            else:
+                record.show_secundary_case_type = True
+    secundary_case_type = fields.Many2one(
+        comodel_name='linhafala.caso.subcategoria', string="Subcategoria", required=True)
     case_type_classification = fields.Many2one(
         comodel_name='linhafala.caso.case_type_classification', string="Classificaçäo Provisória",required=True)
 

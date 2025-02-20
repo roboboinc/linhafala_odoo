@@ -41,7 +41,6 @@
                                     <field name="case_type" />
                                 </p>
                                 <p  attrs="{'invisible': [('show_online_offline', '=', False)], 'required': [('show_online_offline', '=', True)]}">
-                                    <field name="is_criminal_case" invisible="1" />
                                     <field name="show_online_offline" invisible="1" />
                                     <label for="online_offline">Selecione se o crime foi: </label>
                                     <field name="online_offline" />

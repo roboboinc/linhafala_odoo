@@ -183,12 +183,6 @@ class Caso(models.Model):
         for record in self:
             record.is_criminal_case = record.case_type.name == "caso de natureza criminal"
 
-    secundary_case_type = fields.Many2one(
-        comodel_name='linhafala.caso.subcategoria', 
-        string="Subcategoria", 
-        required=True
-    )
-
     online_offline = fields.Selection(
         string='Selecione se o crime foi:',
         selection=[
@@ -220,6 +214,7 @@ class Caso(models.Model):
                 record.show_secundary_case_type = bool(record.online_offline)
             else:
                 record.show_secundary_case_type = True
+
     secundary_case_type = fields.Many2one(
         comodel_name='linhafala.caso.subcategoria', string="Subcategoria", required=True)
     case_type_classification = fields.Many2one(

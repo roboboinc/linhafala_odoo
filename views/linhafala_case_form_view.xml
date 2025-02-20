@@ -48,6 +48,7 @@
                                 </p>
                                 <p attrs="{'invisible': [('show_secundary_case_type', '=', False)]}">
                                     <label for="secundary_case_type">* Sub Categoria do Caso: </label>
+                                    <field name="show_secundary_case_type" invisible="1"/>
                                     <field name="secundary_case_type"/>
                                 </p>
                                 <p>

@@ -11,3 +11,12 @@ For more information, please refer to:
 
 - [Odoo documentation](https://www.odoo.com/documentation/16.0/)
 - [wkhtmltopdf Downloads](https://wkhtmltopdf.org/downloads.html)
+
+## Deployment commands
+docker swarm status
+
+- To remove the stack for restart
+ `docker stack rm odoostack`
+
+ - To start it back again
+`docker stack deploy --compose-file docker-compose.yml odoostack`

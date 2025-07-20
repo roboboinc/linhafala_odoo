@@ -15,6 +15,7 @@ class ApiController(http.Controller):
         else:
             next_month = today.replace(month=today.month+1, day=1)
         month_end = next_month.replace(hour=0, minute=0, second=0, microsecond=0)
+        current_year_start = today.replace(year=today.year, month=1, day=1)
 
         chamadas_count = request.env['linhafala.chamada'].sudo().search_count([
             ('created_at', '>=', month_start),
@@ -32,12 +33,40 @@ class ApiController(http.Controller):
             ('person_type', 'in', ['Contactante+Vítima', 'Vítima'])
         ])
 
+        chamadas_ano_count = request.env['linhafala.chamada'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('is_deleted', '=', False)
+        ])
+
+        casos_ano_count = request.env['linhafala.caso'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('is_deleted', '=', False)
+        ])
+        vitimas_ano_count = request.env['linhafala.person_involved'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('person_type', 'in', ['Contactante+Vítima', 'Vítima'])
+        ])
+        chamadas_com_intervencao_ano_count = request.env['linhafala.chamada'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('is_deleted', '=', False),
+            ('category_status', 'in', ['Com Intervencao'])
+        ])
+
         response_data = {
             "chamadas": chamadas_count,
             "casos": casos_count,
             "vitimas": vitimas_count,
             "month_start": month_start.strftime('%Y-%m-%d %H:%M:%S'),
             "month_end": month_end.strftime('%Y-%m-%d %H:%M:%S'),
+            "current_year_start": current_year_start.strftime('%Y-%m-%d %H:%M:%S'),
+            "chamadas_ano_count": chamadas_ano_count,
+            "casos_ano_count": casos_ano_count,
+            "vitimas_ano_count": vitimas_ano_count,
+            "chamadas_com_intervencao_ano_count": chamadas_com_intervencao_ano_count,
         }
         return Response(
             json.dumps(response_data),

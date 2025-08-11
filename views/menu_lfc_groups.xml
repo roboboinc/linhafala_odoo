@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_lfc_admin_root"
+              name="Administração LFC"
+              parent="base.menu_administration"
+              groups="base.group_system"
+              sequence="10"/>
+    <menuitem id="menu_lfc_groups"
+              name="Grupos LFC"
+              parent="menu_lfc_admin_root"
+              action="base.action_res_groups"
+              groups="base.group_system"
+              sequence="20"/>
+</odoo>

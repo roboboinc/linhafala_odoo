@@ -2,7 +2,7 @@
 <odoo>
     <menuitem id="menu_lfc_admin_root"
               name="Administração LFC"
-              parent="base.menu_administration"
+              parent="linhafala_menu_root"
               groups="base.group_system"
               sequence="10"/>
     <menuitem id="menu_lfc_groups"

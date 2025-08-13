@@ -49,6 +49,18 @@ class ApiController(http.Controller):
             ('created_at', '<=', today),
             ('person_type', 'in', ['Contactante+Vítima', 'Vítima'])
         ])
+        vitimas_por_sexo_masculino = request.env['linhafala.person_involved'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('person_type', 'in', ['Contactante+Vítima', 'Vítima']),
+            ('gender', '=', 'Masculino')
+        ])
+        vitimas_por_sexo_feminino = request.env['linhafala.person_involved'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('person_type', 'in', ['Contactante+Vítima', 'Vítima']),
+            ('gender', '=', 'Feminino')
+        ])
         chamadas_com_intervencao_ano_count = request.env['linhafala.chamada'].sudo().search_count([
             ('created_at', '>=', current_year_start),
             ('created_at', '<=', today),
@@ -84,6 +96,8 @@ class ApiController(http.Controller):
             "casos_encaminhados_ano": casos_encaminhados_ano,
             "casos_assistidos_ano": casos_assistidos_ano,
             "casos_encerrados_ano": casos_encerrados_ano,
+            "vitimas_por_sexo_masculino": vitimas_por_sexo_masculino,
+            "vitimas_por_sexo_feminino": vitimas_por_sexo_feminino,
         }
         return Response(
             json.dumps(response_data),

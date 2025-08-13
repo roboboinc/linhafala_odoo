@@ -107,6 +107,34 @@ class ApiController(http.Controller):
             json.dumps(data),
             content_type='application/json; charset=utf-8'
         )
+
+    @http.route('/api/statistics/top-chamadas', type='http', auth='public', methods=['GET'], csrf=False)
+    def get_top_chamadas(self, **kwargs):
+        chamadas_grouped = request.env['linhafala.chamada'].sudo().read_group(
+            domain=[
+                ('created_at', '>=', current_year_start),
+                ('created_at', '<=', today),
+                ('is_deleted', '=', False),
+                ('type_of_intervention', '!=', False)
+            ],
+            fields=['type_of_intervention', 'type_of_intervention:count'],
+            groupby=['type_of_intervention']
+        )
+        total = sum(rec.get('type_of_intervention_count', 0) for rec in chamadas_grouped)
+        data = []
+        for rec in chamadas_grouped:
+            intervention = rec.get('type_of_intervention') or 'Indefinido'
+            count = rec.get('type_of_intervention_count', 0)
+            percent = (count / total * 100) if total else 0
+            data.append({
+                'type_of_intervention': intervention,
+                'count': count,
+                'percent': round(percent, 2)
+            })
+        return Response(
+            json.dumps(data),
+            content_type='application/json; charset=utf-8'
+        )
     
     @http.route('/api/statistics', type='http', auth='public', methods=['GET'], csrf=False)
     def get_statistics(self, **kwargs):

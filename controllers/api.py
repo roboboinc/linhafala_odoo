@@ -30,19 +30,23 @@ class ApiController(http.Controller):
             groupby=['gender']
         )
         # _logger.debug("RESPONSE: %s", vitimas_por_sexo)  # Debugging output
-        total = sum(rec.get('gender_count', 0) for rec in vitimas_por_sexo)
+        # Build data list
         data = []
         for rec in vitimas_por_sexo:
             gender = rec.get('gender') or 'Indefinido'
             count = rec.get('gender_count', 0)
-            percent = (count / total * 100) if total else 0
             data.append({
                 'gender': gender,
-                'count': count,
-                'percent': round(percent, 2)
+                'count': count
             })
+        # Sort by count descending
+        data_sorted = sorted(data, key=lambda x: x['count'], reverse=True)
+        # Recalculate total for percent (top N or all)
+        total = sum(item['count'] for item in data_sorted)
+        for item in data_sorted:
+            item['percent'] = round((item['count'] / total * 100) if total else 0, 2)
         return Response(
-            json.dumps(data),
+            json.dumps(data_sorted),
             content_type='application/json; charset=utf-8'
         )
     
@@ -58,19 +62,23 @@ class ApiController(http.Controller):
             groupby=['age']
         )
         # _logger.debug("RESPONSE: %s", vitimas_por_idade)  # Debugging output
-        total = sum(rec.get('age_count', 0) for rec in vitimas_por_idade)
+        # Build data list
         data = []
         for rec in vitimas_por_idade:
             age = rec.get('age') or 'Indefinido'
             count = rec.get('age_count', 0)
-            percent = (count / total * 100) if total else 0
             data.append({
                 'age': age,
-                'count': count,
-                'percent': round(percent, 2)
+                'count': count
             })
+        # Sort by count descending
+        data_sorted = sorted(data, key=lambda x: x['count'], reverse=True)
+        # Recalculate total for percent (top N or all)
+        total = sum(item['count'] for item in data_sorted)
+        for item in data_sorted:
+            item['percent'] = round((item['count'] / total * 100) if total else 0, 2)
         return Response(
-            json.dumps(data),
+            json.dumps(data_sorted),
             content_type='application/json; charset=utf-8'
         )
 
@@ -123,19 +131,23 @@ class ApiController(http.Controller):
             fields=['type_of_intervention', 'type_of_intervention:count'],
             groupby=['type_of_intervention']
         )
-        total = sum(rec.get('type_of_intervention_count', 0) for rec in chamadas_grouped)
+        # Build data list
         data = []
         for rec in chamadas_grouped:
             intervention = rec.get('type_of_intervention') or 'Indefinido'
             count = rec.get('type_of_intervention_count', 0)
-            percent = (count / total * 100) if total else 0
             data.append({
                 'type_of_intervention': intervention,
-                'count': count,
-                'percent': round(percent, 2)
+                'count': count
             })
+        # Sort by count descending
+        data_sorted = sorted(data, key=lambda x: x['count'], reverse=True)
+        # Recalculate total for percent (top N or all)
+        total = sum(item['count'] for item in data_sorted)
+        for item in data_sorted:
+            item['percent'] = round((item['count'] / total * 100) if total else 0, 2)
         return Response(
-            json.dumps(data),
+            json.dumps(data_sorted),
             content_type='application/json; charset=utf-8'
         )
     

@@ -55,6 +55,20 @@ class ApiController(http.Controller):
             ('is_deleted', '=', False),
             ('category_status', 'in', ['Com Intervencao'])
         ])
+        casos_encaminhados_ano = request.env['linhafala.caso.forwarding_institution'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+        ])
+        casos_assistidos_ano = request.env['linhafala.caso.forwarding_institution'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('case_status', 'in', ['Assistido'])
+        ])
+        casos_encerrados_ano = request.env['linhafala.caso.forwarding_institution'].sudo().search_count([
+            ('created_at', '>=', current_year_start),
+            ('created_at', '<=', today),
+            ('case_status', 'in', ['Encerrado'])
+        ])
 
         response_data = {
             "chamadas": chamadas_count,
@@ -67,6 +81,9 @@ class ApiController(http.Controller):
             "casos_ano_count": casos_ano_count,
             "vitimas_ano_count": vitimas_ano_count,
             "chamadas_com_intervencao_ano_count": chamadas_com_intervencao_ano_count,
+            "casos_encaminhados_ano": casos_encaminhados_ano,
+            "casos_assistidos_ano": casos_assistidos_ano,
+            "casos_encerrados_ano": casos_encerrados_ano,
         }
         return Response(
             json.dumps(response_data),

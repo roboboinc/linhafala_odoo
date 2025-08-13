@@ -45,6 +45,34 @@ class ApiController(http.Controller):
             json.dumps(data),
             content_type='application/json; charset=utf-8'
         )
+    
+    @http.route('/api/statistics/age-disaggregated', type='http', auth='public', methods=['GET'], csrf=False)
+    def get_age_disaggregated(self, **kwargs):
+        vitimas_por_idade = request.env['linhafala.person_involved'].sudo().read_group(
+            domain=[
+                ('created_at', '>=', current_year_start),
+                ('created_at', '<=', today),
+                ('person_type', 'in', ['Contactante+Vítima', 'Vítima'])
+            ],
+            fields=['age', 'age:count'],
+            groupby=['age']
+        )
+        # _logger.debug("RESPONSE: %s", vitimas_por_idade)  # Debugging output
+        total = sum(rec.get('age_count', 0) for rec in vitimas_por_idade)
+        data = []
+        for rec in vitimas_por_idade:
+            age = rec.get('age') or 'Indefinido'
+            count = rec.get('age_count', 0)
+            percent = (count / total * 100) if total else 0
+            data.append({
+                'age': age,
+                'count': count,
+                'percent': round(percent, 2)
+            })
+        return Response(
+            json.dumps(data),
+            content_type='application/json; charset=utf-8'
+        )
 
     @http.route('/api/statistics/victim-by-province', type='http', auth='public', methods=['GET'], csrf=False)
     def get_victims_by_province(self, **kwargs):

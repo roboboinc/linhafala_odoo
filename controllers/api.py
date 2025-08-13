@@ -29,7 +29,7 @@ class ApiController(http.Controller):
             fields=['gender', 'gender:count'],
             groupby=['gender']
         )
-        _logger.debug("RESPONSE: %s", vitimas_por_sexo)  # Debugging output
+        # _logger.debug("RESPONSE: %s", vitimas_por_sexo)  # Debugging output
         total = sum(rec.get('gender_count', 0) for rec in vitimas_por_sexo)
         data = []
         for rec in vitimas_por_sexo:
@@ -46,6 +46,40 @@ class ApiController(http.Controller):
             content_type='application/json; charset=utf-8'
         )
 
+    @http.route('/api/statistics/victim-by-province', type='http', auth='public', methods=['GET'], csrf=False)
+    def get_victims_by_province(self, **kwargs):
+        vitimas_por_provincia = request.env['linhafala.person_involved'].sudo().read_group(
+            domain=[
+                ('created_at', '>=', current_year_start),
+                ('created_at', '<=', today),
+                ('person_type', 'in', ['Contactante+Vítima', 'Vítima'])
+            ],
+            fields=['provincia', 'person_id:count'],
+            groupby=['provincia']
+        )
+        total = sum(rec.get('provincia_count', 0) for rec in vitimas_por_provincia)
+        data = []
+        for rec in vitimas_por_provincia:
+            provincia_id = rec.get('provincia')
+            provincia_name = 'Indefinido'
+            # Handle if provincia_id is a list/tuple or a lazy object
+            if isinstance(provincia_id, (list, tuple)):
+                provincia_id = provincia_id[0] if provincia_id else False
+            if provincia_id and isinstance(provincia_id, int):
+                provincia_record = request.env['linhafala.provincia'].sudo().browse(provincia_id)
+                provincia_name = provincia_record.name or str(provincia_id)
+            count = rec.get('provincia_count', 0)
+            percent = (count / total * 100) if total else 0
+            data.append({
+                'provincia': provincia_name,
+                'count': count,
+                'percent': round(percent, 2)
+            })
+        return Response(
+            json.dumps(data),
+            content_type='application/json; charset=utf-8'
+        )
+    
     @http.route('/api/statistics', type='http', auth='public', methods=['GET'], csrf=False)
     def get_statistics(self, **kwargs):
 

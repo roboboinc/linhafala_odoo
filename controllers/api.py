@@ -85,26 +85,29 @@ class ApiController(http.Controller):
             fields=['provincia', 'person_id:count'],
             groupby=['provincia']
         )
-        total = sum(rec.get('provincia_count', 0) for rec in vitimas_por_provincia)
+        # Build data list
         data = []
         for rec in vitimas_por_provincia:
             provincia_id = rec.get('provincia')
             provincia_name = 'Indefinido'
-            # Handle if provincia_id is a list/tuple or a lazy object
             if isinstance(provincia_id, (list, tuple)):
                 provincia_id = provincia_id[0] if provincia_id else False
             if provincia_id and isinstance(provincia_id, int):
                 provincia_record = request.env['linhafala.provincia'].sudo().browse(provincia_id)
                 provincia_name = provincia_record.name or str(provincia_id)
             count = rec.get('provincia_count', 0)
-            percent = (count / total * 100) if total else 0
             data.append({
                 'provincia': provincia_name,
-                'count': count,
-                'percent': round(percent, 2)
+                'count': count
             })
+        # Sort by count descending
+        data_sorted = sorted(data, key=lambda x: x['count'], reverse=True)
+        # Recalculate total for percent (top N or all)
+        total = sum(item['count'] for item in data_sorted)
+        for item in data_sorted:
+            item['percent'] = round((item['count'] / total * 100) if total else 0, 2)
         return Response(
-            json.dumps(data),
+            json.dumps(data_sorted),
             content_type='application/json; charset=utf-8'
         )
 

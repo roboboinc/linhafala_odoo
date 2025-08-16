@@ -26,6 +26,7 @@
         'views/linhafala_menus.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
+        'views/menu_lfc_groups.xml',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',
         'data/linhafala.categoria.csv',

@@ -16,3 +16,4 @@ from . import deficiente
 from . import localidade
 from . import posto
 from . import toggle
+from . import export_wizard

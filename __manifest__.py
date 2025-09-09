@@ -9,6 +9,7 @@
     'author': "team@robobo.org",
     "website": "www.robobo.org",
     'data': [
+        'views/export_wizard_views.xml',
         'views/linhafala_calls_views.xml',
         'views/linhafala_call_assistance_views.xml',
         'views/linhafala_cases_views.xml',

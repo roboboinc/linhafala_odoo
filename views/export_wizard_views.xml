@@ -27,4 +27,44 @@
 
   <!-- place menu under main root -->
   <menuitem id="menu_export_chamadas" name="Exportar Chamadas" parent="linhafala_menu_root" action="action_export_chamadas_wizard" sequence="20"/>
+
+  <!-- Exportar Casos wizard and action -->
+  <record id="view_export_casos_wizard_form" model="ir.ui.view">
+    <field name="name">linhafala.export.casos.wizard.form</field>
+    <field name="model">linhafala.export.casos.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Exportar Casos">
+        <group>
+          <field name="start_date"/>
+          <field name="end_date"/>
+        </group>
+        <footer>
+          <button string="Exportar Casos" type="object" name="action_export" class="btn-primary"/>
+          <button string="Cancelar" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_export_casos_wizard" model="ir.actions.act_window">
+    <field name="name">Exportar Casos</field>
+    <field name="res_model">linhafala.export.casos.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="view_id" ref="view_export_casos_wizard_form"/>
+  </record>
+
+  <!-- Contextual Action: show in Cases list view Action menu -->
+  <record id="action_export_casos_wizard_context" model="ir.actions.act_window">
+    <field name="name">Exportar Casos</field>
+    <field name="res_model">linhafala.export.casos.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="view_id" ref="view_export_casos_wizard_form"/>
+    <field name="binding_model_id" ref="model_linhafala_caso"/>
+    <field name="binding_view_types">list,form</field>
+  </record>
+
+  <!-- Optional top-level menu for Cases export -->
+  <menuitem id="menu_export_casos" name="Exportar Casos" parent="linhafala_menu_root" action="action_export_casos_wizard" sequence="21"/>
 </odoo>

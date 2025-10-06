@@ -94,3 +94,98 @@ class ExportController(http.Controller):
         except Exception as e:
             _logger.exception('Failed to export chamadas: %s', e)
             return Response(json.dumps({'error': 'export failed'}), status=500, content_type='application/json')
+
+    @http.route('/api/export/casos', type='http', auth='user', methods=['GET'], csrf=False)
+    def export_casos(self, **kwargs):
+        """Download CSV of casos between start_date and end_date (YYYY-MM-DD).
+        Example: /api/export/casos?start_date=2025-07-01&end_date=2025-07-31
+        """
+        start_date = kwargs.get('start_date')
+        end_date = kwargs.get('end_date')
+
+        # fallback to current month if missing
+        today = datetime.today()
+        if not start_date or not end_date:
+            start_date = start_date or today.replace(day=1).strftime('%Y-%m-%d')
+            if today.month == 12:
+                next_month = today.replace(year=today.year + 1, month=1, day=1)
+            else:
+                next_month = today.replace(month=today.month + 1, day=1)
+            end_date = end_date or (next_month - timedelta(days=1)).strftime('%Y-%m-%d')
+
+        start_ts = f"{start_date} 00:00:00"
+        end_ts = f"{end_date} 23:59:59"
+
+        cr = request.env.cr
+        # SQL aligned to the notebook export with safe joins to names/ids we have in models
+        query = """
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY cas.case_id) - 1 AS nr,
+                cas.case_id AS nr_do_caso,
+                CAST(cas.created_at AS date) AS data_de_criacao,
+                cas.case_status AS estado_do_caso,
+                cas.case_priority AS prioridade_do_caso,
+                cas.resolution_type AS tratamento_do_caso,
+                cas.place_occurrence AS local_de_ocorrencia,
+                created_by_name.display_name AS criado_por,
+                manager_by_name.display_name AS gestor,
+                case_type.name AS categoria,
+                secundary_case_type.name AS subcategoria,
+                case_type_classification.name AS classificacao_provisoria,
+                person_involved.fullname AS nome_da_pessoa_envolvida,
+                person_involved.person_type AS categoria_pessoa,
+                person_involved.contact AS contacto,
+                person_involved.age AS idade,
+                person_involved.gender AS sexo,
+                person_involved.living_relatives AS com_quem_vive,
+                person_involved.victim_relationship AS relacao_com_a_vitima,
+                person_involved.bairro AS bairro,
+                province.name AS provincia,
+                distrito.name AS distrito,
+                posto.name AS posto,
+                localidade.name AS localidade,
+                forwarding.area_type AS tipo_de_entidade,
+                referenceentity.name AS entidade_de_referencia_de_encaminhamento,
+                casereference.name AS pessoa_de_contacto_de_encaminhamento,
+                casereference.contact AS telefone_de_encaminhamento
+            FROM linhafala_caso cas
+                LEFT JOIN linhafala_person_involved person_involved ON cas.id = person_involved.case_id
+                LEFT JOIN linhafala_caso_categoria case_type ON cas.case_type = case_type.id
+                LEFT JOIN linhafala_caso_subcategoria secundary_case_type ON cas.secundary_case_type = secundary_case_type.id
+                LEFT JOIN linhafala_caso_case_type_classification case_type_classification ON cas.case_type_classification = case_type_classification.id
+                LEFT JOIN linhafala_caso_forwarding_institution forwarding ON cas.id = forwarding.case_id
+                LEFT JOIN linhafala_caso_referenceentity referenceentity ON forwarding.reference_entity = referenceentity.id
+                LEFT JOIN linhafala_caso_casereference casereference ON forwarding.case_reference = casereference.id
+                LEFT JOIN res_users created_by ON cas.created_by = created_by.id
+                LEFT JOIN res_users manager_by ON cas.manager_by = manager_by.id
+                LEFT JOIN res_partner created_by_name ON created_by.partner_id = created_by_name.id
+                LEFT JOIN res_partner manager_by_name ON manager_by.partner_id = manager_by_name.id
+                LEFT JOIN linhafala_provincia province ON person_involved.provincia = province.id
+                LEFT JOIN linhafala_distrito distrito ON person_involved.distrito = distrito.id
+                LEFT JOIN linhafala_posto posto ON person_involved.posto = posto.id
+                LEFT JOIN linhafala_localidade localidade ON person_involved.localidade = localidade.id
+            WHERE cas.is_deleted = False
+              AND cas.created_at >= %s
+              AND cas.created_at <= %s
+            ORDER BY cas.created_at;
+        """
+        try:
+            cr.execute(query, (start_ts, end_ts))
+            rows = cr.fetchall()
+            headers = [d[0] for d in cr.description]
+
+            sio = StringIO()
+            writer = csv.writer(sio)
+            writer.writerow(headers)
+            for row in rows:
+                writer.writerow([('' if v is None else v) for v in row])
+
+            csv_data = sio.getvalue().encode('utf-8')
+            filename = f"CASOS_{start_date}_{end_date}.csv"
+            return Response(csv_data, headers=[
+                ('Content-Type', 'text/csv; charset=utf-8'),
+                ('Content-Disposition', f'attachment; filename="{filename}"'),
+            ])
+        except Exception as e:
+            _logger.exception('Failed to export casos: %s', e)
+            return Response(json.dumps({'error': 'export failed'}), status=500, content_type='application/json')

@@ -67,4 +67,42 @@
 
   <!-- Optional top-level menu for Cases export -->
   <menuitem id="menu_export_casos" name="Exportar Casos" parent="linhafala_menu_root" action="action_export_casos_wizard" sequence="21"/>
+
+  <!-- Exportar Assistências wizard and action -->
+  <record id="view_export_assistencias_wizard_form" model="ir.ui.view">
+    <field name="name">linhafala.export.assistencias.wizard.form</field>
+    <field name="model">linhafala.export.assistencias.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Exportar Assistências">
+        <group>
+          <field name="start_date"/>
+          <field name="end_date"/>
+        </group>
+        <footer>
+          <button string="Exportar Assistências" type="object" name="action_export" class="btn-primary"/>
+          <button string="Cancelar" class="btn-secondary" special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_export_assistencias_wizard" model="ir.actions.act_window">
+    <field name="name">Exportar Assistências</field>
+    <field name="res_model">linhafala.export.assistencias.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="view_id" ref="view_export_assistencias_wizard_form"/>
+  </record>
+
+  <record id="action_export_assistencias_wizard_context" model="ir.actions.act_window">
+    <field name="name">Exportar Assistências</field>
+    <field name="res_model">linhafala.export.assistencias.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="view_id" ref="view_export_assistencias_wizard_form"/>
+    <field name="binding_model_id" ref="model_linhafala_chamada_assistance"/>
+    <field name="binding_view_types">list,form</field>
+  </record>
+
+  <menuitem id="menu_export_assistencias" name="Exportar Assistências" parent="linhafala_menu_root" action="action_export_assistencias_wizard" sequence="22"/>
 </odoo>

@@ -189,3 +189,81 @@ class ExportController(http.Controller):
         except Exception as e:
             _logger.exception('Failed to export casos: %s', e)
             return Response(json.dumps({'error': 'export failed'}), status=500, content_type='application/json')
+
+    @http.route('/api/export/assistencias', type='http', auth='user', methods=['GET'], csrf=False)
+    def export_assistencias(self, **kwargs):
+        """Download CSV of assistências between start_date and end_date (YYYY-MM-DD).
+        Example: /api/export/assistencias?start_date=2025-07-01&end_date=2025-07-31
+        """
+        start_date = kwargs.get('start_date')
+        end_date = kwargs.get('end_date')
+
+        # fallback to current month if missing
+        today = datetime.today()
+        if not start_date or not end_date:
+            start_date = start_date or today.replace(day=1).strftime('%Y-%m-%d')
+            if today.month == 12:
+                next_month = today.replace(year=today.year + 1, month=1, day=1)
+            else:
+                next_month = today.replace(month=today.month + 1, day=1)
+            end_date = end_date or (next_month - timedelta(days=1)).strftime('%Y-%m-%d')
+
+        start_ts = f"{start_date} 00:00:00"
+        end_ts = f"{end_date} 23:59:59"
+
+        cr = request.env.cr
+        query = """
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY callassistance.call_id) - 1 AS nr,
+                callassistance.call_id AS nr_da_chamada,
+                callassistance.contact AS contacto,
+                callassistance.bairro AS bairro,
+                prov.name AS provincia,
+                dist.name AS distrito,
+                post.name AS posto,
+                loc.name AS localidade,
+                callassistance.gender AS sexo,
+                callassistance.age AS idade,
+                callassistance.detailed_description AS descricao,
+                CAST(callassistance.created_at AS date) AS criado_aos,
+                callassistance.callcaseassistance_priority AS prioridade,
+                callassistance.callcaseassistance_status AS estado,
+                category.name AS tipologia,
+                subcategory.name AS sub_tipologia,
+                created_by.login AS criado_por,
+                assistencereferall.area_type AS tipo_de_area_de_encaminhamento,
+                assistencereferall.assistance_status AS estado_da_assistencia
+            FROM linhafala_chamada_assistance callassistance
+                LEFT JOIN linhafala_provincia prov ON callassistance.provincia = prov.id
+                LEFT JOIN linhafala_distrito dist ON callassistance.distrito = dist.id
+                LEFT JOIN linhafala_posto post ON callassistance.posto = post.id
+                LEFT JOIN linhafala_localidade loc ON callassistance.localidade = loc.id
+                LEFT JOIN linhafala_chamada_assistance_categoria category ON callassistance.category = category.id
+                LEFT JOIN linhafala_chamada_assistance_subcategoria subcategory ON callassistance.subcategory = subcategory.id
+                LEFT JOIN res_users created_by ON callassistance.created_by = created_by.id
+                LEFT JOIN res_users reporter ON callassistance.reporter = reporter.id
+                LEFT JOIN linhafala_chamada_assistance_referral assistencereferall ON callassistance.id = assistencereferall.assistance_id
+            WHERE callassistance.created_at >= %s
+              AND callassistance.created_at <= %s
+            ORDER BY callassistance.created_at;
+        """
+        try:
+            cr.execute(query, (start_ts, end_ts))
+            rows = cr.fetchall()
+            headers = [d[0] for d in cr.description]
+
+            sio = StringIO()
+            writer = csv.writer(sio)
+            writer.writerow(headers)
+            for row in rows:
+                writer.writerow([('' if v is None else v) for v in row])
+
+            csv_data = sio.getvalue().encode('utf-8')
+            filename = f"ASSISTENCIAS_{start_date}_{end_date}.csv"
+            return Response(csv_data, headers=[
+                ('Content-Type', 'text/csv; charset=utf-8'),
+                ('Content-Disposition', f'attachment; filename="{filename}"'),
+            ])
+        except Exception as e:
+            _logger.exception('Failed to export assistencias: %s', e)
+            return Response(json.dumps({'error': 'export failed'}), status=500, content_type='application/json')

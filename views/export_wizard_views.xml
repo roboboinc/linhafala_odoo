@@ -25,6 +25,17 @@
     <field name="view_id" ref="view_export_chamadas_wizard_form"/>
   </record>
 
+  <!-- Contextual Action: show in Calls list and form Action menus -->
+  <record id="action_export_chamadas_wizard_context" model="ir.actions.act_window">
+    <field name="name">Exportar Chamadas</field>
+    <field name="res_model">linhafala.export.chamadas.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="view_id" ref="view_export_chamadas_wizard_form"/>
+    <field name="binding_model_id" ref="model_linhafala_chamada"/>
+    <field name="binding_view_types">list,form</field>
+  </record>
+
   <!-- place menu under main root -->
   <menuitem id="menu_export_chamadas" name="Exportar Chamadas" parent="linhafala_menu_root" action="action_export_chamadas_wizard" sequence="20"/>
 

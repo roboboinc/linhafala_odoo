@@ -86,9 +86,6 @@
         <field name="arch" type="xml">
             <tree string="Channel" default_order="create_date desc"
                 decoration-danger="category_status=='Sem Interveção Desligado'">
-                <header>
-                    <button name="%(action_export_chamadas_wizard)d" type="action" string="Exportar Chamadas" class="oe_highlight" context="{}"/>
-                </header>
                 <field name="call_id" optional="hide" />
                 <field name="fullname" optional="hide" />
                 <field name="contact_type" optional="hide" />

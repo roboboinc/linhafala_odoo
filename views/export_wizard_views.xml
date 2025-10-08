@@ -23,6 +23,7 @@
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="view_id" ref="view_export_chamadas_wizard_form"/>
+    <field name="groups_id" eval="[(4, ref('linhafala_odoo.group_linhafala_administrador')), (4, ref('linhafala_odoo.group_linhafala_gestor'))]"/>
   </record>
 
   <!-- Contextual Action: show in Calls list and form Action menus -->
@@ -37,7 +38,7 @@
   </record>
 
   <!-- place menu under main root -->
-  <menuitem id="menu_export_chamadas" name="Exportar Chamadas" parent="linhafala_menu_root" action="action_export_chamadas_wizard" sequence="20"/>
+  <menuitem id="menu_export_chamadas" name="Exportar Chamadas" parent="linhafala_menu_root" action="action_export_chamadas_wizard" sequence="20" groups="linhafala_odoo.group_linhafala_administrador,linhafala_odoo.group_linhafala_gestor"/>
 
   <!-- Exportar Casos wizard and action -->
   <record id="view_export_casos_wizard_form" model="ir.ui.view">
@@ -63,6 +64,7 @@
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="view_id" ref="view_export_casos_wizard_form"/>
+    <field name="groups_id" eval="[(4, ref('linhafala_odoo.group_linhafala_administrador')), (4, ref('linhafala_odoo.group_linhafala_gestor'))]"/>
   </record>
 
   <!-- Contextual Action: show in Cases list view Action menu -->
@@ -77,7 +79,7 @@
   </record>
 
   <!-- Optional top-level menu for Cases export -->
-  <menuitem id="menu_export_casos" name="Exportar Casos" parent="linhafala_menu_root" action="action_export_casos_wizard" sequence="21"/>
+  <menuitem id="menu_export_casos" name="Exportar Casos" parent="linhafala_menu_root" action="action_export_casos_wizard" sequence="21" groups="linhafala_odoo.group_linhafala_administrador,linhafala_odoo.group_linhafala_gestor"/>
 
   <!-- Exportar Assistências wizard and action -->
   <record id="view_export_assistencias_wizard_form" model="ir.ui.view">
@@ -103,6 +105,7 @@
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="view_id" ref="view_export_assistencias_wizard_form"/>
+    <field name="groups_id" eval="[(4, ref('linhafala_odoo.group_linhafala_administrador')), (4, ref('linhafala_odoo.group_linhafala_gestor'))]"/>
   </record>
 
   <record id="action_export_assistencias_wizard_context" model="ir.actions.act_window">
@@ -115,5 +118,5 @@
     <field name="binding_view_types">list,form</field>
   </record>
 
-  <menuitem id="menu_export_assistencias" name="Exportar Assistências" parent="linhafala_menu_root" action="action_export_assistencias_wizard" sequence="22"/>
+  <menuitem id="menu_export_assistencias" name="Exportar Assistências" parent="linhafala_menu_root" action="action_export_assistencias_wizard" sequence="22" groups="linhafala_odoo.group_linhafala_administrador,linhafala_odoo.group_linhafala_gestor"/>
 </odoo>

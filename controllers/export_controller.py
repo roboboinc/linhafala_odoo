@@ -16,6 +16,10 @@ class ExportController(http.Controller):
         """Download CSV of chamadas between start_date and end_date (YYYY-MM-DD).
         Example: /api/export/chamadas?start_date=2025-07-01&end_date=2025-07-31
         """
+        # Restrict access to Administradores or Gestores
+        user = request.env.user
+        if not (user.has_group('linhafala_odoo.group_linhafala_administrador') or user.has_group('linhafala_odoo.group_linhafala_gestor')):
+            return Response(json.dumps({'error': 'forbidden'}), status=403, content_type='application/json')
         start_date = kwargs.get('start_date')
         end_date = kwargs.get('end_date')
         # fallback to current month if missing
@@ -100,6 +104,10 @@ class ExportController(http.Controller):
         """Download CSV of casos between start_date and end_date (YYYY-MM-DD).
         Example: /api/export/casos?start_date=2025-07-01&end_date=2025-07-31
         """
+        # Restrict access to Administradores or Gestores
+        user = request.env.user
+        if not (user.has_group('linhafala_odoo.group_linhafala_administrador') or user.has_group('linhafala_odoo.group_linhafala_gestor')):
+            return Response(json.dumps({'error': 'forbidden'}), status=403, content_type='application/json')
         start_date = kwargs.get('start_date')
         end_date = kwargs.get('end_date')
 
@@ -195,6 +203,10 @@ class ExportController(http.Controller):
         """Download CSV of assistências between start_date and end_date (YYYY-MM-DD).
         Example: /api/export/assistencias?start_date=2025-07-01&end_date=2025-07-31
         """
+        # Restrict access to Administradores or Gestores
+        user = request.env.user
+        if not (user.has_group('linhafala_odoo.group_linhafala_administrador') or user.has_group('linhafala_odoo.group_linhafala_gestor')):
+            return Response(json.dumps({'error': 'forbidden'}), status=403, content_type='application/json')
         start_date = kwargs.get('start_date')
         end_date = kwargs.get('end_date')
 

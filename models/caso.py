@@ -287,7 +287,16 @@ class Caso(models.Model):
     def write(self, vals):
         if vals:
             vals['updated_at'] = fields.Datetime.now()
-        return super(Caso, self).write(vals)
+        res = super(Caso, self).write(vals)
+        # Enforce after any edit: must keep at least one 'Vítima' or 'Contactante+Vítima'
+        for record in self:
+            has_required_role = any(
+                p.person_type in ('Vítima', 'Contactante+Vítima') for p in record.person_id
+            )
+            if not has_required_role:
+                raise ValidationError(
+                    "Por favor, adicione uma 'Vítima' ou 'Contactante+Vítima' para prosseguir.")
+        return res
 
     def unlink(self):
         for record in self:

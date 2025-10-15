@@ -458,19 +458,8 @@ class Chamada(models.Model):
         })
         return super(Chamada, self)._register_hook()
 
-# Override the Delete button action
-# TODO: Validate whether the function works
-
-
-class ActWindow(models.Model):
-    _inherit = 'ir.actions.act_window'
-
-    @api.model
-    def unlink(self, ids):
-        model = self.env[self.res_model]
-        for record in model.browse(ids):
-            record.write({'is_deleted': True})
-        return {'type': 'ir.actions.act_window_close'}
+# NOTE: Do not override ir.actions.act_window.unlink with a custom signature.
+# The previous override here caused a registry load error due to an incorrect method signature.
 
 # @api.model
 # def get_action_views(self):

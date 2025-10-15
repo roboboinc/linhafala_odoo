@@ -296,15 +296,28 @@ class Caso(models.Model):
 
     @api.model
     def create(self, vals):
-        vals['uuid'] = str(uuid.uuid4())
-        return super(Caso, self).create(vals)
+        # Ensure UUID is always set
+        vals.setdefault('uuid', str(uuid.uuid4()))
 
-    @api.model
-    def create(self, vals):
+        # Generate sequential case_id if not provided
         if vals.get('case_id', '/') == '/':
             next_case_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.case_id.seq') or '/'
-            vals['case_id'] = next_case_id.split('-')[-1]  # Extract the numeric part after the last hyphen
-        return super(Caso, self).create(vals)
+            # Extract the numeric part after the last hyphen
+            vals['case_id'] = next_case_id.split('-')[-1]
+
+        # Create the record first so we can reliably inspect one2many values
+        record = super(Caso, self).create(vals)
+
+        # Enforce: at least one person must be a 'Vítima' or 'Contactante+Vítima'
+        has_required_role = any(
+            p.person_type in ('Vítima', 'Contactante+Vítima') for p in record.person_id
+        )
+        if not has_required_role:
+            # Rollback by raising a ValidationError to prevent saving invalid cases
+            raise ValidationError(
+                "Por favor, adicione uma 'Vítima' ou 'Contactante+Vítima' para prosseguir.")
+
+        return record
 
     # Lock the case for single user edit
     # TODO: Check and fix that a record gets created and managed by a single user!

@@ -42,7 +42,7 @@
     <menuitem
         id="linhafala_chamada_assistance_referral_menu_action"
         name="Encaminhamento de Assistências"
-        action="linhafala_chamada_assistance_referral_action"
+        action="linhafala_assistance_referral_action"
         parent="linhafala_menu_root"
         sequence="5" />
 

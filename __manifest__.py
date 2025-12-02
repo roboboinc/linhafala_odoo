@@ -12,6 +12,8 @@
         # Load security first so groups referenced by views exist
         'security/security.xml',
         'security/ir.model.access.csv',
+        # Load menus before views that reference the top-level menu
+        'views/linhafala_menus.xml',
         'views/export_wizard_views.xml',
         'views/linhafala_calls_views.xml',
         'views/linhafala_call_assistance_views.xml',

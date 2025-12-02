@@ -9,6 +9,9 @@
     'author': "team@robobo.org",
     "website": "www.robobo.org",
     'data': [
+        # Load security first so groups referenced by views exist
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'views/export_wizard_views.xml',
         'views/linhafala_calls_views.xml',
         'views/linhafala_call_assistance_views.xml',
@@ -25,8 +28,6 @@
         'views/linhafala_dashboard_manager.xml',
         'views/linhafala_dashboard_home.xml',
         'views/linhafala_menus.xml',
-        'security/security.xml',
-        'security/ir.model.access.csv',
         'views/menu_lfc_groups.xml',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',

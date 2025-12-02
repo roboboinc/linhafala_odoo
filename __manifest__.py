@@ -25,15 +25,15 @@
         'views/linhafala_knowledgebase_views.xml',
         # Configuration views that define actions used by menus
         'views/linhafala_configurations_views.xml',
-        # Menus (require actions to exist)
-        'views/linhafala_menus.xml',
-        # Export wizards and other views that may reference menus/actions
         'views/export_wizard_views.xml',
         'views/linhafala_case_form_view.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_dashboard_manager.xml',
         'views/linhafala_dashboard_home.xml',
         'views/menu_lfc_groups.xml',
+        # Menus (require actions to exist)
+        'views/linhafala_menus.xml',
+        # Export wizards and other views that may reference menus/actions
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',
         'data/linhafala.categoria.csv',

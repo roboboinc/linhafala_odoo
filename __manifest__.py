@@ -20,6 +20,8 @@
         'views/linhafala_assistance_referral.xml',
         'views/linhafala.moz_learning_referral.xml',
         'views/linhafala_cases_referral.xml',
+        # Ensure defect/related actions load before menus
+        'views/linhafala_deficiente_views.xml',
         # Menus (require actions to exist)
         'views/linhafala_menus.xml',
         # Export wizards and other views that may reference menus/actions
@@ -27,7 +29,6 @@
         'views/linhafala_case_form_view.xml',
         'views/linhafala_configurations_views.xml',
         'views/linhafala_knowledgebase_views.xml',
-        'views/linhafala_deficiente_views.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_dashboard_manager.xml',
         'views/linhafala_dashboard_home.xml',

@@ -12,24 +12,25 @@
         # Load security first so groups referenced by views exist
         'security/security.xml',
         'security/ir.model.access.csv',
-        # Load menus before views that reference the top-level menu
-        'views/linhafala_menus.xml',
-        'views/export_wizard_views.xml',
+        # Load actions and views that define actions before menus that reference them
         'views/linhafala_calls_views.xml',
-        'views/linhafala_call_assistance_views.xml',
         'views/linhafala_cases_views.xml',
-        'views/linhafala_case_form_view.xml',
+        'views/linhafala_call_assistance_views.xml',
         'views/linhafala_moz_learning_views.xml',
         'views/linhafala_assistance_referral.xml',
         'views/linhafala.moz_learning_referral.xml',
         'views/linhafala_cases_referral.xml',
+        # Menus (require actions to exist)
+        'views/linhafala_menus.xml',
+        # Export wizards and other views that may reference menus/actions
+        'views/export_wizard_views.xml',
+        'views/linhafala_case_form_view.xml',
         'views/linhafala_configurations_views.xml',
         'views/linhafala_knowledgebase_views.xml',
         'views/linhafala_deficiente_views.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_dashboard_manager.xml',
         'views/linhafala_dashboard_home.xml',
-        'views/linhafala_menus.xml',
         'views/menu_lfc_groups.xml',
         'data/linhafala.provincia.csv',
         'data/linhafala.distrito.csv',

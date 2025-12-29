@@ -1,0 +1,119 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering from GitHub UI
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production # Optional: use GitHub environments for additional protection
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Production Server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          script: |
+            echo "=========================================="
+            echo "Starting deployment to production..."
+            echo "=========================================="
+            
+            # Navigate to the addon directory
+            cd /root/odoo_docker/addons-extra/linhafala_odoo/ || {
+              echo "Error: Failed to navigate to addon directory"
+              exit 1
+            }
+            
+            echo "Current directory: $(pwd)"
+            echo "Current git branch: $(git branch --show-current)"
+            
+            # Stash any local changes (if any)
+            echo "Stashing local changes..."
+            git stash
+            
+            # Pull latest changes from main branch
+            echo "Pulling latest changes from main branch..."
+            git pull origin main || {
+              echo "Error: Failed to pull changes"
+              exit 1
+            }
+            
+            echo "Latest commit: $(git log -1 --oneline)"
+            
+            # Navigate back to docker directory
+            cd /root/odoo_docker || {
+              echo "Error: Failed to navigate to docker directory"
+              exit 1
+            }
+            
+            echo "=========================================="
+            echo "Restarting Docker Swarm stack..."
+            echo "=========================================="
+            
+            # Option 1: Force update services (faster, no downtime)
+            # Uncomment if you prefer this method:
+            # docker service update --force odoo_web
+            # docker service update --force odoo_db
+            
+            # Option 2: Remove and redeploy stack (current method)
+            echo "Removing existing stack..."
+            docker stack rm odoo
+            
+            # Wait for stack to be fully removed
+            echo "Waiting for stack to be removed..."
+            sleep 10
+            
+            # Check if any services still exist
+            while [ $(docker service ls -q -f name=odoo | wc -l) -gt 0 ]; do
+              echo "Waiting for services to terminate..."
+              sleep 5
+            done
+            
+            echo "Deploying new stack..."
+            docker stack deploy -c docker-compose.yml odoo || {
+              echo "Error: Failed to deploy stack"
+              exit 1
+            }
+            
+            # Wait for services to be ready
+            echo "Waiting for services to start..."
+            sleep 15
+            
+            echo "=========================================="
+            echo "Deployment completed successfully!"
+            echo "=========================================="
+            
+            # Display service status
+            echo "Service status:"
+            docker service ls --filter name=odoo
+
+      - name: Deployment Status
+        if: always()
+        run: |
+          if [ ${{ job.status }} == 'success' ]; then
+            echo "✅ Deployment to production completed successfully"
+          else
+            echo "❌ Deployment to production failed"
+            exit 1
+          fi
+
+      - name: Notify on Failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Production deployment failed. Please check the workflow logs.'
+            })

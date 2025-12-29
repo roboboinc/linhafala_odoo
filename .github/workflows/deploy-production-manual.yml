@@ -1,0 +1,110 @@
+name: Deploy to Production (Fast)
+
+on:
+  workflow_dispatch: # Manual trigger only
+    inputs:
+      update_method:
+        description: 'Deployment method'
+        required: true
+        default: 'rolling'
+        type: choice
+        options:
+          - rolling
+          - full_restart
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy with Rolling Update
+        if: ${{ github.event.inputs.update_method == 'rolling' }}
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          script: |
+            echo "=========================================="
+            echo "Starting ROLLING deployment..."
+            echo "=========================================="
+            
+            # Pull latest changes
+            cd /root/odoo_docker/addons-extra/linhafala_odoo/
+            git stash
+            git pull origin main
+            echo "Latest commit: $(git log -1 --oneline)"
+            
+            cd /root/odoo_docker
+            
+            # Force update all Odoo services (rolling update, zero downtime)
+            echo "Updating Odoo services with rolling update..."
+            
+            # Update web service
+            if docker service ls | grep -q odoo_web; then
+              echo "Updating odoo_web service..."
+              docker service update --force --update-parallelism 1 --update-delay 10s odoo_web
+            fi
+            
+            # Update worker service if exists
+            if docker service ls | grep -q odoo_worker; then
+              echo "Updating odoo_worker service..."
+              docker service update --force --update-parallelism 1 --update-delay 10s odoo_worker
+            fi
+            
+            echo "Waiting for services to stabilize..."
+            sleep 20
+            
+            echo "=========================================="
+            echo "Rolling deployment completed!"
+            echo "Service status:"
+            docker service ls --filter name=odoo
+            echo "=========================================="
+
+      - name: Deploy with Full Restart
+        if: ${{ github.event.inputs.update_method == 'full_restart' }}
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          script: |
+            echo "=========================================="
+            echo "Starting FULL RESTART deployment..."
+            echo "=========================================="
+            
+            # Pull latest changes
+            cd /root/odoo_docker/addons-extra/linhafala_odoo/
+            git stash
+            git pull origin main
+            echo "Latest commit: $(git log -1 --oneline)"
+            
+            cd /root/odoo_docker
+            
+            # Remove and redeploy stack
+            echo "Removing stack..."
+            docker stack rm odoo
+            
+            echo "Waiting for stack removal..."
+            sleep 10
+            while [ $(docker service ls -q -f name=odoo | wc -l) -gt 0 ]; do
+              sleep 5
+            done
+            
+            echo "Deploying stack..."
+            docker stack deploy -c docker-compose.yml odoo
+            
+            echo "Waiting for services to start..."
+            sleep 20
+            
+            echo "=========================================="
+            echo "Full restart completed!"
+            echo "Service status:"
+            docker service ls --filter name=odoo
+            echo "=========================================="

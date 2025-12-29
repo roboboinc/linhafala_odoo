@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_api_key_tree" model="ir.ui.view">
+        <field name="name">linhafala.api.key.tree</field>
+        <field name="model">linhafala.api.key</field>
+        <field name="arch" type="xml">
+            <tree string="API Keys" decoration-muted="not active">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="usage_count"/>
+                <field name="last_used"/>
+                <field name="expires_at"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_api_key_form" model="ir.ui.view">
+        <field name="name">linhafala.api.key.form</field>
+        <field name="model">linhafala.api.key</field>
+        <field name="arch" type="xml">
+            <form string="API Key">
+                    <header>
+                    <button name="action_regenerate_key" 
+                        string="Regenerate Key" 
+                        type="object" 
+                        class="btn-warning"
+                        confirm="Are you sure you want to regenerate this API key? The old key will stop working immediately."/>
+                    <button name="action_revoke_key" 
+                        string="Revoke Key" 
+                        type="object" 
+                        class="btn-danger"
+                        attrs="{'invisible': [('active', '=', False)]}"
+                        confirm="Are you sure you want to revoke this API key? It will no longer be usable."/>
+                    <field name="active" widget="boolean_toggle"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_usage" icon="fa-bar-chart">
+                            <field string="Uses" name="usage_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g., Partner XYZ Integration"/>
+                        </h1>
+                    </div>
+                    
+                    <group>
+                        <group string="API Key Details">
+                            <field name="key" password="True" 
+                                   widget="CopyClipboardChar"
+                                   placeholder="Will be generated automatically"/>
+                            <field name="user_id" options="{'no_create': True}"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Security &amp; Usage">
+                            <field name="expires_at"/>
+                            <field name="last_used" readonly="1"/>
+                            <field name="create_date" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <group string="IP Restrictions (Optional)">
+                        <field name="allowed_ips" placeholder="e.g., 192.168.1.100, 10.0.0.5" nolabel="1"/>
+                        <div class="text-muted">
+                            Leave empty to allow access from any IP address. Separate multiple IPs with commas.
+                        </div>
+                    </group>
+                    
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Additional information about this API key..."/>
+                    </group>
+                    
+                    <notebook>
+                        <page string="API Documentation">
+                            <div class="alert alert-info" role="alert">
+                                <h4>How to Use This API Key</h4>
+                                <p><strong>Endpoint:</strong> <code>/api/v1/caso/create</code></p>
+                                <p><strong>Method:</strong> POST</p>
+                                <p><strong>Authentication:</strong> Include the API key in the request header:</p>
+                                <pre>X-API-Key: <field name="key" readonly="1" nolabel="1"/></pre>
+                                
+                                <h5>Example Request (cURL):</h5>
+                                <pre>
+curl -X POST https://your-odoo-instance.com/api/v1/caso/create \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR_API_KEY_HERE" \
+  -d '{
+    "case_priority": "Urgente",
+    "case_type": "Abuso Físico",
+    "created_by": "API User",
+    "detailed_case_description": "Description here",
+    "person_id": [{
+      "person_type": "Vítima",
+      "fullname": "John Doe",
+      "gender": "Masculino",
+      "age": 15
+    }]
+  }'
+                                </pre>
+                                
+                                <h5>Example Response:</h5>
+                                <pre>
+{
+  "success": true,
+  "caso_id": "CASO-00123",
+  "id": 123,
+  "message": "Caso created successfully"
+}
+                                </pre>
+                                
+                                <h5>Health Check:</h5>
+                                <p>Test if the API is working: <code>GET /api/v1/caso/health</code></p>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_api_key" model="ir.actions.act_window">
+        <field name="name">API Keys</field>
+        <field name="res_model">linhafala.api.key</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'show_key_after_create': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create API Keys for Third-Party Access
+            </p>
+            <p>
+                API keys allow external applications to securely create Caso records in your system.
+            </p>
+        </field>
+    </record>
+
+    <!-- Wizard to show generated API key -->
+    <record id="view_api_key_wizard_form" model="ir.ui.view">
+        <field name="name">linhafala.api.key.wizard.form</field>
+        <field name="model">linhafala.api.key.wizard</field>
+        <field name="arch" type="xml">
+            <form string="API Key">
+                <sheet>
+                    <group>
+                        <field name="key" readonly="1"/>
+                        <div class="text-muted">
+                            Copy this API key now — it will not be shown again.
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-primary" type="object" name="action_close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Item under Configuration -->
+    <menuitem id="menu_api_keys"
+              name="API Keys"
+              parent="linhafala_menu_config"
+              action="action_api_key"
+              sequence="100"/>
+</odoo>

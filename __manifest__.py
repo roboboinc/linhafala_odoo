@@ -12,6 +12,7 @@
         # Load security first so groups referenced by views exist
         'security/security.xml',
         'security/ir.model.access.csv',
+        'security/api_key_security.xml',
         # Load actions and views that define actions before menus that reference them
         'views/linhafala_calls_views.xml',
         'views/linhafala_cases_views.xml',
@@ -31,6 +32,8 @@
         'views/linhafala_dashboard_home.xml',
         # Menus (require actions to exist)
         'views/linhafala_menus.xml',
+        # API Key management views
+        'views/api_key_views.xml',
         # Export wizards and other views that may reference menus/actions
         'views/export_wizard_views.xml',
         'views/menu_lfc_groups.xml',
@@ -64,4 +67,9 @@
     'images': [
         'static/src/img/overview.png',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'linhafala_odoo/static/src/js/passive_wheel_patch.js',
+        ],
+    },
 }

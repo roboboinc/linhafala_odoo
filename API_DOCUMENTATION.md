@@ -74,6 +74,8 @@ Create a new Caso record.
       "contact": "+258 84 123 4567",
       "provincia": "Maputo Cidade",
       "distrito": "Kamavota",
+      "posto": "Posto Administrativo de Kamavota",
+      "localidade": "Urbanização 1",
       "victim_relationship": "Nenhuma"
     },
     {
@@ -84,6 +86,8 @@ Create a new Caso record.
       "contact": "+258 84 765 4321",
       "provincia": "Maputo Cidade",
       "distrito": "Kamavota",
+      "posto": "Posto Administrativo de Kamavota",
+      "localidade": "Urbanização 1",
       "victim_relationship": "Mãe"
     }
   ]
@@ -107,14 +111,15 @@ Each person in the `person_id` array requires:
 - `gender`: String (e.g., "Masculino", "Feminino")
 - `age`: Integer or String (will be converted to string)
 - `provincia`: String (province name, e.g., "Maputo Cidade") or Integer (province ID) - **REQUIRED**
+- `distrito`: String (district name) or Integer (ID) - **REQUIRED**
+- `posto`: String (posto name) or Integer (ID) - **REQUIRED**
+- `localidade`: String (localidade name) or Integer (ID) - **REQUIRED**
 - `victim_relationship`: String - **REQUIRED**. One of: "Pai", "Mãe", "Avo", "Amigo", "Outros", "Colega", "Esposo", "Tio(a)", "Nenhuma", "Mentora", "Irmã(o)", "Primo(a)", "Namorado", "Madrasta", "Padrasto", "Empregador", "Vizinho (a)", "Denunciante", "Educador(a)", "Professor(a)", "Não aplicavél"
 
 Optional person fields:
 - `contact`: String (phone number)
-- `distrito`: String (district name) or Integer (ID)
-- `posto`: String or Integer (ID)
-- `localidade`: String or Integer (ID)
 - `address`: String
+- `are_you_disabled`: String - One of: "Sim", "Não" (defaults to "Não" if not provided)
 
 **Available Provinces:**
 - Maputo Cidade
@@ -242,6 +247,9 @@ curl -X POST https://your-odoo-domain.com/api/v1/caso/create \
         "gender": "Masculino",
         "age": 15,
         "provincia": "Maputo Cidade",
+        "distrito": "Kamavota",
+        "posto": "Posto Administrativo de Kamavota",
+        "localidade": "Urbanização 1",
         "victim_relationship": "Nenhuma"
       },
       {
@@ -250,6 +258,9 @@ curl -X POST https://your-odoo-domain.com/api/v1/caso/create \
         "gender": "Feminino",
         "age": 45,
         "provincia": "Maputo Cidade",
+        "distrito": "Kamavota",
+        "posto": "Posto Administrativo de Kamavota",
+        "localidade": "Urbanização 1",
         "victim_relationship": "Mãe"
       }
     ]
@@ -290,6 +301,9 @@ data = {
             "gender": "Masculino",
             "age": 15,
             "provincia": "Maputo Cidade",
+            "distrito": "Kamavota",
+            "posto": "Posto Administrativo de Kamavota",
+            "localidade": "Urbanização 1",
             "victim_relationship": "Nenhuma"
         },
         {
@@ -298,6 +312,9 @@ data = {
             "gender": "Feminino",
             "age": 45,
             "provincia": "Maputo Cidade",
+            "distrito": "Kamavota",
+            "posto": "Posto Administrativo de Kamavota",
+            "localidade": "Urbanização 1",
             "victim_relationship": "Mãe"
         }
     ]
@@ -346,6 +363,9 @@ const data = {
       gender: 'Masculino',
       age: 15,
       provincia: 'Maputo Cidade',
+      distrito: 'Kamavota',
+      posto: 'Posto Administrativo de Kamavota',
+      localidade: 'Urbanização 1',
       victim_relationship: 'Nenhuma'
     },
     {
@@ -354,6 +374,9 @@ const data = {
       gender: 'Feminino',
       age: 45,
       provincia: 'Maputo Cidade',
+      distrito: 'Kamavota',
+      posto: 'Posto Administrativo de Kamavota',
+      localidade: 'Urbanização 1',
       victim_relationship: 'Mãe'
     }
   ]

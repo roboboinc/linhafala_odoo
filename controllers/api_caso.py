@@ -235,6 +235,46 @@ class CasoAPIController(http.Controller):
                                     error_code='INVALID_DISTRITO'
                                 )
                     
+                    # Validate posto is provided (REQUIRED)
+                    if 'posto' not in p or not p.get('posto'):
+                        return self._error_response(
+                            f"posto is required for person '{p.get('fullname', 'unknown')}'",
+                            status=400,
+                            error_code='MISSING_POSTO'
+                        )
+                    
+                    # Resolve posto if provided as string
+                    if isinstance(p.get('posto'), str):
+                        posto_id = _resolve_m2o(p.get('posto'), 'linhafala.posto')
+                        if posto_id:
+                            p['posto'] = posto_id
+                        else:
+                            return self._error_response(
+                                f"Invalid posto: '{p.get('posto')}' for person '{p.get('fullname', 'unknown')}'. Could not find matching posto.",
+                                status=400,
+                                error_code='INVALID_POSTO'
+                            )
+                    
+                    # Validate localidade is provided (REQUIRED)
+                    if 'localidade' not in p or not p.get('localidade'):
+                        return self._error_response(
+                            f"localidade is required for person '{p.get('fullname', 'unknown')}'",
+                            status=400,
+                            error_code='MISSING_LOCALIDADE'
+                        )
+                    
+                    # Resolve localidade if provided as string
+                    if isinstance(p.get('localidade'), str):
+                        localidade_id = _resolve_m2o(p.get('localidade'), 'linhafala.localidade')
+                        if localidade_id:
+                            p['localidade'] = localidade_id
+                        else:
+                            return self._error_response(
+                                f"Invalid localidade: '{p.get('localidade')}' for person '{p.get('fullname', 'unknown')}'. Could not find matching localidade.",
+                                status=400,
+                                error_code='INVALID_LOCALIDADE'
+                            )
+                    
                     # Validate victim_relationship is provided (required field)
                     if 'victim_relationship' not in p or not p.get('victim_relationship'):
                         return self._error_response(
@@ -242,6 +282,10 @@ class CasoAPIController(http.Controller):
                             status=400,
                             error_code='MISSING_VICTIM_RELATIONSHIP'
                         )
+                    
+                    # Set are_you_disabled to "Não" if not provided (required field)
+                    if 'are_you_disabled' not in p or not p.get('are_you_disabled'):
+                        p['are_you_disabled'] = 'Não'
 
             # Create caso with the authenticated user's context
             Caso = env['linhafala.caso']

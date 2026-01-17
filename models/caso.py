@@ -241,7 +241,8 @@ class Caso(models.Model):
         string="Tempo de abuso/Sofrimento:")  # NewField
     forwarding_institution_line_ids = fields.One2many('linhafala.caso.forwarding_institution', 'case_id',
                                                       string="Instituição de encaminhamento")
-
+    
+    # TODO: Review the naming convention of the field, such that the classification of disability should be auxiliary - REMOVE from here and becomes part of the person_involved
     deficiency_line_case_ids = fields.One2many('linhafala.deficiente', 'case_id',
                                                string="Linhas do Deficiênte")
 
@@ -310,7 +311,8 @@ class Caso(models.Model):
 
         # Generate sequential case_id if not provided
         if vals.get('case_id', '/') == '/':
-            next_case_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.case_id.seq') or '/'
+            # Use sudo() to ensure sequence generation works for API users
+            next_case_id = self.env['ir.sequence'].sudo().next_by_code('linhafala.chamada.case_id.seq') or '/'
             # Extract the numeric part after the last hyphen
             vals['case_id'] = next_case_id.split('-')[-1]
 

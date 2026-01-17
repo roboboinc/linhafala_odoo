@@ -90,6 +90,14 @@ class LinhaFalaAPIKey(models.Model):
             vals['key'] = self.generate_key()
         record = super(LinhaFalaAPIKey, self).create(vals)
 
+        # Automatically add the API user group to the associated user
+        if record.user_id:
+            api_group = self.env.ref('linhafala_odoo.group_linhafala_api_user', raise_if_not_found=False)
+            if api_group and api_group.id not in record.user_id.groups_id.ids:
+                record.user_id.sudo().write({
+                    'groups_id': [(4, api_group.id)]
+                })
+
         # If the action that opened this form requested to show the key
         # immediately after creation, open the transient wizard as a modal.
         # This uses the context flag `show_key_after_create` set on the action
@@ -118,6 +126,22 @@ class LinhaFalaAPIKey(models.Model):
                 return record
 
         return record
+
+    def write(self, vals):
+        """Add API user group when user_id is updated"""
+        result = super(LinhaFalaAPIKey, self).write(vals)
+        
+        # If user_id is being updated, ensure the new user has API user group
+        if 'user_id' in vals and vals['user_id']:
+            api_group = self.env.ref('linhafala_odoo.group_linhafala_api_user', raise_if_not_found=False)
+            if api_group:
+                for record in self:
+                    if record.user_id and api_group.id not in record.user_id.groups_id.ids:
+                        record.user_id.sudo().write({
+                            'groups_id': [(4, api_group.id)]
+                        })
+        
+        return result
 
     def is_valid(self):
         """Check if the API key is currently valid"""

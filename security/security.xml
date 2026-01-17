@@ -39,6 +39,12 @@
         <field name="category_id" ref="module_category_lfc" />
     </record>
 
+    <record id="group_linhafala_api_user" model="res.groups">
+        <field name="name">API User</field>
+        <field name="category_id" ref="module_category_lfc" />
+        <field name="comment">Users authenticated via API keys with read/write access to create casos</field>
+    </record>
+
     <record model="ir.module.category" id="module_category_lfc_jur">
         <field name="name">LFC - Jurisdição</field>
         <field name="description">Jurisdição dos funcionários</field>

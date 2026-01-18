@@ -368,16 +368,6 @@ class Caso(models.Model):
         for rec in self:
             return {'value': {'case_type_classification': False}, 'domain': {'case_type_classification': [('categoria_id', '=', rec.secundary_case_type.id)]}}
 
-    @api.model
-    def _register_hook(self):
-        # Register the new sequence
-        seq = self.env['ir.sequence'].create({
-            'name': 'Linha Fala Cases ID Sequence',
-            'code': 'linhafala.chamada.case_id.seq',
-            'padding': 4,
-        })
-        return super(Caso, self)._register_hook()
-
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
 

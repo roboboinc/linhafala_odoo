@@ -13,6 +13,8 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'security/api_key_security.xml',
+        # Load sequences early so they're available for model creation
+        'data/sequences.xml',
         # Load actions and views that define actions before menus that reference them
         'views/linhafala_calls_views.xml',
         'views/linhafala_cases_views.xml',

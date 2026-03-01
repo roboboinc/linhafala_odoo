@@ -47,6 +47,11 @@ async function openChamadaForm(env) {
             context: { default_contact_type: "Redes Sociais" },
         };
     }
+    // Odoo 16 doAction expects action.views to be an array; backend may omit it
+    if (action && !Array.isArray(action.views) && action.view_mode) {
+        action = { ...action };
+        action.views = (action.view_mode || "form").split(",").map((mode) => [false, mode.trim()]);
+    }
     if (action && actionService) {
         await actionService.doAction(action);
     }

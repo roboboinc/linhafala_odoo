@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add "Create Chamada" button to Discuss channel (chat) form -->
+    <!-- Visible when channel is opened in form view (e.g. from channel list) -->
+    <record id="mail_channel_form_linhafala" model="ir.ui.view">
+        <field name="name">mail.channel.form.linhafala</field>
+        <field name="model">mail.channel</field>
+        <field name="inherit_id" ref="mail.mail_channel_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <header>
+                    <button name="action_create_chamada"
+                        string="Criar Chamada"
+                        type="object"
+                        class="btn-primary"
+                        attrs="{'invisible': [('channel_type', '!=', 'chat')]}"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Server Action: Create Chamada from channel (run from Action menu on channel) -->
+    <record id="action_create_chamada_from_channel" model="ir.actions.server">
+        <field name="name">Criar Chamada</field>
+        <field name="model_id" ref="mail.model_mail_channel"/>
+        <field name="binding_model_id" ref="mail.model_mail_channel"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_create_chamada()</field>
+    </record>
+
+    <!-- Action: Open Chamada form directly (like clicking NEW) -->
+    <record id="action_create_chamada_form" model="ir.actions.act_window">
+        <field name="name">Criar Chamada</field>
+        <field name="res_model">linhafala.chamada</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'default_contact_type': 'Redes Sociais'}</field>
+    </record>
+
+    <!-- Menu: Create Chamada (opens form directly, not list) -->
+    <menuitem id="menu_create_chamada_from_discuss"
+        name="Criar Chamada"
+        parent="mail.menu_root_discuss"
+        action="action_create_chamada_form"
+        sequence="50"/>
+</odoo>

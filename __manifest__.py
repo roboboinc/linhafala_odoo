@@ -34,6 +34,7 @@
         'views/linhafala_dashboard_home.xml',
         # Menus (require actions to exist)
         'views/linhafala_menus.xml',
+        'views/mail_channel_linhafala_views.xml',
         # API Key management views
         'views/api_key_views.xml',
         # Export wizards and other views that may reference menus/actions
@@ -72,6 +73,7 @@
     'assets': {
         'web.assets_backend': [
             'linhafala_odoo/static/src/js/passive_wheel_patch.js',
+            'linhafala_odoo/static/src/js/discuss_chamada_command.js',
         ],
     },
 }

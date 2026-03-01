@@ -1,4 +1,5 @@
 from . import chamada
+from . import mail_channel_linhafala
 from . import provincia
 from . import distrito
 from . import categoria

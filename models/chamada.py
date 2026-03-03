@@ -291,6 +291,7 @@ class Chamada(models.Model):
             ("Brochuras", "Brochuras"),
             ("Panfletos", "Panfletos"),
             ("Cartazes", "Cartazes"),
+            ("SMS em Massa", "SMS em Massa"),
             ("Outros", "Outros")
         ],
         help="Como conhece a LFC"

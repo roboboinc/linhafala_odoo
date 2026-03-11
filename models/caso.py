@@ -57,6 +57,48 @@ class Caso(models.Model):
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")
 
+    contact_type = fields.Selection(
+        string='Fonte de Informação',
+        selection=[
+            ("SMS BIZ", "SMS BIZ"),
+            ("LInha Verde 1458", "LInha Verde 1458"),
+            ("Não definido", "Não definido"),
+            ("Presencial", "Presencial"),
+            ("Telefónica", "Telefónica"),
+            ("Palestras", "Palestras"),
+            ("Email", "Email"),
+            ("WhatsApp", "WhatsApp"),
+            ("Website", "Website"),
+            ("SMS", "SMS"),
+            ("Facebook", "Facebook"),
+            ("Messenger", "Messenger"),
+            ("Redes Sociais", "Redes Sociais"),
+        ],
+        help="Fonte/canal de contacto (igual ao formulário Chamadas)"
+    )
+    how_knows_lfc = fields.Selection(
+        string='Como conhece a LFC',
+        selection=[
+            ("WhatsApp", "WhatsApp"),
+            ("Website", "Website"),
+            ("Email", "Email"),
+            ("SMS", "SMS"),
+            ("Facebook", "Facebook"),
+            ("Messenger", "Messenger"),
+            ("Redes Sociais", "Redes Sociais"),
+            ("Rádio", "Rádio"),
+            ("Internet", "Internet"),
+            ("Palestras", "Palestras"),
+            ("Televisão", "Televisão"),
+            ("Brochuras", "Brochuras"),
+            ("Panfletos", "Panfletos"),
+            ("Cartazes", "Cartazes"),
+            ("SMS em Massa", "SMS em Massa"),
+            ("Outros", "Outros"),
+        ],
+        help="Canal pelo qual conheceu a LFC (igual ao formulário Chamadas)"
+    )
+
     case_status = fields.Selection(
         string='Estado do caso',
         selection=[

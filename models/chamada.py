@@ -39,9 +39,14 @@ class Chamada(models.Model):
             ("Telefónica", "Telefónica"),
             ("Palestras", "Palestras"),
             ("Email", "Email"),
+            ("WhatsApp", "WhatsApp"),
+            ("Website", "Website"),
+            ("SMS", "SMS"),
+            ("Facebook", "Facebook"),
+            ("Messenger", "Messenger"),
             ("Redes Sociais", "Redes Sociais"),
         ], default="Telefónica",
-        help="Type is used to separate Contact types"
+        help="Fonte/canal de contacto (Chatwoot: WhatsApp, Website, SMS, Facebook, etc.)"
     )
     type_of_intervention = fields.Selection(
         string='Tipo de Intervenção / Motivo',
@@ -283,6 +288,12 @@ class Chamada(models.Model):
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
+            ("WhatsApp", "WhatsApp"),
+            ("Website", "Website"),
+            ("Email", "Email"),
+            ("SMS", "SMS"),
+            ("Facebook", "Facebook"),
+            ("Messenger", "Messenger"),
             ("Redes Sociais", "Redes Sociais"),
             ("Rádio", "Rádio"),
             ("Internet", "Internet"),
@@ -292,9 +303,9 @@ class Chamada(models.Model):
             ("Panfletos", "Panfletos"),
             ("Cartazes", "Cartazes"),
             ("SMS em Massa", "SMS em Massa"),
-            ("Outros", "Outros")
+            ("Outros", "Outros"),
         ],
-        help="Como conhece a LFC"
+        help="Canal/inbox pelo qual conheceu a LFC (ex.: WhatsApp, Website, Chatwoot)"
     )
 
     subcategory = fields.Many2one(

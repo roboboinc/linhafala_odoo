@@ -33,9 +33,16 @@
                                 name="call_id"
                                 placeholder="Número de chamada (auto)" />
                         </h3>
-                        <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
+                                <p>
+                                    <strong>Fonte de Informação: </strong>
+                                    <field name="contact_type" />
+                                </p>
+                                <p>
+                                    <strong>Como conhece a LFC: </strong>
+                                    <field name="how_knows_lfc" />
+                                </p>
                                 <p>
                                     <label for="case_type">* Categoria do Caso: </label>
                                     <field name="case_type" />

@@ -443,8 +443,12 @@ class Chamada(models.Model):
     #         return record.provincia.id
 
     def create_a_new_case(self):
-        new_related_model = self.env['linhafala.caso'].create(
-            {'call_id': self.id})
+        vals = {'call_id': self.id}
+        if self.contact_type:
+            vals['contact_type'] = self.contact_type
+        if self.how_knows_lfc:
+            vals['how_knows_lfc'] = self.how_knows_lfc
+        new_related_model = self.env['linhafala.caso'].create(vals)
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'linhafala.caso',

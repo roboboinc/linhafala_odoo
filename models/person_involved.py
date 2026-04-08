@@ -113,7 +113,7 @@ class PersonInvolved(models.Model):
         
     bairro = fields.Char(string="Bairro")
     living_relatives = fields.Selection(
-        string='Com quem vive?',
+        string='Com quem vive? (legado)',
         selection=[
             ("Não aplicavél", "Não aplicavél"),
             ("Outra situação", "Outra situação"),
@@ -126,9 +126,21 @@ class PersonInvolved(models.Model):
             ("Só com os irmãos", "Só com os irmãos"),
             ("Com a familia adoctiva", "Com a familia adoctiva"),
             ("Familia toda", "Familia toda"),
-            ("Avo", "Avo")
+            ("Avo", "Avo"),
         ],
-        help="Com quem vive?"
+        help="Campo legado preservado para histórico e compatibilidade."
+    )
+    family_situation_id = fields.Many2one(
+        comodel_name='linhafala.family_situation',
+        string='Situação familiar',
+        domain="['|', ('active', '=', True), ('id', '=', family_situation_id)]",
+        help="Situação familiar configurável no menu de configurações."
+    )
+    family_situation_snapshot = fields.Char(
+        string='Situação familiar (histórico)',
+        readonly=True,
+        copy=False,
+        help="Valor textual preservado para histórico mesmo após alterações nas opções."
     )
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
@@ -190,6 +202,54 @@ class PersonInvolved(models.Model):
 
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
                                                 string="Linhas do Deficiênte")
+
+    @api.onchange('family_situation_id')
+    def _onchange_family_situation_id(self):
+        if self.family_situation_id:
+            self.family_situation_snapshot = self.family_situation_id.name
+
+    def _find_or_create_family_situation(self, name):
+        clean_name = (name or '').strip()
+        if not clean_name:
+            return self.env['linhafala.family_situation']
+
+        option = self.env['linhafala.family_situation'].search([
+            ('name', '=', clean_name),
+            ('active', '=', True),
+        ], limit=1)
+        if option:
+            return option
+        return self.env['linhafala.family_situation'].create({'name': clean_name})
+
+    def _prepare_family_situation_values(self, vals):
+        prepared = dict(vals)
+        family_situation = self.env['linhafala.family_situation']
+
+        if 'family_situation_id' in prepared and not prepared['family_situation_id']:
+            prepared['family_situation_snapshot'] = False
+            prepared['living_relatives'] = False
+            return prepared
+
+        if prepared.get('family_situation_id'):
+            family_situation = self.env['linhafala.family_situation'].browse(prepared['family_situation_id'])
+        elif prepared.get('living_relatives'):
+            family_situation = self._find_or_create_family_situation(prepared.get('living_relatives'))
+            if family_situation:
+                prepared['family_situation_id'] = family_situation.id
+
+        if family_situation:
+            prepared['family_situation_snapshot'] = family_situation.name
+
+        return prepared
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        vals_list = [self._prepare_family_situation_values(vals) for vals in vals_list]
+        return super().create(vals_list)
+
+    def write(self, vals):
+        vals = self._prepare_family_situation_values(vals)
+        return super().write(vals)
 
     
     @api.constrains('provincia','distrito','victim_relationship')

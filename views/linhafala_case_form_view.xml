@@ -162,8 +162,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>
-                                                                <strong>Com quem vive?</strong>
-                                                                <field name="living_relatives" />
+                                                                <strong>Situação familiar</strong>
+                                                                <field name="family_situation_id" options="{'no_create_edit': False}" />
                                                             </p>
                                                             
                                                             <p>

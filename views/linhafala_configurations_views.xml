@@ -318,6 +318,51 @@
         </field>
     </record>
 
+    <record id="linhafala_family_situation_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.family_situation.tree</field>
+        <field name="model">linhafala.family_situation</field>
+        <field name="arch" type="xml">
+            <tree string="Situação familiar">
+                <field name="name"/>
+                <field name="version"/>
+                <field name="previous_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_family_situation_form_view" model="ir.ui.view">
+        <field name="name">linhafala.family_situation.form</field>
+        <field name="model">linhafala.family_situation</field>
+        <field name="arch" type="xml">
+            <form string="Situação familiar">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="version" readonly="1"/>
+                        <field name="previous_id" readonly="1"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <div class="o_form_label">Ao alterar o nome, o sistema cria automaticamente uma nova versão e preserva a versão anterior no histórico.</div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_family_situation_action" model="ir.actions.act_window">
+        <field name="name">Situação familiar</field>
+        <field name="res_model">linhafala.family_situation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir opções de Situação familiar com controlo de versões.
+            </p>
+        </field>
+    </record>
+
     <record id="linhafala_caso_referencearea_view_tree" model="ir.ui.view">
         <field name="name">linhafala.caso.referencearea.tree</field>
         <field name="model">linhafala.caso.referencearea</field>

@@ -194,10 +194,17 @@
         sequence="14"/>
 
     <menuitem
+        id="linhafala_family_situation_menu_action"
+        name="Situação familiar"
+        action="linhafala_family_situation_action"
+        parent="linhafala_menu_config"
+        sequence="15"/>
+
+    <menuitem
         id="linhafala_escolas_menu_action"
         name="Escolas"
         action="linhafala_escola_action"
         parent="linhafala_menu_config"
-        sequence="15"
+        sequence="16"
     />
 </odoo>

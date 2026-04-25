@@ -57,7 +57,7 @@ Create a new Caso record.
 ```json
 {
   "call_id": 0,
-  "case_priority": "Urgente",
+  "case_priority": "Muito urgente",
   "case_type": "caso de natureza criminal",
   "secundary_case_type": "outros tipos de crimes",
   "case_type_classification": "Grave",
@@ -95,7 +95,7 @@ Create a new Caso record.
 ```
 
 **Required Fields:**
-- `case_priority`: One of: "Muito Urgente", "Urgente", "Moderado", "Não Aplicável"
+- `case_priority`: One of: "Muito urgente", "Urgente", "Moderado", "Baixo", "Sem urgência". Legacy values such as "Muito Urgente" and "Não Aplicável" are also accepted for compatibility.
 - `case_type`: String (case category name, e.g., "Abuso Físico") or Integer (ID)
 - `secundary_case_type`: String (sub-category name) or Integer (ID)
 - `case_type_classification`: String (classification name) or Integer (ID)
@@ -198,7 +198,7 @@ Retrieve a Caso record by ID.
     "id": 123,
     "case_id": "CASO-00123",
     "call_id": 456,
-    "case_priority": "Urgente",
+    "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
     "secundary_case_type": "Violência Doméstica",
     "created_by": "John Doe",
@@ -232,7 +232,7 @@ curl -X POST https://your-odoo-domain.com/api/v1/caso/create \
   -H "Content-Type: application/json" \
   -H "X-API-Key: lfk_your_api_key_here" \
   -d '{
-    "case_priority": "Urgente",
+    "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
     "secundary_case_type": "Violência Doméstica",
     "case_type_classification": "Grave",
@@ -286,7 +286,7 @@ headers = {
 
 # Create caso
 data = {
-    "case_priority": "Urgente",
+    "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
     "secundary_case_type": "Violência Doméstica",
     "case_type_classification": "Grave",
@@ -348,7 +348,7 @@ const headers = {
 
 // Create caso
 const data = {
-  case_priority: 'Urgente',
+  case_priority: 'Muito urgente',
   case_type: 'Abuso Físico',
   secundary_case_type: 'Violência Doméstica',
   case_type_classification: 'Grave',

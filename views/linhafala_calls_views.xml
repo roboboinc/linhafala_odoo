@@ -298,7 +298,7 @@
                                             <field name="case_type" optional="show" />
                                             <field name="secundary_case_type" optional="hide" />
                                             <field name="place_occurrence" optional="show" />
-                                            <field name="case_priority" optional="hide" />
+                                            <field name="case_priority_snapshot" string="Nível de urgência" optional="hide" />
                                             <field name="created_by" optional="hide" />
                                             <field name="created_at" optional="hide" />
                                             <field name="data_ocorrencia" optional="hide" />

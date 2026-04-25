@@ -61,7 +61,7 @@ class CasoAPIController(http.Controller):
         Request Body (JSON):
         {
             "call_id": "string (optional)",
-            "case_priority": "string (Muito Urgente/Urgente/Moderado/Baixa)",
+            "case_priority": "string (Muito urgente/Urgente/Moderado/Baixo/Sem urgência; valores legados também aceites)",
             "case_type": "string",
             "secundary_case_type": "string",
             "case_type_classification": "string or int (id)",
@@ -369,7 +369,7 @@ class CasoAPIController(http.Controller):
                 'id': caso.id,
                 'case_id': caso.case_id,
                 'call_id': caso.call_id.id if caso.call_id else None,
-                'case_priority': caso.case_priority,
+                'case_priority': caso.case_priority_id.name or caso.case_priority_snapshot or caso.case_priority,
                 'case_type': caso.case_type,
                 'secundary_case_type': caso.secundary_case_type,
                 'created_by': caso.created_by.name if caso.created_by else None,

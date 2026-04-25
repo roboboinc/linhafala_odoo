@@ -132,7 +132,7 @@ class ExportController(http.Controller):
                 cas.case_id AS nr_do_caso,
                 CAST(cas.created_at AS date) AS data_de_criacao,
                 cas.case_status AS estado_do_caso,
-                cas.case_priority AS prioridade_do_caso,
+                COALESCE(case_priority.name, cas.case_priority_snapshot, cas.case_priority) AS prioridade_do_caso,
                 cas.resolution_type AS tratamento_do_caso,
                 cas.place_occurrence AS local_de_ocorrencia,
                 created_by_name.display_name AS criado_por,
@@ -173,6 +173,7 @@ class ExportController(http.Controller):
                 LEFT JOIN linhafala_posto posto ON person_involved.posto = posto.id
                 LEFT JOIN linhafala_localidade localidade ON person_involved.localidade = localidade.id
                 LEFT JOIN linhafala_family_situation family_situation ON person_involved.family_situation_id = family_situation.id
+                LEFT JOIN linhafala_case_priority case_priority ON cas.case_priority_id = case_priority.id
             WHERE cas.is_deleted = False
               AND cas.created_at >= %s
               AND cas.created_at <= %s

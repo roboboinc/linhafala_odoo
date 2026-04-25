@@ -201,10 +201,17 @@
         sequence="15"/>
 
     <menuitem
+        id="linhafala_case_priority_menu_action"
+        name="Nível de urgência"
+        action="linhafala_case_priority_action"
+        parent="linhafala_menu_config"
+        sequence="16"/>
+
+    <menuitem
         id="linhafala_escolas_menu_action"
         name="Escolas"
         action="linhafala_escola_action"
         parent="linhafala_menu_config"
-        sequence="16"
+        sequence="17"
     />
 </odoo>

@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <kanban default_group_by="case_status">
                 <field name="case_id" />
-                <field name="case_priority" />
+                <field name="case_priority_snapshot" />
                 <field name="place_occurrence" />
                 <field name="created_by" />
                 <templates>
@@ -17,7 +17,7 @@
                             <div class="oe_kanban_details">
                                 <ul>
                                     <li> ID: <field name="case_id" /></li>
-                                    <li> Periodo de Resolução: <field name="case_priority" /></li>
+                                    <li> Nível de urgência: <field name="case_priority_snapshot" /></li>
                                     <li> Local de Ocorrência: <field name="place_occurrence" /></li>
                                     <li> Criado Por: <field name="created_by" /></li>
                                     <li> Detalhes: <field name="detailed_description"/></li>
@@ -96,11 +96,11 @@
                 <field name="secundary_case_type" optional="show" />
                 <field name="case_type_classification" optional="show" />
                 <field name="place_occurrence" optional="hide" />
-                <field decoration-danger="case_priority=='Muito Urgente'"
-                    decoration-warning="case_priority=='Urgente'"
-                    decoration-primary="case_priority=='Moderado'"
+                <field decoration-danger="case_priority_snapshot=='Muito urgente'"
+                    decoration-warning="case_priority_snapshot=='Urgente'"
+                    decoration-primary="case_priority_snapshot=='Moderado'"
                     widget="badge"
-                    name="case_priority" optional="show" />
+                    name="case_priority_snapshot" string="Nível de urgência" optional="show" />
                 <field name="created_by" optional="show" />
                 <field decoration-info="case_status=='Dentro do sistema'"
                     decoration-primary="case_status=='Assistido'"

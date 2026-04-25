@@ -4,6 +4,24 @@ from odoo.exceptions import ValidationError
 import uuid
 
 
+LEGACY_CASE_PRIORITY_NAME_MAP = {
+    'Muito Urgente': 'Muito urgente',
+    'Urgente': 'Urgente',
+    'Moderado': 'Moderado',
+    'Baixo': 'Baixo',
+    'Não Aplicável': 'Sem urgência',
+    'Sem urgência': 'Sem urgência',
+}
+
+DISPLAY_TO_LEGACY_CASE_PRIORITY_NAME_MAP = {
+    'Muito urgente': 'Muito Urgente',
+    'Urgente': 'Urgente',
+    'Moderado': 'Moderado',
+    'Baixo': 'Baixo',
+    'Sem urgência': 'Não Aplicável',
+}
+
+
 class Caso(models.Model):
     _name = "linhafala.caso"
     _description = "Formulário de Caso linha fala criança"
@@ -71,11 +89,11 @@ class Caso(models.Model):
 
     @api.model
     def save(self, vals):
-        return super(Caso, self).write(vals)
+        return self.write(vals)
     
     @api.model
     def edit(self, vals):
-        return super(Caso, self).write(vals)
+        return self.write(vals)
 
 
     @api.constrains('case_status')
@@ -85,8 +103,10 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('case_type','secundary_case_type','case_type_classification','place_occurrence','case_handling','case_priority','detailed_description')
+    @api.constrains('case_type','secundary_case_type','case_type_classification','place_occurrence','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description')
     def _check_all(self):
+        if self.env.context.get('skip_case_priority_backfill_validation'):
+            return
         for record in self:
             if not record.case_type:
                 raise ValidationError(
@@ -94,9 +114,9 @@ class Caso(models.Model):
             if not record.secundary_case_type:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
-            if not record.case_priority:
+            if not (record.case_priority_id or record.case_priority_snapshot or record.case_priority):
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
+                    "Por favor, preencha os campos de caracter obrigatorio Nível de urgência")
             if not record.detailed_description:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Detalhes")
@@ -109,23 +129,32 @@ class Caso(models.Model):
             if not record.case_handling:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Tratamento do Caso")
-            if not record.case_priority: 
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Período de Resolução")
             if not record.detailed_description:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Detalhes")
 
     case_priority = fields.Selection(
-        string='Período de Resolução',
+        string='Nível de urgência (legado)',
         selection=[
             ("Muito Urgente", "Muito Urgente"),
             ("Urgente", "Urgente"),
             ("Moderado", "Moderado"),
+            ("Baixo", "Baixo"),
             ("Não Aplicável", "Não Aplicável"),
         ],
-        default="Moderado",
-        help="Período de Resolução"
+        help='Campo legado preservado para histórico e compatibilidade.'
+    )
+    case_priority_id = fields.Many2one(
+        comodel_name='linhafala.case_priority',
+        string='Nível de urgência',
+        domain="['|', ('active', '=', True), ('id', '=', case_priority_id)]",
+        help='Nível de urgência configurável no menu de configurações.'
+    )
+    case_priority_snapshot = fields.Char(
+        string='Nível de urgência (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.'
     )
     resolution_type = fields.Selection(
         string='Tratamento do caso',
@@ -200,6 +229,61 @@ class Caso(models.Model):
     show_secundary_case_type = fields.Boolean(
         compute="_compute_show_secundary_case_type", store=False
     )
+
+    @api.onchange('case_priority_id')
+    def _onchange_case_priority_id(self):
+        if self.case_priority_id:
+            self.case_priority_snapshot = self.case_priority_id.name
+            self.case_priority = DISPLAY_TO_LEGACY_CASE_PRIORITY_NAME_MAP.get(
+                self.case_priority_id.name,
+                self.case_priority_id.name,
+            )
+
+    def _find_or_create_case_priority(self, name):
+        clean_name = (name or '').strip()
+        normalized_name = LEGACY_CASE_PRIORITY_NAME_MAP.get(clean_name, clean_name)
+        if not normalized_name:
+            return self.env['linhafala.case_priority']
+
+        option = self.env['linhafala.case_priority'].search([
+            ('name', '=', normalized_name),
+            ('active', '=', True),
+        ], limit=1)
+        if option:
+            return option
+        return self.env['linhafala.case_priority'].create({'name': normalized_name})
+
+    def _prepare_case_priority_values(self, vals):
+        prepared = dict(vals)
+        case_priority = self.env['linhafala.case_priority']
+
+        if 'case_priority_id' in prepared and not prepared['case_priority_id']:
+            prepared['case_priority_snapshot'] = False
+            prepared['case_priority'] = False
+            return prepared
+
+        raw_priority = prepared.get('case_priority')
+        if prepared.get('case_priority_id'):
+            case_priority = self.env['linhafala.case_priority'].browse(prepared['case_priority_id'])
+        elif raw_priority:
+            case_priority = self._find_or_create_case_priority(raw_priority)
+            if case_priority:
+                prepared['case_priority_id'] = case_priority.id
+
+        if case_priority:
+            prepared['case_priority_snapshot'] = case_priority.name
+            should_fill_legacy_value = (
+                'case_priority' in prepared
+                or not self
+                or not any(record.case_priority for record in self)
+            )
+            if should_fill_legacy_value and not raw_priority:
+                prepared['case_priority'] = DISPLAY_TO_LEGACY_CASE_PRIORITY_NAME_MAP.get(
+                    case_priority.name,
+                    case_priority.name,
+                )
+
+        return prepared
 
     @api.depends('is_criminal_case')
     def _compute_show_online_offline(self):
@@ -286,9 +370,12 @@ class Caso(models.Model):
     ]
 
     def write(self, vals):
+        vals = self._prepare_case_priority_values(vals)
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         res = super(Caso, self).write(vals)
+        if self.env.context.get('skip_case_priority_backfill_validation') or self.env.context.get('skip_case_person_role_validation'):
+            return res
         # Enforce after any edit: must keep at least one 'Vítima' or 'Contactante+Vítima'
         for record in self:
             has_required_role = any(
@@ -306,6 +393,7 @@ class Caso(models.Model):
 
     @api.model
     def create(self, vals):
+        vals = self._prepare_case_priority_values(vals)
         # Ensure UUID is always set
         vals.setdefault('uuid', str(uuid.uuid4()))
 

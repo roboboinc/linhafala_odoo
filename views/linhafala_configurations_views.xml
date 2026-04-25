@@ -363,6 +363,51 @@
         </field>
     </record>
 
+    <record id="linhafala_case_priority_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.case_priority.tree</field>
+        <field name="model">linhafala.case_priority</field>
+        <field name="arch" type="xml">
+            <tree string="Nível de urgência">
+                <field name="name"/>
+                <field name="version"/>
+                <field name="previous_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_case_priority_form_view" model="ir.ui.view">
+        <field name="name">linhafala.case_priority.form</field>
+        <field name="model">linhafala.case_priority</field>
+        <field name="arch" type="xml">
+            <form string="Nível de urgência">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="version" readonly="1"/>
+                        <field name="previous_id" readonly="1"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <div class="o_form_label">Ao alterar o nome, o sistema cria automaticamente uma nova versão e preserva a versão anterior no histórico.</div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_case_priority_action" model="ir.actions.act_window">
+        <field name="name">Nível de urgência</field>
+        <field name="res_model">linhafala.case_priority</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir opções de Nível de urgência com controlo de versões.
+            </p>
+        </field>
+    </record>
+
     <record id="linhafala_caso_referencearea_view_tree" model="ir.ui.view">
         <field name="name">linhafala.caso.referencearea.tree</field>
         <field name="model">linhafala.caso.referencearea</field>

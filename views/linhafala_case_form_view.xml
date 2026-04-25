@@ -74,8 +74,8 @@
                                     <field name="case_handling" />
                                 </p>
                                 <p>
-                                    <strong>Periodo de Resolução: </strong>
-                                    <field name="case_priority" />
+                                    <strong>Nível de urgência: </strong>
+                                    <field name="case_priority_id" options="{'no_create_edit': False}" />
                                 </p>
                                 <p>
                                     <strong>Data de Ocorrência: </strong>

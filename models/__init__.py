@@ -15,6 +15,7 @@ from . import gender_based_violence
 from . import deficiente
 from . import localidade
 from . import posto
+from . import case_priority
 from . import family_situation
 from . import toggle
 from . import export_wizard

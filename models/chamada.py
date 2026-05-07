@@ -479,6 +479,28 @@ class CallCaseAssistenceCategory(models.Model):
     _description = "Categoria de Assistências"
 
     name = fields.Char(string="Categoria")
+    active = fields.Boolean(
+        string="Activo",
+        default=True,
+        help="Desmarque para arquivar esta categoria. Registos existentes continuam a mostrar o nome desta versão.",
+    )
+    version = fields.Integer(
+        string="Versão",
+        default=1,
+        help="Número de versão desta categoria.",
+    )
+    previous_version_id = fields.Many2one(
+        comodel_name="linhafala.chamada.assistance.categoria",
+        string="Versão Anterior",
+        domain="[('active', 'in', [True, False])]",
+        help="A versão anterior desta categoria que foi substituída.",
+    )
+    replaced_by_ids = fields.One2many(
+        comodel_name="linhafala.chamada.assistance.categoria",
+        inverse_name="previous_version_id",
+        string="Substituída Por",
+        help="Nova(s) versão(ões) que substituíram esta categoria.",
+    )
 
 
 class CasoSubcategoria(models.Model):
@@ -488,6 +510,28 @@ class CasoSubcategoria(models.Model):
     name = fields.Char(string="Nome da Subcategoria")
     parent_category = fields.Many2one(
         "linhafala.chamada.assistance.categoria", string="Categoria do caso")
+    active = fields.Boolean(
+        string="Activo",
+        default=True,
+        help="Desmarque para arquivar esta subcategoria. Registos existentes continuam a mostrar o nome desta versão.",
+    )
+    version = fields.Integer(
+        string="Versão",
+        default=1,
+        help="Número de versão desta subcategoria.",
+    )
+    previous_version_id = fields.Many2one(
+        comodel_name="linhafala.chamada.assistance.subcategoria",
+        string="Versão Anterior",
+        domain="[('active', 'in', [True, False])]",
+        help="A versão anterior desta subcategoria que foi substituída.",
+    )
+    replaced_by_ids = fields.One2many(
+        comodel_name="linhafala.chamada.assistance.subcategoria",
+        inverse_name="previous_version_id",
+        string="Substituída Por",
+        help="Nova(s) versão(ões) que substituíram esta subcategoria.",
+    )
 
 
 class CallCaseAssistance(models.Model):
@@ -509,6 +553,13 @@ class CallCaseAssistance(models.Model):
 
     contact = fields.Char(string="Contacto", widget="phone_raw",
                           size=13, min_length=9, default="+258")
+
+    @api.onchange('call_id')
+    def _onchange_call_id_contact(self):
+        for record in self:
+            if record.call_id and record.call_id.contact:
+                record.contact = record.call_id.contact
+
     provincia = fields.Many2one(
         comodel_name='linhafala.provincia', string="Provincia", help="Provincia", required=True)
 
@@ -644,6 +695,10 @@ class CallCaseAssistance(models.Model):
         if vals.get('assistance_id', '/') == '/':
             next_assistance_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
             vals['assistance_id'] = next_assistance_id.split('-')[-1]
+        if vals.get('call_id') and not vals.get('contact'):
+            parent_call = self.env['linhafala.chamada'].browse(vals['call_id'])
+            if parent_call.exists() and parent_call.contact:
+                vals['contact'] = parent_call.contact
         return super(CallCaseAssistance, self).create(vals)
 
     @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description','age','gender')

@@ -98,6 +98,7 @@
                     />
                 </header>
                 <sheet>
+                    <field name="call_id" invisible="1" />
                     <h1 class="my-3"> Formulário de Assistência LFC</h1>
                     <h3>
                         <field class="text-break"
@@ -138,7 +139,7 @@
                         <div class="col-md-3">
                             <p title="Campo Opcional">
                                 <strong>Contacto: </strong>
-                                <field name="contact" />
+                                <field name="contact" attrs="{'readonly': [('call_id', '!=', False)]}" force_save="1" />
                             </p>
                             <p>
                                 <label for="distrito">* Distrito: </label>

@@ -70,9 +70,49 @@
         <field name="name">linhafala.categoria.tree</field>
         <field name="model">linhafala.categoria</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Categorias">
                 <field name="name" />
+                <field name="version" />
+                <field name="previous_version_id" optional="show" />
+                <field name="active" optional="show" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_categoria_view_form" model="ir.ui.view">
+        <field name="name">linhafala.categoria.form</field>
+        <field name="model">linhafala.categoria</field>
+        <field name="arch" type="xml">
+            <form string="Categoria">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="version" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="previous_version_id"
+                                domain="[('active', 'in', [True, False])]"
+                                context="{'active_test': False}" />
+                        </group>
+                    </group>
+                    <group string="Substituída Por">
+                        <field name="replaced_by_ids" nolabel="1" context="{'active_test': False}">
+                            <tree>
+                                <field name="name" />
+                                <field name="version" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
@@ -80,10 +120,51 @@
         <field name="name">linhafala.subcategoria.tree</field>
         <field name="model">linhafala.subcategoria</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Subcategorias">
                 <field name="name" />
                 <field name="categoria_id" />
+                <field name="version" />
+                <field name="previous_version_id" optional="show" />
+                <field name="active" optional="show" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_subcategoria_view_form" model="ir.ui.view">
+        <field name="name">linhafala.subcategoria.form</field>
+        <field name="model">linhafala.subcategoria</field>
+        <field name="arch" type="xml">
+            <form string="Subcategoria">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="categoria_id" />
+                            <field name="version" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="previous_version_id"
+                                domain="[('active', 'in', [True, False])]"
+                                context="{'active_test': False}" />
+                        </group>
+                    </group>
+                    <group string="Substituída Por">
+                        <field name="replaced_by_ids" nolabel="1" context="{'active_test': False}">
+                            <tree>
+                                <field name="name" />
+                                <field name="version" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
@@ -212,9 +293,49 @@
         <field name="name">linhafala.chamada.assistance.categoria.tree</field>
         <field name="model">linhafala.chamada.assistance.categoria</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Categorias de Assistência">
                 <field name="name" />
+                <field name="version" />
+                <field name="previous_version_id" optional="show" />
+                <field name="active" optional="show" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_categoria_view_form" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.categoria.form</field>
+        <field name="model">linhafala.chamada.assistance.categoria</field>
+        <field name="arch" type="xml">
+            <form string="Categoria de Assistência">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="version" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="previous_version_id"
+                                domain="[('active', 'in', [True, False])]"
+                                context="{'active_test': False}" />
+                        </group>
+                    </group>
+                    <group string="Substituída Por">
+                        <field name="replaced_by_ids" nolabel="1" context="{'active_test': False}">
+                            <tree>
+                                <field name="name" />
+                                <field name="version" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
@@ -222,10 +343,51 @@
         <field name="name">linhafala.chamada.assistance.subcategoria.tree</field>
         <field name="model">linhafala.chamada.assistance.subcategoria</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Subcategorias de Assistência">
                 <field name="name" />
                 <field name="parent_category" />
+                <field name="version" />
+                <field name="previous_version_id" optional="show" />
+                <field name="active" optional="show" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_subcategoria_view_form" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.subcategoria.form</field>
+        <field name="model">linhafala.chamada.assistance.subcategoria</field>
+        <field name="arch" type="xml">
+            <form string="Subcategoria de Assistência">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="parent_category" />
+                            <field name="version" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="previous_version_id"
+                                domain="[('active', 'in', [True, False])]"
+                                context="{'active_test': False}" />
+                        </group>
+                    </group>
+                    <group string="Substituída Por">
+                        <field name="replaced_by_ids" nolabel="1" context="{'active_test': False}">
+                            <tree>
+                                <field name="name" />
+                                <field name="version" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
@@ -257,9 +419,50 @@
         <field name="name">linhafala.caso.categoria.tree</field>
         <field name="model">linhafala.caso.categoria</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Categorias de Caso">
                 <field name="name" />
+                <field name="version" />
+                <field name="previous_version_id" optional="show" />
+                <field name="active" optional="show" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_categoria_view_form" model="ir.ui.view">
+        <field name="name">linhafala.caso.categoria.form</field>
+        <field name="model">linhafala.caso.categoria</field>
+        <field name="arch" type="xml">
+            <form string="Categoria de Caso">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="version" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="previous_version_id"
+                                domain="[('active', 'in', [True, False])]"
+                                context="{'active_test': False}" />
+                        </group>
+                    </group>
+                    <group string="Substituída Por">
+                        <field name="replaced_by_ids" nolabel="1"
+                            context="{'active_test': False}">
+                            <tree>
+                                <field name="name" />
+                                <field name="version" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 
@@ -267,10 +470,52 @@
         <field name="name">linhafala.caso.subcategoria.tree</field>
         <field name="model">linhafala.caso.subcategoria</field>
         <field name="arch" type="xml">
-            <tree string="Channel">
+            <tree string="Subcategorias de Caso">
                 <field name="name" />
                 <field name="categoria_id" />
+                <field name="version" />
+                <field name="previous_version_id" optional="show" />
+                <field name="active" optional="show" />
             </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_subcategoria_view_form" model="ir.ui.view">
+        <field name="name">linhafala.caso.subcategoria.form</field>
+        <field name="model">linhafala.caso.subcategoria</field>
+        <field name="arch" type="xml">
+            <form string="Subcategoria de Caso">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="categoria_id" />
+                            <field name="version" />
+                            <field name="active" />
+                        </group>
+                        <group>
+                            <field name="previous_version_id"
+                                domain="[('active', 'in', [True, False])]"
+                                context="{'active_test': False}" />
+                        </group>
+                    </group>
+                    <group string="Substituída Por">
+                        <field name="replaced_by_ids" nolabel="1"
+                            context="{'active_test': False}">
+                            <tree>
+                                <field name="name" />
+                                <field name="version" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 

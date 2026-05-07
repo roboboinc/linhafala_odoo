@@ -91,7 +91,7 @@ curl -X POST https://your-odoo-instance.com/api/v1/caso/create \
   -H "Content-Type: application/json" \
   -H "X-API-Key: YOUR_API_KEY_HERE" \
   -d '{
-    "case_priority": "Urgente",
+    "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
     "created_by": "API User",
     "detailed_case_description": "Description here",

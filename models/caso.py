@@ -196,9 +196,16 @@ class Caso(models.Model):
         string='Detalhes'
     )
     case_type = fields.Many2one(
-        comodel_name='linhafala.caso.categoria', 
-        string="Categoria", 
-        required=True
+        comodel_name='linhafala.caso.categoria',
+        string="Categoria",
+        required=True,
+        domain="['|', ('active', '=', True), ('id', '=', case_type)]",
+    )
+    case_type_snapshot = fields.Char(
+        string='Categoria (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
     )
     
     is_criminal_case = fields.Boolean(
@@ -285,6 +292,26 @@ class Caso(models.Model):
 
         return prepared
 
+    def _prepare_category_snapshot_values(self, vals):
+        prepared = dict(vals)
+
+        if prepared.get('case_type'):
+            cat = self.env['linhafala.caso.categoria'].browse(prepared['case_type'])
+            if cat.exists():
+                prepared['case_type_snapshot'] = cat.name
+
+        if prepared.get('secundary_case_type'):
+            subcat = self.env['linhafala.caso.subcategoria'].browse(prepared['secundary_case_type'])
+            if subcat.exists():
+                prepared['secundary_case_type_snapshot'] = subcat.name
+
+        if prepared.get('case_type_classification'):
+            classif = self.env['linhafala.caso.case_type_classification'].browse(prepared['case_type_classification'])
+            if classif.exists():
+                prepared['case_type_classification_snapshot'] = classif.name
+
+        return prepared
+
     @api.depends('is_criminal_case')
     def _compute_show_online_offline(self):
         """Show online_offline only if the case is criminal"""
@@ -301,9 +328,29 @@ class Caso(models.Model):
                 record.show_secundary_case_type = True
 
     secundary_case_type = fields.Many2one(
-        comodel_name='linhafala.caso.subcategoria', string="Subcategoria", required=True)
+        comodel_name='linhafala.caso.subcategoria',
+        string="Subcategoria",
+        required=True,
+        domain="['|', ('active', '=', True), ('id', '=', secundary_case_type)]",
+    )
+    secundary_case_type_snapshot = fields.Char(
+        string='Subcategoria (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
     case_type_classification = fields.Many2one(
-        comodel_name='linhafala.caso.case_type_classification', string="Classificaçäo Provisória",required=True)
+        comodel_name='linhafala.caso.case_type_classification',
+        string="Classificaçäo Provisória",
+        required=True,
+        domain="['|', ('active', '=', True), ('id', '=', case_type_classification)]",
+    )
+    case_type_classification_snapshot = fields.Char(
+        string='Classificação Provisória (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
 
     reporter_by = fields.Many2one(
         'res.users', string='Gestão', default=lambda self: self.env.user, readonly=True)
@@ -371,6 +418,7 @@ class Caso(models.Model):
 
     def write(self, vals):
         vals = self._prepare_case_priority_values(vals)
+        vals = self._prepare_category_snapshot_values(vals)
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         res = super(Caso, self).write(vals)
@@ -394,6 +442,7 @@ class Caso(models.Model):
     @api.model
     def create(self, vals):
         vals = self._prepare_case_priority_values(vals)
+        vals = self._prepare_category_snapshot_values(vals)
         # Ensure UUID is always set
         vals.setdefault('uuid', str(uuid.uuid4()))
 
@@ -449,12 +498,19 @@ class Caso(models.Model):
     @api.onchange('case_type')
     def _case_type_onchange(self):
         for rec in self:
+            rec.case_type_snapshot = rec.case_type.name if rec.case_type else False
             return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
 
     @api.onchange('secundary_case_type')
     def _secundary_case_type_onchange(self):
         for rec in self:
+            rec.secundary_case_type_snapshot = rec.secundary_case_type.name if rec.secundary_case_type else False
             return {'value': {'case_type_classification': False}, 'domain': {'case_type_classification': [('categoria_id', '=', rec.secundary_case_type.id)]}}
+
+    @api.onchange('case_type_classification')
+    def _case_type_classification_onchange(self):
+        for rec in self:
+            rec.case_type_classification_snapshot = rec.case_type_classification.name if rec.case_type_classification else False
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

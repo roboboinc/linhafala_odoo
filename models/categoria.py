@@ -1,4 +1,5 @@
 from odoo import fields, models
+from odoo.exceptions import UserError
 
 
 class Categoria(models.Model):
@@ -14,11 +15,14 @@ class Categoria(models.Model):
     version = fields.Integer(
         string="Versão",
         default=1,
+        readonly=True,
         help="Número de versão desta categoria.",
     )
     previous_version_id = fields.Many2one(
         comodel_name="linhafala.categoria",
         string="Versão Anterior",
+        readonly=True,
+        copy=False,
         domain="[('active', 'in', [True, False])]",
         help="A versão anterior desta categoria que foi substituída.",
     )
@@ -26,5 +30,59 @@ class Categoria(models.Model):
         comodel_name="linhafala.categoria",
         inverse_name="previous_version_id",
         string="Substituída Por",
+        copy=False,
         help="Nova(s) versão(ões) que substituíram esta categoria.",
     )
+
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
+    def init(self):
+        self._backfill_chamada_records()
+
+    def _backfill_chamada_records(self):
+        chamada_model = self.env['linhafala.chamada']
+        if not self._column_exists(chamada_model._table, 'category_status_snapshot'):
+            return
+        records = chamada_model.search([
+            ('category_status_snapshot', '=', False),
+            ('category_status', '!=', False),
+        ])
+        for record in records:
+            record.write({'category_status_snapshot': record.category_status.name})
+
+    def write(self, vals):
+        if 'name' not in vals:
+            return super().write(vals)
+
+        if len(self) > 1:
+            raise UserError("Edite uma categoria de cada vez para preservar o histórico de versões.")
+
+        record = self[0]
+        new_name = (vals.get('name') or '').strip()
+        if not new_name or new_name == record.name:
+            return super().write(vals)
+
+        passthrough_vals = {k: v for k, v in vals.items() if k != 'name'}
+        new_record = record.copy(
+            default={
+                'name': new_name,
+                'version': record.version + 1,
+                'previous_version_id': record.id,
+                'active': True,
+            }
+        )
+        if passthrough_vals:
+            super(Categoria, new_record).write(passthrough_vals)
+
+        super(Categoria, record).write({'active': False})
+        return True

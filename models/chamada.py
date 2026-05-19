@@ -1,6 +1,6 @@
 from xml.dom import ValidationErr
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 import uuid
 
 
@@ -122,7 +122,17 @@ class Chamada(models.Model):
     )
 
     category_status = fields.Many2one(
-        comodel_name='linhafala.categoria', string="Categoria", default=lambda self: self.env['linhafala.categoria'].browse(2))
+        comodel_name='linhafala.categoria',
+        string="Categoria",
+        default=lambda self: self.env['linhafala.categoria'].browse(2),
+        domain="['|', ('active', '=', True), ('id', '=', category_status)]",
+    )
+    category_status_snapshot = fields.Char(
+        string='Categoria (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
 
     #def action_shutdown(self):
         #self.category_status = "Sem Interveção"
@@ -298,7 +308,16 @@ class Chamada(models.Model):
     )
 
     subcategory = fields.Many2one(
-        comodel_name='linhafala.subcategoria', string="Tipo de Intervençäo/Motivo")
+        comodel_name='linhafala.subcategoria',
+        string="Tipo de Intervençäo/Motivo",
+        domain="['|', ('active', '=', True), ('id', '=', subcategory)]",
+    )
+    subcategory_snapshot = fields.Char(
+        string='Tipo de Intervenção/Motivo (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
 
     reporter = fields.Many2one(
         'res.users', string='Gestor', default=lambda self: self.env.user, readonly=True)
@@ -368,6 +387,7 @@ class Chamada(models.Model):
 
     @api.model
     def create(self, vals):
+        vals = self._prepare_chamada_snapshot_values(vals)
         if vals.get('call_id', '/') == '/':
             next_call_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.call_id.seq') or '/'
             vals['call_id'] = next_call_id.split('-')[-1]
@@ -442,6 +462,35 @@ class Chamada(models.Model):
             'target': 'current',
         }
 
+    @api.onchange('category_status')
+    def _category_status_onchange(self):
+        for rec in self:
+            rec.category_status_snapshot = rec.category_status.name if rec.category_status else False
+
+    @api.onchange('subcategory')
+    def _subcategory_onchange_chamada(self):
+        for rec in self:
+            rec.subcategory_snapshot = rec.subcategory.name if rec.subcategory else False
+
+    def _prepare_chamada_snapshot_values(self, vals):
+        prepared = dict(vals)
+
+        if prepared.get('category_status'):
+            cat = self.env['linhafala.categoria'].browse(prepared['category_status'])
+            if cat.exists():
+                prepared['category_status_snapshot'] = cat.name
+
+        if prepared.get('subcategory'):
+            subcat = self.env['linhafala.subcategoria'].browse(prepared['subcategory'])
+            if subcat.exists():
+                prepared['subcategory_snapshot'] = subcat.name
+
+        return prepared
+
+    def write(self, vals):
+        vals = self._prepare_chamada_snapshot_values(vals)
+        return super(Chamada, self).write(vals)
+
     # TODO: Review cascade select or remove this field, replacing with buttons as with the current app workflow
     @api.onchange('category')
     def _category_onchange(self):
@@ -487,11 +536,14 @@ class CallCaseAssistenceCategory(models.Model):
     version = fields.Integer(
         string="Versão",
         default=1,
+        readonly=True,
         help="Número de versão desta categoria.",
     )
     previous_version_id = fields.Many2one(
         comodel_name="linhafala.chamada.assistance.categoria",
         string="Versão Anterior",
+        readonly=True,
+        copy=False,
         domain="[('active', 'in', [True, False])]",
         help="A versão anterior desta categoria que foi substituída.",
     )
@@ -499,8 +551,62 @@ class CallCaseAssistenceCategory(models.Model):
         comodel_name="linhafala.chamada.assistance.categoria",
         inverse_name="previous_version_id",
         string="Substituída Por",
+        copy=False,
         help="Nova(s) versão(ões) que substituíram esta categoria.",
     )
+
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
+    def init(self):
+        self._backfill_assistance_records()
+
+    def _backfill_assistance_records(self):
+        assistance_model = self.env['linhafala.chamada.assistance']
+        if not self._column_exists(assistance_model._table, 'category_snapshot'):
+            return
+        records = assistance_model.search([
+            ('category_snapshot', '=', False),
+            ('category', '!=', False),
+        ])
+        for record in records:
+            record.write({'category_snapshot': record.category.name})
+
+    def write(self, vals):
+        if 'name' not in vals:
+            return super().write(vals)
+
+        if len(self) > 1:
+            raise UserError("Edite uma categoria de cada vez para preservar o histórico de versões.")
+
+        record = self[0]
+        new_name = (vals.get('name') or '').strip()
+        if not new_name or new_name == record.name:
+            return super().write(vals)
+
+        passthrough_vals = {k: v for k, v in vals.items() if k != 'name'}
+        new_record = record.copy(
+            default={
+                'name': new_name,
+                'version': record.version + 1,
+                'previous_version_id': record.id,
+                'active': True,
+            }
+        )
+        if passthrough_vals:
+            super(CallCaseAssistenceCategory, new_record).write(passthrough_vals)
+
+        super(CallCaseAssistenceCategory, record).write({'active': False})
+        return True
 
 
 class CasoSubcategoria(models.Model):
@@ -518,11 +624,14 @@ class CasoSubcategoria(models.Model):
     version = fields.Integer(
         string="Versão",
         default=1,
+        readonly=True,
         help="Número de versão desta subcategoria.",
     )
     previous_version_id = fields.Many2one(
         comodel_name="linhafala.chamada.assistance.subcategoria",
         string="Versão Anterior",
+        readonly=True,
+        copy=False,
         domain="[('active', 'in', [True, False])]",
         help="A versão anterior desta subcategoria que foi substituída.",
     )
@@ -530,8 +639,62 @@ class CasoSubcategoria(models.Model):
         comodel_name="linhafala.chamada.assistance.subcategoria",
         inverse_name="previous_version_id",
         string="Substituída Por",
+        copy=False,
         help="Nova(s) versão(ões) que substituíram esta subcategoria.",
     )
+
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
+    def init(self):
+        self._backfill_assistance_records()
+
+    def _backfill_assistance_records(self):
+        assistance_model = self.env['linhafala.chamada.assistance']
+        if not self._column_exists(assistance_model._table, 'subcategory_snapshot'):
+            return
+        records = assistance_model.search([
+            ('subcategory_snapshot', '=', False),
+            ('subcategory', '!=', False),
+        ])
+        for record in records:
+            record.write({'subcategory_snapshot': record.subcategory.name})
+
+    def write(self, vals):
+        if 'name' not in vals:
+            return super().write(vals)
+
+        if len(self) > 1:
+            raise UserError("Edite uma subcategoria de cada vez para preservar o histórico de versões.")
+
+        record = self[0]
+        new_name = (vals.get('name') or '').strip()
+        if not new_name or new_name == record.name:
+            return super().write(vals)
+
+        passthrough_vals = {k: v for k, v in vals.items() if k != 'name'}
+        new_record = record.copy(
+            default={
+                'name': new_name,
+                'version': record.version + 1,
+                'previous_version_id': record.id,
+                'active': True,
+            }
+        )
+        if passthrough_vals:
+            super(CasoSubcategoria, new_record).write(passthrough_vals)
+
+        super(CasoSubcategoria, record).write({'active': False})
+        return True
 
 
 class CallCaseAssistance(models.Model):
@@ -613,9 +776,28 @@ class CallCaseAssistance(models.Model):
     detailed_description = fields.Html(string='Descrição detalhada', attrs={
                                        'style': 'height: 500px;'}, required=False)
     category = fields.Many2one(
-        comodel_name='linhafala.chamada.assistance.categoria', string="Categoria",required=True)
+        comodel_name='linhafala.chamada.assistance.categoria',
+        string="Categoria",
+        required=True,
+        domain="['|', ('active', '=', True), ('id', '=', category)]",
+    )
+    category_snapshot = fields.Char(
+        string='Categoria (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
     subcategory = fields.Many2one(
-        comodel_name='linhafala.chamada.assistance.subcategoria', string="Subcategoria")
+        comodel_name='linhafala.chamada.assistance.subcategoria',
+        string="Subcategoria",
+        domain="['|', ('active', '=', True), ('id', '=', subcategory)]",
+    )
+    subcategory_snapshot = fields.Char(
+        string='Subcategoria (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
     callcaseassistance_status = fields.Selection(
         string='Estado',
         selection=[
@@ -681,6 +863,14 @@ class CallCaseAssistance(models.Model):
     ]
 
     def write(self, vals):
+        if vals.get('category'):
+            cat = self.env['linhafala.chamada.assistance.categoria'].browse(vals['category'])
+            if cat.exists():
+                vals['category_snapshot'] = cat.name
+        if vals.get('subcategory'):
+            subcat = self.env['linhafala.chamada.assistance.subcategoria'].browse(vals['subcategory'])
+            if subcat.exists():
+                vals['subcategory_snapshot'] = subcat.name
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         return super(CallCaseAssistance, self).write(vals)
@@ -692,6 +882,14 @@ class CallCaseAssistance(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get('category'):
+            cat = self.env['linhafala.chamada.assistance.categoria'].browse(vals['category'])
+            if cat.exists():
+                vals['category_snapshot'] = cat.name
+        if vals.get('subcategory'):
+            subcat = self.env['linhafala.chamada.assistance.subcategoria'].browse(vals['subcategory'])
+            if subcat.exists():
+                vals['subcategory_snapshot'] = subcat.name
         if vals.get('assistance_id', '/') == '/':
             next_assistance_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
             vals['assistance_id'] = next_assistance_id.split('-')[-1]
@@ -732,7 +930,13 @@ class CallCaseAssistance(models.Model):
     @api.onchange('category')
     def _category_onchange(self):
         for rec in self:
+            rec.category_snapshot = rec.category.name if rec.category else False
             return {'value': {'subcategory': False}, 'domain': {'subcategory': [('parent_category', '=', rec.category.id)]}}
+
+    @api.onchange('subcategory')
+    def _subcategory_onchange(self):
+        for rec in self:
+            rec.subcategory_snapshot = rec.subcategory.name if rec.subcategory else False
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

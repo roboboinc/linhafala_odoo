@@ -47,6 +47,18 @@ class FamilySituation(models.Model):
         ("linhafala_family_situation_code_version_uniq", "unique(code, version)", "A versão da situação familiar deve ser única por código."),
     ]
 
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
     def init(self):
         """Keep options and legacy data synchronized on module updates."""
         self._seed_default_options()
@@ -59,6 +71,14 @@ class FamilySituation(models.Model):
 
     def _backfill_person_involved_records(self):
         person_model = self.env["linhafala.person_involved"]
+        required_columns = [
+            "family_situation_id",
+            "family_situation_snapshot",
+            "living_relatives",
+        ]
+        if not all(self._column_exists(person_model._table, column) for column in required_columns):
+            return
+
         records = person_model.search([
             ("family_situation_id", "=", False),
             "|",

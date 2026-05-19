@@ -53,6 +53,18 @@ class CasePriority(models.Model):
         ),
     ]
 
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
     def init(self):
         """Keep options and legacy data synchronized on module updates."""
         self._seed_default_options()
@@ -65,6 +77,14 @@ class CasePriority(models.Model):
 
     def _backfill_case_records(self):
         case_model = self.env["linhafala.caso"]
+        required_columns = [
+            "case_priority_id",
+            "case_priority_snapshot",
+            "case_priority",
+        ]
+        if not all(self._column_exists(case_model._table, column) for column in required_columns):
+            return
+
         records = case_model.search([
             ("case_priority_id", "=", False),
             "|",

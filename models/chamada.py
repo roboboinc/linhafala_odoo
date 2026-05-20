@@ -568,6 +568,11 @@ class CallCaseAssistenceCategory(models.Model):
         return bool(self.env.cr.fetchone())
 
     def init(self):
+        # Ensure rows added before the 'active' field existed are not filtered out
+        # by Odoo's implicit active=True search domain during CSV data loading.
+        self.env.cr.execute(
+            "UPDATE %s SET active = TRUE WHERE active IS NULL" % self._table
+        )
         self._backfill_assistance_records()
 
     def _backfill_assistance_records(self):
@@ -656,6 +661,11 @@ class CasoSubcategoria(models.Model):
         return bool(self.env.cr.fetchone())
 
     def init(self):
+        # Ensure rows added before the 'active' field existed are not filtered out
+        # by Odoo's implicit active=True search domain during CSV data loading.
+        self.env.cr.execute(
+            "UPDATE %s SET active = TRUE WHERE active IS NULL" % self._table
+        )
         self._backfill_assistance_records()
 
     def _backfill_assistance_records(self):

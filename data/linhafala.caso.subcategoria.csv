@@ -1,9 +1,9 @@
-id,name,categoria_id
-linhafala_caso_subcategoria_1,Crimes contra liberdade sexual,caso de natureza criminal
-linhafala_caso_subcategoria_2,outros tipos de crimes,caso de natureza criminal
-linhafala_caso_subcategoria_3,Casos civis,Casos de Natureza Civil
-linhafala_caso_subcategoria_4,Acesso a Educação,Casos de Natureza Civil
-linhafala_caso_subcategoria_5,Casos Sociais,Casos de outra natureza
-linhafala_caso_subcategoria_6,Necessidades Educativas Especiais,Casos de outra natureza
-linhafala_caso_subcategoria_7,Casos de contexto humanitario,casos do PEAS
-linhafala_caso_subcategoria_8,OCSEA,caso de natureza criminal
+id,name,categoria_id,active
+linhafala_caso_subcategoria_1,Crimes contra liberdade sexual,caso de natureza criminal,1
+linhafala_caso_subcategoria_2,outros tipos de crimes,caso de natureza criminal,1
+linhafala_caso_subcategoria_3,Casos civis,Casos de Natureza Civil,1
+linhafala_caso_subcategoria_4,Acesso a Educação,Casos de Natureza Civil,1
+linhafala_caso_subcategoria_5,Casos Sociais,Casos de outra natureza,1
+linhafala_caso_subcategoria_6,Necessidades Educativas Especiais,Casos de outra natureza,1
+linhafala_caso_subcategoria_7,Casos de contexto humanitario,casos do PEAS,1
+linhafala_caso_subcategoria_8,OCSEA,caso de natureza criminal,1

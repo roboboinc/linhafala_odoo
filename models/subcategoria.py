@@ -48,6 +48,9 @@ class Subcategoria(models.Model):
         return bool(self.env.cr.fetchone())
 
     def init(self):
+        self.env.cr.execute(
+            "UPDATE %s SET active = TRUE WHERE active IS NULL" % self._table
+        )
         self._backfill_chamada_records()
 
     def _backfill_chamada_records(self):

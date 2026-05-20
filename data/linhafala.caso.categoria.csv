@@ -1,5 +1,5 @@
-id,name
-linhafala_caso_categoria_1,caso de natureza criminal
-linhafala_caso_categoria_2,Casos de Natureza Civil
-linhafala_caso_categoria_3,Casos de outra natureza
-linhafala_caso_categoria_4,casos do PEAS
+id,name,active
+linhafala_caso_categoria_1,caso de natureza criminal,1
+linhafala_caso_categoria_2,Casos de Natureza Civil,1
+linhafala_caso_categoria_3,Casos de outra natureza,1
+linhafala_caso_categoria_4,casos do PEAS,1

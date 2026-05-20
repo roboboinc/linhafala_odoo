@@ -89,7 +89,7 @@ class ExportController(http.Controller):
             for row in rows:
                 writer.writerow([('' if v is None else v) for v in row])
 
-            csv_data = sio.getvalue().encode('utf-8')
+            csv_data = sio.getvalue().encode('utf-8-sig')
             filename = f"CHAMADAS_{start_date}_{end_date}.csv"
             return Response(csv_data, headers=[
                 ('Content-Type', 'text/csv; charset=utf-8'),
@@ -152,6 +152,21 @@ class ExportController(http.Controller):
                 distrito.name AS distrito,
                 posto.name AS posto,
                 localidade.name AS localidade,
+                person_involved.are_you_disabled AS e_deficiente,
+                (SELECT STRING_AGG(
+                    NULLIF(CONCAT_WS(', ',
+                        CASE WHEN def.vision_type THEN 'Visão' END,
+                        CASE WHEN def.hearing_type THEN 'Audição' END,
+                        CASE WHEN def.mobility_type THEN 'Mobilidade' END,
+                        CASE WHEN def.cognition_type THEN 'Cognição' END,
+                        CASE WHEN def.comunication_type THEN 'Comunicação' END,
+                        CASE WHEN def.autonomous_care_type THEN 'Cuidados Autónomos' END
+                    ), ''),
+                    ' | '
+                )
+                FROM linhafala_deficiente def
+                WHERE def.person_id = person_involved.id
+                ) AS necessidades_especiais,
                 forwarding.area_type AS tipo_de_entidade,
                 referenceentity.name AS entidade_de_referencia_de_encaminhamento,
                 casereference.name AS pessoa_de_contacto_de_encaminhamento,
@@ -190,7 +205,7 @@ class ExportController(http.Controller):
             for row in rows:
                 writer.writerow([('' if v is None else v) for v in row])
 
-            csv_data = sio.getvalue().encode('utf-8')
+            csv_data = sio.getvalue().encode('utf-8-sig')
             filename = f"CASOS_{start_date}_{end_date}.csv"
             return Response(csv_data, headers=[
                 ('Content-Type', 'text/csv; charset=utf-8'),
@@ -272,7 +287,7 @@ class ExportController(http.Controller):
             for row in rows:
                 writer.writerow([('' if v is None else v) for v in row])
 
-            csv_data = sio.getvalue().encode('utf-8')
+            csv_data = sio.getvalue().encode('utf-8-sig')
             filename = f"ASSISTENCIAS_{start_date}_{end_date}.csv"
             return Response(csv_data, headers=[
                 ('Content-Type', 'text/csv; charset=utf-8'),

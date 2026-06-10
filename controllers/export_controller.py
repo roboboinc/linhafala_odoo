@@ -140,6 +140,13 @@ class ExportController(http.Controller):
                 case_type.name AS categoria,
                 secundary_case_type.name AS subcategoria,
                 case_type_classification.name AS classificacao_provisoria,
+                COALESCE(classificacao.name, cas.classificacao_snapshot) AS classificacao,
+                COALESCE(tipo.name, cas.tipo_case_snapshot) AS tipo_do_caso,
+                COALESCE(programa.name, cas.programa_snapshot) AS programa,
+                COALESCE(subcategoria_auto.name, cas.subcategoria_auto_snapshot) AS subcategoria_automatica,
+                COALESCE(area.name, cas.area_snapshot) AS area_do_caso,
+                COALESCE(categoria_juridica.name, cas.categoria_juridica_snapshot) AS categoria_juridica,
+                COALESCE(enquadramento.name, cas.enquadramento_snapshot) AS enquadramento,
                 person_involved.fullname AS nome_da_pessoa_envolvida,
                 person_involved.person_type AS categoria_pessoa,
                 person_involved.contact AS contacto,
@@ -176,6 +183,13 @@ class ExportController(http.Controller):
                 LEFT JOIN linhafala_caso_categoria case_type ON cas.case_type = case_type.id
                 LEFT JOIN linhafala_caso_subcategoria secundary_case_type ON cas.secundary_case_type = secundary_case_type.id
                 LEFT JOIN linhafala_caso_case_type_classification case_type_classification ON cas.case_type_classification = case_type_classification.id
+                LEFT JOIN linhafala_caso_classificacao classificacao ON cas.classificacao_id = classificacao.id
+                LEFT JOIN linhafala_caso_tipo tipo ON cas.tipo_case_id = tipo.id
+                LEFT JOIN linhafala_caso_programa programa ON cas.programa_id = programa.id
+                LEFT JOIN linhafala_caso_subcategoria_auto subcategoria_auto ON cas.subcategoria_auto_id = subcategoria_auto.id
+                LEFT JOIN linhafala_caso_area area ON cas.area_id = area.id
+                LEFT JOIN linhafala_caso_categoria_juridica categoria_juridica ON cas.categoria_juridica_id = categoria_juridica.id
+                LEFT JOIN linhafala_caso_enquadramento enquadramento ON cas.enquadramento_id = enquadramento.id
                 LEFT JOIN linhafala_caso_forwarding_institution forwarding ON cas.id = forwarding.case_id
                 LEFT JOIN linhafala_caso_referenceentity referenceentity ON forwarding.reference_entity = referenceentity.id
                 LEFT JOIN linhafala_caso_casereference casereference ON forwarding.case_reference = casereference.id

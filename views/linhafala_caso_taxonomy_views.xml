@@ -1,0 +1,245 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!-- Classificação do Caso (visível ao utilizador)                -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_classificacao_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.classificacao.tree</field>
+        <field name="model">linhafala.caso.classificacao</field>
+        <field name="arch" type="xml">
+            <tree string="Classificações">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_classificacao_view_form" model="ir.ui.view">
+        <field name="name">linhafala.caso.classificacao.form</field>
+        <field name="model">linhafala.caso.classificacao</field>
+        <field name="arch" type="xml">
+            <form string="Classificação do Caso">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <field name="active" />
+                    </group>
+                    <group string="Tipos de Caso associados">
+                        <field name="tipo_ids" nolabel="1" context="{'active_test': False}">
+                            <tree editable="bottom">
+                                <field name="name" />
+                                <field name="subcategoria_auto_id" />
+                                <field name="area_id" />
+                                <field name="categoria_juridica_id" />
+                                <field name="enquadramento_id" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_classificacao_action" model="ir.actions.act_window">
+        <field name="name">Classificação de Caso</field>
+        <field name="res_model">linhafala.caso.classificacao</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Classificações de casos
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Tipo do Caso (visível ao utilizador)                         -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_tipo_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.tipo.tree</field>
+        <field name="model">linhafala.caso.tipo</field>
+        <field name="arch" type="xml">
+            <tree string="Tipos de Caso">
+                <field name="name" />
+                <field name="classificacao_id" />
+                <field name="subcategoria_auto_id" />
+                <field name="area_id" />
+                <field name="categoria_juridica_id" />
+                <field name="enquadramento_id" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_tipo_view_form" model="ir.ui.view">
+        <field name="name">linhafala.caso.tipo.form</field>
+        <field name="model">linhafala.caso.tipo</field>
+        <field name="arch" type="xml">
+            <form string="Tipo do Caso">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group string="Selecção do utilizador">
+                            <field name="classificacao_id" />
+                            <field name="active" />
+                        </group>
+                        <group string="Dimensões automáticas">
+                            <field name="subcategoria_auto_id" />
+                            <field name="area_id" />
+                            <field name="categoria_juridica_id" />
+                            <field name="enquadramento_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_tipo_action" model="ir.actions.act_window">
+        <field name="name">Tipo de Caso</field>
+        <field name="res_model">linhafala.caso.tipo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Tipos de caso e as suas dimensões automáticas
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Programa (visível ao utilizador)                             -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_programa_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.programa.tree</field>
+        <field name="model">linhafala.caso.programa</field>
+        <field name="arch" type="xml">
+            <tree string="Programas" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_programa_action" model="ir.actions.act_window">
+        <field name="name">Programa de Caso</field>
+        <field name="res_model">linhafala.caso.programa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Programas de casos
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Subcategoria (Automática)                                    -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_subcategoria_auto_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.subcategoria_auto.tree</field>
+        <field name="model">linhafala.caso.subcategoria_auto</field>
+        <field name="arch" type="xml">
+            <tree string="Subcategorias (Automáticas)" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_subcategoria_auto_action" model="ir.actions.act_window">
+        <field name="name">Subcategoria (Automática)</field>
+        <field name="res_model">linhafala.caso.subcategoria_auto</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Subcategorias automáticas de casos
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Área do Caso (Automática)                                    -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_area_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.area.tree</field>
+        <field name="model">linhafala.caso.area</field>
+        <field name="arch" type="xml">
+            <tree string="Áreas do Caso" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_area_action" model="ir.actions.act_window">
+        <field name="name">Área do Caso (Automática)</field>
+        <field name="res_model">linhafala.caso.area</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Áreas do caso
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Categoria Jurídica (Automática)                              -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_categoria_juridica_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.categoria_juridica.tree</field>
+        <field name="model">linhafala.caso.categoria_juridica</field>
+        <field name="arch" type="xml">
+            <tree string="Categorias Jurídicas" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_categoria_juridica_action" model="ir.actions.act_window">
+        <field name="name">Categoria Jurídica (Automática)</field>
+        <field name="res_model">linhafala.caso.categoria_juridica</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Categorias Jurídicas de casos
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Enquadramento (Automático)                                   -->
+    <!-- ============================================================ -->
+    <record id="linhafala_caso_enquadramento_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.caso.enquadramento.tree</field>
+        <field name="model">linhafala.caso.enquadramento</field>
+        <field name="arch" type="xml">
+            <tree string="Enquadramentos" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_caso_enquadramento_action" model="ir.actions.act_window">
+        <field name="name">Enquadramento (Automático)</field>
+        <field name="res_model">linhafala.caso.enquadramento</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Enquadramentos de casos
+            </p>
+        </field>
+    </record>
+
+</odoo>

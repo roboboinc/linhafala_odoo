@@ -1,0 +1,9 @@
+id,name,active
+caso_area_vso,VSO,1
+caso_area_protecao_social,Protecção Social,1
+caso_area_criminal,Criminal,1
+caso_area_educacao,Educação,1
+caso_area_saude,Saúde,1
+caso_area_saude_mental,Saúde Mental,1
+caso_area_deficiencia,Deficiência,1
+caso_area_direitos_familia,Direitos da Família,1

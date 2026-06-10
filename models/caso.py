@@ -95,6 +95,40 @@ class Caso(models.Model):
     def edit(self, vals):
         return self.write(vals)
 
+    def init(self):
+        """Backfill the taxonomy version for historical records.
+
+        New records default to version 2 (new taxonomy). Any pre-existing
+        record that does not use the new Classificação field is, by
+        definition, a legacy record and must keep version 1 so that its
+        original Categoria/Sub-categoria/Classificação Provisória configuration
+        and validation are preserved. This is idempotent: version-2 records
+        always have ``classificacao_id`` set and are never affected.
+        """
+        if not self._column_exists(self._table, 'classificacao_id'):
+            return
+        self.env.cr.execute(
+            """
+            UPDATE %s
+               SET taxonomy_version = 1
+             WHERE classificacao_id IS NULL
+               AND (taxonomy_version IS NULL OR taxonomy_version <> 1)
+            """
+            % self._table
+        )
+
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
 
     @api.constrains('case_status')
     def _check_case_status(self):
@@ -103,26 +137,38 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('case_type','secundary_case_type','case_type_classification','place_occurrence','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description')
+    @api.constrains('case_type','secundary_case_type','case_type_classification','classificacao_id','tipo_case_id','place_occurrence','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description','taxonomy_version')
     def _check_all(self):
         if self.env.context.get('skip_case_priority_backfill_validation'):
             return
         for record in self:
-            if not record.case_type:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Categoria")
-            if not record.secundary_case_type:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+            if record.taxonomy_version and record.taxonomy_version >= 2:
+                # New taxonomy: data-entry user only fills Classificação and
+                # Tipo do Caso (Programa is optional for now). The remaining
+                # dimensions are derived automatically from the Tipo do Caso.
+                if not record.classificacao_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Classificação")
+                if not record.tipo_case_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Tipo do Caso")
+            else:
+                # Legacy taxonomy (registos antigos): manter validação original.
+                if not record.case_type:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Categoria")
+                if not record.secundary_case_type:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+                if not record.case_type_classification:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
             if not (record.case_priority_id or record.case_priority_snapshot or record.case_priority):
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Nível de urgência")
             if not record.detailed_description:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Detalhes")
-            if not record.case_type_classification:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
             if not record.place_occurrence:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Local de Ocorrência ")
@@ -198,7 +244,6 @@ class Caso(models.Model):
     case_type = fields.Many2one(
         comodel_name='linhafala.caso.categoria',
         string="Categoria",
-        required=True,
         domain="['|', ('active', '=', True), ('id', '=', case_type)]",
     )
     case_type_snapshot = fields.Char(
@@ -312,6 +357,44 @@ class Caso(models.Model):
 
         return prepared
 
+    def _prepare_new_taxonomy_values(self, vals):
+        """Populate snapshots and derive the automatic dimensions for the new
+        taxonomy (Classificação/Tipo do Caso/Programa).
+
+        The four automatic fields (Subcategoria, Área, Categoria Jurídica e
+        Enquadramento) are taken from the selected Tipo do Caso so that the
+        data-entry user never has to fill them in manually.
+        """
+        prepared = dict(vals)
+
+        if prepared.get('tipo_case_id'):
+            tipo = self.env['linhafala.caso.tipo'].browse(prepared['tipo_case_id'])
+            if tipo.exists():
+                prepared['tipo_case_snapshot'] = tipo.name
+                prepared['subcategoria_auto_id'] = tipo.subcategoria_auto_id.id
+                prepared['area_id'] = tipo.area_id.id
+                prepared['categoria_juridica_id'] = tipo.categoria_juridica_id.id
+                prepared['enquadramento_id'] = tipo.enquadramento_id.id
+                prepared['subcategoria_auto_snapshot'] = tipo.subcategoria_auto_id.name
+                prepared['area_snapshot'] = tipo.area_id.name
+                prepared['categoria_juridica_snapshot'] = tipo.categoria_juridica_id.name
+                prepared['enquadramento_snapshot'] = tipo.enquadramento_id.name
+                # Keep Classificação consistent with the Tipo's parent.
+                if tipo.classificacao_id and not prepared.get('classificacao_id'):
+                    prepared['classificacao_id'] = tipo.classificacao_id.id
+
+        if prepared.get('classificacao_id'):
+            classif = self.env['linhafala.caso.classificacao'].browse(prepared['classificacao_id'])
+            if classif.exists():
+                prepared['classificacao_snapshot'] = classif.name
+
+        if prepared.get('programa_id'):
+            programa = self.env['linhafala.caso.programa'].browse(prepared['programa_id'])
+            if programa.exists():
+                prepared['programa_snapshot'] = programa.name
+
+        return prepared
+
     @api.depends('is_criminal_case')
     def _compute_show_online_offline(self):
         """Show online_offline only if the case is criminal"""
@@ -330,7 +413,6 @@ class Caso(models.Model):
     secundary_case_type = fields.Many2one(
         comodel_name='linhafala.caso.subcategoria',
         string="Subcategoria",
-        required=True,
         domain="['|', ('active', '=', True), ('id', '=', secundary_case_type)]",
     )
     secundary_case_type_snapshot = fields.Char(
@@ -342,7 +424,6 @@ class Caso(models.Model):
     case_type_classification = fields.Many2one(
         comodel_name='linhafala.caso.case_type_classification',
         string="Classificaçäo Provisória",
-        required=True,
         domain="['|', ('active', '=', True), ('id', '=', case_type_classification)]",
     )
     case_type_classification_snapshot = fields.Char(
@@ -350,6 +431,100 @@ class Caso(models.Model):
         readonly=True,
         copy=False,
         help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+
+    # ------------------------------------------------------------------
+    # New case taxonomy (taxonomy_version >= 2)
+    # The data-entry user only selects Classificação, Tipo do Caso and
+    # Programa. The remaining dimensions (Subcategoria, Área, Categoria
+    # Jurídica, Enquadramento) are derived automatically from the selected
+    # Tipo do Caso and are visible (read-only) to administrators only.
+    # ------------------------------------------------------------------
+    taxonomy_version = fields.Integer(
+        string="Versão da Classificação",
+        default=2,
+        readonly=True,
+        copy=False,
+        help="1 = classificação antiga (Categoria/Sub-categoria/Classificação Provisória); "
+             "2 = nova classificação (Classificação/Tipo do Caso/Programa). "
+             "Registos antigos mantêm a versão 1 e a sua configuração original.",
+    )
+
+    classificacao_id = fields.Many2one(
+        comodel_name='linhafala.caso.classificacao',
+        string="Classificação",
+        domain="['|', ('active', '=', True), ('id', '=', classificacao_id)]",
+    )
+    classificacao_snapshot = fields.Char(
+        string='Classificação (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+    tipo_case_id = fields.Many2one(
+        comodel_name='linhafala.caso.tipo',
+        string="Tipo do Caso",
+        domain="['&', ('classificacao_id', '=', classificacao_id), "
+               "'|', ('active', '=', True), ('id', '=', tipo_case_id)]",
+    )
+    tipo_case_snapshot = fields.Char(
+        string='Tipo do Caso (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+    programa_id = fields.Many2one(
+        comodel_name='linhafala.caso.programa',
+        string="Programa",
+        domain="['|', ('active', '=', True), ('id', '=', programa_id)]",
+    )
+    programa_snapshot = fields.Char(
+        string='Programa (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+
+    # Automatic (derived) dimensions - read-only, admin-only in the UI.
+    subcategoria_auto_id = fields.Many2one(
+        comodel_name='linhafala.caso.subcategoria_auto',
+        string="Subcategoria (Automática)",
+        readonly=True,
+    )
+    subcategoria_auto_snapshot = fields.Char(
+        string='Subcategoria automática (histórico)',
+        readonly=True,
+        copy=False,
+    )
+    area_id = fields.Many2one(
+        comodel_name='linhafala.caso.area',
+        string="Área do Caso (Automática)",
+        readonly=True,
+    )
+    area_snapshot = fields.Char(
+        string='Área do Caso (histórico)',
+        readonly=True,
+        copy=False,
+    )
+    categoria_juridica_id = fields.Many2one(
+        comodel_name='linhafala.caso.categoria_juridica',
+        string="Categoria Jurídica (Automática)",
+        readonly=True,
+    )
+    categoria_juridica_snapshot = fields.Char(
+        string='Categoria Jurídica (histórico)',
+        readonly=True,
+        copy=False,
+    )
+    enquadramento_id = fields.Many2one(
+        comodel_name='linhafala.caso.enquadramento',
+        string="Enquadramento (Automático)",
+        readonly=True,
+    )
+    enquadramento_snapshot = fields.Char(
+        string='Enquadramento (histórico)',
+        readonly=True,
+        copy=False,
     )
 
     reporter_by = fields.Many2one(
@@ -419,6 +594,7 @@ class Caso(models.Model):
     def write(self, vals):
         vals = self._prepare_case_priority_values(vals)
         vals = self._prepare_category_snapshot_values(vals)
+        vals = self._prepare_new_taxonomy_values(vals)
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         res = super(Caso, self).write(vals)
@@ -443,6 +619,11 @@ class Caso(models.Model):
     def create(self, vals):
         vals = self._prepare_case_priority_values(vals)
         vals = self._prepare_category_snapshot_values(vals)
+        vals = self._prepare_new_taxonomy_values(vals)
+        # New records use the updated taxonomy by default. Historical records
+        # keep taxonomy_version = 1 (the field default) and their original
+        # configuration untouched.
+        vals.setdefault('taxonomy_version', 2)
         # Ensure UUID is always set
         vals.setdefault('uuid', str(uuid.uuid4()))
 
@@ -511,6 +692,37 @@ class Caso(models.Model):
     def _case_type_classification_onchange(self):
         for rec in self:
             rec.case_type_classification_snapshot = rec.case_type_classification.name if rec.case_type_classification else False
+
+    @api.onchange('classificacao_id')
+    def _classificacao_id_onchange(self):
+        for rec in self:
+            rec.classificacao_snapshot = rec.classificacao_id.name if rec.classificacao_id else False
+            # Reset Tipo do Caso if it no longer matches the chosen Classificação.
+            if rec.tipo_case_id and rec.tipo_case_id.classificacao_id != rec.classificacao_id:
+                rec.tipo_case_id = False
+            return {'domain': {'tipo_case_id': [('classificacao_id', '=', rec.classificacao_id.id)]}}
+
+    @api.onchange('tipo_case_id')
+    def _tipo_case_id_onchange(self):
+        for rec in self:
+            tipo = rec.tipo_case_id
+            rec.tipo_case_snapshot = tipo.name if tipo else False
+            # Derive the automatic dimensions from the selected Tipo do Caso.
+            rec.subcategoria_auto_id = tipo.subcategoria_auto_id if tipo else False
+            rec.area_id = tipo.area_id if tipo else False
+            rec.categoria_juridica_id = tipo.categoria_juridica_id if tipo else False
+            rec.enquadramento_id = tipo.enquadramento_id if tipo else False
+            rec.subcategoria_auto_snapshot = tipo.subcategoria_auto_id.name if tipo and tipo.subcategoria_auto_id else False
+            rec.area_snapshot = tipo.area_id.name if tipo and tipo.area_id else False
+            rec.categoria_juridica_snapshot = tipo.categoria_juridica_id.name if tipo and tipo.categoria_juridica_id else False
+            rec.enquadramento_snapshot = tipo.enquadramento_id.name if tipo and tipo.enquadramento_id else False
+            if tipo and tipo.classificacao_id and rec.classificacao_id != tipo.classificacao_id:
+                rec.classificacao_id = tipo.classificacao_id
+
+    @api.onchange('programa_id')
+    def _programa_id_onchange(self):
+        for rec in self:
+            rec.programa_snapshot = rec.programa_id.name if rec.programa_id else False
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

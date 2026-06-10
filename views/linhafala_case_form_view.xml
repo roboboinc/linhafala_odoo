@@ -36,22 +36,63 @@
                         <h2 class="d-flex gap-2 g-0 align-items-end pb-3"></h2>
                         <div class="row w-100">
                             <div class="col-md-3 mt-3">
-                                <p>
+                                <field name="taxonomy_version" invisible="1"/>
+
+                                <!-- ===== Nova classificação (taxonomy_version >= 2) ===== -->
+                                <!-- O utilizador apenas vê e seleciona Classificação, Tipo do Caso e Programa. -->
+                                <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                    <label for="classificacao_id">* Classificação: </label>
+                                    <field name="classificacao_id"
+                                        attrs="{'required': [('taxonomy_version', '>=', 2)]}"/>
+                                </p>
+                                <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                    <label for="tipo_case_id">* Tipo do Caso: </label>
+                                    <field name="tipo_case_id"
+                                        attrs="{'required': [('taxonomy_version', '>=', 2)]}"/>
+                                </p>
+                                <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                    <label for="programa_id">Programa: </label>
+                                    <field name="programa_id"/>
+                                </p>
+
+                                <!-- Dimensões automáticas: apenas administradores, só leitura. -->
+                                <div groups="linhafala_odoo.group_linhafala_administrador"
+                                    attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                    <p>
+                                        <strong>Subcategoria (automática): </strong>
+                                        <field name="subcategoria_auto_id" readonly="1"/>
+                                    </p>
+                                    <p>
+                                        <strong>Área do Caso (automática): </strong>
+                                        <field name="area_id" readonly="1"/>
+                                    </p>
+                                    <p>
+                                        <strong>Categoria Jurídica (automática): </strong>
+                                        <field name="categoria_juridica_id" readonly="1"/>
+                                    </p>
+                                    <p>
+                                        <strong>Enquadramento (automático): </strong>
+                                        <field name="enquadramento_id" readonly="1"/>
+                                    </p>
+                                </div>
+
+                                <!-- ===== Classificação antiga (registos legados, taxonomy_version &lt; 2) ===== -->
+                                <p attrs="{'invisible': [('taxonomy_version', '>=', 2)]}">
                                     <label for="case_type">* Categoria do Caso: </label>
                                     <field name="case_type" />
                                     <field name="is_criminal_case" invisible="1"/>
                                 </p>
-                                <p  attrs="{'invisible': [('show_online_offline', '=', False)], 'required': [('show_online_offline', '=', True)]}">
+                                <p  attrs="{'invisible': ['|', ('taxonomy_version', '>=', 2), ('show_online_offline', '=', False)], 'required': [('show_online_offline', '=', True)]}">
                                     <label for="online_offline">Selecione se o crime foi: </label>
                                     <field name="show_online_offline" invisible="1"/>
                                     <field name="online_offline"/>
                                 </p>
-                                <p  attrs="{'invisible': [('show_secundary_case_type', '=', False)]}">
+                                <p  attrs="{'invisible': ['|', ('taxonomy_version', '>=', 2), ('show_secundary_case_type', '=', False)]}">
                                     <label for="secundary_case_type">* Sub Categoria do Caso: </label>
                                     <field name="show_secundary_case_type" invisible="1"/>
                                     <field name="secundary_case_type"/>
                                 </p>
-                                <p>
+                                <p attrs="{'invisible': [('taxonomy_version', '>=', 2)]}">
                                     <label for="case_type_classification">* Classificação Provisoria: </label>
                                     <field name="case_type_classification" />
                                 </p>

@@ -95,6 +95,9 @@
                 <field name="case_type" optional="hide" />
                 <field name="secundary_case_type" optional="show" />
                 <field name="case_type_classification" optional="show" />
+                <field name="classificacao_id" optional="show" />
+                <field name="tipo_case_id" optional="show" />
+                <field name="programa_id" optional="hide" />
                 <field name="place_occurrence" optional="hide" />
                 <field decoration-danger="case_priority_snapshot=='Muito urgente'"
                     decoration-warning="case_priority_snapshot=='Urgente'"

@@ -25,10 +25,8 @@ class KnowledgeBase(models.Model):
         return super(KnowledgeBase, self).write(vals)
     
 
-    @api.model
-    def save(self, vals):
-        return super(KnowledgeBase, self).write(vals)
-    
-    @api.model
-    def edit(self, vals):
-        return super(KnowledgeBase, self).write(vals)
+    def save(self):
+        return True
+
+    def edit(self):
+        return True

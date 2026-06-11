@@ -13,18 +13,18 @@ class MozLearning(models.Model):
     ]
 
     moz_learning_id = fields.Char(
-        string="ID Moz Learning", readonly=True, unique=True)
+        string="ID Moz Learning", readonly=True)
 
     persons_involved_moz_learning_line_ids = fields.One2many('linhafala.person_involved', 'moz_learning_id',
                                                              string="Pessoas envolvidas")
 
-    moz_learning_complaint_details_line_ids = fields.One2many('linhafala.moz_learning_complaint_details', 'moz_learning_complaint__details_id',
+    moz_learning_complaint_details_line_ids = fields.One2many('linhafala.moz_learning_complaint_details', 'moz_learning_id',
                                                               string="Formulário de Detalhes do Moz Learning")
 
-    vbg_line_ids = fields.One2many('linhafala.gender_based_violence', 'gender_based_violence_id',
+    vbg_line_ids = fields.One2many('linhafala.gender_based_violence', 'moz_learning_id',
                                    string="Formulário de VBG (Violência Baseada no Gênero)")
-    
-    moz_learning_referral_line_ids = fields.One2many('linhafala.moz_learning.referral', 'moz_learning_referral_id',
+
+    moz_learning_referral_line_ids = fields.One2many('linhafala.moz_learning.referral', 'moz_learning_id',
                                    string="Formulário de Encaminhamento")
 
     call_id = fields.Many2one(
@@ -36,7 +36,7 @@ class MozLearning(models.Model):
     fullname = fields.Char(string="Nome Completo")
 
     birthd_date = fields.Datetime(
-        string="Data de Nascimento", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+        string="Data de Nascimento")
 
     gender = fields.Selection(
         string='Sexo',
@@ -55,8 +55,8 @@ class MozLearning(models.Model):
         help="Tem telefone"
     )
 
-    contact = fields.Char(string="Contacto", widget="phone_raw",
-                          size=13, min_length=9, default="+258")
+    contact = fields.Char(string="Contacto",
+                          size=13, default="+258")
     other_means_of_contact = fields.Char(string="Outro meio de Contacto")
 
     id_number = fields.Selection(
@@ -73,7 +73,7 @@ class MozLearning(models.Model):
         help="Tipo de documento de identificação"
     )
 
-    document_number = fields.Char(string="Numero do documento", widget="phone_raw",
+    document_number = fields.Char(string="Numero do documento",
                                   size=13)
 
     isVictim = fields.Boolean(
@@ -149,7 +149,7 @@ class MozLearning(models.Model):
     )
 
     date_of_occurrence = fields.Datetime(
-        string="Data de Ocorrência", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+        string="Data de Ocorrência")
 
     complaint_reception_channel = fields.Selection(
         string='Canal de recepção da reclamação',
@@ -170,13 +170,13 @@ class MozLearning(models.Model):
     focal_point_name = fields.Char(
         string="Nome do ponto focal que recebeu a reclamação (caso tenha sido recebida presencialmente)")
 
-    focal_point_contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação", widget="phone_raw",
-                                      size=13, min_length=9, default="+258")
+    focal_point_contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação",
+                                      size=13, default="+258")
 
     moz_learning_details = fields.Char(string="Resumo da queixa")
 
     date_of_receipt = fields.Datetime(
-        string="Data de recepção", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+        string="Data de recepção")
 
     attachment = fields.Char(string="Anexe aqui o seu documento ou fotografia")
 
@@ -223,7 +223,7 @@ class MozLearningReferral(models.Model):
     _description = "Instituição de encaminhamento de moz learning"
 
     moz_learning_referral_id = fields.Integer(
-        string="Instituição de encaminhamento de moz learning ID", readonly=True, unique=True)
+        string="Instituição de encaminhamento de moz learning ID", readonly=True)
 
     moz_learning_id = fields.Many2one(
         comodel_name='linhafala.moz_learning', string="Moz Learning")

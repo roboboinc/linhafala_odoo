@@ -211,12 +211,12 @@ class MozLearning(models.Model):
 
     def save(self, vals=None):
         if vals:
-            self.write(vals)
+            return self.write(vals)
         return True
 
     def edit(self, vals=None):
         if vals:
-            self.write(vals)
+            return self.write(vals)
         return True
 
 
@@ -283,7 +283,14 @@ class MozLearningReferral(models.Model):
 
     @api.constrains('moz_learning_status')
     def _check_moz_learning_status(self):
+        valid_statuses = (
+            'Aberto/Pendente',
+            'Dentro do sistema',
+            'Assistido',
+            'No Arquivo Morto',
+            'Encerrado',
+        )
         for record in self:
-            if record.moz_learning_status != 'Aberto/Pendente' and record.moz_learning_status != 'Dentro do sistema' and record.moz_learning_status != 'Assistido' and record.moz_learning_status != 'No Arquivo Morto' and record.moz_learning_status != 'Encerrado':
+            if record.moz_learning_status not in valid_statuses:
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")

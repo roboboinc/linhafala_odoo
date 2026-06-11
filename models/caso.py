@@ -87,13 +87,11 @@ class Caso(models.Model):
         help="Estado do caso"
     )
 
-    @api.model
-    def save(self, vals):
-        return self.write(vals)
-    
-    @api.model
-    def edit(self, vals):
-        return self.write(vals)
+    def save(self):
+        return True
+
+    def edit(self):
+        return self.save()
 
     def init(self):
         """Backfill the taxonomy version for historical records.

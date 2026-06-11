@@ -435,13 +435,11 @@ class Chamada(models.Model):
     def action_cancel(self):
         self.callcaseassistance_status = 'Encerrado'
 
-    @api.model
-    def save(self, vals):
-        return super(Chamada, self).write(vals)
-    
-    @api.model
-    def edit(self, vals):
-        return super(Chamada, self).write(vals)
+    def save(self):
+        return True
+
+    def edit(self):
+        return self.save()
         
 
     # TODO: Change the domain option to match non deprecated docs
@@ -1159,13 +1157,11 @@ class CallCaseAssistance(models.Model):
     def action_manager(self):
         self._compute_manager_by()
 
-    @api.model
-    def save(self, vals):
-        return super(CallCaseAssistance, self).write(vals)
-    
-    @api.model
-    def edit(self, vals):
-        return super(CallCaseAssistance, self).write(vals)
+    def save(self):
+        return True
+
+    def edit(self):
+        return self.save()
     
 class CallCaseAssistanceContactante(models.Model):
     _name="linhafala.chamada.assistance.contactante"

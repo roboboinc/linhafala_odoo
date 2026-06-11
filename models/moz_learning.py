@@ -209,11 +209,13 @@ class MozLearning(models.Model):
     )
 
 
-    def save(self):
-        return True
-
-    def edit(self):
-        return self.save()
+    @api.model
+    def save(self, vals):
+        return super(MozLearning, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(MozLearning, self).write(vals)
 
 
 class MozLearningReferral(models.Model):

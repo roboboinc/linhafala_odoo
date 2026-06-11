@@ -1,4 +1,6 @@
+from xml.dom import ValidationErr
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 import uuid
 
 
@@ -207,11 +209,13 @@ class MozLearning(models.Model):
     )
 
 
-    def save(self):
-        return True
-
-    def edit(self):
-        return self.save()
+    @api.model
+    def save(self, vals):
+        return super(MozLearning, self).write(vals)
+    
+    @api.model
+    def edit(self, vals):
+        return super(MozLearning, self).write(vals)
 
 
 class MozLearningReferral(models.Model):
@@ -274,3 +278,17 @@ class MozLearningReferral(models.Model):
     def _reference_area_onchange(self):
         for rec in self:
             return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
+
+    @api.constrains('assistance_status')
+    def _check_assistance_status(self):
+        for record in self:
+            if record.assistance_status != 'Aberto/Pendente' and record.assistance_status != 'Dentro do sistema' and record.assistance_status != 'Assistido' and record.assistance_status != 'Encerrado':
+                raise ValidationError(
+                    "Por favor, selecione o estado do caso para prosseguir.")
+
+    @api.constrains('moz_learning_status')
+    def _check_moz_learning_status(self):
+        for record in self:
+            if record.moz_learning_status != 'Aberto/Pendente' and record.moz_learning_status != 'Dentro do sistema' and record.moz_learning_status != 'Assistido' and record.moz_learning_status != 'Encerrado':
+                raise ValidationError(
+                    "Por favor, selecione o estado do caso para prosseguir.")

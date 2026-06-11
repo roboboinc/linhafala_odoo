@@ -281,8 +281,9 @@ class MozLearningReferral(models.Model):
 
     @api.constrains('moz_learning_status')
     def _check_moz_learning_status(self):
+        selection_values = self._fields['moz_learning_status']._description_selection(self.env)
         valid_statuses = {
-            value for value, _label in self._fields['moz_learning_status'].selection
+            value for value, _label in selection_values
         }
         for record in self:
             if record.moz_learning_status not in valid_statuses:

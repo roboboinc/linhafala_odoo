@@ -1,6 +1,4 @@
-from xml.dom import ValidationErr
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
 import uuid
 
 
@@ -276,14 +274,3 @@ class MozLearningReferral(models.Model):
     def _reference_area_onchange(self):
         for rec in self:
             return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
-
-    @api.constrains('moz_learning_status')
-    def _check_moz_learning_status(self):
-        selection_values = self._fields['moz_learning_status']._description_selection(self.env)
-        valid_statuses = {
-            value for value, _label in selection_values
-        }
-        for record in self:
-            if record.moz_learning_status not in valid_statuses:
-                raise ValidationError(
-                    "Por favor, selecione o estado do caso para prosseguir.")

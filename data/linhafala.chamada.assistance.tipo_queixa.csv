@@ -1,4 +1,4 @@
-id,name,categoria_queixa_id,subcategoria_auto_id,nivel_risco_id,active
+id,name,categoria_queixa_id:id,subcategoria_auto_id:id,nivel_risco_id:id,active
 tipo_q_adm_1,Atrasos na implementação de actividades,cat_queixa_administrativas,subcat_auto_gestao_operacional,nivel_risco_medio,True
 tipo_q_adm_2,Alterações não comunicadas ao programa,cat_queixa_administrativas,subcat_auto_gestao_operacional,nivel_risco_medio,True
 tipo_q_adm_3,Falhas no cumprimento do cronograma,cat_queixa_administrativas,subcat_auto_gestao_operacional,nivel_risco_medio,True

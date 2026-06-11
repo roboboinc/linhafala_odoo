@@ -215,9 +215,7 @@ class MozLearning(models.Model):
         return True
 
     def edit(self, vals=None):
-        if vals:
-            return self.write(vals)
-        return True
+        return self.save(vals)
 
 
 class MozLearningReferral(models.Model):

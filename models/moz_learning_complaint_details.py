@@ -12,7 +12,7 @@ class MozLearningComplaintDetails(models.Model):
     ]
 
     moz_learning_complaint__details_id = fields.Char(
-        string="ID Detalhes do Moz Learning", readonly=True, unique=True)
+        string="ID Detalhes do Moz Learning", readonly=True)
     
     
     moz_learning_id = fields.Many2one(
@@ -86,7 +86,7 @@ class MozLearningComplaintDetails(models.Model):
     )
 
     date_of_occurrence = fields.Datetime(
-        string="Data de Ocorrência", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+        string="Data de Ocorrência")
 
     complaint_reception_channel = fields.Selection(
         string='Canal de recepção da reclamação',
@@ -107,13 +107,13 @@ class MozLearningComplaintDetails(models.Model):
     focal_point_name = fields.Char(
         string="Nome do ponto focal que recebeu a reclamação (caso tenha sido recebida presencialmente)")
 
-    focal_point_contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação", widget="phone_raw",
-                                      size=13, min_length=9, default="+258")
+    focal_point_contact = fields.Char(string="Contacto do ponto focal que recebeu a reclamação",
+                                      size=13, default="+258")
 
     moz_learning_details = fields.Char(string="Resumo da queixa")
 
     date_of_receipt = fields.Datetime(
-        string="Data de recepção", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+        string="Data de recepção")
 
     attachment = fields.Char(string="Anexe aqui o seu documento ou fotografia")
 

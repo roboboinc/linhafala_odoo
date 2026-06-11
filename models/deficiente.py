@@ -14,7 +14,7 @@ class Deficiente(models.Model):
     ]
 
     deficiente_id = fields.Char(
-        string="ID deficiente", readonly=True, unique=True)
+        string="ID deficiente", readonly=True)
 
     call_id = fields.Many2one(
         comodel_name='linhafala.chamada', string="Chamada")

@@ -12,7 +12,7 @@ class GenderBasedViolence(models.Model):
     ]
 
     gender_based_violence_id = fields.Char(
-        string="ID da VBG", readonly=True, unique=True)
+        string="ID da VBG", readonly=True)
 
     moz_learning_id = fields.Many2one(
         comodel_name='linhafala.moz_learning', string="Moz Learning")
@@ -75,14 +75,12 @@ class GenderBasedViolence(models.Model):
         help="Estado do VBG"
     )
 
-    description_of_the_current_situation = fields.Html(string='Descrição da situação atual', attrs={
-        'style': 'height: 500px;'}, required=False)
+    description_of_the_current_situation = fields.Html(string='Descrição da situação atual', required=False)
 
-    description_of_dompleted_agreements = fields.Html(string='Descrição dos Acordos Concluídos', attrs={
-        'style': 'height: 500px;'}, required=False)
+    description_of_dompleted_agreements = fields.Html(string='Descrição dos Acordos Concluídos', required=False)
 
     updated_at = fields.Datetime(string='Data de actualizaçäo',
                                  default=lambda self: fields.Datetime.now(), readonly=True)
 
     solved_date = fields.Datetime(
-        string="Data de Resolução", widget="datetime", date_format="%d/%m/%Y %H:%M:%S")
+        string="Data de Resolução")

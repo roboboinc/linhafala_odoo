@@ -214,4 +214,120 @@
         parent="linhafala_menu_config"
         sequence="17"
     />
+
+    <!-- ============================================================ -->
+    <!-- Nova classificação de casos (apenas administradores)         -->
+    <!-- ============================================================ -->
+    <menuitem
+        id="linhafala_caso_taxonomy_menu"
+        name="Classificação de Casos (Nova)"
+        parent="linhafala_menu_config"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="18" />
+
+    <menuitem
+        id="linhafala_caso_classificacao_menu_action"
+        name="Classificação de Caso"
+        action="linhafala_caso_classificacao_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="1" />
+
+    <menuitem
+        id="linhafala_caso_tipo_menu_action"
+        name="Tipo de Caso"
+        action="linhafala_caso_tipo_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="2" />
+
+    <menuitem
+        id="linhafala_caso_programa_menu_action"
+        name="Programa de Caso"
+        action="linhafala_caso_programa_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="3" />
+
+    <menuitem
+        id="linhafala_caso_subcategoria_auto_menu_action"
+        name="Subcategoria (Automática)"
+        action="linhafala_caso_subcategoria_auto_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="4" />
+
+    <menuitem
+        id="linhafala_caso_area_menu_action"
+        name="Área do Caso (Automática)"
+        action="linhafala_caso_area_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="5" />
+
+    <menuitem
+        id="linhafala_caso_categoria_juridica_menu_action"
+        name="Categoria Jurídica (Automática)"
+        action="linhafala_caso_categoria_juridica_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="6" />
+
+    <menuitem
+        id="linhafala_caso_enquadramento_menu_action"
+        name="Enquadramento (Automático)"
+        action="linhafala_caso_enquadramento_action"
+        parent="linhafala_caso_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="7" />
+
+    <!-- ============================================================ -->
+    <!-- Nova classificação de queixas/assistências (administradores) -->
+    <!-- ============================================================ -->
+    <menuitem
+        id="linhafala_chamada_assistance_taxonomy_menu"
+        name="Classificação de Queixas (Nova)"
+        parent="linhafala_menu_config"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="19" />
+
+    <menuitem
+        id="linhafala_chamada_assistance_categoria_queixa_menu_action"
+        name="Categoria de Queixa"
+        action="linhafala_chamada_assistance_categoria_queixa_action"
+        parent="linhafala_chamada_assistance_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="1" />
+
+    <menuitem
+        id="linhafala_chamada_assistance_tipo_queixa_menu_action"
+        name="Tipo de Queixa"
+        action="linhafala_chamada_assistance_tipo_queixa_action"
+        parent="linhafala_chamada_assistance_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="2" />
+
+    <menuitem
+        id="linhafala_chamada_assistance_programa_menu_action"
+        name="Programa"
+        action="linhafala_chamada_assistance_programa_action"
+        parent="linhafala_chamada_assistance_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="3" />
+
+    <menuitem
+        id="linhafala_chamada_assistance_subcategoria_auto_menu_action"
+        name="Subcategoria (Automática)"
+        action="linhafala_chamada_assistance_subcategoria_auto_action"
+        parent="linhafala_chamada_assistance_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="4" />
+
+    <menuitem
+        id="linhafala_chamada_assistance_nivel_risco_menu_action"
+        name="Nível de Risco (Automático)"
+        action="linhafala_chamada_assistance_nivel_risco_action"
+        parent="linhafala_chamada_assistance_taxonomy_menu"
+        groups="linhafala_odoo.group_linhafala_administrador"
+        sequence="5" />
 </odoo>

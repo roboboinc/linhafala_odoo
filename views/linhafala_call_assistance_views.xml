@@ -46,6 +46,9 @@
                 <field name="age" optional="hide" />
                 <field name="category" optional="show" />
                 <field name="subcategory" optional="show" />
+                <field name="categoria_queixa_id" optional="show" />
+                <field name="tipo_queixa_id" optional="show" />
+                <field name="programa_id" optional="hide" />
                 <field name="created_at" optional="hide" />
                 <field name="manager_by" optional="show" />
                 <field decoration-danger="callcaseassistance_priority=='Muito Urgente'"
@@ -123,9 +126,22 @@
                                 <strong>Comunidade/Bairro: </strong>
                                 <field name="bairro" />
                             </p>
-                            <p>
+                            <field name="taxonomy_version" invisible="1" />
+                            <p attrs="{'invisible': [('taxonomy_version', '&gt;=', 2)]}">
                                 <label for="category">* Categoria: </label>
-                                <field name="category" />
+                                <field name="category" attrs="{'required': [('taxonomy_version', '&lt;', 2)]}" />
+                            </p>
+                            <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                <label for="categoria_queixa_id">* Categoria de Queixa: </label>
+                                <field name="categoria_queixa_id" attrs="{'required': [('taxonomy_version', '&gt;=', 2)]}" />
+                            </p>
+                            <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                <label for="tipo_queixa_id">* Tipo de Queixa: </label>
+                                <field name="tipo_queixa_id" attrs="{'required': [('taxonomy_version', '&gt;=', 2)]}" />
+                            </p>
+                            <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                <label for="programa_id">Programa: </label>
+                                <field name="programa_id" />
                             </p>
                             <p>
                                 <label for="callcaseassistance_priority">* Periodo de Resolução: </label>
@@ -157,10 +173,20 @@
                                 <field name="gender" />
                             </p>
                             
-                            <p>
+                            <p attrs="{'invisible': [('taxonomy_version', '&gt;=', 2)]}">
                                 <label for="subcategory">* Sub Categoria: </label>
-                                <field name="subcategory" />
+                                <field name="subcategory" attrs="{'required': [('taxonomy_version', '&lt;', 2)]}" />
                             </p>
+                            <div groups="linhafala_odoo.group_linhafala_administrador" attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
+                                <p>
+                                    <strong>Subcategoria (Automática): </strong>
+                                    <field name="subcategoria_auto_id" readonly="1" />
+                                </p>
+                                <p>
+                                    <strong>Nível de Risco (Automático): </strong>
+                                    <field name="nivel_risco_id" readonly="1" />
+                                </p>
+                            </div>
 
                             <p>
                                 <label for="age">

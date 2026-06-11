@@ -1,0 +1,4 @@
+id,name,active
+caso_catjur_criminal,Natureza Criminal,1
+caso_catjur_civil,Natureza Civil,1
+caso_catjur_outra,Outra Natureza,1

@@ -140,6 +140,13 @@ class ExportController(http.Controller):
                 case_type.name AS categoria,
                 secundary_case_type.name AS subcategoria,
                 case_type_classification.name AS classificacao_provisoria,
+                COALESCE(classificacao.name, cas.classificacao_snapshot) AS classificacao,
+                COALESCE(tipo.name, cas.tipo_case_snapshot) AS tipo_do_caso,
+                COALESCE(programa.name, cas.programa_snapshot) AS programa,
+                COALESCE(subcategoria_auto.name, cas.subcategoria_auto_snapshot) AS subcategoria_automatica,
+                COALESCE(area.name, cas.area_snapshot) AS area_do_caso,
+                COALESCE(categoria_juridica.name, cas.categoria_juridica_snapshot) AS categoria_juridica,
+                COALESCE(enquadramento.name, cas.enquadramento_snapshot) AS enquadramento,
                 person_involved.fullname AS nome_da_pessoa_envolvida,
                 person_involved.person_type AS categoria_pessoa,
                 person_involved.contact AS contacto,
@@ -176,6 +183,13 @@ class ExportController(http.Controller):
                 LEFT JOIN linhafala_caso_categoria case_type ON cas.case_type = case_type.id
                 LEFT JOIN linhafala_caso_subcategoria secundary_case_type ON cas.secundary_case_type = secundary_case_type.id
                 LEFT JOIN linhafala_caso_case_type_classification case_type_classification ON cas.case_type_classification = case_type_classification.id
+                LEFT JOIN linhafala_caso_classificacao classificacao ON cas.classificacao_id = classificacao.id
+                LEFT JOIN linhafala_caso_tipo tipo ON cas.tipo_case_id = tipo.id
+                LEFT JOIN linhafala_caso_programa programa ON cas.programa_id = programa.id
+                LEFT JOIN linhafala_caso_subcategoria_auto subcategoria_auto ON cas.subcategoria_auto_id = subcategoria_auto.id
+                LEFT JOIN linhafala_caso_area area ON cas.area_id = area.id
+                LEFT JOIN linhafala_caso_categoria_juridica categoria_juridica ON cas.categoria_juridica_id = categoria_juridica.id
+                LEFT JOIN linhafala_caso_enquadramento enquadramento ON cas.enquadramento_id = enquadramento.id
                 LEFT JOIN linhafala_caso_forwarding_institution forwarding ON cas.id = forwarding.case_id
                 LEFT JOIN linhafala_caso_referenceentity referenceentity ON forwarding.reference_entity = referenceentity.id
                 LEFT JOIN linhafala_caso_casereference casereference ON forwarding.case_reference = casereference.id
@@ -257,8 +271,13 @@ class ExportController(http.Controller):
                 CAST(callassistance.created_at AS date) AS criado_aos,
                 callassistance.callcaseassistance_priority AS prioridade,
                 callassistance.callcaseassistance_status AS estado,
-                category.name AS tipologia,
-                subcategory.name AS sub_tipologia,
+                COALESCE(category.name, callassistance.category_snapshot) AS tipologia,
+                COALESCE(subcategory.name, callassistance.subcategory_snapshot) AS sub_tipologia,
+                COALESCE(categoria_queixa.name, callassistance.categoria_queixa_snapshot) AS categoria_queixa,
+                COALESCE(tipo_queixa.name, callassistance.tipo_queixa_snapshot) AS tipo_queixa,
+                COALESCE(programa.name, callassistance.programa_snapshot) AS programa,
+                COALESCE(subcategoria_auto.name, callassistance.subcategoria_auto_snapshot) AS subcategoria_automatica,
+                COALESCE(nivel_risco.name, callassistance.nivel_risco_snapshot) AS nivel_de_risco,
                 created_by.login AS criado_por,
                 assistencereferall.area_type AS tipo_de_area_de_encaminhamento,
                 assistencereferall.assistance_status AS estado_da_assistencia
@@ -269,6 +288,11 @@ class ExportController(http.Controller):
                 LEFT JOIN linhafala_localidade loc ON callassistance.localidade = loc.id
                 LEFT JOIN linhafala_chamada_assistance_categoria category ON callassistance.category = category.id
                 LEFT JOIN linhafala_chamada_assistance_subcategoria subcategory ON callassistance.subcategory = subcategory.id
+                LEFT JOIN linhafala_chamada_assistance_categoria_queixa categoria_queixa ON callassistance.categoria_queixa_id = categoria_queixa.id
+                LEFT JOIN linhafala_chamada_assistance_tipo_queixa tipo_queixa ON callassistance.tipo_queixa_id = tipo_queixa.id
+                LEFT JOIN linhafala_chamada_assistance_programa programa ON callassistance.programa_id = programa.id
+                LEFT JOIN linhafala_chamada_assistance_subcategoria_auto subcategoria_auto ON callassistance.subcategoria_auto_id = subcategoria_auto.id
+                LEFT JOIN linhafala_chamada_assistance_nivel_risco nivel_risco ON callassistance.nivel_risco_id = nivel_risco.id
                 LEFT JOIN res_users created_by ON callassistance.created_by = created_by.id
                 LEFT JOIN res_users reporter ON callassistance.reporter = reporter.id
                 LEFT JOIN linhafala_chamada_assistance_referral assistencereferall ON callassistance.id = assistencereferall.assistance_id

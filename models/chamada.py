@@ -788,7 +788,6 @@ class CallCaseAssistance(models.Model):
     category = fields.Many2one(
         comodel_name='linhafala.chamada.assistance.categoria',
         string="Categoria",
-        required=True,
         domain="['|', ('active', '=', True), ('id', '=', category)]",
     )
     category_snapshot = fields.Char(
@@ -807,6 +806,80 @@ class CallCaseAssistance(models.Model):
         readonly=True,
         copy=False,
         help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+
+    # ------------------------------------------------------------------
+    # New complaint taxonomy (taxonomy_version >= 2)
+    # The data-entry user only selects Categoria de Queixa, Tipo de Queixa
+    # and Programa. The remaining dimensions (Subcategoria e Nível de Risco)
+    # are derived automatically from the selected Tipo de Queixa and are
+    # visible (read-only) to administrators only.
+    # ------------------------------------------------------------------
+    taxonomy_version = fields.Integer(
+        string="Versão da Classificação",
+        default=2,
+        readonly=True,
+        copy=False,
+        help="1 = classificação antiga (Categoria/Sub-categoria); "
+             "2 = nova classificação (Categoria de Queixa/Tipo de Queixa/Programa). "
+             "Registos antigos mantêm a versão 1 e a sua configuração original.",
+    )
+
+    categoria_queixa_id = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.categoria_queixa',
+        string="Categoria de Queixa",
+        domain="['|', ('active', '=', True), ('id', '=', categoria_queixa_id)]",
+    )
+    categoria_queixa_snapshot = fields.Char(
+        string='Categoria de Queixa (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+    tipo_queixa_id = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.tipo_queixa',
+        string="Tipo de Queixa",
+        domain="['&', ('categoria_queixa_id', '=', categoria_queixa_id), "
+               "'|', ('active', '=', True), ('id', '=', tipo_queixa_id)]",
+    )
+    tipo_queixa_snapshot = fields.Char(
+        string='Tipo de Queixa (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+    programa_id = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.programa',
+        string="Programa",
+        domain="['|', ('active', '=', True), ('id', '=', programa_id)]",
+    )
+    programa_snapshot = fields.Char(
+        string='Programa (histórico)',
+        readonly=True,
+        copy=False,
+        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
+    )
+
+    # Automatic (derived) dimensions - read-only, admin-only in the UI.
+    subcategoria_auto_id = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.subcategoria_auto',
+        string="Subcategoria (Automática)",
+        readonly=True,
+    )
+    subcategoria_auto_snapshot = fields.Char(
+        string='Subcategoria automática (histórico)',
+        readonly=True,
+        copy=False,
+    )
+    nivel_risco_id = fields.Many2one(
+        comodel_name='linhafala.chamada.assistance.nivel_risco',
+        string="Nível de Risco (Automático)",
+        readonly=True,
+    )
+    nivel_risco_snapshot = fields.Char(
+        string='Nível de Risco (histórico)',
+        readonly=True,
+        copy=False,
     )
     callcaseassistance_status = fields.Selection(
         string='Estado',
@@ -881,14 +954,75 @@ class CallCaseAssistance(models.Model):
             subcat = self.env['linhafala.chamada.assistance.subcategoria'].browse(vals['subcategory'])
             if subcat.exists():
                 vals['subcategory_snapshot'] = subcat.name
+        vals = self._prepare_assistance_taxonomy_values(vals)
         if vals:
             vals['updated_at'] = fields.Datetime.now()
         return super(CallCaseAssistance, self).write(vals)
 
-    @api.model
-    def create(self, vals):
-        vals['uuid'] = str(uuid.uuid4())
-        return super(CallCaseAssistance, self).create(vals)
+    def _prepare_assistance_taxonomy_values(self, vals):
+        """Populate snapshots and derive the automatic dimensions for the new
+        complaint taxonomy (Categoria de Queixa/Tipo de Queixa/Programa).
+
+        The automatic fields (Subcategoria e Nível de Risco) are taken from the
+        selected Tipo de Queixa so that the data-entry user never has to fill
+        them in manually.
+        """
+        prepared = dict(vals)
+
+        if prepared.get('tipo_queixa_id'):
+            tipo = self.env['linhafala.chamada.assistance.tipo_queixa'].browse(prepared['tipo_queixa_id'])
+            if tipo.exists():
+                prepared['tipo_queixa_snapshot'] = tipo.name
+                prepared['subcategoria_auto_id'] = tipo.subcategoria_auto_id.id
+                prepared['nivel_risco_id'] = tipo.nivel_risco_id.id
+                prepared['subcategoria_auto_snapshot'] = tipo.subcategoria_auto_id.name
+                prepared['nivel_risco_snapshot'] = tipo.nivel_risco_id.name
+                if tipo.categoria_queixa_id and not prepared.get('categoria_queixa_id'):
+                    prepared['categoria_queixa_id'] = tipo.categoria_queixa_id.id
+
+        if prepared.get('categoria_queixa_id'):
+            cat = self.env['linhafala.chamada.assistance.categoria_queixa'].browse(prepared['categoria_queixa_id'])
+            if cat.exists():
+                prepared['categoria_queixa_snapshot'] = cat.name
+
+        if prepared.get('programa_id'):
+            programa = self.env['linhafala.chamada.assistance.programa'].browse(prepared['programa_id'])
+            if programa.exists():
+                prepared['programa_snapshot'] = programa.name
+
+        return prepared
+
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
+    def init(self):
+        """Backfill the taxonomy version for historical assistance records.
+
+        New records default to version 2 (new taxonomy). Any pre-existing
+        record that does not use the new Categoria de Queixa field is a legacy
+        record and must keep version 1 so its original Categoria/Sub-categoria
+        configuration and validation are preserved. Idempotent.
+        """
+        if not self._column_exists(self._table, 'categoria_queixa_id'):
+            return
+        self.env.cr.execute(
+            """
+            UPDATE %s
+               SET taxonomy_version = 1
+             WHERE categoria_queixa_id IS NULL
+               AND (taxonomy_version IS NULL OR taxonomy_version <> 1)
+            """
+            % self._table
+        )
 
     @api.model
     def create(self, vals):
@@ -900,6 +1034,11 @@ class CallCaseAssistance(models.Model):
             subcat = self.env['linhafala.chamada.assistance.subcategoria'].browse(vals['subcategory'])
             if subcat.exists():
                 vals['subcategory_snapshot'] = subcat.name
+        vals = self._prepare_assistance_taxonomy_values(vals)
+        # New records use the updated taxonomy by default. Historical records
+        # keep taxonomy_version = 1 (set in init) and their original config.
+        vals.setdefault('taxonomy_version', 2)
+        vals.setdefault('uuid', str(uuid.uuid4()))
         if vals.get('assistance_id', '/') == '/':
             next_assistance_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.assistance_id.seq') or '/'
             vals['assistance_id'] = next_assistance_id.split('-')[-1]
@@ -909,7 +1048,7 @@ class CallCaseAssistance(models.Model):
                 vals['contact'] = parent_call.contact
         return super(CallCaseAssistance, self).create(vals)
 
-    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'callcaseassistance_priority', 'detailed_description','age','gender')
+    @api.constrains('distrito', 'provincia', 'category', 'subcategory', 'categoria_queixa_id', 'tipo_queixa_id', 'taxonomy_version', 'callcaseassistance_priority', 'detailed_description', 'age', 'gender')
     def _check_all(self):
         for record in self:
             if not record.distrito:
@@ -918,12 +1057,20 @@ class CallCaseAssistance(models.Model):
             if not record.provincia:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Provincia")
-            if not record.category:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio: Categoria")
-            if not record.subcategory:
-                raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio: Sub-categoria")
+            if record.taxonomy_version and record.taxonomy_version >= 2:
+                if not record.categoria_queixa_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio: Categoria de Queixa")
+                if not record.tipo_queixa_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio: Tipo de Queixa")
+            else:
+                if not record.category:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio: Categoria")
+                if not record.subcategory:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio: Sub-categoria")
             if not record.callcaseassistance_priority:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio: Período de Resolução")
@@ -947,6 +1094,37 @@ class CallCaseAssistance(models.Model):
     def _subcategory_onchange(self):
         for rec in self:
             rec.subcategory_snapshot = rec.subcategory.name if rec.subcategory else False
+
+    @api.onchange('categoria_queixa_id')
+    def _categoria_queixa_id_onchange(self):
+        for rec in self:
+            rec.categoria_queixa_snapshot = rec.categoria_queixa_id.name if rec.categoria_queixa_id else False
+            # Reset the dependent Tipo when the Categoria changes.
+            if rec.tipo_queixa_id and rec.tipo_queixa_id.categoria_queixa_id != rec.categoria_queixa_id:
+                rec.tipo_queixa_id = False
+                rec.tipo_queixa_snapshot = False
+                rec.subcategoria_auto_id = False
+                rec.nivel_risco_id = False
+                rec.subcategoria_auto_snapshot = False
+                rec.nivel_risco_snapshot = False
+
+    @api.onchange('tipo_queixa_id')
+    def _tipo_queixa_id_onchange(self):
+        for rec in self:
+            tipo = rec.tipo_queixa_id
+            rec.tipo_queixa_snapshot = tipo.name if tipo else False
+            rec.subcategoria_auto_id = tipo.subcategoria_auto_id if tipo else False
+            rec.nivel_risco_id = tipo.nivel_risco_id if tipo else False
+            rec.subcategoria_auto_snapshot = tipo.subcategoria_auto_id.name if tipo and tipo.subcategoria_auto_id else False
+            rec.nivel_risco_snapshot = tipo.nivel_risco_id.name if tipo and tipo.nivel_risco_id else False
+            if tipo and tipo.categoria_queixa_id and not rec.categoria_queixa_id:
+                rec.categoria_queixa_id = tipo.categoria_queixa_id
+                rec.categoria_queixa_snapshot = tipo.categoria_queixa_id.name
+
+    @api.onchange('programa_id')
+    def _programa_id_onchange(self):
+        for rec in self:
+            rec.programa_snapshot = rec.programa_id.name if rec.programa_id else False
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

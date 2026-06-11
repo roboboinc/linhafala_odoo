@@ -1,0 +1,32 @@
+id,name,active
+caso_classif_violacao,Violação,1
+caso_classif_assedio_sexual,Assédio sexual,1
+caso_classif_abuso_sexual,Abuso sexual,1
+caso_classif_exploracao_sexual,Exploração sexual,1
+caso_classif_lenocinio,Lenocínio (aliciamento),1
+caso_classif_pornografia,Utilização de menor em pornografia,1
+caso_classif_corrupcao_menores,Corrupção de menores,1
+caso_classif_partilha_imagens,Partilha não consentida de imagens íntimas,1
+caso_classif_aliciamento_online,Aliciamento online,1
+caso_classif_violencia_fisica,Violência física,1
+caso_classif_violencia_psicologica,Violência psicológica,1
+caso_classif_violencia_patrimonial,Violência patrimonial,1
+caso_classif_negligencia,Negligência,1
+caso_classif_abandono_incapaz,Abandono de incapaz,1
+caso_classif_rapto,Rapto de menor (criança),1
+caso_classif_trafico,Tráfico de menor (criança),1
+caso_classif_trabalho_infantil,Trabalho infantil,1
+caso_classif_crianca_rua,Criança na rua,1
+caso_classif_crianca_deslocada,Criança deslocada,1
+caso_classif_crianca_vulneravel,Criança em situação de vulnerabilidade (COV),1
+caso_classif_acesso_educacao,Acesso à educação,1
+caso_classif_gravidez_precoce,Gravidez precoce,1
+caso_classif_consumo_drogas,Consumo de drogas e álcool,1
+caso_classif_suicidio,Suicídio,1
+caso_classif_pensao_alimentos,Falta de pensão de alimentos,1
+caso_classif_poder_parental,Regulação do poder parental,1
+caso_classif_impugnacao_paternidade,Impugnação de paternidade,1
+caso_classif_recusa_perfilhacao,Recusa de perfilhação,1
+caso_classif_registo_nascimento,Falta de registo de nascimento,1
+caso_classif_discriminacao,Discriminação,1
+caso_classif_crianca_deficiencia,Criança com deficiência,1

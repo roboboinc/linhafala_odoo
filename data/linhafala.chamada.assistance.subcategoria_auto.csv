@@ -1,0 +1,39 @@
+id,name,active
+subcat_auto_gestao_operacional,Gestão operacional,True
+subcat_auto_supervisao,Supervisão,True
+subcat_auto_coordenacao,Coordenação,True
+subcat_auto_informacao,Informação,True
+subcat_auto_comunicacao_institucional,Comunicação institucional,True
+subcat_auto_inclusao,Inclusão,True
+subcat_auto_uso_indevido,Uso indevido,True
+subcat_auto_ma_conduta,Má conduta,True
+subcat_auto_fraude,Fraude,True
+subcat_auto_violacao_direitos,Violação de direitos,True
+subcat_auto_corrupcao,Corrupção,True
+subcat_auto_acesso,Acesso,True
+subcat_auto_qualidade,Qualidade,True
+subcat_auto_distribuicao,Distribuição,True
+subcat_auto_disponibilidade,Disponibilidade,True
+subcat_auto_aprendizagem,Aprendizagem,True
+subcat_auto_relacao_escolar,Relação escolar,True
+subcat_auto_governacao_interna,Governação interna,True
+subcat_auto_inclusao_social,Inclusão social,True
+subcat_auto_contexto_sociocultural,Contexto sociocultural,True
+subcat_auto_infraestrutura,Infra-estrutura,True
+subcat_auto_salvaguardas,Salvaguardas,True
+subcat_auto_vbg,VBG,True
+subcat_auto_protecao_crianca,Proteção da criança,True
+subcat_auto_tratamento,Tratamento,True
+subcat_auto_bem_estar,Bem-estar,True
+subcat_auto_saude_materna,Saúde materna,True
+subcat_auto_saude_sexual_reprodutiva,Saúde sexual e reprodutiva,True
+subcat_auto_apoio_psicologico,Apoio psicológico,True
+subcat_auto_impacto_ambiental,Impacto ambiental,True
+subcat_auto_gestao_residuos,Gestão de resíduos,True
+subcat_auto_danos_materiais,Danos materiais,True
+subcat_auto_terras,Terras,True
+subcat_auto_seguranca_trabalho,Segurança no trabalho,True
+subcat_auto_alimentos,Alimentos,True
+subcat_auto_logistica,Logística,True
+subcat_auto_abrigo,Abrigo,True
+subcat_auto_transferencias,Transferências,True

@@ -1,0 +1,19 @@
+id,name,active
+cat_queixa_administrativas,Queixas ou Reclamações Administrativas / Operacionais e Transparência,True
+cat_queixa_comunicacao,Queixas ou Reclamações sobre a Comunicação,True
+cat_queixa_acesso_servicos,Queixas ou Reclamações relacionados com o acesso aos serviços,True
+cat_queixa_irregularidades_conduta,Queixas ou Reclamações sobre Irregularidades e Conduta,True
+cat_queixa_insumos,Queixas ou Reclamações relacionados com Insumos,True
+cat_queixa_educacao,Queixas ou Reclamações relacionados com a Educação,True
+cat_queixa_coordenacao_gestao,Queixas ou Reclamações da Coordenação e Gestão,True
+cat_queixa_participacao_inclusao,Queixas ou Reclamações relacionados com a Participação e Inclusão,True
+cat_queixa_infraestruturas,Queixas ou Reclamações relacionados com infra-estruturas,True
+cat_queixa_vbg_psea,Queixas ou Reclamações relacionados com VBG/PSEA,True
+cat_queixa_vbg_protecao_crianca,VBG / Proteção da criança,True
+cat_queixa_saude,Informação/Queixas / Reclamações sobre a Saúde,True
+cat_queixa_saude_mental,Informação sobre Saúde mental,True
+cat_queixa_ambientais,Queixas ou Reclamações Ambientais,True
+cat_queixa_conflitos_comunitarios,Queixas ou Reclamações relacionados com Conflitos comunitários,True
+cat_queixa_seguranca_laboral,Queixas ou Reclamações sobre Segurança e Relações laborais,True
+cat_queixa_assistencia_humanitaria,Queixas ou Reclamações sobre Assistência humanitária,True
+cat_queixa_financeiras,Queixas ou Reclamações Financeiras,True

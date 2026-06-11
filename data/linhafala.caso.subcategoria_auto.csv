@@ -1,0 +1,20 @@
+id,name,active
+caso_subcat_violencia_sexual,Violência sexual,1
+caso_subcat_violencia_fisica,Violência física,1
+caso_subcat_violencia_psicologica,Violência psicológica,1
+caso_subcat_violencia_economica,Violência económica,1
+caso_subcat_negligencia,Negligência,1
+caso_subcat_rapto,Rapto de menor (criança),1
+caso_subcat_trafico,Tráfico de menor (criança),1
+caso_subcat_exploracao_economica,Exploração económica,1
+caso_subcat_vulnerabilidade,Vulnerabilidade,1
+caso_subcat_acesso_educacao,Acesso à educação,1
+caso_subcat_saude_sexual,Saúde sexual,1
+caso_subcat_saude,Saúde,1
+caso_subcat_saude_mental,Saúde mental,1
+caso_subcat_direitos_crianca,Direitos da criança,1
+caso_subcat_responsabilidade_parental,Responsabilidade parental,1
+caso_subcat_filiacao,Filiação,1
+caso_subcat_identidade,Identidade,1
+caso_subcat_violacao_direitos,Violação de direitos,1
+caso_subcat_necessidades_especiais,Necessidades especiais,1

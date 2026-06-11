@@ -173,6 +173,42 @@ class CasoAPIController(http.Controller):
                         error_code='INVALID_CLASSIFICATION'
                     )
 
+            # New taxonomy (taxonomy_version 2): classificacao / tipo_case / programa.
+            # The automatic dimensions (subcategoria, area, categoria juridica,
+            # enquadramento) are derived server-side from the Tipo do Caso.
+            if 'classificacao_id' in data and data.get('classificacao_id'):
+                resolved = _resolve_m2o(data.get('classificacao_id'), 'linhafala.caso.classificacao')
+                if resolved:
+                    data['classificacao_id'] = resolved
+                elif not isinstance(data.get('classificacao_id'), int):
+                    return self._error_response(
+                        f"Invalid classificacao_id: '{data.get('classificacao_id')}'. Could not find matching classification.",
+                        status=400,
+                        error_code='INVALID_CLASSIFICACAO'
+                    )
+
+            if 'tipo_case_id' in data and data.get('tipo_case_id'):
+                resolved = _resolve_m2o(data.get('tipo_case_id'), 'linhafala.caso.tipo')
+                if resolved:
+                    data['tipo_case_id'] = resolved
+                elif not isinstance(data.get('tipo_case_id'), int):
+                    return self._error_response(
+                        f"Invalid tipo_case_id: '{data.get('tipo_case_id')}'. Could not find matching case type.",
+                        status=400,
+                        error_code='INVALID_TIPO_CASE'
+                    )
+
+            if 'programa_id' in data and data.get('programa_id'):
+                resolved = _resolve_m2o(data.get('programa_id'), 'linhafala.caso.programa')
+                if resolved:
+                    data['programa_id'] = resolved
+                elif not isinstance(data.get('programa_id'), int):
+                    return self._error_response(
+                        f"Invalid programa_id: '{data.get('programa_id')}'. Could not find matching programa.",
+                        status=400,
+                        error_code='INVALID_PROGRAMA'
+                    )
+
             # created_by -> res.users (accept login or name)
             if 'created_by' in data and data.get('created_by'):
                 created_by_val = data.get('created_by')

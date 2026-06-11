@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- ============================================================ -->
+    <!-- Categoria de Queixa (visível ao utilizador)                  -->
+    <!-- ============================================================ -->
+    <record id="linhafala_chamada_assistance_categoria_queixa_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.categoria_queixa.tree</field>
+        <field name="model">linhafala.chamada.assistance.categoria_queixa</field>
+        <field name="arch" type="xml">
+            <tree string="Categorias de Queixa">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_categoria_queixa_view_form" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.categoria_queixa.form</field>
+        <field name="model">linhafala.chamada.assistance.categoria_queixa</field>
+        <field name="arch" type="xml">
+            <form string="Categoria de Queixa">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <field name="active" />
+                    </group>
+                    <group string="Tipos de Queixa associados">
+                        <field name="tipo_ids" nolabel="1" context="{'active_test': False}">
+                            <tree editable="bottom">
+                                <field name="name" />
+                                <field name="subcategoria_auto_id" />
+                                <field name="nivel_risco_id" />
+                                <field name="active" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_categoria_queixa_action" model="ir.actions.act_window">
+        <field name="name">Categoria de Queixa</field>
+        <field name="res_model">linhafala.chamada.assistance.categoria_queixa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Categorias de Queixa
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Tipo de Queixa (visível ao utilizador)                       -->
+    <!-- ============================================================ -->
+    <record id="linhafala_chamada_assistance_tipo_queixa_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.tipo_queixa.tree</field>
+        <field name="model">linhafala.chamada.assistance.tipo_queixa</field>
+        <field name="arch" type="xml">
+            <tree string="Tipos de Queixa" editable="bottom">
+                <field name="categoria_queixa_id" />
+                <field name="name" />
+                <field name="subcategoria_auto_id" />
+                <field name="nivel_risco_id" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_tipo_queixa_view_form" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.tipo_queixa.form</field>
+        <field name="model">linhafala.chamada.assistance.tipo_queixa</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Queixa">
+                <sheet>
+                    <widget name="web_ribbon" title="Arquivado" bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}" />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <field name="categoria_queixa_id" />
+                        <field name="subcategoria_auto_id" />
+                        <field name="nivel_risco_id" />
+                        <field name="active" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_tipo_queixa_action" model="ir.actions.act_window">
+        <field name="name">Tipo de Queixa</field>
+        <field name="res_model">linhafala.chamada.assistance.tipo_queixa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Tipos de Queixa
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Programa (visível ao utilizador)                             -->
+    <!-- ============================================================ -->
+    <record id="linhafala_chamada_assistance_programa_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.programa.tree</field>
+        <field name="model">linhafala.chamada.assistance.programa</field>
+        <field name="arch" type="xml">
+            <tree string="Programas" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_programa_action" model="ir.actions.act_window">
+        <field name="name">Programa</field>
+        <field name="res_model">linhafala.chamada.assistance.programa</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Programas
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Subcategoria (Automática) - apenas administradores           -->
+    <!-- ============================================================ -->
+    <record id="linhafala_chamada_assistance_subcategoria_auto_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.subcategoria_auto.tree</field>
+        <field name="model">linhafala.chamada.assistance.subcategoria_auto</field>
+        <field name="arch" type="xml">
+            <tree string="Subcategorias (Automáticas)" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_subcategoria_auto_action" model="ir.actions.act_window">
+        <field name="name">Subcategoria (Automática)</field>
+        <field name="res_model">linhafala.chamada.assistance.subcategoria_auto</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Subcategorias (Automáticas)
+            </p>
+        </field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Nível de Risco (Automático) - apenas administradores         -->
+    <!-- ============================================================ -->
+    <record id="linhafala_chamada_assistance_nivel_risco_view_tree" model="ir.ui.view">
+        <field name="name">linhafala.chamada.assistance.nivel_risco.tree</field>
+        <field name="model">linhafala.chamada.assistance.nivel_risco</field>
+        <field name="arch" type="xml">
+            <tree string="Níveis de Risco" editable="bottom">
+                <field name="name" />
+                <field name="active" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="linhafala_chamada_assistance_nivel_risco_action" model="ir.actions.act_window">
+        <field name="name">Nível de Risco (Automático)</field>
+        <field name="res_model">linhafala.chamada.assistance.nivel_risco</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gerir Níveis de Risco (Automáticos)
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -271,8 +271,13 @@ class ExportController(http.Controller):
                 CAST(callassistance.created_at AS date) AS criado_aos,
                 callassistance.callcaseassistance_priority AS prioridade,
                 callassistance.callcaseassistance_status AS estado,
-                category.name AS tipologia,
-                subcategory.name AS sub_tipologia,
+                COALESCE(category.name, callassistance.category_snapshot) AS tipologia,
+                COALESCE(subcategory.name, callassistance.subcategory_snapshot) AS sub_tipologia,
+                COALESCE(categoria_queixa.name, callassistance.categoria_queixa_snapshot) AS categoria_queixa,
+                COALESCE(tipo_queixa.name, callassistance.tipo_queixa_snapshot) AS tipo_queixa,
+                COALESCE(programa.name, callassistance.programa_snapshot) AS programa,
+                COALESCE(subcategoria_auto.name, callassistance.subcategoria_auto_snapshot) AS subcategoria_automatica,
+                COALESCE(nivel_risco.name, callassistance.nivel_risco_snapshot) AS nivel_de_risco,
                 created_by.login AS criado_por,
                 assistencereferall.area_type AS tipo_de_area_de_encaminhamento,
                 assistencereferall.assistance_status AS estado_da_assistencia
@@ -283,6 +288,11 @@ class ExportController(http.Controller):
                 LEFT JOIN linhafala_localidade loc ON callassistance.localidade = loc.id
                 LEFT JOIN linhafala_chamada_assistance_categoria category ON callassistance.category = category.id
                 LEFT JOIN linhafala_chamada_assistance_subcategoria subcategory ON callassistance.subcategory = subcategory.id
+                LEFT JOIN linhafala_chamada_assistance_categoria_queixa categoria_queixa ON callassistance.categoria_queixa_id = categoria_queixa.id
+                LEFT JOIN linhafala_chamada_assistance_tipo_queixa tipo_queixa ON callassistance.tipo_queixa_id = tipo_queixa.id
+                LEFT JOIN linhafala_chamada_assistance_programa programa ON callassistance.programa_id = programa.id
+                LEFT JOIN linhafala_chamada_assistance_subcategoria_auto subcategoria_auto ON callassistance.subcategoria_auto_id = subcategoria_auto.id
+                LEFT JOIN linhafala_chamada_assistance_nivel_risco nivel_risco ON callassistance.nivel_risco_id = nivel_risco.id
                 LEFT JOIN res_users created_by ON callassistance.created_by = created_by.id
                 LEFT JOIN res_users reporter ON callassistance.reporter = reporter.id
                 LEFT JOIN linhafala_chamada_assistance_referral assistencereferall ON callassistance.id = assistencereferall.assistance_id

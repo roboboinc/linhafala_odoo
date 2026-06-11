@@ -29,6 +29,7 @@
         # Configuration views that define actions used by menus
         'views/linhafala_configurations_views.xml',
         'views/linhafala_caso_taxonomy_views.xml',
+        'views/linhafala_chamada_assistance_taxonomy_views.xml',
         'views/linhafala_case_form_view.xml',
         'views/linhafala_person_involved.xml',
         'views/linhafala_dashboard_manager.xml',
@@ -57,6 +58,10 @@
         'data/linhafala.caso.referenceentity.csv',
         'data/linhafala.chamada.assistance.categoria.csv',
         'data/linhafala.chamada.assistance.subcategoria.csv',
+        'data/linhafala.chamada.assistance.nivel_risco.csv',
+        'data/linhafala.chamada.assistance.subcategoria_auto.csv',
+        'data/linhafala.chamada.assistance.categoria_queixa.csv',
+        'data/linhafala.chamada.assistance.tipo_queixa.csv',
         'reports/case_card.xml',
         'reports/assistance_card.xml',
         'reports/report.xml',

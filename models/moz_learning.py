@@ -283,13 +283,9 @@ class MozLearningReferral(models.Model):
 
     @api.constrains('moz_learning_status')
     def _check_moz_learning_status(self):
-        valid_statuses = (
-            'Aberto/Pendente',
-            'Dentro do sistema',
-            'Assistido',
-            'No Arquivo Morto',
-            'Encerrado',
-        )
+        valid_statuses = {
+            value for value, _label in self._fields['moz_learning_status'].selection
+        }
         for record in self:
             if record.moz_learning_status not in valid_statuses:
                 raise ValidationError(

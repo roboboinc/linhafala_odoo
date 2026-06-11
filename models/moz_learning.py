@@ -209,13 +209,15 @@ class MozLearning(models.Model):
     )
 
 
-    @api.model
-    def save(self, vals):
-        return super(MozLearning, self).write(vals)
-    
-    @api.model
-    def edit(self, vals):
-        return super(MozLearning, self).write(vals)
+    def save(self, vals=None):
+        if vals:
+            self.write(vals)
+        return True
+
+    def edit(self, vals=None):
+        if vals:
+            self.write(vals)
+        return True
 
 
 class MozLearningReferral(models.Model):
@@ -279,16 +281,9 @@ class MozLearningReferral(models.Model):
         for rec in self:
             return {'value': {'reference_entity': False}, 'domain': {'reference_entity': [('reference_area', '=', rec.reference_area.id)]}}
 
-    @api.constrains('assistance_status')
-    def _check_assistance_status(self):
-        for record in self:
-            if record.assistance_status != 'Aberto/Pendente' and record.assistance_status != 'Dentro do sistema' and record.assistance_status != 'Assistido' and record.assistance_status != 'Encerrado':
-                raise ValidationError(
-                    "Por favor, selecione o estado do caso para prosseguir.")
-
     @api.constrains('moz_learning_status')
     def _check_moz_learning_status(self):
         for record in self:
-            if record.moz_learning_status != 'Aberto/Pendente' and record.moz_learning_status != 'Dentro do sistema' and record.moz_learning_status != 'Assistido' and record.moz_learning_status != 'Encerrado':
+            if record.moz_learning_status != 'Aberto/Pendente' and record.moz_learning_status != 'Dentro do sistema' and record.moz_learning_status != 'Assistido' and record.moz_learning_status != 'No Arquivo Morto' and record.moz_learning_status != 'Encerrado':
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")

@@ -191,12 +191,12 @@ class PersonInvolved(models.Model):
     case_id = fields.Many2one("linhafala.caso", string="Caso")
 
     are_you_disabled = fields.Selection(
-        string="E deficiente?",
+        string="Tem alguma deficiência??",
         selection=[
             ("Sim", "Sim"),
             ("Não", "Não"),
         ],
-        help="E deficiente?",
+        help="Tem alguma deficiência??",
         required=True
     )
 

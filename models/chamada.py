@@ -21,12 +21,12 @@ class Chamada(models.Model):
                                 string="Person_involved")
 
     are_you_disabled = fields.Selection(
-        string="E deficiente?",
+        string="Tem alguma deficiência??",
         selection=[
             ("Sim", "Sim"),
             ("Não", "Não"),
         ],
-        help="E deficiente?",
+        help="Tem alguma deficiência??",
     )
 
     contact_type = fields.Selection(

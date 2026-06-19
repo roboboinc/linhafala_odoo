@@ -726,6 +726,7 @@
                 decoration-success="case_status=='Encerrado'"
                 decoration-warning="case_status=='Aberto/Pendente'">
                 <field name="case_id" optional="show" />
+                <field name="created_by" optional="show" />
                 <field name="area_type" optional="show" />
                 <field name="reference_area" optional="hide" />
                 <field name="reference_entity" optional="hide" />

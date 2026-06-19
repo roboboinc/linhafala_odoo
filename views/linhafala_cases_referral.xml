@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <kanban default_group_by="case_status">
                 <field name="case_id" />
+                <field name="created_by" />
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_global_click">
@@ -14,6 +15,7 @@
                                 <ul>
                                     <li>ID Instituição de Encaminhamento: <field name="forwarding_institution_id"/></li>
                                     <li> ID: <field name="case_id" /></li>
+                                    <li>Encaminhado por: <field name="created_by" /></li>
                                 </ul>
                             </div>
                         </div>
@@ -27,9 +29,11 @@
         <field name="name">linhafala.caso.forwarding_institution.graph</field>
         <field name="model">linhafala.caso.forwarding_institution</field>
         <field name="arch" type="xml">
-            <graph type="bar">
-                <field name="created_at" interval="month" string="Numero de vitimas por mes"/>
-            </graph>
+            <pivot string="Casos Encaminhados">
+                <field name="created_by" type="row"/>
+                <field name="case_id" type="row"/>
+                <field name="created_at" type="col" interval="month"/>
+            </pivot>
         </field>
     </record>
 
@@ -70,6 +74,10 @@
                                 <strong>Id do Caso: </strong>
                                 <field
                                     name="case_id" />
+                            </p>
+                            <p>
+                                <strong>Encaminhado por: </strong>
+                                <field name="created_by" readonly="1"/>
                             </p>
                             <p
                                 title="Adicione a pessoa de contacto!">

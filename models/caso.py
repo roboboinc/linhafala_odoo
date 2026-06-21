@@ -140,7 +140,17 @@ class Caso(models.Model):
         if self.env.context.get('skip_case_priority_backfill_validation'):
             return
         for record in self:
-            if record.taxonomy_version and record.taxonomy_version >= 2:
+            if record.taxonomy_version and record.taxonomy_version >= 3:
+                if not record.case_type:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Categoria")
+                if not record.classificacao_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Classificação")
+                if not record.tipo_case_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Tipo do Caso")
+            elif record.taxonomy_version and record.taxonomy_version >= 2:
                 # New taxonomy: data-entry user only fills Classificação and
                 # Tipo do Caso (Programa is optional for now). The remaining
                 # dimensions are derived automatically from the Tipo do Caso.
@@ -432,20 +442,23 @@ class Caso(models.Model):
     )
 
     # ------------------------------------------------------------------
-    # New case taxonomy (taxonomy_version >= 2)
-    # The data-entry user only selects Classificação, Tipo do Caso and
-    # Programa. The remaining dimensions (Subcategoria, Área, Categoria
-    # Jurídica, Enquadramento) are derived automatically from the selected
-    # Tipo do Caso and are visible (read-only) to administrators only.
+    # New case taxonomy.
+    # V2: the data-entry user only selects Classificação, Tipo do Caso and
+    # Programa.
+    # V3: the user also selects Categoria as an independent dimension.
+    # The remaining dimensions (Subcategoria, Área, Categoria Jurídica,
+    # Enquadramento) are derived automatically from the selected Tipo do Caso
+    # and are visible (read-only) to administrators only.
     # ------------------------------------------------------------------
     taxonomy_version = fields.Integer(
         string="Versão da Classificação",
-        default=2,
+        default=3,
         readonly=True,
         copy=False,
         help="1 = classificação antiga (Categoria/Sub-categoria/Classificação Provisória); "
-             "2 = nova classificação (Classificação/Tipo do Caso/Programa). "
-             "Registos antigos mantêm a versão 1 e a sua configuração original.",
+             "2 = nova classificação (Classificação/Tipo do Caso/Programa); "
+             "3 = nova classificação + Categoria independente. "
+             "Registos antigos mantêm a sua versão e configuração original.",
     )
 
     classificacao_id = fields.Many2one(
@@ -618,10 +631,9 @@ class Caso(models.Model):
         vals = self._prepare_case_priority_values(vals)
         vals = self._prepare_category_snapshot_values(vals)
         vals = self._prepare_new_taxonomy_values(vals)
-        # New records use the updated taxonomy by default. Historical records
-        # keep taxonomy_version = 1 (the field default) and their original
-        # configuration untouched.
-        vals.setdefault('taxonomy_version', 2)
+        # New records use taxonomy v3 by default. Historical records keep the
+        # taxonomy_version explicitly assigned to them.
+        vals.setdefault('taxonomy_version', 3)
         # Ensure UUID is always set
         vals.setdefault('uuid', str(uuid.uuid4()))
 
@@ -678,6 +690,8 @@ class Caso(models.Model):
     def _case_type_onchange(self):
         for rec in self:
             rec.case_type_snapshot = rec.case_type.name if rec.case_type else False
+            if rec.taxonomy_version and rec.taxonomy_version >= 2:
+                return {}
             return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
 
     @api.onchange('secundary_case_type')

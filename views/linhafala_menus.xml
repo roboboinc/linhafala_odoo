@@ -139,14 +139,14 @@
 
     <menuitem
         id="linhafala_case_type_classification_menu_action"
-        name="Classificaçäo Provisória de Caso"
+        name="Classificação Provisória de Caso"
         action="linhafala_case_type_classification_action"
         parent="linhafala_menu_config"
         sequence="8" />
 
     <menuitem
         id="linhafala_caso_referencearea_menu_action"
-        name="Área Institucional ou Näo Institucional"
+        name="Área Institucional ou Não Institucional"
         action="linhafala_caso_referencearea_action"
         parent="linhafala_menu_config"
         sequence="9" />

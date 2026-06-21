@@ -691,6 +691,8 @@ class Caso(models.Model):
         for rec in self:
             rec.case_type_snapshot = rec.case_type.name if rec.case_type else False
             if rec.taxonomy_version and rec.taxonomy_version >= 2:
+                # V2/V3 keep Categoria independente da cadeia
+                # Classificação -> Tipo do Caso.
                 return {}
             return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
 

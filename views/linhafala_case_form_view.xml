@@ -45,7 +45,7 @@
                                 <p attrs="{'invisible': [('taxonomy_version', '=', 2)]}">
                                     <label for="case_type">* Categoria do Caso: </label>
                                     <field name="case_type"
-                                        attrs="{'required': ['|', ('taxonomy_version', '&lt;', 2), ('taxonomy_version', '&gt;=', 3)]}"/>
+                                        attrs="{'required': ['|', ('taxonomy_version', '&lt;', 2), ('taxonomy_version', '=', 3)]}"/>
                                     <field name="is_criminal_case" invisible="1"/>
                                 </p>
                                 <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">

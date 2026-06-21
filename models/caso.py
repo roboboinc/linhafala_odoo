@@ -690,10 +690,12 @@ class Caso(models.Model):
     def _case_type_onchange(self):
         for rec in self:
             rec.case_type_snapshot = rec.case_type.name if rec.case_type else False
-            if rec.taxonomy_version and rec.taxonomy_version >= 2:
-                # V2 does not use Categoria in the active selection flow and
+            if rec.taxonomy_version and rec.taxonomy_version >= 3:
                 # V3 keeps Categoria independente da cadeia
                 # Classificação -> Tipo do Caso.
+                return {}
+            elif rec.taxonomy_version and rec.taxonomy_version >= 2:
+                # V2 does not use Categoria in the active selection flow.
                 return {}
             else:
                 return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}

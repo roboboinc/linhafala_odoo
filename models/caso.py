@@ -691,7 +691,8 @@ class Caso(models.Model):
         for rec in self:
             rec.case_type_snapshot = rec.case_type.name if rec.case_type else False
             if rec.taxonomy_version and rec.taxonomy_version >= 2:
-                # V2/V3 keep Categoria independente da cadeia
+                # V2 does not use Categoria in the active selection flow and
+                # V3 keeps Categoria independente da cadeia
                 # Classificação -> Tipo do Caso.
                 return {}
             else:

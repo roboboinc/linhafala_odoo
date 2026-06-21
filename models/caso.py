@@ -143,49 +143,49 @@ class Caso(models.Model):
             if record.taxonomy_version and record.taxonomy_version >= 3:
                 if not record.case_type:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Categoria")
+                        "Por favor, preencha os campos de carácter obrigatorio Categoria")
                 if not record.classificacao_id:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Classificação")
+                        "Por favor, preencha os campos de carácter obrigatorio Classificação")
                 if not record.tipo_case_id:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Tipo do Caso")
+                        "Por favor, preencha os campos de carácter obrigatorio Tipo do Caso")
             elif record.taxonomy_version and record.taxonomy_version >= 2:
                 # New taxonomy: data-entry user only fills Classificação and
                 # Tipo do Caso (Programa is optional for now). The remaining
                 # dimensions are derived automatically from the Tipo do Caso.
                 if not record.classificacao_id:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Classificação")
+                        "Por favor, preencha os campos de carácter obrigatorio Classificação")
                 if not record.tipo_case_id:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Tipo do Caso")
+                        "Por favor, preencha os campos de carácter obrigatorio Tipo do Caso")
             else:
                 # Legacy taxonomy (registos antigos): manter validação original.
                 if not record.case_type:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Categoria")
+                        "Por favor, preencha os campos de carácter obrigatorio Categoria")
                 if not record.secundary_case_type:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+                        "Por favor, preencha os campos de carácter obrigatorio Sub-categoria")
                 if not record.case_type_classification:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
+                        "Por favor, preencha os campos de carácter obrigatorio Classificaçäo Provisória")
             if not (record.case_priority_id or record.case_priority_snapshot or record.case_priority):
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Nível de urgência")
+                    "Por favor, preencha os campos de carácter obrigatorio Nível de urgência")
             if not record.detailed_description:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
+                    "Por favor, preencha os campos de carácter obrigatorio Detalhes")
             if not record.place_occurrence:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Local de Ocorrência ")
+                    "Por favor, preencha os campos de carácter obrigatorio Local de Ocorrência ")
             if not record.case_handling:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Tratamento do Caso")
+                    "Por favor, preencha os campos de carácter obrigatorio Tratamento do Caso")
             if not record.detailed_description:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
+                    "Por favor, preencha os campos de carácter obrigatorio Detalhes")
 
     case_priority = fields.Selection(
         string='Nível de urgência (legado)',
@@ -694,7 +694,8 @@ class Caso(models.Model):
                 # V2/V3 keep Categoria independente da cadeia
                 # Classificação -> Tipo do Caso.
                 return {}
-            return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
+            else:
+                return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
 
     @api.onchange('secundary_case_type')
     def _secundary_case_type_onchange(self):

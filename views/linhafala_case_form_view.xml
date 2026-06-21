@@ -40,6 +40,7 @@
 
                                 <!-- ===== Nova classificação (taxonomy_version >= 2) ===== -->
                                 <!-- Em v3, Categoria volta a ser uma dimensão independente. -->
+                                <!-- Visível para a taxonomia legada (v1) e v3+; v2 foi a única versão sem Categoria selecionável. -->
                                 <p attrs="{'invisible': [('taxonomy_version', '=', 2)]}">
                                     <label for="case_type">* Categoria do Caso: </label>
                                     <field name="case_type"

@@ -142,7 +142,6 @@ class ExportController(http.Controller):
                 case_type_classification.name AS classificacao_provisoria,
                 COALESCE(classificacao.name, cas.classificacao_snapshot) AS classificacao,
                 COALESCE(tipo.name, cas.tipo_case_snapshot) AS tipo_do_caso,
-                COALESCE(programa.name, cas.programa_snapshot) AS programa,
                 COALESCE(subcategoria_auto.name, cas.subcategoria_auto_snapshot) AS subcategoria_automatica,
                 COALESCE(area.name, cas.area_snapshot) AS area_do_caso,
                 COALESCE(categoria_juridica.name, cas.categoria_juridica_snapshot) AS categoria_juridica,
@@ -185,7 +184,6 @@ class ExportController(http.Controller):
                 LEFT JOIN linhafala_caso_case_type_classification case_type_classification ON cas.case_type_classification = case_type_classification.id
                 LEFT JOIN linhafala_caso_classificacao classificacao ON cas.classificacao_id = classificacao.id
                 LEFT JOIN linhafala_caso_tipo tipo ON cas.tipo_case_id = tipo.id
-                LEFT JOIN linhafala_caso_programa programa ON cas.programa_id = programa.id
                 LEFT JOIN linhafala_caso_subcategoria_auto subcategoria_auto ON cas.subcategoria_auto_id = subcategoria_auto.id
                 LEFT JOIN linhafala_caso_area area ON cas.area_id = area.id
                 LEFT JOIN linhafala_caso_categoria_juridica categoria_juridica ON cas.categoria_juridica_id = categoria_juridica.id

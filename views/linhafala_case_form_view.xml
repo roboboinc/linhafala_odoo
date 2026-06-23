@@ -60,10 +60,6 @@
                                         attrs="{'required': [('taxonomy_version', '!=', 2)]}"/>
                                     <field name="is_criminal_case" invisible="1"/>
                                 </p>
-                                <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
-                                    <label for="programa_id">Programa: </label>
-                                    <field name="programa_id"/>
-                                </p>
 
                                 <!-- Dimensões automáticas: apenas administradores, só leitura. -->
                                 <div groups="linhafala_odoo.group_linhafala_administrador"

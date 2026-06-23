@@ -243,14 +243,6 @@
         sequence="2" />
 
     <menuitem
-        id="linhafala_caso_programa_menu_action"
-        name="Programa de Caso"
-        action="linhafala_caso_programa_action"
-        parent="linhafala_caso_taxonomy_menu"
-        groups="linhafala_odoo.group_linhafala_administrador"
-        sequence="3" />
-
-    <menuitem
         id="linhafala_caso_subcategoria_auto_menu_action"
         name="Subcategoria (Automática)"
         action="linhafala_caso_subcategoria_auto_action"

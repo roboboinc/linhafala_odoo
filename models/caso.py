@@ -367,7 +367,7 @@ class Caso(models.Model):
 
     def _prepare_new_taxonomy_values(self, vals):
         """Populate snapshots and derive the automatic dimensions for the new
-        taxonomy (Classificação/Tipo do Caso/Programa).
+        taxonomy (Classificação/Tipo do Caso).
 
         The four automatic fields (Subcategoria, Área, Categoria Jurídica e
         Enquadramento) are taken from the selected Tipo do Caso so that the
@@ -395,11 +395,6 @@ class Caso(models.Model):
             classif = self.env['linhafala.caso.classificacao'].browse(prepared['classificacao_id'])
             if classif.exists():
                 prepared['classificacao_snapshot'] = classif.name
-
-        if prepared.get('programa_id'):
-            programa = self.env['linhafala.caso.programa'].browse(prepared['programa_id'])
-            if programa.exists():
-                prepared['programa_snapshot'] = programa.name
 
         return prepared
 
@@ -443,8 +438,7 @@ class Caso(models.Model):
 
     # ------------------------------------------------------------------
     # New case taxonomy.
-    # V2: the data-entry user only selects Classificação, Tipo do Caso and
-    # Programa.
+    # V2: the data-entry user only selects Classificação and Tipo do Caso.
     # V3: the user also selects Categoria as an independent dimension.
     # The remaining dimensions (Subcategoria, Área, Categoria Jurídica,
     # Enquadramento) are derived automatically from the selected Tipo do Caso
@@ -456,7 +450,7 @@ class Caso(models.Model):
         readonly=True,
         copy=False,
         help="1 = classificação antiga (Categoria/Sub-categoria/Classificação Provisória); "
-             "2 = nova classificação (Classificação/Tipo do Caso/Programa); "
+               "2 = nova classificação (Classificação/Tipo do Caso); "
              "3 = nova classificação + Categoria independente. "
              "Registos antigos mantêm a sua versão e configuração original.",
     )
@@ -484,18 +478,6 @@ class Caso(models.Model):
         copy=False,
         help='Valor textual preservado para histórico mesmo após alterações nas opções.',
     )
-    programa_id = fields.Many2one(
-        comodel_name='linhafala.caso.programa',
-        string="Programa",
-        domain="['|', ('active', '=', True), ('id', '=', programa_id)]",
-    )
-    programa_snapshot = fields.Char(
-        string='Programa (histórico)',
-        readonly=True,
-        copy=False,
-        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
-    )
-
     # Automatic (derived) dimensions - read-only, admin-only in the UI.
     subcategoria_auto_id = fields.Many2one(
         comodel_name='linhafala.caso.subcategoria_auto',
@@ -736,11 +718,6 @@ class Caso(models.Model):
             rec.enquadramento_snapshot = tipo.enquadramento_id.name if tipo and tipo.enquadramento_id else False
             if tipo and tipo.classificacao_id and rec.classificacao_id != tipo.classificacao_id:
                 rec.classificacao_id = tipo.classificacao_id
-
-    @api.onchange('programa_id')
-    def _programa_id_onchange(self):
-        for rec in self:
-            rec.programa_snapshot = rec.programa_id.name if rec.programa_id else False
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'

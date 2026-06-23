@@ -173,7 +173,7 @@ class CasoAPIController(http.Controller):
                         error_code='INVALID_CLASSIFICATION'
                     )
 
-            # New taxonomy (taxonomy_version 2): classificacao / tipo_case / programa.
+            # New taxonomy (taxonomy_version 2+): classificacao / tipo_case.
             # The automatic dimensions (subcategoria, area, categoria juridica,
             # enquadramento) are derived server-side from the Tipo do Caso.
             if 'classificacao_id' in data and data.get('classificacao_id'):
@@ -196,17 +196,6 @@ class CasoAPIController(http.Controller):
                         f"Invalid tipo_case_id: '{data.get('tipo_case_id')}'. Could not find matching case type.",
                         status=400,
                         error_code='INVALID_TIPO_CASE'
-                    )
-
-            if 'programa_id' in data and data.get('programa_id'):
-                resolved = _resolve_m2o(data.get('programa_id'), 'linhafala.caso.programa')
-                if resolved:
-                    data['programa_id'] = resolved
-                elif not isinstance(data.get('programa_id'), int):
-                    return self._error_response(
-                        f"Invalid programa_id: '{data.get('programa_id')}'. Could not find matching programa.",
-                        status=400,
-                        error_code='INVALID_PROGRAMA'
                     )
 
             # created_by -> res.users (accept login or name)

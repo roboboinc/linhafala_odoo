@@ -78,6 +78,45 @@
         <field name="category_id" ref="module_category_lfc_jur" />
     </record>
 
+    <record id="rule_forwarding_institution_owner_only" model="ir.rule">
+        <field name="name">Forwarding Institution: owner only</field>
+        <field name="model_id" ref="model_linhafala_caso_forwarding_institution"/>
+        <field name="domain_force">[('created_by', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="rule_forwarding_institution_admin_all" model="ir.rule">
+        <field name="name">Forwarding Institution: admin full access</field>
+        <field name="model_id" ref="model_linhafala_caso_forwarding_institution"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_linhafala_administrador'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="rule_forwarding_institution_supervisor_all" model="ir.rule">
+        <field name="name">Forwarding Institution: supervisor full access</field>
+        <field name="model_id" ref="model_linhafala_caso_forwarding_institution"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[
+            (4, ref('group_linhafala_supervisor')),
+            (4, ref('group_linhafala_supervisor_geral')),
+            (4, ref('group_linhafala_supervisor_remoto')),
+            (4, ref('group_linhafala_supervisor_maputo')),
+            (4, ref('group_linhafala_supervisor_manica'))
+        ]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
     <!-- Make groups visible to administrators -->
     <record id="base.group_system" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('base.group_system'))]"/>

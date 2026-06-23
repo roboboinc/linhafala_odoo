@@ -420,6 +420,7 @@
         <field name="model">linhafala.caso.categoria</field>
         <field name="arch" type="xml">
             <tree string="Categorias de Caso">
+                <field name="sequence" />
                 <field name="name" />
                 <field name="version" />
                 <field name="previous_version_id" optional="show" />
@@ -442,6 +443,7 @@
                     </div>
                     <group>
                         <group>
+                            <field name="sequence" />
                             <field name="version" />
                             <field name="active" />
                         </group>
@@ -726,6 +728,7 @@
                 decoration-success="case_status=='Encerrado'"
                 decoration-warning="case_status=='Aberto/Pendente'">
                 <field name="case_id" optional="show" />
+                <field name="created_by" optional="show" />
                 <field name="area_type" optional="show" />
                 <field name="reference_area" optional="hide" />
                 <field name="reference_entity" optional="hide" />

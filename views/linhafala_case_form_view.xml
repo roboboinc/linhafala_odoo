@@ -38,8 +38,7 @@
                             <div class="col-md-3 mt-3">
                                 <field name="taxonomy_version" invisible="1"/>
 
-                                <!-- ===== Nova classificação (taxonomy_version >= 2) ===== -->
-                                <!-- O utilizador apenas vê e seleciona Classificação, Tipo do Caso e Programa. -->
+
                                 <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
                                     <label for="classificacao_id">* Classificação: </label>
                                     <field name="classificacao_id"
@@ -50,9 +49,16 @@
                                     <field name="tipo_case_id"
                                         attrs="{'required': [('taxonomy_version', '>=', 2)]}"/>
                                 </p>
-                                <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
-                                    <label for="programa_id">Programa: </label>
-                                    <field name="programa_id"/>
+
+                                <!-- ===== Nova classificação (taxonomy_version >= 2) ===== -->
+                                <!-- Em v3, Categoria volta a ser uma dimensão independente. -->
+                                <!-- Visível para a taxonomia legada (v1) e v3+; v2 foi a única versão sem Categoria selecionável. -->
+                                <!-- Por isso, o campo é obrigatório em v1 e v3+, mas não em v2. -->
+                                <p attrs="{'invisible': [('taxonomy_version', '=', 2)]}">
+                                    <label for="case_type">* Categoria do Caso: </label>
+                                    <field name="case_type"
+                                        attrs="{'required': [('taxonomy_version', '!=', 2)]}"/>
+                                    <field name="is_criminal_case" invisible="1"/>
                                 </p>
 
                                 <!-- Dimensões automáticas: apenas administradores, só leitura. -->
@@ -77,11 +83,6 @@
                                 </div>
 
                                 <!-- ===== Classificação antiga (registos legados, taxonomy_version &lt; 2) ===== -->
-                                <p attrs="{'invisible': [('taxonomy_version', '>=', 2)]}">
-                                    <label for="case_type">* Categoria do Caso: </label>
-                                    <field name="case_type" />
-                                    <field name="is_criminal_case" invisible="1"/>
-                                </p>
                                 <p  attrs="{'invisible': ['|', ('taxonomy_version', '>=', 2), ('show_online_offline', '=', False)], 'required': [('show_online_offline', '=', True)]}">
                                     <label for="online_offline">Selecione se o crime foi: </label>
                                     <field name="show_online_offline" invisible="1"/>

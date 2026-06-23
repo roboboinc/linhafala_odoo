@@ -140,42 +140,52 @@ class Caso(models.Model):
         if self.env.context.get('skip_case_priority_backfill_validation'):
             return
         for record in self:
-            if record.taxonomy_version and record.taxonomy_version >= 2:
+            if record.taxonomy_version and record.taxonomy_version >= 3:
+                if not record.case_type:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de carácter obrigatorio Categoria")
+                if not record.classificacao_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de carácter obrigatorio Classificação")
+                if not record.tipo_case_id:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de carácter obrigatorio Tipo do Caso")
+            elif record.taxonomy_version and record.taxonomy_version >= 2:
                 # New taxonomy: data-entry user only fills Classificação and
                 # Tipo do Caso (Programa is optional for now). The remaining
                 # dimensions are derived automatically from the Tipo do Caso.
                 if not record.classificacao_id:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Classificação")
+                        "Por favor, preencha os campos de carácter obrigatorio Classificação")
                 if not record.tipo_case_id:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Tipo do Caso")
+                        "Por favor, preencha os campos de carácter obrigatorio Tipo do Caso")
             else:
                 # Legacy taxonomy (registos antigos): manter validação original.
                 if not record.case_type:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Categoria")
+                        "Por favor, preencha os campos de carácter obrigatorio Categoria")
                 if not record.secundary_case_type:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Sub-categoria")
+                        "Por favor, preencha os campos de carácter obrigatorio Sub-categoria")
                 if not record.case_type_classification:
                     raise ValidationError(
-                        "Por favor, preencha os campos de caracter obrigatorio Classificaçäo Provisória")
+                        "Por favor, preencha os campos de carácter obrigatorio Classificaçäo Provisória")
             if not (record.case_priority_id or record.case_priority_snapshot or record.case_priority):
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Nível de urgência")
+                    "Por favor, preencha os campos de carácter obrigatorio Nível de urgência")
             if not record.detailed_description:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
+                    "Por favor, preencha os campos de carácter obrigatorio Detalhes")
             if not record.place_occurrence:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Local de Ocorrência ")
+                    "Por favor, preencha os campos de carácter obrigatorio Local de Ocorrência ")
             if not record.case_handling:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Tratamento do Caso")
+                    "Por favor, preencha os campos de carácter obrigatorio Tratamento do Caso")
             if not record.detailed_description:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Detalhes")
+                    "Por favor, preencha os campos de carácter obrigatorio Detalhes")
 
     case_priority = fields.Selection(
         string='Nível de urgência (legado)',
@@ -357,7 +367,7 @@ class Caso(models.Model):
 
     def _prepare_new_taxonomy_values(self, vals):
         """Populate snapshots and derive the automatic dimensions for the new
-        taxonomy (Classificação/Tipo do Caso/Programa).
+        taxonomy (Classificação/Tipo do Caso).
 
         The four automatic fields (Subcategoria, Área, Categoria Jurídica e
         Enquadramento) are taken from the selected Tipo do Caso so that the
@@ -385,11 +395,6 @@ class Caso(models.Model):
             classif = self.env['linhafala.caso.classificacao'].browse(prepared['classificacao_id'])
             if classif.exists():
                 prepared['classificacao_snapshot'] = classif.name
-
-        if prepared.get('programa_id'):
-            programa = self.env['linhafala.caso.programa'].browse(prepared['programa_id'])
-            if programa.exists():
-                prepared['programa_snapshot'] = programa.name
 
         return prepared
 
@@ -432,20 +437,22 @@ class Caso(models.Model):
     )
 
     # ------------------------------------------------------------------
-    # New case taxonomy (taxonomy_version >= 2)
-    # The data-entry user only selects Classificação, Tipo do Caso and
-    # Programa. The remaining dimensions (Subcategoria, Área, Categoria
-    # Jurídica, Enquadramento) are derived automatically from the selected
-    # Tipo do Caso and are visible (read-only) to administrators only.
+    # New case taxonomy.
+    # V2: the data-entry user only selects Classificação and Tipo do Caso.
+    # V3: the user also selects Categoria as an independent dimension.
+    # The remaining dimensions (Subcategoria, Área, Categoria Jurídica,
+    # Enquadramento) are derived automatically from the selected Tipo do Caso
+    # and are visible (read-only) to administrators only.
     # ------------------------------------------------------------------
     taxonomy_version = fields.Integer(
         string="Versão da Classificação",
-        default=2,
+        default=3,
         readonly=True,
         copy=False,
         help="1 = classificação antiga (Categoria/Sub-categoria/Classificação Provisória); "
-             "2 = nova classificação (Classificação/Tipo do Caso/Programa). "
-             "Registos antigos mantêm a versão 1 e a sua configuração original.",
+               "2 = nova classificação (Classificação/Tipo do Caso); "
+             "3 = nova classificação + Categoria independente. "
+             "Registos antigos mantêm a sua versão e configuração original.",
     )
 
     classificacao_id = fields.Many2one(
@@ -471,18 +478,6 @@ class Caso(models.Model):
         copy=False,
         help='Valor textual preservado para histórico mesmo após alterações nas opções.',
     )
-    programa_id = fields.Many2one(
-        comodel_name='linhafala.caso.programa',
-        string="Programa",
-        domain="['|', ('active', '=', True), ('id', '=', programa_id)]",
-    )
-    programa_snapshot = fields.Char(
-        string='Programa (histórico)',
-        readonly=True,
-        copy=False,
-        help='Valor textual preservado para histórico mesmo após alterações nas opções.',
-    )
-
     # Automatic (derived) dimensions - read-only, admin-only in the UI.
     subcategoria_auto_id = fields.Many2one(
         comodel_name='linhafala.caso.subcategoria_auto',
@@ -618,10 +613,9 @@ class Caso(models.Model):
         vals = self._prepare_case_priority_values(vals)
         vals = self._prepare_category_snapshot_values(vals)
         vals = self._prepare_new_taxonomy_values(vals)
-        # New records use the updated taxonomy by default. Historical records
-        # keep taxonomy_version = 1 (the field default) and their original
-        # configuration untouched.
-        vals.setdefault('taxonomy_version', 2)
+        # New records use taxonomy v3 by default. Historical records keep the
+        # taxonomy_version explicitly assigned to them.
+        vals.setdefault('taxonomy_version', 3)
         # Ensure UUID is always set
         vals.setdefault('uuid', str(uuid.uuid4()))
 
@@ -678,7 +672,15 @@ class Caso(models.Model):
     def _case_type_onchange(self):
         for rec in self:
             rec.case_type_snapshot = rec.case_type.name if rec.case_type else False
-            return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
+            if rec.taxonomy_version and rec.taxonomy_version >= 3:
+                # V3 keeps Categoria independente da cadeia de
+                # Classificação -> Tipo do Caso.
+                return {}
+            elif rec.taxonomy_version and rec.taxonomy_version >= 2:
+                # V2 does not use Categoria in the active selection flow.
+                return {}
+            else:
+                return {'value': {'secundary_case_type': False}, 'domain': {'secundary_case_type': [('categoria_id', '=', rec.case_type.id)]}}
 
     @api.onchange('secundary_case_type')
     def _secundary_case_type_onchange(self):
@@ -716,11 +718,6 @@ class Caso(models.Model):
             rec.enquadramento_snapshot = tipo.enquadramento_id.name if tipo and tipo.enquadramento_id else False
             if tipo and tipo.classificacao_id and rec.classificacao_id != tipo.classificacao_id:
                 rec.classificacao_id = tipo.classificacao_id
-
-    @api.onchange('programa_id')
-    def _programa_id_onchange(self):
-        for rec in self:
-            rec.programa_snapshot = rec.programa_id.name if rec.programa_id else False
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -947,6 +944,14 @@ class ForwardingInstitutions(models.Model):
     _description = "Instituição de encaminhamento"
 
     case_id = fields.Many2one("linhafala.caso", string="Caso")
+    created_by = fields.Many2one(
+        'res.users',
+        string='Encaminhado por',
+        related='create_uid',
+        store=True,
+        readonly=True,
+        index=True,
+    )
     forwarding_institution_id = fields.Char(string="Id do encaminhamento", readonly=True)
     area_type = fields.Selection(
         string='Área de Encaminhamento',

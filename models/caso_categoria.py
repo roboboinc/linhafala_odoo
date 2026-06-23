@@ -5,8 +5,14 @@ from odoo.exceptions import UserError
 class CasoCategoria(models.Model):
     _name = "linhafala.caso.categoria"
     _description = "Categoria de Caso"
+    _order = "sequence, name, id"
 
     name = fields.Char(string="Nome de Categoria")
+    sequence = fields.Integer(
+        string="Sequência",
+        default=10,
+        help="Define a ordem de apresentação das categorias.",
+    )
     active = fields.Boolean(
         string="Activo",
         default=True,

@@ -53,19 +53,6 @@ class CasoSubcategoriaAuto(models.Model):
     )
 
 
-class CasoPrograma(models.Model):
-    _name = "linhafala.caso.programa"
-    _description = "Programa do Caso"
-    _order = "name"
-
-    name = fields.Char(string="Nome do Programa", required=True)
-    active = fields.Boolean(
-        string="Activo",
-        default=True,
-        help="Desmarque para arquivar. Registos existentes continuam a mostrar o nome desta versão.",
-    )
-
-
 class CasoClassificacao(models.Model):
     _name = "linhafala.caso.classificacao"
     _description = "Classificação do Caso"

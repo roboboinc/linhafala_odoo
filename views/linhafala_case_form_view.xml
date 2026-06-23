@@ -38,16 +38,7 @@
                             <div class="col-md-3 mt-3">
                                 <field name="taxonomy_version" invisible="1"/>
 
-                                <!-- ===== Nova classificação (taxonomy_version >= 2) ===== -->
-                                <!-- Em v3, Categoria volta a ser uma dimensão independente. -->
-                                <!-- Visível para a taxonomia legada (v1) e v3+; v2 foi a única versão sem Categoria selecionável. -->
-                                <!-- Por isso, o campo é obrigatório em v1 e v3+, mas não em v2. -->
-                                <p attrs="{'invisible': [('taxonomy_version', '=', 2)]}">
-                                    <label for="case_type">* Categoria do Caso: </label>
-                                    <field name="case_type"
-                                        attrs="{'required': [('taxonomy_version', '!=', 2)]}"/>
-                                    <field name="is_criminal_case" invisible="1"/>
-                                </p>
+
                                 <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
                                     <label for="classificacao_id">* Classificação: </label>
                                     <field name="classificacao_id"
@@ -57,6 +48,17 @@
                                     <label for="tipo_case_id">* Tipo do Caso: </label>
                                     <field name="tipo_case_id"
                                         attrs="{'required': [('taxonomy_version', '>=', 2)]}"/>
+                                </p>
+
+                                <!-- ===== Nova classificação (taxonomy_version >= 2) ===== -->
+                                <!-- Em v3, Categoria volta a ser uma dimensão independente. -->
+                                <!-- Visível para a taxonomia legada (v1) e v3+; v2 foi a única versão sem Categoria selecionável. -->
+                                <!-- Por isso, o campo é obrigatório em v1 e v3+, mas não em v2. -->
+                                <p attrs="{'invisible': [('taxonomy_version', '=', 2)]}">
+                                    <label for="case_type">* Categoria do Caso: </label>
+                                    <field name="case_type"
+                                        attrs="{'required': [('taxonomy_version', '!=', 2)]}"/>
+                                    <field name="is_criminal_case" invisible="1"/>
                                 </p>
                                 <p attrs="{'invisible': [('taxonomy_version', '&lt;', 2)]}">
                                     <label for="programa_id">Programa: </label>

@@ -142,6 +142,19 @@ class PersonInvolved(models.Model):
         copy=False,
         help="Valor textual preservado para histórico mesmo após alterações nas opções."
     )
+    socioeconomic_condition = fields.Selection(
+        string='Condição socioeconómica',
+        selection=[
+            ('Muito baixa', 'Muito baixa'),
+            ('Baixa', 'Baixa'),
+            ('Média', 'Média'),
+            ('Alta', 'Alta'),
+            ('Beneficiário(a) de apoio social', 'Beneficiário(a) de apoio social'),
+            ('Sem informação', 'Sem informação'),
+        ],
+        default='Sem informação',
+        help='Condição socioeconómica da pessoa envolvida.'
+    )
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
         selection=[

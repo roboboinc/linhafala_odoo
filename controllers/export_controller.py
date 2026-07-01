@@ -152,6 +152,7 @@ class ExportController(http.Controller):
                 person_involved.age AS idade,
                 person_involved.gender AS sexo,
                 COALESCE(family_situation.name, person_involved.family_situation_snapshot, person_involved.living_relatives) AS situacao_familiar,
+                person_involved.socioeconomic_condition AS condicao_socioeconomica,
                 person_involved.victim_relationship AS relacao_com_a_vitima,
                 person_involved.bairro AS bairro,
                 province.name AS provincia,

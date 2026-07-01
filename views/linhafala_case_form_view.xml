@@ -207,6 +207,10 @@
                                                                 <strong>Situação familiar</strong>
                                                                 <field name="family_situation_id" options="{'no_create_edit': False}" />
                                                             </p>
+                                                            <p>
+                                                                <strong>Condição socioeconómica</strong>
+                                                                <field name="socioeconomic_condition" />
+                                                            </p>
                                                             
                                                             <p>
                                                                 <strong>

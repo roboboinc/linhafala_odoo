@@ -111,6 +111,10 @@
                                     <label for="place_occurrence">* Local de Ocorrência do incidente: </label>
                                     <field name="place_occurrence" />
                                 </p>
+                                <p attrs="{'invisible': [('place_occurrence', '!=', 'Outro')], 'required': [('place_occurrence', '=', 'Outro')]}">
+                                    <strong>Outro local (especificar): </strong>
+                                    <field name="place_occurrence_other" />
+                                </p>
                                 <p>
                                     <strong title="Campo Opcional">Tratamento do Caso: </strong>
                                     <field name="case_handling" />

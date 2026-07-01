@@ -135,7 +135,7 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('case_type','secundary_case_type','case_type_classification','classificacao_id','tipo_case_id','place_occurrence','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description','taxonomy_version')
+    @api.constrains('case_type','secundary_case_type','case_type_classification','classificacao_id','tipo_case_id','place_occurrence','place_occurrence_other','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description','taxonomy_version')
     def _check_all(self):
         if self.env.context.get('skip_case_priority_backfill_validation'):
             return
@@ -180,6 +180,9 @@ class Caso(models.Model):
             if not record.place_occurrence:
                 raise ValidationError(
                     "Por favor, preencha os campos de carácter obrigatorio Local de Ocorrência ")
+            if record.place_occurrence == 'Outro' and not record.place_occurrence_other:
+                raise ValidationError(
+                    "Por favor, especifique o campo Outro em Local de Ocorrência")
             if not record.case_handling:
                 raise ValidationError(
                     "Por favor, preencha os campos de carácter obrigatorio Tratamento do Caso")
@@ -234,16 +237,30 @@ class Caso(models.Model):
     place_occurrence = fields.Selection(
         string='Local de Ocorrência',
         selection=[
-            ("Escola", "Escola"),
-            ("Casa propria", "Casa propria"),
-            ("Casa do vizinho", "Casa do vizinho"),
-            ("Cresce/infantário", "Cresce/infantário"),
-            ("Casa do parente mais próximo", "Casa do parente mais próximo"),
-            ("Outros", "Outros")
+            ("Residência da vítima", "Residência da vítima"),
+            ("Ambiente escolar", "Ambiente escolar"),
+            ("Residência do Perpetrador", "Residência do Perpetrador"),
+            ("Residência de terceiros", "Residência de terceiros"),
+            ("Ambiente familiar/doméstico", "Ambiente familiar/doméstico"),
+            ("Ambiente institucional", "Ambiente institucional"),
+            ("Unidade sanitária", "Unidade sanitária"),
+            ("Unidade Polícial", "Unidade Polícial"),
+            ("Ambiente digital", "Ambiente digital"),
+            ("Via pública", "Via pública"),
+            ("Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos; Outros)", "Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos; Outros)"),
+            ("Outro", "Outro (especificar)")
         ],
         help="Local de Ocorrência",
         required=True
     )
+    place_occurrence_other = fields.Char(
+        string="Outro local de ocorrência (especificar)"
+    )
+
+    @api.onchange('place_occurrence')
+    def _onchange_place_occurrence(self):
+        if self.place_occurrence != 'Outro':
+            self.place_occurrence_other = False
     detailed_description = fields.One2many(
         'linhafala.caso.description',
         'case_id',

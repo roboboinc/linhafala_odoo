@@ -193,29 +193,56 @@ class PersonInvolved(models.Model):
         selection=[
             ("Pai", "Pai"),
             ("Mãe", "Mãe"),
-            ("Avo", "Avo"),
+            ("Padrasto", "Padrasto"),
+            ("Madrasta", "Madrasta"),
+            ("Irmão(ã)", "Irmão(ã)"),
+            ("Meio-irmão(ã)", "Meio-irmão(ã)"),
+            ("Avô(ó)", "Avô(ó)"),
+            ("Tio(a)", "Tio(a)"),
+            ("Primo(a)", "Primo(a)"),
+            ("Enteado(a)", "Enteado(a)"),
+            ("Cunhado(a)", "Cunhado(a)"),
+            ("Sogro(a)", "Sogro(a)"),
+            ("Professor(a)", "Professor(a)"),
+            ("Director(a) escolar", "Director(a) escolar"),
+            ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+            ("Colega/aluno(a)", "Colega/aluno(a)"),
+            ("Ex-colega", "Ex-colega"),
+            ("Namorado(a)", "Namorado(a)"),
+            ("Ex-namorado(a)", "Ex-namorado(a)"),
+            ("Companheiro(a)", "Companheiro(a)"),
+            ("Vizinho(a)", "Vizinho(a)"),
+            ("Líder comunitário", "Líder comunitário"),
+            ("Líder religioso", "Líder religioso"),
+            ("Empregador(a)", "Empregador(a)"),
+            ("Agente da polícia", "Agente da polícia"),
+            ("Profissional de saúde", "Profissional de saúde"),
+            ("Assistente social", "Assistente social"),
+            ("Outro profissional institucional", "Outro profissional institucional"),
+            ("Funcionario de Projecto", "Funcionario de Projecto"),
+            ("Pessoa da comunidade (não familiar nem vizinho)", "Pessoa da comunidade (não familiar nem vizinho)"),
+            ("Comerciante local", "Comerciante local"),
+            ("Outro", "Outro (especificar)"),
+            # Legacy values kept for compatibility with older records and flows.
             ("Amigo", "Amigo"),
             ("Outros", "Outros"),
             ("Colega", "Colega"),
             ("Esposo", "Esposo"),
-            ("Tio(a)", "Tio(a)"),
             ("Nenhuma", "Nenhuma"),
             ("Mentora", "Mentora"),
             ("Irmã(o)", "Irmã(o)"),
-            ("Primo(a)", "Primo(a)"),
+            ("Avo", "Avo"),
             ("Namorado", "Namorado"),
-            ("Madrasta", "Madrasta"),
-            ("Padrasto", "Padrasto"),
             ("Empregador", "Empregador"),
             ("Vizinho (a)", "Vizinho (a)"),
             ("Denunciante", "Denunciante"),
             ("Educador(a)", "Educador(a)"),
-            ("Professor(a)", "Professor(a)"),
             ("Não aplicavél", "Não aplicavél"),
         ],
         help="Relação com a(s) vítima(s):",
         required=True
     )
+    what_other = fields.Char(string="Qual Outro")
     gender = fields.Selection(
         string='Sexo',
         selection=[
@@ -225,7 +252,6 @@ class PersonInvolved(models.Model):
         help="Sexo",
         # required=True
     )
-    what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(1, 25)] + [('25+', '25+')],
                            string='Idade',
                         #    required=True
@@ -253,6 +279,11 @@ class PersonInvolved(models.Model):
     def _onchange_family_situation_id(self):
         if self.family_situation_id:
             self.family_situation_snapshot = self.family_situation_id.name
+
+    @api.onchange('victim_relationship')
+    def _onchange_victim_relationship(self):
+        if self.victim_relationship != 'Outro':
+            self.what_other = False
 
     @api.onchange('legal_guardian')
     def _onchange_legal_guardian(self):

@@ -205,6 +205,10 @@
                                                                 <label for="victim_relationship">* Relação com a(s) vítima(s):</label>
                                                                 <field name="victim_relationship" />
                                                             </p>
+                                                            <p attrs="{'invisible': [('victim_relationship', '!=', 'Outro')], 'required': [('victim_relationship', '=', 'Outro')]}">
+                                                                <strong>Outro (especificar)</strong>
+                                                                <field name="what_other" />
+                                                            </p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>

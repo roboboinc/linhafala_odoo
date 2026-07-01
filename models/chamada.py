@@ -92,7 +92,37 @@ class Chamada(models.Model):
         selection=[
             ("Pai", "Pai"),
             ("Mãe", "Mãe"),
-            ("Avo", "Avo"),
+            ("Padrasto", "Padrasto"),
+            ("Madrasta", "Madrasta"),
+            ("Irmão(ã)", "Irmão(ã)"),
+            ("Meio-irmão(ã)", "Meio-irmão(ã)"),
+            ("Avô(ó)", "Avô(ó)"),
+            ("Tio(a)", "Tio(a)"),
+            ("Primo(a)", "Primo(a)"),
+            ("Enteado(a)", "Enteado(a)"),
+            ("Cunhado(a)", "Cunhado(a)"),
+            ("Sogro(a)", "Sogro(a)"),
+            ("Professor(a)", "Professor(a)"),
+            ("Director(a) escolar", "Director(a) escolar"),
+            ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+            ("Colega/aluno(a)", "Colega/aluno(a)"),
+            ("Ex-colega", "Ex-colega"),
+            ("Namorado(a)", "Namorado(a)"),
+            ("Ex-namorado(a)", "Ex-namorado(a)"),
+            ("Companheiro(a)", "Companheiro(a)"),
+            ("Vizinho(a)", "Vizinho(a)"),
+            ("Líder comunitário", "Líder comunitário"),
+            ("Líder religioso", "Líder religioso"),
+            ("Empregador(a)", "Empregador(a)"),
+            ("Agente da polícia", "Agente da polícia"),
+            ("Profissional de saúde", "Profissional de saúde"),
+            ("Assistente social", "Assistente social"),
+            ("Outro profissional institucional", "Outro profissional institucional"),
+            ("Funcionario de Projecto", "Funcionario de Projecto"),
+            ("Pessoa da comunidade (não familiar nem vizinho)", "Pessoa da comunidade (não familiar nem vizinho)"),
+            ("Comerciante local", "Comerciante local"),
+            ("Outro", "Outro (especificar)"),
+            # Legacy values kept for compatibility with older records and flows.
             ("Amigo", "Amigo"),
             ("Esposo", "Esposo"),
             ("Outros", "Outros"),
@@ -101,16 +131,9 @@ class Chamada(models.Model):
             ("Mentora", "Mentora"),
             ("Nenhuma", "Nenhuma"),
             ("Irmã(o)", "Irmã(o)"),
-            ("Madrasta", "Madrasta"),
-            ("Padrasto", "Padrasto"),
-            ("Primo(a)", "Primo(a)"),
+            ("Avo", "Avo"),
             ("Namorado", "Namorado"),
-            ("Sobrinho", "Sobrinho"),
-            ("Ativista", "Ativista"),
-            ("Cunhado/a", "Cunhado/a"),
-            ("Paralegal", "Paralegal"),
             ("Empregador", "Empregador"),
-            ("Ponto Focal", "Ponto Focal"),
             ("Vizinho (a)", "Vizinho (a)"),
             ("Educador(a)", "Educador(a)"),
             ("Professor(a)", "Professor(a)"),
@@ -120,6 +143,12 @@ class Chamada(models.Model):
         ],
         help="Relação com a(s) vítima(s):"
     )
+    what_other = fields.Char(string="Qual Outro")
+
+    @api.onchange('victim_relationship')
+    def _onchange_victim_relationship(self):
+        if self.victim_relationship != 'Outro':
+            self.what_other = False
 
     category_status = fields.Many2one(
         comodel_name='linhafala.categoria',
@@ -1219,6 +1248,12 @@ class CallCaseAssistanceContactante(models.Model):
         ],
         help="Relação com o Benificiário:"
     )
+    what_other = fields.Char(string="Qual Outro")
+
+    @api.onchange('victim_relationship')
+    def _onchange_victim_relationship(self):
+        if self.victim_relationship != 'Outro':
+            self.what_other = False
 
 
 

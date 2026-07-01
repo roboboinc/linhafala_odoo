@@ -111,6 +111,18 @@
                                     <label for="place_occurrence">* Local de Ocorrência do incidente: </label>
                                     <field name="place_occurrence" />
                                 </p>
+                                <p attrs="{'invisible': [('place_occurrence', '!=', 'Outro')], 'required': [('place_occurrence', '=', 'Outro')]}">
+                                    <strong>Outro local (especificar): </strong>
+                                    <field name="place_occurrence_other" />
+                                </p>
+                                <p>
+                                    <label for="report_place">* Local de denúncia: </label>
+                                    <field name="report_place" />
+                                </p>
+                                <p attrs="{'invisible': [('report_place', '!=', 'Outro')], 'required': [('report_place', '=', 'Outro')]}">
+                                    <strong>Outro local de denúncia (especificar): </strong>
+                                    <field name="report_place_other" />
+                                </p>
                                 <p>
                                     <strong title="Campo Opcional">Tratamento do Caso: </strong>
                                     <field name="case_handling" />
@@ -201,11 +213,35 @@
                                                                 <label for="victim_relationship">* Relação com a(s) vítima(s):</label>
                                                                 <field name="victim_relationship" />
                                                             </p>
+                                                            <p attrs="{'invisible': [('victim_relationship', '!=', 'Outro')], 'required': [('victim_relationship', '=', 'Outro')]}">
+                                                                <strong>Outro (especificar)</strong>
+                                                                <field name="what_other" />
+                                                            </p>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <p>
                                                                 <strong>Situação familiar</strong>
                                                                 <field name="family_situation_id" options="{'no_create_edit': False}" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Condição socioeconómica</strong>
+                                                                <field name="socioeconomic_condition" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Responsável legal</strong>
+                                                                <field name="legal_guardian" />
+                                                            </p>
+                                                            <p attrs="{'invisible': [('legal_guardian', '!=', 'Outro')], 'required': [('legal_guardian', '=', 'Outro')]}">
+                                                                <strong>Outro (especificar)</strong>
+                                                                <field name="legal_guardian_other" />
+                                                            </p>
+                                                            <p>
+                                                                <strong>Tipo de apoio necessário</strong>
+                                                                <field name="support_type_needed" />
+                                                            </p>
+                                                            <p attrs="{'invisible': [('support_type_needed', '!=', 'Outra')], 'required': [('support_type_needed', '=', 'Outra')]}">
+                                                                <strong>Outra (especificar)</strong>
+                                                                <field name="support_type_needed_other" />
                                                             </p>
                                                             
                                                             <p>

@@ -170,6 +170,24 @@ class PersonInvolved(models.Model):
     legal_guardian_other = fields.Char(
         string='Outro responsável legal (especificar)'
     )
+    support_type_needed = fields.Selection(
+        string='Tipo de apoio necessário',
+        selection=[
+            ('Apoio psicossocial', 'Apoio psicossocial'),
+            ('Apoio jurídico', 'Apoio jurídico'),
+            ('Apoio médico', 'Apoio médico'),
+            ('Reintegração escolar', 'Reintegração escolar'),
+            ('Material escolar', 'Material escolar'),
+            ('Proteção imediata', 'Proteção imediata'),
+            ('Encaminhamento institucional', 'Encaminhamento institucional'),
+            ('Aconselhamento', 'Aconselhamento'),
+            ('Outra', 'Outra (especificar)'),
+        ],
+        help='Tipo de apoio necessário para a pessoa envolvida.'
+    )
+    support_type_needed_other = fields.Char(
+        string='Outro tipo de apoio (especificar)'
+    )
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
         selection=[
@@ -240,6 +258,11 @@ class PersonInvolved(models.Model):
     def _onchange_legal_guardian(self):
         if self.legal_guardian != 'Outro':
             self.legal_guardian_other = False
+
+    @api.onchange('support_type_needed')
+    def _onchange_support_type_needed(self):
+        if self.support_type_needed != 'Outra':
+            self.support_type_needed_other = False
 
     def _find_or_create_family_situation(self, name):
         clean_name = (name or '').strip()

@@ -219,6 +219,14 @@
                                                                 <strong>Outro (especificar)</strong>
                                                                 <field name="legal_guardian_other" />
                                                             </p>
+                                                            <p>
+                                                                <strong>Tipo de apoio necessário</strong>
+                                                                <field name="support_type_needed" />
+                                                            </p>
+                                                            <p attrs="{'invisible': [('support_type_needed', '!=', 'Outra')], 'required': [('support_type_needed', '=', 'Outra')]}">
+                                                                <strong>Outra (especificar)</strong>
+                                                                <field name="support_type_needed_other" />
+                                                            </p>
                                                             
                                                             <p>
                                                                 <strong>

@@ -135,7 +135,7 @@ class Caso(models.Model):
                 raise ValidationError(
                     "Por favor, selecione o estado do caso para prosseguir.")
             
-    @api.constrains('case_type','secundary_case_type','case_type_classification','classificacao_id','tipo_case_id','place_occurrence','place_occurrence_other','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description','taxonomy_version')
+    @api.constrains('case_type','secundary_case_type','case_type_classification','classificacao_id','tipo_case_id','place_occurrence','place_occurrence_other','report_place','report_place_other','case_handling','case_priority','case_priority_id','case_priority_snapshot','detailed_description','taxonomy_version')
     def _check_all(self):
         if self.env.context.get('skip_case_priority_backfill_validation'):
             return
@@ -183,6 +183,12 @@ class Caso(models.Model):
             if record.place_occurrence == 'Outro' and not record.place_occurrence_other:
                 raise ValidationError(
                     "Por favor, especifique o campo Outro em Local de Ocorrência")
+            if not record.report_place:
+                raise ValidationError(
+                    "Por favor, preencha os campos de carácter obrigatorio Local de denúncia")
+            if record.report_place == 'Outro' and not record.report_place_other:
+                raise ValidationError(
+                    "Por favor, especifique o campo Outro em Local de denúncia")
             if not record.case_handling:
                 raise ValidationError(
                     "Por favor, preencha os campos de carácter obrigatorio Tratamento do Caso")
@@ -257,10 +263,35 @@ class Caso(models.Model):
         string="Outro local de ocorrência (especificar)"
     )
 
+    report_place = fields.Selection(
+        string='Local de denúncia',
+        selection=[
+            ('Ambiente escolar', 'Ambiente escolar'),
+            ('Unidade sanitária', 'Unidade sanitária'),
+            ('Unidade Polícial', 'Unidade Polícial'),
+            ('Serviços de ação social', 'Serviços de ação social'),
+            ('Ambiente familiar/doméstico', 'Ambiente familiar/doméstico'),
+            ('Ambiente institucional', 'Ambiente institucional'),
+            ('Ambiente digital', 'Ambiente digital'),
+            ('Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos)', 'Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos)'),
+            ('Outro', 'Outro (especificar)'),
+        ],
+        help='Local de denúncia',
+        required=True,
+    )
+    report_place_other = fields.Char(
+        string='Outro local de denúncia (especificar)'
+    )
+
     @api.onchange('place_occurrence')
     def _onchange_place_occurrence(self):
         if self.place_occurrence != 'Outro':
             self.place_occurrence_other = False
+
+    @api.onchange('report_place')
+    def _onchange_report_place(self):
+        if self.report_place != 'Outro':
+            self.report_place_other = False
     detailed_description = fields.One2many(
         'linhafala.caso.description',
         'case_id',

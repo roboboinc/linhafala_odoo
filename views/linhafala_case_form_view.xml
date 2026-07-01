@@ -116,6 +116,14 @@
                                     <field name="place_occurrence_other" />
                                 </p>
                                 <p>
+                                    <label for="report_place">* Local de denúncia: </label>
+                                    <field name="report_place" />
+                                </p>
+                                <p attrs="{'invisible': [('report_place', '!=', 'Outro')], 'required': [('report_place', '=', 'Outro')]}">
+                                    <strong>Outro local de denúncia (especificar): </strong>
+                                    <field name="report_place_other" />
+                                </p>
+                                <p>
                                     <strong title="Campo Opcional">Tratamento do Caso: </strong>
                                     <field name="case_handling" />
                                 </p>

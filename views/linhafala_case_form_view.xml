@@ -211,6 +211,14 @@
                                                                 <strong>Condição socioeconómica</strong>
                                                                 <field name="socioeconomic_condition" />
                                                             </p>
+                                                            <p>
+                                                                <strong>Responsável legal</strong>
+                                                                <field name="legal_guardian" />
+                                                            </p>
+                                                            <p attrs="{'invisible': [('legal_guardian', '!=', 'Outro')], 'required': [('legal_guardian', '=', 'Outro')]}">
+                                                                <strong>Outro (especificar)</strong>
+                                                                <field name="legal_guardian_other" />
+                                                            </p>
                                                             
                                                             <p>
                                                                 <strong>

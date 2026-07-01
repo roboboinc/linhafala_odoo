@@ -155,6 +155,21 @@ class PersonInvolved(models.Model):
         default='Sem informação',
         help='Condição socioeconómica da pessoa envolvida.'
     )
+    legal_guardian = fields.Selection(
+        string='Responsável legal',
+        selection=[
+            ('Pai', 'Pai'),
+            ('Mãe', 'Mãe'),
+            ('Familiar', 'Familiar'),
+            ('Tutor formal', 'Tutor formal'),
+            ('Instituição de acolhimento', 'Instituição de acolhimento'),
+            ('Outro', 'Outro (especificar)'),
+        ],
+        help='Responsável legal da pessoa envolvida.'
+    )
+    legal_guardian_other = fields.Char(
+        string='Outro responsável legal (especificar)'
+    )
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
         selection=[
@@ -220,6 +235,11 @@ class PersonInvolved(models.Model):
     def _onchange_family_situation_id(self):
         if self.family_situation_id:
             self.family_situation_snapshot = self.family_situation_id.name
+
+    @api.onchange('legal_guardian')
+    def _onchange_legal_guardian(self):
+        if self.legal_guardian != 'Outro':
+            self.legal_guardian_other = False
 
     def _find_or_create_family_situation(self, name):
         clean_name = (name or '').strip()

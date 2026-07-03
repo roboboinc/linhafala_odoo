@@ -209,11 +209,15 @@
                                                                 <field name="distrito"
                                                                 />
                                                             </p>
-                                                            <p>
-                                                                <label for="victim_relationship">* Relação com a(s) vítima(s):</label>
-                                                                <field name="victim_relationship" />
+                                                                <p attrs="{'invisible': [('person_type', 'not in', ['Perpetrador', 'Contactante'])]}">
+                                                                <strong>* Relação com a(s) vítima(s):</strong>
+                                                                <field name="victim_relationship_perpetrador"
+                                                                    attrs="{'invisible': [('person_type', '!=', 'Perpetrador')], 'required': [('person_type', '=', 'Perpetrador')]}" />
+                                                                <field name="victim_relationship_contactante"
+                                                                    attrs="{'invisible': [('person_type', '!=', 'Contactante')], 'required': [('person_type', '=', 'Contactante')]}" />
+                                                                <field name="victim_relationship" invisible="1" />
                                                             </p>
-                                                            <p attrs="{'invisible': [('victim_relationship', '!=', 'Outro')], 'required': [('victim_relationship', '=', 'Outro')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', 'not in', ['Perpetrador', 'Contactante']), ('victim_relationship', '!=', 'Outro')], 'required': [('person_type', 'in', ['Perpetrador', 'Contactante']), ('victim_relationship', '=', 'Outro')]}">
                                                                 <strong>Outro (especificar)</strong>
                                                                 <field name="what_other" />
                                                             </p>

@@ -16,12 +16,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to Production Server
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.PROD_SSH_HOST }}
           username: ${{ secrets.PROD_SSH_USER }}
           key: ${{ secrets.PROD_SSH_KEY }}
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          debug: true
           script: |
             echo "=========================================="
             echo "Starting deployment to production..."

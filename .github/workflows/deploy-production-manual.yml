@@ -23,12 +23,13 @@ jobs:
 
       - name: Deploy with Rolling Update
         if: ${{ github.event.inputs.update_method == 'rolling' }}
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.PROD_SSH_HOST }}
           username: ${{ secrets.PROD_SSH_USER }}
           key: ${{ secrets.PROD_SSH_KEY }}
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          debug: true
           script: |
             echo "=========================================="
             echo "Starting ROLLING deployment..."
@@ -68,12 +69,13 @@ jobs:
 
       - name: Deploy with Full Restart
         if: ${{ github.event.inputs.update_method == 'full_restart' }}
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.PROD_SSH_HOST }}
           username: ${{ secrets.PROD_SSH_USER }}
           key: ${{ secrets.PROD_SSH_KEY }}
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
+          debug: true
           script: |
             echo "=========================================="
             echo "Starting FULL RESTART deployment..."

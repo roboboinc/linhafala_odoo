@@ -209,11 +209,15 @@
                                                                 <field name="distrito"
                                                                 />
                                                             </p>
-                                                            <p>
-                                                                <label for="victim_relationship">* Relação com a(s) vítima(s):</label>
-                                                                <field name="victim_relationship" />
+                                                                <p attrs="{'invisible': [('person_type', 'not in', ['Perpetrador', 'Contactante'])]}">
+                                                                <strong>* Relação com a(s) vítima(s):</strong>
+                                                                <field name="victim_relationship_perpetrador"
+                                                                    attrs="{'invisible': [('person_type', '!=', 'Perpetrador')], 'required': [('person_type', '=', 'Perpetrador')]}" />
+                                                                <field name="victim_relationship_contactante"
+                                                                    attrs="{'invisible': [('person_type', '!=', 'Contactante')], 'required': [('person_type', '=', 'Contactante')]}" />
+                                                                <field name="victim_relationship" invisible="1" />
                                                             </p>
-                                                            <p attrs="{'invisible': [('victim_relationship', '!=', 'Outro')], 'required': [('victim_relationship', '=', 'Outro')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', 'not in', ['Perpetrador', 'Contactante']), ('victim_relationship', '!=', 'Outro')], 'required': [('person_type', 'in', ['Perpetrador', 'Contactante']), ('victim_relationship', '=', 'Outro')]}">
                                                                 <strong>Outro (especificar)</strong>
                                                                 <field name="what_other" />
                                                             </p>
@@ -223,23 +227,23 @@
                                                                 <strong>Situação familiar</strong>
                                                                 <field name="family_situation_id" options="{'no_create_edit': False}" />
                                                             </p>
-                                                            <p>
+                                                            <p attrs="{'invisible': [('person_type', 'in', ['Perpetrador', 'Contactante'])]}">
                                                                 <strong>Condição socioeconómica</strong>
                                                                 <field name="socioeconomic_condition" />
                                                             </p>
-                                                            <p>
+                                                            <p attrs="{'invisible': [('person_type', 'in', ['Perpetrador', 'Contactante'])]}">
                                                                 <strong>Responsável legal</strong>
                                                                 <field name="legal_guardian" />
                                                             </p>
-                                                            <p attrs="{'invisible': [('legal_guardian', '!=', 'Outro')], 'required': [('legal_guardian', '=', 'Outro')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', 'in', ['Perpetrador', 'Contactante']), ('legal_guardian', '!=', 'Outro')], 'required': [('legal_guardian', '=', 'Outro')]}">
                                                                 <strong>Outro (especificar)</strong>
                                                                 <field name="legal_guardian_other" />
                                                             </p>
-                                                            <p>
+                                                            <p attrs="{'invisible': [('person_type', 'in', ['Perpetrador', 'Contactante'])]}">
                                                                 <strong>Tipo de apoio necessário</strong>
                                                                 <field name="support_type_needed" />
                                                             </p>
-                                                            <p attrs="{'invisible': [('support_type_needed', '!=', 'Outra')], 'required': [('support_type_needed', '=', 'Outra')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', 'in', ['Perpetrador', 'Contactante']), ('support_type_needed', '!=', 'Outra')], 'required': [('support_type_needed', '=', 'Outra')]}">
                                                                 <strong>Outra (especificar)</strong>
                                                                 <field name="support_type_needed_other" />
                                                             </p>
@@ -279,14 +283,14 @@
                                                                 <field name="localidade" />
                                                             </p>
                                                             
-                                                            <p>
+                                                            <p attrs="{'invisible': [('person_type', '=', 'Perpetrador')]}">
                                                                 <label for="are_you_disabled">* Tem algum tipo de
                                                                     impedimento/dificuldade?: </label>
                                                                 <field name="are_you_disabled" />
                                                             </p>
                                                         </div>
                                                         <div class="row w-100">
-                                                            <p attrs="{'invisible': [('are_you_disabled','==','Não')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', '=', 'Perpetrador'), ('are_you_disabled', '==', 'Não')]}">
                                                                 <field name="deficiency_line_calls_ids" />
                                                             </p>
                                                         </div>

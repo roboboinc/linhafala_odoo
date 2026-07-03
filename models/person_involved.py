@@ -407,7 +407,7 @@ class PersonInvolved(models.Model):
             ("Não", "Não"),
         ],
         help="Tem alguma deficiência??",
-        required=True
+        required=False
     )
 
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
@@ -500,7 +500,7 @@ class PersonInvolved(models.Model):
         return super().write(vals)
 
     
-    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other')
+    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other', 'are_you_disabled')
     def _check_all(self):
         for record in self:
             if not record.provincia:
@@ -525,3 +525,7 @@ class PersonInvolved(models.Model):
                 if record.victim_relationship == 'Outro' and not record.what_other:
                     raise ValidationError(
                         "Por favor, especifique o campo Outro em Relação com a(s) vítima(s)")
+
+            if record.person_type != 'Perpetrador' and not record.are_you_disabled:
+                raise ValidationError(
+                    "Por favor, preencha os campos de caracter obrigatorio Tem alguma deficiência??")

@@ -159,7 +159,7 @@ class ExportController(http.Controller):
                 distrito.name AS distrito,
                 posto.name AS posto,
                 localidade.name AS localidade,
-                person_involved.are_you_disabled AS e_deficiente,
+                person_involved.are_you_disabled AS "Tem alguma deficiência?",
                 (SELECT STRING_AGG(
                     NULLIF(CONCAT_WS(', ',
                         CASE WHEN def.vision_type THEN 'Visão' END,
@@ -173,7 +173,7 @@ class ExportController(http.Controller):
                 )
                 FROM linhafala_deficiente def
                 WHERE def.person_id = person_involved.id
-                ) AS necessidades_especiais,
+                ) AS "Tipo de Deficiência",
                 forwarding.area_type AS tipo_de_entidade,
                 referenceentity.name AS entidade_de_referencia_de_encaminhamento,
                 casereference.name AS pessoa_de_contacto_de_encaminhamento,

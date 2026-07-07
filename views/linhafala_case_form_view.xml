@@ -217,7 +217,7 @@
                                                                     attrs="{'invisible': [('person_type', '!=', 'Contactante')], 'required': [('person_type', '=', 'Contactante')]}" />
                                                                 <field name="victim_relationship" invisible="1" />
                                                             </p>
-                                                            <p attrs="{'invisible': ['|', ('person_type', 'not in', ['Perpetrador', 'Contactante']), ('victim_relationship', '!=', 'Outro')], 'required': [('person_type', 'in', ['Perpetrador', 'Contactante']), ('victim_relationship', '=', 'Outro')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', 'not in', ['Perpetrador', 'Contactante']), '|', '&amp;', ('person_type', '=', 'Perpetrador'), ('victim_relationship_perpetrador', '!=', 'Outro'), '&amp;', ('person_type', '=', 'Contactante'), ('victim_relationship_contactante', '!=', 'Outro')], 'required': ['|', '&amp;', ('person_type', '=', 'Perpetrador'), ('victim_relationship_perpetrador', '=', 'Outro'), '&amp;', ('person_type', '=', 'Contactante'), ('victim_relationship_contactante', '=', 'Outro')]}">
                                                                 <strong>Outro (especificar)</strong>
                                                                 <field name="what_other" />
                                                             </p>
@@ -226,6 +226,11 @@
                                                             <p>
                                                                 <strong>Situação familiar</strong>
                                                                 <field name="family_situation_id" options="{'no_create_edit': False}" />
+                                                                <field name="family_situation_is_other" invisible="1" />
+                                                            </p>
+                                                            <p attrs="{'invisible': [('family_situation_is_other', '=', False)], 'required': [('family_situation_is_other', '=', True)]}">
+                                                                <strong>Outro (especificar)</strong>
+                                                                <field name="family_situation_other" />
                                                             </p>
                                                             <p attrs="{'invisible': [('person_type', 'in', ['Perpetrador', 'Contactante'])]}">
                                                                 <strong>Condição socioeconómica</strong>

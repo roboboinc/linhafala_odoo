@@ -135,6 +135,11 @@ class ExportController(http.Controller):
                 COALESCE(case_priority.name, cas.case_priority_snapshot, cas.case_priority) AS prioridade_do_caso,
                 cas.resolution_type AS tratamento_do_caso,
                 cas.place_occurrence AS local_de_ocorrencia,
+                CASE
+                    WHEN cas.report_place = 'Outro' AND COALESCE(cas.report_place_other, '') <> ''
+                        THEN CONCAT(cas.report_place, ': ', cas.report_place_other)
+                    ELSE cas.report_place
+                END AS local_da_denuncia,
                 created_by_name.display_name AS criado_por,
                 manager_by_name.display_name AS gestor,
                 case_type.name AS categoria,

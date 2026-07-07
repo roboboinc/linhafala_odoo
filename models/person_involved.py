@@ -277,6 +277,13 @@ class PersonInvolved(models.Model):
         copy=False,
         help="Valor textual preservado para histórico mesmo após alterações nas opções."
     )
+    family_situation_is_other = fields.Boolean(
+        string='Situação familiar é outro',
+        compute='_compute_family_situation_is_other'
+    )
+    family_situation_other = fields.Char(
+        string='Outra situação familiar (especificar)'
+    )
     socioeconomic_condition = fields.Selection(
         string='Condição socioeconómica',
         selection=[
@@ -417,6 +424,14 @@ class PersonInvolved(models.Model):
     def _onchange_family_situation_id(self):
         if self.family_situation_id:
             self.family_situation_snapshot = self.family_situation_id.name
+        if not self.family_situation_is_other:
+            self.family_situation_other = False
+
+    @api.depends('family_situation_id', 'family_situation_id.name')
+    def _compute_family_situation_is_other(self):
+        for record in self:
+            name = (record.family_situation_id.name or '').strip().lower() if record.family_situation_id else ''
+            record.family_situation_is_other = name.startswith('outr')
 
     @api.onchange('victim_relationship')
     def _onchange_victim_relationship(self):
@@ -500,7 +515,7 @@ class PersonInvolved(models.Model):
         return super().write(vals)
 
     
-    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other', 'are_you_disabled')
+    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other', 'are_you_disabled', 'family_situation_id', 'family_situation_other')
     def _check_all(self):
         for record in self:
             if not record.provincia:
@@ -529,3 +544,7 @@ class PersonInvolved(models.Model):
             if record.person_type != 'Perpetrador' and not record.are_you_disabled:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Tem alguma deficiência??")
+
+            if record.family_situation_is_other and not record.family_situation_other:
+                raise ValidationError(
+                    "Por favor, especifique o campo Outro em Situação familiar")

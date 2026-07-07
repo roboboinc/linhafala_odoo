@@ -461,6 +461,22 @@ class PersonInvolved(models.Model):
                 record.victim_relationship = record.victim_relationship_contactante or False
                 record.victim_relationship_perpetrador = False
 
+    @api.onchange('victim_relationship_perpetrador')
+    def _onchange_victim_relationship_perpetrador(self):
+        for record in self:
+            if record.person_type == 'Perpetrador':
+                record.victim_relationship = record.victim_relationship_perpetrador or False
+                if record.victim_relationship_perpetrador != 'Outro':
+                    record.what_other = False
+
+    @api.onchange('victim_relationship_contactante')
+    def _onchange_victim_relationship_contactante(self):
+        for record in self:
+            if record.person_type == 'Contactante':
+                record.victim_relationship = record.victim_relationship_contactante or False
+                if record.victim_relationship_contactante != 'Outro':
+                    record.what_other = False
+
     @api.onchange('legal_guardian')
     def _onchange_legal_guardian(self):
         if self.legal_guardian != 'Outro':

@@ -217,7 +217,7 @@
                                                                     attrs="{'invisible': [('person_type', '!=', 'Contactante')], 'required': [('person_type', '=', 'Contactante')]}" />
                                                                 <field name="victim_relationship" invisible="1" />
                                                             </p>
-                                                            <p attrs="{'invisible': ['|', ('person_type', 'not in', ['Perpetrador', 'Contactante']), ('victim_relationship', '!=', 'Outro')], 'required': [('person_type', 'in', ['Perpetrador', 'Contactante']), ('victim_relationship', '=', 'Outro')]}">
+                                                            <p attrs="{'invisible': ['|', ('person_type', 'not in', ['Perpetrador', 'Contactante']), '|', '&amp;', ('person_type', '=', 'Perpetrador'), ('victim_relationship_perpetrador', '!=', 'Outro'), '&amp;', ('person_type', '=', 'Contactante'), ('victim_relationship_contactante', '!=', 'Outro')], 'required': ['|', '&amp;', ('person_type', '=', 'Perpetrador'), ('victim_relationship_perpetrador', '=', 'Outro'), '&amp;', ('person_type', '=', 'Contactante'), ('victim_relationship_contactante', '=', 'Outro')]}">
                                                                 <strong>Outro (especificar)</strong>
                                                                 <field name="what_other" />
                                                             </p>

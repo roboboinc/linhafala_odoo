@@ -9,6 +9,126 @@ class PersonInvolved(models.Model):
     _name = "linhafala.person_involved"
     _description = "Person Involved Lines"
 
+    PERPETRADOR_RELATIONSHIP_SELECTION = [
+        ("Pai", "Pai"),
+        ("Mãe", "Mãe"),
+        ("Padrasto", "Padrasto"),
+        ("Madrasta", "Madrasta"),
+        ("Irmão(ã)", "Irmão(ã)"),
+        ("Meio-irmão(ã)", "Meio-irmão(ã)"),
+        ("Avô(ó)", "Avô(ó)"),
+        ("Tio(a)", "Tio(a)"),
+        ("Primo(a)", "Primo(a)"),
+        ("Enteado(a)", "Enteado(a)"),
+        ("Cunhado(a)", "Cunhado(a)"),
+        ("Sogro(a)", "Sogro(a)"),
+        ("Professor(a)", "Professor(a)"),
+        ("Director(a) escolar", "Director(a) escolar"),
+        ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+        ("Colega/aluno(a)", "Colega/aluno(a)"),
+        ("Ex-colega", "Ex-colega"),
+        ("Namorado(a)", "Namorado(a)"),
+        ("Ex-namorado(a)", "Ex-namorado(a)"),
+        ("Companheiro(a)", "Companheiro(a)"),
+        ("Vizinho(a)", "Vizinho(a)"),
+        ("Líder comunitário", "Líder comunitário"),
+        ("Líder religioso", "Líder religioso"),
+        ("Empregador(a)", "Empregador(a)"),
+        ("Agente da Polícia", "Agente da Polícia"),
+        ("Profissional de saúde", "Profissional de saúde"),
+        ("Assistente social", "Assistente social"),
+        ("Outro profissional institucional", "Outro profissional institucional"),
+        ("Funcionario de Projecto", "Funcionario de Projecto"),
+        ("Pessoa da comunidade (não familiar nem vizinho)", "Pessoa da comunidade (não familiar nem vizinho)"),
+        ("Comerciante local", "Comerciante local"),
+        ("Outro", "Outro (especificar)"),
+    ]
+
+    CONTACTANTE_RELATIONSHIP_SELECTION = [
+        ("própria vítima", "própria vítima"),
+        ("Pai", "Pai"),
+        ("Mãe", "Mãe"),
+        ("Padrasto", "Padrasto"),
+        ("Madrasta", "Madrasta"),
+        ("Irmão(ã)", "Irmão(ã)"),
+        ("Outro familiar", "Outro familiar"),
+        ("Professor(a)", "Professor(a)"),
+        ("Diretor(a) escolar", "Diretor(a) escolar"),
+        ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+        ("Colega/aluno(a)", "Colega/aluno(a)"),
+        ("Namorado(a)", "Namorado(a)"),
+        ("Vizinho(a)", "Vizinho(a)"),
+        ("Líder comunitário", "Líder comunitário"),
+        ("Líder religioso", "Líder religioso"),
+        ("Profissional de saúde", "Profissional de saúde"),
+        ("Assistente social", "Assistente social"),
+        ("Agente da Polícia", "Agente da Polícia"),
+        ("Colaborador(a) de OCS", "Colaborador(a) de OCS"),
+        ("Colaborador(a) de Instituição de acolhimento", "Colaborador(a) de Instituição de acolhimento"),
+        ("Anónimo(a)", "Anónimo(a)"),
+        ("Outro", "Outro (especificar)"),
+    ]
+
+    PERPETRADOR_RELATIONSHIP_VALUES = {
+        "Pai",
+        "Mãe",
+        "Padrasto",
+        "Madrasta",
+        "Irmão(ã)",
+        "Meio-irmão(ã)",
+        "Avô(ó)",
+        "Tio(a)",
+        "Primo(a)",
+        "Enteado(a)",
+        "Cunhado(a)",
+        "Sogro(a)",
+        "Professor(a)",
+        "Director(a) escolar",
+        "Funcionário(a) da escola",
+        "Colega/aluno(a)",
+        "Ex-colega",
+        "Namorado(a)",
+        "Ex-namorado(a)",
+        "Companheiro(a)",
+        "Vizinho(a)",
+        "Líder comunitário",
+        "Líder religioso",
+        "Empregador(a)",
+        "Agente da polícia",
+        "Profissional de saúde",
+        "Assistente social",
+        "Outro profissional institucional",
+        "Funcionario de Projecto",
+        "Pessoa da comunidade (não familiar nem vizinho)",
+        "Comerciante local",
+        "Outro",
+    }
+
+    CONTACTANTE_RELATIONSHIP_VALUES = {
+        "própria vítima",
+        "Pai",
+        "Mãe",
+        "Padrasto",
+        "Madrasta",
+        "Irmão(ã)",
+        "Outro familiar",
+        "Professor(a)",
+        "Diretor(a) escolar",
+        "Funcionário(a) da escola",
+        "Colega/aluno(a)",
+        "Namorado(a)",
+        "Vizinho(a)",
+        "Líder comunitário",
+        "Líder religioso",
+        "Profissional de saúde",
+        "Assistente social",
+        "Agente da Polícia",
+        "Colaborador(a) de OCS",
+        "Colaborador(a) de Instituição de acolhimento",
+        "Anónimo(a)",
+        "Outro",
+    }
+
     person_id = fields.Char(string="ID person_involved", readonly=True)
 
     moz_learning_id = fields.Many2one(
@@ -62,10 +182,25 @@ class PersonInvolved(models.Model):
     
     @api.onchange('person_type')
     def _onchange_person_type(self):
+        valid_types = ('Perpetrador', 'Contactante')
         if self.person_type == 'Perpetrador':
             self.age = False  # Hide the "Idade" field
         else:
             self.age = False  # Show the "Idade" field
+
+        if self.person_type not in valid_types:
+            self.victim_relationship = False
+            self.what_other = False
+            self.victim_relationship_perpetrador = False
+            self.victim_relationship_contactante = False
+        elif self.person_type == 'Perpetrador' and self.victim_relationship and self.victim_relationship not in self.PERPETRADOR_RELATIONSHIP_VALUES:
+            self.victim_relationship = False
+            self.what_other = False
+            self.victim_relationship_perpetrador = False
+        elif self.person_type == 'Contactante' and self.victim_relationship and self.victim_relationship not in self.CONTACTANTE_RELATIONSHIP_VALUES:
+            self.victim_relationship = False
+            self.what_other = False
+            self.victim_relationship_contactante = False
 
     created_at = fields.Datetime(
         string='Data de criaçäo', default=lambda self: fields.Datetime.now(), readonly=True)
@@ -142,34 +277,117 @@ class PersonInvolved(models.Model):
         copy=False,
         help="Valor textual preservado para histórico mesmo após alterações nas opções."
     )
+    family_situation_is_other = fields.Boolean(
+        string='Situação familiar é outro',
+        compute='_compute_family_situation_is_other'
+    )
+    family_situation_other = fields.Char(
+        string='Outra situação familiar (especificar)'
+    )
+    socioeconomic_condition = fields.Selection(
+        string='Condição socioeconómica',
+        selection=[
+            ('Muito baixa', 'Muito baixa'),
+            ('Baixa', 'Baixa'),
+            ('Média', 'Média'),
+            ('Alta', 'Alta'),
+            ('Beneficiário(a) de apoio social', 'Beneficiário(a) de apoio social'),
+            ('Sem informação', 'Sem informação'),
+        ],
+        default='Sem informação',
+        help='Condição socioeconómica da pessoa envolvida.'
+    )
+    legal_guardian = fields.Selection(
+        string='Responsável legal',
+        selection=[
+            ('Pai', 'Pai'),
+            ('Mãe', 'Mãe'),
+            ('Familiar', 'Familiar'),
+            ('Tutor formal', 'Tutor formal'),
+            ('Instituição de acolhimento', 'Instituição de acolhimento'),
+            ('Outro', 'Outro (especificar)'),
+        ],
+        help='Responsável legal da pessoa envolvida.'
+    )
+    legal_guardian_other = fields.Char(
+        string='Outro responsável legal (especificar)'
+    )
+    support_type_needed = fields.Selection(
+        string='Tipo de apoio necessário',
+        selection=[
+            ('Apoio psicossocial', 'Apoio psicossocial'),
+            ('Apoio jurídico', 'Apoio jurídico'),
+            ('Apoio médico', 'Apoio médico'),
+            ('Reintegração escolar', 'Reintegração escolar'),
+            ('Material escolar', 'Material escolar'),
+            ('Proteção imediata', 'Proteção imediata'),
+            ('Encaminhamento institucional', 'Encaminhamento institucional'),
+            ('Aconselhamento', 'Aconselhamento'),
+            ('Outra', 'Outra (especificar)'),
+        ],
+        help='Tipo de apoio necessário para a pessoa envolvida.'
+    )
+    support_type_needed_other = fields.Char(
+        string='Outro tipo de apoio (especificar)'
+    )
     victim_relationship = fields.Selection(
         string='Relação com a(s) vítima(s):',
         selection=[
+            ("própria vítima", "própria vítima"),
             ("Pai", "Pai"),
             ("Mãe", "Mãe"),
-            ("Avo", "Avo"),
-            ("Amigo", "Amigo"),
-            ("Outros", "Outros"),
-            ("Colega", "Colega"),
-            ("Esposo", "Esposo"),
-            ("Tio(a)", "Tio(a)"),
-            ("Nenhuma", "Nenhuma"),
-            ("Mentora", "Mentora"),
-            ("Irmã(o)", "Irmã(o)"),
-            ("Primo(a)", "Primo(a)"),
-            ("Namorado", "Namorado"),
-            ("Madrasta", "Madrasta"),
             ("Padrasto", "Padrasto"),
-            ("Empregador", "Empregador"),
-            ("Vizinho (a)", "Vizinho (a)"),
-            ("Denunciante", "Denunciante"),
-            ("Educador(a)", "Educador(a)"),
+            ("Madrasta", "Madrasta"),
+            ("Irmão(ã)", "Irmão(ã)"),
+            ("Meio-irmão(ã)", "Meio-irmão(ã)"),
+            ("Avô(ó)", "Avô(ó)"),
+            ("Tio(a)", "Tio(a)"),
+            ("Primo(a)", "Primo(a)"),
+            ("Outro familiar", "Outro familiar"),
+            ("Enteado(a)", "Enteado(a)"),
+            ("Cunhado(a)", "Cunhado(a)"),
+            ("Sogro(a)", "Sogro(a)"),
             ("Professor(a)", "Professor(a)"),
-            ("Não aplicavél", "Não aplicavél"),
+            ("Director(a) escolar", "Director(a) escolar"),
+            ("Diretor(a) escolar", "Diretor(a) escolar"),
+            ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+            ("Colega/aluno(a)", "Colega/aluno(a)"),
+            ("Ex-colega", "Ex-colega"),
+            ("Namorado(a)", "Namorado(a)"),
+            ("Ex-namorado(a)", "Ex-namorado(a)"),
+            ("Companheiro(a)", "Companheiro(a)"),
+            ("Vizinho(a)", "Vizinho(a)"),
+            ("Líder comunitário", "Líder comunitário"),
+            ("Líder religioso", "Líder religioso"),
+            ("Empregador(a)", "Empregador(a)"),
+            ("Agente da Polícia", "Agente da Polícia"),
+            ("Profissional de saúde", "Profissional de saúde"),
+            ("Assistente social", "Assistente social"),
+            ("Outro profissional institucional", "Outro profissional institucional"),
+            ("Funcionario de Projecto", "Funcionario de Projecto"),
+            ("Pessoa da comunidade (não familiar nem vizinho)", "Pessoa da comunidade (não familiar nem vizinho)"),
+            ("Comerciante local", "Comerciante local"),
+            ("Colaborador(a) de OCS", "Colaborador(a) de OCS"),
+            ("Colaborador(a) de Instituição de acolhimento", "Colaborador(a) de Instituição de acolhimento"),
+            ("Anónimo(a)", "Anónimo(a)"),
+            ("Outro", "Outro (especificar)"),
         ],
         help="Relação com a(s) vítima(s):",
-        required=True
+        required=False
     )
+    victim_relationship_perpetrador = fields.Selection(
+        string='Relação com a(s) vítima(s) (Perpetrador)',
+        selection=PERPETRADOR_RELATIONSHIP_SELECTION,
+        compute='_compute_split_victim_relationship',
+        inverse='_inverse_victim_relationship_perpetrador'
+    )
+    victim_relationship_contactante = fields.Selection(
+        string='Relação com a(s) vítima(s) (Contactante)',
+        selection=CONTACTANTE_RELATIONSHIP_SELECTION,
+        compute='_compute_split_victim_relationship',
+        inverse='_inverse_victim_relationship_contactante'
+    )
+    what_other = fields.Char(string="Qual Outro")
     gender = fields.Selection(
         string='Sexo',
         selection=[
@@ -179,7 +397,6 @@ class PersonInvolved(models.Model):
         help="Sexo",
         # required=True
     )
-    what_other = fields.Char(string="Qual Outro")
     age = fields.Selection([('0-6 meses', '0-6 meses')] + [('7-11 meses', '7-11 meses')] + [(str(i), str(i)) for i in range(1, 25)] + [('25+', '25+')],
                            string='Idade',
                         #    required=True
@@ -197,7 +414,7 @@ class PersonInvolved(models.Model):
             ("Não", "Não"),
         ],
         help="Tem alguma deficiência??",
-        required=True
+        required=False
     )
 
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
@@ -207,6 +424,68 @@ class PersonInvolved(models.Model):
     def _onchange_family_situation_id(self):
         if self.family_situation_id:
             self.family_situation_snapshot = self.family_situation_id.name
+        if not self.family_situation_is_other:
+            self.family_situation_other = False
+
+    @api.depends('family_situation_id', 'family_situation_id.name')
+    def _compute_family_situation_is_other(self):
+        for record in self:
+            name = (record.family_situation_id.name or '').strip().lower() if record.family_situation_id else ''
+            record.family_situation_is_other = name.startswith('outr')
+
+    @api.onchange('victim_relationship')
+    def _onchange_victim_relationship(self):
+        if self.victim_relationship != 'Outro':
+            self.what_other = False
+
+    @api.depends('person_type', 'victim_relationship')
+    def _compute_split_victim_relationship(self):
+        for record in self:
+            record.victim_relationship_perpetrador = False
+            record.victim_relationship_contactante = False
+
+            if record.person_type == 'Perpetrador' and record.victim_relationship in record.PERPETRADOR_RELATIONSHIP_VALUES:
+                record.victim_relationship_perpetrador = record.victim_relationship
+            elif record.person_type == 'Contactante' and record.victim_relationship in record.CONTACTANTE_RELATIONSHIP_VALUES:
+                record.victim_relationship_contactante = record.victim_relationship
+
+    def _inverse_victim_relationship_perpetrador(self):
+        for record in self:
+            if record.person_type == 'Perpetrador':
+                record.victim_relationship = record.victim_relationship_perpetrador or False
+                record.victim_relationship_contactante = False
+
+    def _inverse_victim_relationship_contactante(self):
+        for record in self:
+            if record.person_type == 'Contactante':
+                record.victim_relationship = record.victim_relationship_contactante or False
+                record.victim_relationship_perpetrador = False
+
+    @api.onchange('victim_relationship_perpetrador')
+    def _onchange_victim_relationship_perpetrador(self):
+        for record in self:
+            if record.person_type == 'Perpetrador':
+                record.victim_relationship = record.victim_relationship_perpetrador or False
+                if record.victim_relationship_perpetrador != 'Outro':
+                    record.what_other = False
+
+    @api.onchange('victim_relationship_contactante')
+    def _onchange_victim_relationship_contactante(self):
+        for record in self:
+            if record.person_type == 'Contactante':
+                record.victim_relationship = record.victim_relationship_contactante or False
+                if record.victim_relationship_contactante != 'Outro':
+                    record.what_other = False
+
+    @api.onchange('legal_guardian')
+    def _onchange_legal_guardian(self):
+        if self.legal_guardian != 'Outro':
+            self.legal_guardian_other = False
+
+    @api.onchange('support_type_needed')
+    def _onchange_support_type_needed(self):
+        if self.support_type_needed != 'Outra':
+            self.support_type_needed_other = False
 
     def _find_or_create_family_situation(self, name):
         clean_name = (name or '').strip()
@@ -252,7 +531,7 @@ class PersonInvolved(models.Model):
         return super().write(vals)
 
     
-    @api.constrains('provincia','distrito','victim_relationship')
+    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other', 'are_you_disabled', 'family_situation_id', 'family_situation_other')
     def _check_all(self):
         for record in self:
             if not record.provincia:
@@ -261,6 +540,27 @@ class PersonInvolved(models.Model):
             if not record.distrito:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Distrito")
-            if not record.victim_relationship:
+            if record.person_type in ('Perpetrador', 'Contactante'):
+                if not record.victim_relationship:
+                    raise ValidationError(
+                        "Por favor, preencha os campos de caracter obrigatorio Relação com a(s) vítima(s)")
+
+                allowed_values = self.PERPETRADOR_RELATIONSHIP_VALUES
+                if record.person_type == 'Contactante':
+                    allowed_values = self.CONTACTANTE_RELATIONSHIP_VALUES
+
+                if record.victim_relationship not in allowed_values:
+                    raise ValidationError(
+                        "A opção de Relação com a(s) vítima(s) não é válida para a categoria selecionada.")
+
+                if record.victim_relationship == 'Outro' and not record.what_other:
+                    raise ValidationError(
+                        "Por favor, especifique o campo Outro em Relação com a(s) vítima(s)")
+
+            if record.person_type != 'Perpetrador' and not record.are_you_disabled:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio  Relação com a(s) vítima(s)")
+                    "Por favor, preencha os campos de caracter obrigatorio Tem alguma deficiência??")
+
+            if record.family_situation_is_other and not record.family_situation_other:
+                raise ValidationError(
+                    "Por favor, especifique o campo Outro em Situação familiar")

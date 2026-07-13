@@ -238,6 +238,10 @@
                                                             <strong>Relação com o Benificiário: </strong>
                                                             <field name="victim_relationship"/>
                                                         </p>
+                                                        <p attrs="{'invisible': [('victim_relationship', '!=', 'Outro')], 'required': [('victim_relationship', '=', 'Outro')]}">
+                                                            <strong>Outro (especificar): </strong>
+                                                            <field name="what_other"/>
+                                                        </p>
                                                     </div>
                                                 </div>                              
                                             </sheet>

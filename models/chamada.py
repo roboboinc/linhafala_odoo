@@ -90,36 +90,37 @@ class Chamada(models.Model):
     victim_relationship = fields.Selection(
         string='Relação com a(s) Vítima(s):',
         selection=[
+            ("própria vítima", "própria vítima"),
             ("Pai", "Pai"),
             ("Mãe", "Mãe"),
-            ("Avo", "Avo"),
-            ("Amigo", "Amigo"),
-            ("Esposo", "Esposo"),
-            ("Outros", "Outros"),
-            ("Tio(a)", "Tio(a)"),
-            ("Colega", "Colega"),
-            ("Mentora", "Mentora"),
-            ("Nenhuma", "Nenhuma"),
-            ("Irmã(o)", "Irmã(o)"),
-            ("Madrasta", "Madrasta"),
             ("Padrasto", "Padrasto"),
-            ("Primo(a)", "Primo(a)"),
-            ("Namorado", "Namorado"),
-            ("Sobrinho", "Sobrinho"),
-            ("Ativista", "Ativista"),
-            ("Cunhado/a", "Cunhado/a"),
-            ("Paralegal", "Paralegal"),
-            ("Empregador", "Empregador"),
-            ("Ponto Focal", "Ponto Focal"),
-            ("Vizinho (a)", "Vizinho (a)"),
-            ("Educador(a)", "Educador(a)"),
+            ("Madrasta", "Madrasta"),
+            ("Irmão(ã)", "Irmão(ã)"),
+            ("Outro familiar", "Outro familiar"),
             ("Professor(a)", "Professor(a)"),
-            ("Membro da PRM", "Membro da PRM"),
-            ("Lider relegioso", "Lider relegioso"),
-            ("líder cumunitario", "líder cumunitario"),
+            ("Diretor(a) escolar", "Diretor(a) escolar"),
+            ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+            ("Colega/aluno(a)", "Colega/aluno(a)"),
+            ("Namorado(a)", "Namorado(a)"),
+            ("Vizinho(a)", "Vizinho(a)"),
+            ("Líder comunitário", "Líder comunitário"),
+            ("Líder religioso", "Líder religioso"),
+            ("Profissional de saúde", "Profissional de saúde"),
+            ("Assistente social", "Assistente social"),
+            ("Agente da Polícia", "Agente da Polícia"),
+            ("Colaborador(a) de OCS", "Colaborador(a) de OCS"),
+            ("Colaborador(a) de Instituição de acolhimento", "Colaborador(a) de Instituição de acolhimento"),
+            ("Anónimo(a)", "Anónimo(a)"),
+            ("Outro", "Outro (especificar)"),
         ],
         help="Relação com a(s) vítima(s):"
     )
+    what_other = fields.Char(string="Qual Outro")
+
+    @api.onchange('victim_relationship')
+    def _onchange_victim_relationship(self):
+        if self.victim_relationship != 'Outro':
+            self.what_other = False
 
     category_status = fields.Many2one(
         comodel_name='linhafala.categoria',
@@ -1195,8 +1196,29 @@ class CallCaseAssistanceContactante(models.Model):
     victim_relationship = fields.Selection(
         string='Relação com o Benificiário:',
         selection=[
+            ("própria vítima", "própria vítima"),
             ("Pai", "Pai"),
             ("Mãe", "Mãe"),
+            ("Padrasto", "Padrasto"),
+            ("Madrasta", "Madrasta"),
+            ("Irmão(ã)", "Irmão(ã)"),
+            ("Outro familiar", "Outro familiar"),
+            ("Professor(a)", "Professor(a)"),
+            ("Diretor(a) escolar", "Diretor(a) escolar"),
+            ("Funcionário(a) da escola", "Funcionário(a) da escola"),
+            ("Colega/aluno(a)", "Colega/aluno(a)"),
+            ("Namorado(a)", "Namorado(a)"),
+            ("Vizinho(a)", "Vizinho(a)"),
+            ("Líder comunitário", "Líder comunitário"),
+            ("Líder religioso", "Líder religioso"),
+            ("Profissional de saúde", "Profissional de saúde"),
+            ("Assistente social", "Assistente social"),
+            ("Agente da Polícia", "Agente da Polícia"),
+            ("Colaborador(a) de OCS", "Colaborador(a) de OCS"),
+            ("Colaborador(a) de Instituição de acolhimento", "Colaborador(a) de Instituição de acolhimento"),
+            ("Anónimo(a)", "Anónimo(a)"),
+            ("Outro", "Outro (especificar)"),
+            # Legacy values kept for compatibility with older records and flows.
             ("Avo", "Avo"),
             ("Amigo", "Amigo"),
             ("Outros", "Outros"),
@@ -1219,6 +1241,12 @@ class CallCaseAssistanceContactante(models.Model):
         ],
         help="Relação com o Benificiário:"
     )
+    what_other = fields.Char(string="Qual Outro")
+
+    @api.onchange('victim_relationship')
+    def _onchange_victim_relationship(self):
+        if self.victim_relationship != 'Outro':
+            self.what_other = False
 
 
 

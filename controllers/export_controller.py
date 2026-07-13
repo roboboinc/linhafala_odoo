@@ -135,6 +135,11 @@ class ExportController(http.Controller):
                 COALESCE(case_priority.name, cas.case_priority_snapshot, cas.case_priority) AS prioridade_do_caso,
                 cas.resolution_type AS tratamento_do_caso,
                 cas.place_occurrence AS local_de_ocorrencia,
+                CASE
+                    WHEN cas.report_place = 'Outro' AND COALESCE(cas.report_place_other, '') <> ''
+                        THEN CONCAT(cas.report_place, ': ', cas.report_place_other)
+                    ELSE cas.report_place
+                END AS local_da_denuncia,
                 created_by_name.display_name AS criado_por,
                 manager_by_name.display_name AS gestor,
                 case_type.name AS categoria,
@@ -152,13 +157,14 @@ class ExportController(http.Controller):
                 person_involved.age AS idade,
                 person_involved.gender AS sexo,
                 COALESCE(family_situation.name, person_involved.family_situation_snapshot, person_involved.living_relatives) AS situacao_familiar,
+                person_involved.socioeconomic_condition AS condicao_socioeconomica,
                 person_involved.victim_relationship AS relacao_com_a_vitima,
                 person_involved.bairro AS bairro,
                 province.name AS provincia,
                 distrito.name AS distrito,
                 posto.name AS posto,
                 localidade.name AS localidade,
-                person_involved.are_you_disabled AS e_deficiente,
+                person_involved.are_you_disabled AS "Tem alguma deficiência?",
                 (SELECT STRING_AGG(
                     NULLIF(CONCAT_WS(', ',
                         CASE WHEN def.vision_type THEN 'Visão' END,
@@ -172,7 +178,7 @@ class ExportController(http.Controller):
                 )
                 FROM linhafala_deficiente def
                 WHERE def.person_id = person_involved.id
-                ) AS necessidades_especiais,
+                ) AS "Tipo de Deficiência",
                 forwarding.area_type AS tipo_de_entidade,
                 referenceentity.name AS entidade_de_referencia_de_encaminhamento,
                 casereference.name AS pessoa_de_contacto_de_encaminhamento,

@@ -413,8 +413,8 @@ class PersonInvolved(models.Model):
             ("Sim", "Sim"),
             ("Não", "Não"),
         ],
-        help="Tem alguma deficiência??",
-        required=False
+        help="Tem alguma deficiência?",
+        required=True
     )
 
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
@@ -487,6 +487,33 @@ class PersonInvolved(models.Model):
         if self.support_type_needed != 'Outra':
             self.support_type_needed_other = False
 
+    @api.onchange('are_you_disabled')
+    def _onchange_are_you_disabled(self):
+        if self.person_type in ('Vítima', 'Contactante+Vítima') and self.are_you_disabled in ('Não', 'Nao'):
+            return {
+                'warning': {
+                    'title': 'Confirmação',
+                    'message': 'Tem certeza que a vítima/contactante + vítima não tem nenhum tipo de deficiência?'
+                }
+            }
+        if self.are_you_disabled == 'Sim' and not self.deficiency_line_calls_ids:
+            return {
+                'warning': {
+                    'title': 'Campo obrigatório',
+                    'message': 'Se "Tem alguma deficiência??" for "Sim", indique pelo menos um tipo de deficiência.'
+                }
+            }
+
+    @api.onchange('deficiency_line_calls_ids')
+    def _onchange_deficiency_line_calls_ids(self):
+        if self.are_you_disabled == 'Sim' and not self.deficiency_line_calls_ids:
+            return {
+                'warning': {
+                    'title': 'Campo obrigatório',
+                    'message': 'Se "Tem alguma deficiência??" for "Sim", indique pelo menos um tipo de deficiência.'
+                }
+            }
+
     def _find_or_create_family_situation(self, name):
         clean_name = (name or '').strip()
         if not clean_name:
@@ -531,7 +558,7 @@ class PersonInvolved(models.Model):
         return super().write(vals)
 
     
-    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other', 'are_you_disabled', 'family_situation_id', 'family_situation_other')
+    @api.constrains('provincia', 'distrito', 'person_type', 'victim_relationship', 'what_other', 'are_you_disabled', 'family_situation_id', 'family_situation_other', 'deficiency_line_calls_ids')
     def _check_all(self):
         for record in self:
             if not record.provincia:
@@ -559,7 +586,26 @@ class PersonInvolved(models.Model):
 
             if record.person_type != 'Perpetrador' and not record.are_you_disabled:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio Tem alguma deficiência??")
+                    "Por favor, preencha os campos de caracter obrigatorio Tem alguma deficiência?")
+
+            if record.are_you_disabled == 'Sim':
+                if not record.deficiency_line_calls_ids:
+                    raise ValidationError(
+                        "Por favor, indique o tipo de deficiência.")
+
+                has_disability_type = any(
+                    line.what_disability_does_he_suffer
+                    or line.vision_type
+                    or line.hearing_type
+                    or line.mobility_type
+                    or line.cognition_type
+                    or line.comunication_type
+                    or line.autonomous_care_type
+                    for line in record.deficiency_line_calls_ids
+                )
+                if not has_disability_type:
+                    raise ValidationError(
+                        "Por favor, indique o tipo de deficiência.")
 
             if record.family_situation_is_other and not record.family_situation_other:
                 raise ValidationError(

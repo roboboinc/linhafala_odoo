@@ -261,7 +261,7 @@
 
                                                             <p
                                                                 attrs="{'invisible': [('person_type','==','Perpetrador')]}">
-                                                                <label for="gender">* Género: </label>
+                                                                <label for="gender">* Sexo: </label>
                                                                 <field name="gender" />
                                                             </p>
                                                             <p 

@@ -169,7 +169,7 @@
                             </p>
                             <p title="Campo Opcional">
                                 <label for="gender">
-                                    * Género: </label>
+                                    * Sexo: </label>
                                 <field name="gender" />
                             </p>
                             

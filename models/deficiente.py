@@ -119,3 +119,60 @@ class Deficiente(models.Model):
     cognition_type = fields.Boolean("Cognição:")
     comunication_type = fields.Boolean("Comunicação:")
     autonomous_care_type = fields.Boolean("Cuidados Autónomos:")
+
+    necessidades_especiais_ok = fields.Char(
+        string='Necessidades Especiais OK',
+        compute='_compute_necessidades_especiais_ok',
+        store=True,
+    )
+
+    parent_are_you_disabled = fields.Selection(
+        selection=[('Sim','Sim'),('Não','Não')],
+        string='Parent tem deficiência?',
+        compute='_compute_parent_are_you_disabled',
+        store=True,
+    )
+
+    @api.depends('vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer')
+    def _compute_necessidades_especiais_ok(self):
+        for rec in self:
+            if rec.vision_type or rec.hearing_type or rec.mobility_type or rec.cognition_type or rec.comunication_type or rec.autonomous_care_type or rec.what_disability_does_he_suffer:
+                rec.necessidades_especiais_ok = 'ok'
+            else:
+                rec.necessidades_especiais_ok = False
+
+    @api.depends('person_id', 'person_id.are_you_disabled')
+    def _compute_parent_are_you_disabled(self):
+        for rec in self:
+            rec.parent_are_you_disabled = rec.person_id.are_you_disabled if rec.person_id else False
+
+    @api.constrains('vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer')
+    def _check_necessidades_especiais(self):
+        for rec in self:
+            if rec.person_id and rec.person_id.are_you_disabled == 'Sim':
+                if not (rec.vision_type or rec.hearing_type or rec.mobility_type or rec.cognition_type or rec.comunication_type or rec.autonomous_care_type or rec.what_disability_does_he_suffer):
+                    raise ValidationError('Selecione pelo menos uma opção em "Necessidades Especiais".')
+
+    @api.model
+    def create(self, vals):
+        fields = ['vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer']
+        # Only enforce when linked person indicates they have a disability
+        person_id = vals.get('person_id') or vals.get('person_id')
+        if person_id:
+            person = self.env['linhafala.person_involved'].browse(person_id)
+            if person and person.are_you_disabled == 'Sim' and not any([vals.get(f) for f in fields]):
+                raise ValidationError('Selecione pelo menos uma opção em "Necessidades Especiais".')
+        return super(Deficiente, self).create(vals)
+
+    def write(self, vals):
+        fields = ['vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer']
+        for rec in self:
+            # Determine final values after write
+            final = {}
+            for f in fields:
+                final[f] = vals.get(f, getattr(rec, f))
+            # Only enforce when linked person indicates they have a disability
+            person = rec.person_id
+            if person and person.are_you_disabled == 'Sim' and not any([final.get(f) for f in fields]):
+                raise ValidationError('Selecione pelo menos uma opção em "Necessidades Especiais".')
+        return super(Deficiente, self).write(vals)

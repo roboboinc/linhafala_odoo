@@ -76,6 +76,11 @@
                             name="call_id"
                             placeholder="Número de chamada (auto)" />
                     </h3>
+                    <div class="alert alert-danger" attrs="{'invisible': ['|',('parent_are_you_disabled','!=','Sim'),('necessidades_especiais_ok','!=',False)]}">
+                        <strong>Selecione pelo menos uma opção de "Necessidades Especiais".</strong>
+                    </div>
+                    <field name="necessidades_especiais_ok" invisible="1"/>
+                    <field name="parent_are_you_disabled" invisible="1"/>
                     <div class="row w-100">
                         <div class="container">
                             <div class="row w-100">

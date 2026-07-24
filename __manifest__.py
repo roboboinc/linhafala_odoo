@@ -86,6 +86,7 @@
     'assets': {
         'web.assets_backend': [
             'linhafala_odoo/static/src/js/passive_wheel_patch.js',
+            'linhafala_odoo/static/src/js/deficiente_form_save_button.js',
         ],
     },
 }

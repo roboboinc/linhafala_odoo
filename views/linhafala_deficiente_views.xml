@@ -90,30 +90,42 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-8 mt-0 my-5">
-                                    <div class="d-flex">
+                                    <div class="d-flex flex-wrap gap-3">
                                         <p> 
-                                            <strong>Visão: </strong>
+                                            <strong>Deficiência visual: </strong>
                                             <field name="vision_type" />
                                         </p>
                                         <p>
-                                            <strong>Audição: </strong>
+                                            <strong>Deficiência auditiva: </strong>
                                             <field name="hearing_type" />
                                         </p>
                                         <p>
-                                            <strong>Mobilidade: </strong>
+                                            <strong>Deficiência física: </strong>
                                             <field name="mobility_type" />
                                         </p>
                                         <p>
-                                            <strong>Cognição: </strong>
+                                            <strong>Deficiência intelectual: </strong>
                                             <field name="cognition_type" />
                                         </p>
                                         <p>
-                                            <strong>Comunicação: </strong>
+                                            <strong>Deficiência psicossocial: </strong>
+                                            <field name="psicossocial_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Deficiência de comunicação: </strong>
                                             <field name="comunication_type" />
                                         </p>
                                         <p>
-                                            <strong>Cuidados Autónomos: </strong>
-                                            <field name="autonomous_care_type" />
+                                            <strong>Multideficiência: </strong>
+                                            <field name="multideficiencia_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Autismo: </strong>
+                                            <field name="autismo_type" />
+                                        </p>
+                                        <p>
+                                            <strong>Albinismo: </strong>
+                                            <field name="albinismo_type" />
                                         </p>
                                     </div>
                                 </div>
@@ -157,14 +169,6 @@
                                 <br/>
                                 <!--<strong>Comunicação: </strong>-->
                                 <field name="comunication" />
-                            </p>
-                        </div>
-                        <div class="col-md-6 mt-6">
-                            <p attrs="{'invisible': [('autonomous_care_type','=',False)]}">
-                                <strong>Pergunta:</strong> [O(a) inquirido(a)/ele/ela] tem dificuldades em cuidar de si próprio(a), como lavar o corpo inteiro ou vestir-se? Diria que:
-                                <br/>
-                                <!--<strong>Cuidados Autónomos: </strong>-->
-                                <field name="autonomous_care" />
                             </p>
                         </div>
                     </div>

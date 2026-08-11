@@ -267,7 +267,6 @@ class Chamada(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )
@@ -774,7 +773,6 @@ class CallCaseAssistance(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo",
         required=True
@@ -1188,7 +1186,6 @@ class CallCaseAssistanceContactante(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo Contactante"
     )

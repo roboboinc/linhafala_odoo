@@ -113,12 +113,16 @@ class Deficiente(models.Model):
     created_by = fields.Many2one(
         'res.users', string='Criado por', default=lambda self: self.env.user, readonly=True)
 
-    vision_type = fields.Boolean("Visão:")
-    hearing_type = fields.Boolean("Audição:")
-    mobility_type = fields.Boolean("Mobilidade:")
-    cognition_type = fields.Boolean("Cognição:")
-    comunication_type = fields.Boolean("Comunicação:")
+    vision_type = fields.Boolean("Deficiência visual")
+    hearing_type = fields.Boolean("Deficiência auditiva")
+    mobility_type = fields.Boolean("Deficiência física")
+    cognition_type = fields.Boolean("Deficiência intelectual")
+    comunication_type = fields.Boolean("Deficiência de comunicação")
     autonomous_care_type = fields.Boolean("Cuidados Autónomos:")
+    psicossocial_type = fields.Boolean("Deficiência psicossocial")
+    multideficiencia_type = fields.Boolean("Multideficiência")
+    autismo_type = fields.Boolean("Autismo")
+    albinismo_type = fields.Boolean("Albinismo")
 
     necessidades_especiais_ok = fields.Char(
         string='Necessidades Especiais OK',
@@ -133,10 +137,10 @@ class Deficiente(models.Model):
         store=True,
     )
 
-    @api.depends('vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer')
+    @api.depends('vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer', 'psicossocial_type', 'multideficiencia_type', 'autismo_type', 'albinismo_type')
     def _compute_necessidades_especiais_ok(self):
         for rec in self:
-            if rec.vision_type or rec.hearing_type or rec.mobility_type or rec.cognition_type or rec.comunication_type or rec.autonomous_care_type or rec.what_disability_does_he_suffer:
+            if rec.vision_type or rec.hearing_type or rec.mobility_type or rec.cognition_type or rec.comunication_type or rec.autonomous_care_type or rec.what_disability_does_he_suffer or rec.psicossocial_type or rec.multideficiencia_type or rec.autismo_type or rec.albinismo_type:
                 rec.necessidades_especiais_ok = 'ok'
             else:
                 rec.necessidades_especiais_ok = False
@@ -146,16 +150,16 @@ class Deficiente(models.Model):
         for rec in self:
             rec.parent_are_you_disabled = rec.person_id.are_you_disabled if rec.person_id else False
 
-    @api.constrains('vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer')
+    @api.constrains('vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer', 'psicossocial_type', 'multideficiencia_type', 'autismo_type', 'albinismo_type')
     def _check_necessidades_especiais(self):
         for rec in self:
             if rec.person_id and rec.person_id.are_you_disabled == 'Sim':
-                if not (rec.vision_type or rec.hearing_type or rec.mobility_type or rec.cognition_type or rec.comunication_type or rec.autonomous_care_type or rec.what_disability_does_he_suffer):
+                if not (rec.vision_type or rec.hearing_type or rec.mobility_type or rec.cognition_type or rec.comunication_type or rec.autonomous_care_type or rec.what_disability_does_he_suffer or rec.psicossocial_type or rec.multideficiencia_type or rec.autismo_type or rec.albinismo_type):
                     raise ValidationError('Selecione pelo menos uma opção em "Necessidades Especiais".')
 
     @api.model
     def create(self, vals):
-        fields = ['vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer']
+        fields = ['vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer', 'psicossocial_type', 'multideficiencia_type', 'autismo_type', 'albinismo_type']
         # Only enforce when linked person indicates they have a disability
         person_id = vals.get('person_id') or vals.get('person_id')
         if person_id:
@@ -165,7 +169,7 @@ class Deficiente(models.Model):
         return super(Deficiente, self).create(vals)
 
     def write(self, vals):
-        fields = ['vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer']
+        fields = ['vision_type', 'hearing_type', 'mobility_type', 'cognition_type', 'comunication_type', 'autonomous_care_type', 'what_disability_does_he_suffer', 'psicossocial_type', 'multideficiencia_type', 'autismo_type', 'albinismo_type']
         for rec in self:
             # Determine final values after write
             final = {}

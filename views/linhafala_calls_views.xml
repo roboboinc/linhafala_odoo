@@ -254,7 +254,7 @@
                             </p>
 
                             <p>
-                                <strong style="color: red;">* Género: </strong>
+                                <strong style="color: red;">* Sexo: </strong>
                                 <field name="gender" />
                             </p>
                             <p>

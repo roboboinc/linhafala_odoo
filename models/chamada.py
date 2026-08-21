@@ -267,7 +267,6 @@ class Chamada(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo"
     )
@@ -420,9 +419,9 @@ class Chamada(models.Model):
                     if not record.on_school:
                         raise ValidationError("Frequenta a Escola? é um campo obrigatório.")
                     if not record.gender:
-                        raise ValidationError("Género é um campo obrigatório.")
+                        raise ValidationError("Sexo é um campo obrigatório.")
                     if not record.age:
-                        raise ValidationError("Género é um campo obrigatório.")
+                        raise ValidationError("Sexo é um campo obrigatório.")
 
     def action_confirm(self):
         self.callcaseassistance_status = 'Aberto/Pendente'
@@ -774,7 +773,6 @@ class CallCaseAssistance(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo",
         required=True
@@ -1081,7 +1079,7 @@ class CallCaseAssistance(models.Model):
                     "Por favor, preencha os campos de caracter obrigatorio: Idade")
             if not record.gender:
                 raise ValidationError(
-                    "Por favor, preencha os campos de caracter obrigatorio: Género")
+                    "Por favor, preencha os campos de caracter obrigatorio: Sexo")
 
     @api.onchange('category')
     def _category_onchange(self):
@@ -1188,7 +1186,6 @@ class CallCaseAssistanceContactante(models.Model):
         selection=[
             ("Masculino", "Masculino"),
             ("Feminino", "Feminino"),
-            ("Desconhecido", "Desconhecido"),
         ],
         help="Sexo Contactante"
     )

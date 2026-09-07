@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
+import unicodedata
 from odoo import http, fields, api
 from odoo.http import request, Response
 from odoo.exceptions import ValidationError
@@ -10,6 +11,35 @@ _logger = logging.getLogger(__name__)
 
 class CasoAPIController(http.Controller):
     """REST API for creating Caso records with API key authentication"""
+
+    def _normalize_text(self, value):
+        """Normalize text for case/accent-insensitive comparisons."""
+        if value is None:
+            return ''
+        text = str(value).strip().lower()
+        text = unicodedata.normalize('NFKD', text)
+        return ''.join(ch for ch in text if not unicodedata.combining(ch))
+
+    def _normalize_selection_value(self, value, allowed_values, legacy_map):
+        """Map human/legacy values to the canonical selection value."""
+        if value in allowed_values:
+            return value
+
+        normalized_input = self._normalize_text(value)
+
+        # Accept case/accent-insensitive matches for canonical values.
+        normalized_allowed = {
+            self._normalize_text(item): item for item in allowed_values
+        }
+        if normalized_input in normalized_allowed:
+            return normalized_allowed[normalized_input]
+
+        # Accept documented legacy aliases.
+        mapped = legacy_map.get(normalized_input)
+        if mapped and mapped in allowed_values:
+            return mapped
+
+        return False
 
     def _validate_api_key(self, api_key):
         """Validate API key and return the associated user"""
@@ -121,6 +151,55 @@ class CasoAPIController(http.Controller):
             # Create a new environment with the authenticated user
             env = api.Environment(request.cr, user.id, {})
 
+            place_occurrence_allowed = [
+                'Residência da vítima',
+                'Ambiente escolar',
+                'Residência do Perpetrador',
+                'Residência de terceiros',
+                'Ambiente familiar/doméstico',
+                'Ambiente institucional',
+                'Unidade sanitária',
+                'Unidade Polícial',
+                'Ambiente digital',
+                'Via pública',
+                'Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos; Outros)',
+                'Outro',
+            ]
+            place_occurrence_legacy_map = {
+                'escola': 'Ambiente escolar',
+                'casa propria': 'Residência da vítima',
+                'casa própria': 'Residência da vítima',
+                'casa do vizinho': 'Residência de terceiros',
+                'cresce/infantario': 'Ambiente escolar',
+                'cresce/infantário': 'Ambiente escolar',
+                'casa do parente mais proximo': 'Residência de terceiros',
+                'casa do parente mais próximo': 'Residência de terceiros',
+                'outros': 'Outro',
+            }
+
+            report_place_allowed = [
+                'Ambiente escolar',
+                'Unidade sanitária',
+                'Unidade Polícial',
+                'Serviços de ação social',
+                'Ambiente familiar/doméstico',
+                'Ambiente institucional',
+                'Ambiente digital',
+                'Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos)',
+                'Outro',
+            ]
+            report_place_legacy_map = {
+                'escola': 'Ambiente escolar',
+                'cresce/infantario': 'Ambiente escolar',
+                'cresce/infantário': 'Ambiente escolar',
+                'outros': 'Outro',
+            }
+
+            # Dynamic selection list from the model to avoid drift.
+            victim_relationship_allowed = [
+                value for value, _label in env['linhafala.person_involved']._fields['victim_relationship'].selection
+            ]
+
             # Helper: resolve a Many2one value received as a string to an ID
             def _resolve_m2o(field_val, model_name, name_field='name'):
                 if not field_val:
@@ -173,6 +252,49 @@ class CasoAPIController(http.Controller):
                         error_code='INVALID_CLASSIFICATION'
                     )
 
+            # Normalize place_occurrence legacy/documented aliases.
+            if 'place_occurrence' in data and data.get('place_occurrence'):
+                normalized_place_occurrence = self._normalize_selection_value(
+                    data.get('place_occurrence'),
+                    place_occurrence_allowed,
+                    place_occurrence_legacy_map,
+                )
+                if normalized_place_occurrence:
+                    data['place_occurrence'] = normalized_place_occurrence
+                else:
+                    return self._error_response(
+                        (
+                            f"Invalid place_occurrence: '{data.get('place_occurrence')}'. "
+                            f"Accepted values: {', '.join(place_occurrence_allowed)}"
+                        ),
+                        status=400,
+                        error_code='INVALID_PLACE_OCCURRENCE'
+                    )
+
+            # Normalize report_place aliases when provided.
+            if 'report_place' in data and data.get('report_place'):
+                normalized_report_place = self._normalize_selection_value(
+                    data.get('report_place'),
+                    report_place_allowed,
+                    report_place_legacy_map,
+                )
+                if normalized_report_place:
+                    data['report_place'] = normalized_report_place
+                else:
+                    return self._error_response(
+                        (
+                            f"Invalid report_place: '{data.get('report_place')}'. "
+                            f"Accepted values: {', '.join(report_place_allowed)}"
+                        ),
+                        status=400,
+                        error_code='INVALID_REPORT_PLACE'
+                    )
+
+            # Backward compatibility: if report_place is omitted, infer it only
+            # when the chosen place_occurrence is also valid as report_place.
+            if not data.get('report_place') and data.get('place_occurrence') in report_place_allowed:
+                data['report_place'] = data.get('place_occurrence')
+
             # New taxonomy (taxonomy_version 2+): classificacao / tipo_case.
             # The automatic dimensions (subcategoria, area, categoria juridica,
             # enquadramento) are derived server-side from the Tipo do Caso.
@@ -197,6 +319,48 @@ class CasoAPIController(http.Controller):
                         status=400,
                         error_code='INVALID_TIPO_CASE'
                     )
+
+            # Compatibility bridge for legacy payloads:
+            # try to infer v3 fields from legacy names first, then fallback to
+            # taxonomy_version=1 when the client only sent legacy fields.
+            legacy_subcat_raw = data.get('secundary_case_type')
+            legacy_classif_raw = data.get('case_type_classification')
+
+            if not data.get('tipo_case_id'):
+                tipo_candidate = False
+
+                if isinstance(legacy_classif_raw, str):
+                    tipo_candidate = env['linhafala.caso.tipo'].search([
+                        ('name', 'ilike', legacy_classif_raw)
+                    ], limit=1)
+
+                if not tipo_candidate and isinstance(legacy_subcat_raw, str):
+                    tipo_candidate = env['linhafala.caso.tipo'].search([
+                        ('name', 'ilike', legacy_subcat_raw)
+                    ], limit=1)
+
+                if tipo_candidate:
+                    data['tipo_case_id'] = tipo_candidate.id
+                    if not data.get('classificacao_id') and tipo_candidate.classificacao_id:
+                        data['classificacao_id'] = tipo_candidate.classificacao_id.id
+
+            if not data.get('classificacao_id') and isinstance(legacy_classif_raw, str):
+                classif_candidate = env['linhafala.caso.classificacao'].search([
+                    ('name', 'ilike', legacy_classif_raw)
+                ], limit=1)
+                if classif_candidate:
+                    data['classificacao_id'] = classif_candidate.id
+
+            has_legacy_triplet = bool(
+                data.get('case_type') and data.get('secundary_case_type') and data.get('case_type_classification')
+            )
+            if (
+                not data.get('classificacao_id')
+                and not data.get('tipo_case_id')
+                and has_legacy_triplet
+                and 'taxonomy_version' not in data
+            ):
+                data['taxonomy_version'] = 1
 
             # created_by -> res.users (accept login or name)
             if 'created_by' in data and data.get('created_by'):
@@ -307,6 +471,40 @@ class CasoAPIController(http.Controller):
                             status=400,
                             error_code='MISSING_VICTIM_RELATIONSHIP'
                         )
+
+                    # Normalize legacy victim relationship values.
+                    if isinstance(p.get('victim_relationship'), str):
+                        relationship_raw = p.get('victim_relationship')
+                        normalized_relationship = self._normalize_selection_value(
+                            relationship_raw,
+                            victim_relationship_allowed,
+                            {
+                                'outros': 'Outro',
+                            },
+                        )
+
+                        if not normalized_relationship:
+                            relation_key = self._normalize_text(relationship_raw)
+                            person_type_key = self._normalize_text(p.get('person_type', ''))
+
+                            # Legacy "Nenhuma" is common in external payloads.
+                            if relation_key in ('nenhuma', 'nao aplicavel', 'nao aplicavel'):
+                                if person_type_key in ('vitima', 'contactante+vitima'):
+                                    normalized_relationship = 'própria vítima'
+                                else:
+                                    normalized_relationship = 'Outro'
+
+                        if normalized_relationship:
+                            p['victim_relationship'] = normalized_relationship
+                        else:
+                            return self._error_response(
+                                (
+                                    f"Invalid victim_relationship: '{relationship_raw}' for person '{p.get('fullname', 'unknown')}'. "
+                                    f"Accepted values: {', '.join(victim_relationship_allowed)}"
+                                ),
+                                status=400,
+                                error_code='INVALID_VICTIM_RELATIONSHIP'
+                            )
                     
                     # Set are_you_disabled to "Não" if not provided (required field)
                     if 'are_you_disabled' not in p or not p.get('are_you_disabled'):

@@ -59,9 +59,12 @@ Create a new Caso record.
   "call_id": 0,
   "case_priority": "Muito urgente",
   "case_type": "caso de natureza criminal",
+  "classificacao_id": "Violência física",
+  "tipo_case_id": "Grave",
   "secundary_case_type": "outros tipos de crimes",
   "case_type_classification": "Grave",
-  "place_occurrence": "Escola",
+  "place_occurrence": "Ambiente escolar",
+  "report_place": "Ambiente escolar",
   "case_handling": "Aconselhamento LFC",
   "created_by": "API Integration",
   "detailed_case_description": "Detailed description of the case...",
@@ -97,12 +100,18 @@ Create a new Caso record.
 **Required Fields:**
 - `case_priority`: One of: "Muito urgente", "Urgente", "Moderado", "Baixo", "Sem urgência". Legacy values such as "Muito Urgente" and "Não Aplicável" are also accepted for compatibility.
 - `case_type`: String (case category name, e.g., "Abuso Físico") or Integer (ID)
-- `secundary_case_type`: String (sub-category name) or Integer (ID)
-- `case_type_classification`: String (classification name) or Integer (ID)
-- `place_occurrence`: One of: "Escola", "Casa propria", "Casa do vizinho", "Cresce/infantário", "Casa do parente mais próximo", "Outros"
+- `classificacao_id`: String (classification name, e.g., "Violência física") or Integer (ID). Required for the current taxonomy flow.
+- `tipo_case_id`: String (case type name, e.g., "Grave") or Integer (ID). Required for the current taxonomy flow.
+- `secundary_case_type`: Legacy sub-category field. Accepted for backward compatibility.
+- `case_type_classification`: Legacy provisional classification field. Accepted for backward compatibility.
+- `place_occurrence`: One of: "Residência da vítima", "Ambiente escolar", "Residência do Perpetrador", "Residência de terceiros", "Ambiente familiar/doméstico", "Ambiente institucional", "Unidade sanitária", "Unidade Polícial", "Ambiente digital", "Via pública", "Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos; Outros)", "Outro"
+- `report_place`: One of: "Ambiente escolar", "Unidade sanitária", "Unidade Polícial", "Serviços de ação social", "Ambiente familiar/doméstico", "Ambiente institucional", "Ambiente digital", "Comunidade (Casa de vizinhos; Espaços recreativos; Campo de jogos; Mercado; Igreja / mesquita; Eventos comunitários; Ruas do bairro; Casa de amigos)", "Outro". If omitted, the API will auto-fill it only when `place_occurrence` is also a valid `report_place` value.
 - `case_handling`: One of: "Aconselhamento LFC", "Encaminhado", "Não encaminhado"
 - `detailed_case_description`: String (will be converted to detailed_description records)
 - `person_id`: Array with at least one person of type "Vítima" or "Contactante+Vítima", AND at least one person of type "Contactante" or "Contactante+Vítima"
+
+Legacy compatibility:
+- `place_occurrence` aliases are accepted and normalized: "Escola" -> "Ambiente escolar", "Casa propria" -> "Residência da vítima", "Casa do vizinho" -> "Residência de terceiros", "Cresce/infantário" -> "Ambiente escolar", "Casa do parente mais próximo" -> "Residência de terceiros", "Outros" -> "Outro".
 
 **Person Object Fields:**
 Each person in the `person_id` array requires:
@@ -200,7 +209,7 @@ Retrieve a Caso record by ID.
     "call_id": 456,
     "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
-    "secundary_case_type": "Violência Doméstica",
+    "secundary_case_type": "outros tipos de crimes",
     "created_by": "John Doe",
     "detailed_case_description": "Description...",
     "case_status": "Aberto/Pendente",
@@ -234,9 +243,12 @@ curl -X POST https://your-odoo-domain.com/api/v1/caso/create \
   -d '{
     "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
-    "secundary_case_type": "Violência Doméstica",
+    "classificacao_id": "Violência física",
+    "tipo_case_id": "Grave",
+    "secundary_case_type": "outros tipos de crimes",
     "case_type_classification": "Grave",
-    "place_occurrence": "Escola",
+    "place_occurrence": "Ambiente escolar",
+    "report_place": "Ambiente escolar",
     "case_handling": "Aconselhamento LFC",
     "created_by": "Partner API",
     "detailed_case_description": "Case details here",
@@ -288,7 +300,9 @@ headers = {
 data = {
     "case_priority": "Muito urgente",
     "case_type": "Abuso Físico",
-    "secundary_case_type": "Violência Doméstica",
+    "classificacao_id": "Violência física",
+    "tipo_case_id": "Grave",
+    "secundary_case_type": "outros tipos de crimes",
     "case_type_classification": "Grave",
     "place_occurrence": "Escola",
     "case_handling": "Aconselhamento LFC",
@@ -350,7 +364,7 @@ const headers = {
 const data = {
   case_priority: 'Muito urgente',
   case_type: 'Abuso Físico',
-  secundary_case_type: 'Violência Doméstica',
+  secundary_case_type: 'outros tipos de crimes',
   case_type_classification: 'Grave',
   place_occurrence: 'Escola',
   case_handling: 'Aconselhamento LFC',

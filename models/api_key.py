@@ -98,33 +98,6 @@ class LinhaFalaAPIKey(models.Model):
                     'groups_id': [(4, api_group.id)]
                 })
 
-        # If the action that opened this form requested to show the key
-        # immediately after creation, open the transient wizard as a modal.
-        # This uses the context flag `show_key_after_create` set on the action
-        # that opens the API Keys view.
-        if self.env.context.get('show_key_after_create'):
-            try:
-                wizard = self.env['linhafala.api.key.wizard'].create({
-                    'key': record.key,
-                    'api_key_id': record.id,
-                })
-                view = self.env.ref('linhafala_odoo.view_api_key_wizard_form')
-                return {
-                    'name': 'API Key Generated',
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'linhafala.api.key.wizard',
-                    'res_id': wizard.id,
-                    'view_mode': 'form',
-                    'view_id': view.id,
-                    'views': [(view.id, 'form')],
-                    'target': 'new',
-                    'context': {'default_key': record.key},
-                }
-            except Exception:
-                # If anything goes wrong creating/opening the wizard, just
-                # return the created record so normal flow continues.
-                return record
-
         return record
 
     def write(self, vals):

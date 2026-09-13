@@ -39,9 +39,14 @@ class Chamada(models.Model):
             ("Telefónica", "Telefónica"),
             ("Palestras", "Palestras"),
             ("Email", "Email"),
+            ("WhatsApp", "WhatsApp"),
+            ("Website", "Website"),
+            ("SMS", "SMS"),
+            ("Facebook", "Facebook"),
+            ("Messenger", "Messenger"),
             ("Redes Sociais", "Redes Sociais"),
         ], default="Telefónica",
-        help="Type is used to separate Contact types"
+        help="Fonte/canal de contacto (Chatwoot: WhatsApp, Website, SMS, Facebook, etc.)"
     )
     type_of_intervention = fields.Selection(
         string='Tipo de Intervenção / Motivo',
@@ -293,6 +298,12 @@ class Chamada(models.Model):
     how_knows_lfc = fields.Selection(
         string='Como conhece a LFC',
         selection=[
+            ("WhatsApp", "WhatsApp"),
+            ("Website", "Website"),
+            ("Email", "Email"),
+            ("SMS", "SMS"),
+            ("Facebook", "Facebook"),
+            ("Messenger", "Messenger"),
             ("Redes Sociais", "Redes Sociais"),
             ("Rádio", "Rádio"),
             ("Internet", "Internet"),
@@ -302,9 +313,9 @@ class Chamada(models.Model):
             ("Panfletos", "Panfletos"),
             ("Cartazes", "Cartazes"),
             ("SMS em Massa", "SMS em Massa"),
-            ("Outros", "Outros")
+            ("Outros", "Outros"),
         ],
-        help="Como conhece a LFC"
+        help="Canal/inbox pelo qual conheceu a LFC (ex.: WhatsApp, Website, Chatwoot)"
     )
 
     subcategory = fields.Many2one(
@@ -450,8 +461,12 @@ class Chamada(models.Model):
     #         return record.provincia.id
 
     def create_a_new_case(self):
-        new_related_model = self.env['linhafala.caso'].create(
-            {'call_id': self.id})
+        vals = {'call_id': self.id}
+        if self.contact_type:
+            vals['contact_type'] = self.contact_type
+        if self.how_knows_lfc:
+            vals['how_knows_lfc'] = self.how_knows_lfc
+        new_related_model = self.env['linhafala.caso'].create(vals)
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'linhafala.caso',

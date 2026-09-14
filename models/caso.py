@@ -90,7 +90,6 @@ class Caso(models.Model):
             ("SMS", "SMS"),
             ("Facebook", "Facebook"),
             ("Messenger", "Messenger"),
-            ("Redes Sociais", "Redes Sociais"),
         ],
         help="Fonte/canal de contacto (igual ao formulário Chamadas)"
     )
@@ -103,7 +102,6 @@ class Caso(models.Model):
             ("SMS", "SMS"),
             ("Facebook", "Facebook"),
             ("Messenger", "Messenger"),
-            ("Redes Sociais", "Redes Sociais"),
             ("Rádio", "Rádio"),
             ("Internet", "Internet"),
             ("Palestras", "Palestras"),

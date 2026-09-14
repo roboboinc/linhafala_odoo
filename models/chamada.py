@@ -44,7 +44,6 @@ class Chamada(models.Model):
             ("SMS", "SMS"),
             ("Facebook", "Facebook"),
             ("Messenger", "Messenger"),
-            ("Redes Sociais", "Redes Sociais"),
         ], default="Telefónica",
         help="Fonte/canal de contacto (Chatwoot: WhatsApp, Website, SMS, Facebook, etc.)"
     )
@@ -304,7 +303,6 @@ class Chamada(models.Model):
             ("SMS", "SMS"),
             ("Facebook", "Facebook"),
             ("Messenger", "Messenger"),
-            ("Redes Sociais", "Redes Sociais"),
             ("Rádio", "Rádio"),
             ("Internet", "Internet"),
             ("Palestras", "Palestras"),

@@ -1,8 +1,8 @@
 {
     'name': 'Linha Fala Crianca Agent App',
     'summary': 'Aplicativo de agente da Linha Fala Crianca',
-    'version': '1.2',
-    'last_update': '2026-09-23',
+    'version': '1.2.1',
+    'last_update': '2026-09-24',
     'category': 'Web',
     'description': """
         Aplicativo de agente da Linha Fala Crianca. A ser usado por agentes e outros intervinientes relevantes.

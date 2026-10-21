@@ -376,14 +376,7 @@ class Chamada(models.Model):
             record.write({'is_deleted': True})
         return super(Chamada, self).unlink()
 
-    @api.model
-    def create(self, vals):
-        vals['uuid'] = str(uuid.uuid4())
-        self.action_notification()
-        return super(Chamada, self).create(vals)
-
     def action_notification(self):
-        self.save({})
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
@@ -397,6 +390,7 @@ class Chamada(models.Model):
     @api.model
     def create(self, vals):
         vals = self._prepare_chamada_snapshot_values(vals)
+        vals.setdefault('uuid', str(uuid.uuid4()))
         if vals.get('call_id', '/') == '/':
             next_call_id = self.env['ir.sequence'].next_by_code('linhafala.chamada.call_id.seq') or '/'
             vals['call_id'] = next_call_id.split('-')[-1]

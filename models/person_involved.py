@@ -414,7 +414,6 @@ class PersonInvolved(models.Model):
             ("Não", "Não"),
         ],
         help="Tem alguma deficiência?",
-        required=True
     )
 
     deficiency_line_calls_ids = fields.One2many('linhafala.deficiente', 'person_id',
@@ -584,7 +583,7 @@ class PersonInvolved(models.Model):
                     raise ValidationError(
                         "Por favor, especifique o campo Outro em Relação com a(s) vítima(s)")
 
-            if record.person_type != 'Perpetrador' and not record.are_you_disabled:
+            if record.person_type in ('Vítima', 'Contactante+Vítima') and not record.are_you_disabled:
                 raise ValidationError(
                     "Por favor, preencha os campos de caracter obrigatorio Tem alguma deficiência?")
 
